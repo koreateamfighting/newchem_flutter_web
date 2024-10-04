@@ -4,7 +4,9 @@ class TermsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text("개인정보 수집 및 이용 목적"),
       ),
       body: SingleChildScrollView(

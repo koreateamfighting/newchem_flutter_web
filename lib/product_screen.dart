@@ -6,7 +6,9 @@ class ProductScreen extends StatelessWidget {
     return DefaultTabController(
       length: 3, // Heidolph, NORMAG, CINC Industry
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Colors.white,
           title: Text("Products"),
           bottom: TabBar(
             tabs: [

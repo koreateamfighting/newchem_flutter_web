@@ -11,18 +11,23 @@ class _CompanyPageState extends State<CompanyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Column(
         children: [
           Container(
             width: double.infinity,
-            height: 200,
+            height: MediaQuery.of(context).size.height * 0.3, // 높이를 반응형으로 조정
             color: Colors.grey[300],
             alignment: Alignment.center,
             child: Text(
               'Company',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width * 0.08, // 화면 너비에 비례한 폰트 크기
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
+
           SizedBox(height: 10),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 16),

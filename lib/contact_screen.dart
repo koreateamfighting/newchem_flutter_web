@@ -49,7 +49,9 @@ class _ContactScreenState extends State<ContactScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text("Contact Us"),
       ),
       body: SingleChildScrollView(
@@ -102,16 +104,17 @@ class _ContactScreenState extends State<ContactScreen> {
   // 텍스트 필드 빌더
   Widget _buildTextField(String label, TextEditingController controller, {int maxLines = 1, String? Function(String?)? validator}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * 0.05, // padding을 화면 크기에 맞게 조정
+      ),
       child: TextFormField(
         controller: controller,
-        maxLines: maxLines,
-        validator: validator,
         decoration: InputDecoration(
           labelText: label,
           border: OutlineInputBorder(),
         ),
       ),
+
     );
   }
 

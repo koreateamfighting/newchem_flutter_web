@@ -30,7 +30,9 @@ class DownloadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Text("Downloads"),
       ),
       body: SingleChildScrollView(
@@ -44,12 +46,10 @@ class DownloadScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Table(
-              border: TableBorder.all(color: Colors.grey),
               columnWidths: {
-                0: FixedColumnWidth(50),
+                0: FixedColumnWidth(MediaQuery.of(context).size.width * 0.1), // 화면 크기에 따라 셀 크기 조정
                 1: FlexColumnWidth(),
-                2: FixedColumnWidth(100),
-                3: FixedColumnWidth(120),
+                2: FixedColumnWidth(MediaQuery.of(context).size.width * 0.2),
               },
               children: [
                 TableRow(
