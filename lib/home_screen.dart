@@ -3,27 +3,38 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fwfh_webview/fwfh_webview.dart';
-
+import 'dart:html' as html; // Web용 dart:html 패키지 사용
+import 'dart:ui' as ui;
 // Home 페이지 (기존의 Main 페이지)
 class HomePage extends StatelessWidget {
   final Function(int) onNavigate;
+  String url = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d669.6223690480622!2d127.01586977089258!3d37.02699966322705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3d001631c641%3A0x2cd353d15ed8488b!2z6rOg642V7KeA7Iud6rO17J6R7IaM7JWE7J207YOA7JuMIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1717727526433!5m2!1sko!2skr" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
+  final Widget _iframeWidget = HtmlElementView(
+    viewType: 'iframeElement',
+    key: UniqueKey(),
+  );
 
   HomePage({required this.onNavigate});
 
   final List<Map<String, String>> productData = [
     {
       "title": "Hei-VAP Series (탁상형 농축기)",
-      "image": "assets/products/Hei-VAP_Series.png"
+      "image": "assets/products/Hei-VAP_Series.png",
+      "content": "제품에 대한 설명"
     },
     {
       "title": "Magnetic Stirrer (자력 교반기)",
-      "image": "assets/products/Magnetic_stirrer.png"
+      "image": "assets/products/Magnetic_stirrer.png",
+      "content": "제품에 대한 설명"
     },
-    {"title": "오버헤드 교반기", "image": "assets/products/Overhead_stirrer.png"},
-    {"title": "Lab Fast Pro", "image": "assets/products/Lab_Fast_Pro.png"},
+    {"title": "오버헤드 교반기", "image": "assets/products/Overhead_stirrer.png",
+      "content": "제품에 대한 설명"},
+    {"title": "Lab Fast Pro", "image": "assets/products/Lab_Fast_Pro.png",
+      "content": "제품에 대한 설명"},
     {
       "title": "Pilot Compact Reactor (10 ~ 30L)",
-      "image": "assets/products/Pilot_compact_reactor.png"
+      "image": "assets/products/Pilot_compact_reactor.png",
+      "content": "제품에 대한 설명"
     },
   ];
 
@@ -60,12 +71,28 @@ class HomePage extends StatelessWidget {
       "date": "2024-00-00"
     },
   ];
-
+  String? _selectedName;
+  String? _selectedImage;
+  String? _selectedContent;
   @override
   Widget build(BuildContext context) {
+
     final size = MediaQuery.of(context).size;
     final width = size.width;
     final height = size.height;
+    final html.IFrameElement _iFrameElement = html.IFrameElement(
+    );
+
+    _iFrameElement.style.height = '120%';
+    _iFrameElement.style.width = '80%';
+    _iFrameElement.src = '${url}';
+    _iFrameElement.style.border = 'none';
+
+// ignore: undefined_prefixed_name
+    ui.platformViewRegistry.registerViewFactory(
+      'iframeElement',
+          (int viewId) => _iFrameElement,
+    );
 
     return SingleChildScrollView(
       child: Column(
@@ -74,7 +101,7 @@ class HomePage extends StatelessWidget {
           // Main section
           Container(
             width: width,
-            height: height * 0.2777,
+            height: height * 0.3369,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/main-background2.png'),
@@ -84,14 +111,11 @@ class HomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Spacer(),
                 Image.asset('assets/logo-white.png', width: width * 0.1564),
-                SizedBox(height: height * 0.0416),
-                Text("New Chem",
-                    style: TextStyle(
-                        fontSize: 40,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold)),
-                SizedBox(height: height * 0.0138),
+
+   Spacer(),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -103,6 +127,7 @@ class HomePage extends StatelessWidget {
                         width * 0.0978, height * 0.0277),
                   ],
                 ),
+                Spacer(),
               ],
             ),
           ),
@@ -140,6 +165,8 @@ class HomePage extends StatelessWidget {
                         return buildProductCard(
                             productData[index]['title']!,
                             productData[index]['image']!,
+                            productData[index]['content']!,
+                            context,
                             width * 0.0586,
                             height * 0.1041);
                       },
@@ -229,15 +256,17 @@ class HomePage extends StatelessWidget {
                 ),
                 Container(
                   color: Colors.white,
+                  padding: EdgeInsets.only(top:20),
                   height: height * 0.2900,
                   child: Center(
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Spacer(),
+
                         Container(
                           width: width * 0.15,
-                          color: Colors.pinkAccent,
+
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -251,7 +280,9 @@ class HomePage extends StatelessWidget {
                                   ),
                                   Spacer(),
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        onNavigate(4);
+                                      },
                                       icon:
                                           Icon(Icons.arrow_forward_ios_sharp)),
                                 ],
@@ -277,12 +308,10 @@ class HomePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          width: width * 0.08,
-                        ),
+
                         // 두 번째 위젯 - Contact Us 정보
                         Container(
-                          color: Colors.purple,
+
                           height: width * 0.15,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -297,7 +326,9 @@ class HomePage extends StatelessWidget {
                                   ),
                                   SizedBox(width: width* 0.08),
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        onNavigate(3); // ContactScreen으로 이동
+                                      },
                                       icon:
                                       Icon(Icons.arrow_forward_ios_sharp)),
                                 ],
@@ -326,39 +357,47 @@ class HomePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          width: width * 0.08,
-                        ),
+
                         // 세 번째 위젯 - 오시는 길 (지도 이미지)
                         Container(
-                          color: Colors.yellowAccent,
-                          height: width * 0.50,
+
+                          width: width * 0.300,
+                          height: height * 0.35,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "오시는 길",
-                                style: TextStyle(
-                                    fontSize: width * 0.01,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                            children:
+                            [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "오시는 길",
+                                      style: TextStyle(
+                                          fontSize: width * 0.01,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(width: width* 0.19),
+                                    IconButton(
+                                        onPressed: () {
+                                          onNavigate(1); // ContactScreen으로 이동
+                                        },
+                                        icon:
+                                        Icon(Icons.arrow_forward_ios_sharp)),
+                                  ],
+                                ),
+
 
                               SizedBox(height: height * 0.01),
                               // 지도 예시 이미지
                               Container(
                                 width: width * 0.40,
                                 height: height * 0.15,
-                                color: Colors.grey[300],
-                                child: HtmlWidget(
 
-                                  '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d669.6223690480622!2d127.01586977089258!3d37.02699966322705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3d001631c641%3A0x2cd353d15ed8488b!2z6rOg642V7KeA7Iud6rO17J6R7IaM7JWE7J207YOA7JuMIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1717727526433!5m2!1sko!2skr" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
-                                  factoryBuilder: () => MyWidgetFactory(),
-                                ),
+                                child: _iframeWidget,
                               ),
                             ],
                           ),
                         ),
-                        Spacer(),
+
                       ],
                     ),
                   ),
@@ -522,7 +561,7 @@ class HomePage extends StatelessWidget {
 
   // Widget for product card
   Widget buildProductCard(
-      String title, String imagePath, double width, double height) {
+      String title, String imagePath, String content, BuildContext context,double width, double height) {
     return Column(
       children: [
         Image.asset(imagePath, width: width, height: height),
@@ -553,6 +592,75 @@ class HomePage extends StatelessWidget {
               color: Colors.blue, decoration: TextDecoration.underline),
         ),
       ),
+    );
+  }
+// Product Card Widget
+  Widget _buildProductCard(String name, String imagePath, String content, BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center, // 텍스트를 이미지 중앙 정렬
+        children: [
+          GestureDetector(
+            onTap: () {
+              _dialogBuilder(context, name, imagePath, content);
+            },
+            child: Image.asset(
+              imagePath,
+              fit: BoxFit.contain,
+              width: 300,
+              height: 300,
+            ),
+          ),
+          Text(
+            name,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
+
+  Future<void> _dialogBuilder(BuildContext context, String name , String image , String content) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.zero
+          ),
+          title: Row(
+            children: [
+              Text('${name}'),
+              Spacer(),
+              IconButton(onPressed: (){
+                Navigator.of(context).pop();
+              }, icon: Icon(Icons.close)),
+            ],
+          ),
+          content:  Container(
+            height: 500,
+            child: Column(
+                children: [
+                  Image.asset(
+                    image,
+                    fit: BoxFit.contain,
+                    width: 300,
+                    height: 300,
+                  ),
+                  Text(
+                      '${content}'
+                  ),
+                ]
+
+            ),
+          ),
+
+
+        );
+      },
     );
   }
 }

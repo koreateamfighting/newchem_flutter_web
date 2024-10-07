@@ -29,53 +29,83 @@ class DownloadScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text("Downloads"),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Data 링크",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.3,
+            // 높이를 반응형으로 조정
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/main-background2.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-            SizedBox(height: 20),
-            Table(
-              columnWidths: {
-                0: FixedColumnWidth(MediaQuery.of(context).size.width * 0.1), // 화면 크기에 따라 셀 크기 조정
-                1: FlexColumnWidth(),
-                2: FixedColumnWidth(MediaQuery.of(context).size.width * 0.2),
-              },
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TableRow(
-                  decoration: BoxDecoration(color: Colors.grey[200]),
-                  children: [
-                    _buildTableHeader("번호"),
-                    _buildTableHeader("제목"),
-                    _buildTableHeader("글쓴이"),
-                    _buildTableHeader("작성 날짜"),
-                  ],
+                Spacer(),
+                Text(
+                  "Download",
+                  style: TextStyle(color: Colors.white, fontSize: 60),
                 ),
-                ...downloadData.map((item) {
-                  return TableRow(
-                    children: [
-                      _buildTableCell(item["number"]!),
-                      _buildLinkCell(item["title"]!, item["link"]!),
-                      _buildTableCell(item["author"]!),
-                      _buildTableCell(item["date"]!),
-                    ],
-                  );
-                }).toList(),
+                Spacer(),
               ],
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: 10),
+          SingleChildScrollView(
+
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Data 링크",
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 20),
+                Table(
+                  columnWidths: {
+                    0: FixedColumnWidth(MediaQuery.of(context).size.width * 0.1), // 화면 크기에 따라 셀 크기 조정
+                    1: FlexColumnWidth(),
+                    2: FixedColumnWidth(MediaQuery.of(context).size.width * 0.2),
+                  },
+                  children: [
+                    TableRow(
+                      decoration: BoxDecoration(color: Colors.grey[200]),
+                      children: [
+                        _buildTableHeader("번호"),
+                        _buildTableHeader("제목"),
+                        _buildTableHeader("글쓴이"),
+                        _buildTableHeader("작성 날짜"),
+                      ],
+                    ),
+                    ...downloadData.map((item) {
+                      return TableRow(
+                        children: [
+                          _buildTableCell(item["number"]!),
+                          _buildLinkCell(item["title"]!, item["link"]!),
+                          _buildTableCell(item["author"]!),
+                          _buildTableCell(item["date"]!),
+                        ],
+                      );
+                    }).toList(),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
+
     );
   }
 
