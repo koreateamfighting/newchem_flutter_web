@@ -79,6 +79,9 @@ class _ContactScreenState extends State<ContactScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -143,6 +146,9 @@ class _ContactScreenState extends State<ContactScreen> {
                         SizedBox(height: 20),
                         Center(
                           child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff28225b),
+                                foregroundColor: Colors.white),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 if (_agree) {
@@ -173,16 +179,28 @@ class _ContactScreenState extends State<ContactScreen> {
   // 텍스트 필드 빌더
   Widget _buildTextField(String label, TextEditingController controller,
       {int maxLines = 1, String? Function(String?)? validator}) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal:
-            MediaQuery.of(context).size.width * 0.05, // padding을 화면 크기에 맞게 조정
-      ),
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
+    return Container(
+      width: width * 0.87,
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
         controller: controller,
         maxLines: maxLines,
         decoration: InputDecoration(
           labelText: label,
+          labelStyle: TextStyle(color: Color(0xff28225b)),
+          // 라벨 텍스트 색상
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                color: Color(0xff28225b)!, width: 2.0), // 선택 시 테두리 색상 변경
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: Colors.grey, width: 1.0), // 비선택 시 테두리 색상
+          ),
+
           border: OutlineInputBorder(),
         ),
         validator: validator,
@@ -193,13 +211,18 @@ class _ContactScreenState extends State<ContactScreen> {
   // 지역 선택 드롭다운 빌더
   Widget _buildDropdownField(
       String label, String value, ValueChanged<String?> onChanged) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
     return Container(
-      width: 2270,
+      width: width * 0.87,
+
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: DropdownButtonFormField<String>(
         value: value,
         decoration:
             InputDecoration(labelText: label, border: OutlineInputBorder()),
+        dropdownColor: Colors.white,
         items: [
           '서울특별시',
           '경기도',

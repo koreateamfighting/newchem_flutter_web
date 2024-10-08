@@ -4,34 +4,53 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fwfh_webview/fwfh_webview.dart';
 import 'dart:html' as html; // Web용 dart:html 패키지 사용
-import 'dart:ui' as ui;
+import 'dart:ui_web' as ui;
+
 // Home 페이지 (기존의 Main 페이지)
 class HomePage extends StatelessWidget {
   final Function(int) onNavigate;
-  String url = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d669.6223690480622!2d127.01586977089258!3d37.02699966322705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3d001631c641%3A0x2cd353d15ed8488b!2z6rOg642V7KeA7Iud6rO17J6R7IaM7JWE7J207YOA7JuMIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1717727526433!5m2!1sko!2skr" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
+  final Function(int) onProductNavigate;
+  final Function(int) onCompanyNavigate;
+
+  HomePage(
+      {required this.onNavigate,
+      required this.onProductNavigate,
+      required this.onCompanyNavigate});
+
+  String url =
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d669.6223690480622!2d127.01586977089258!3d37.02699966322705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3d001631c641%3A0x2cd353d15ed8488b!2z6rOg642V7KeA7Iud6rO17J6R7IaM7JWE7J207YOA7JuMIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1717727526433!5m2!1sko!2skr" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
   final Widget _iframeWidget = HtmlElementView(
     viewType: 'iframeElement',
     key: UniqueKey(),
   );
 
-  HomePage({required this.onNavigate});
-
   final List<Map<String, String>> productData = [
     {
+      "id": "1",
       "title": "Hei-VAP Series (탁상형 농축기)",
       "image": "assets/products/Hei-VAP_Series.png",
       "content": "제품에 대한 설명"
     },
     {
+      "id": "2",
       "title": "Magnetic Stirrer (자력 교반기)",
       "image": "assets/products/Magnetic_stirrer.png",
       "content": "제품에 대한 설명"
     },
-    {"title": "오버헤드 교반기", "image": "assets/products/Overhead_stirrer.png",
-      "content": "제품에 대한 설명"},
-    {"title": "Lab Fast Pro", "image": "assets/products/Lab_Fast_Pro.png",
-      "content": "제품에 대한 설명"},
     {
+      "id": "3",
+      "title": "오버헤드 교반기",
+      "image": "assets/products/Overhead_stirrer.png",
+      "content": "제품에 대한 설명"
+    },
+    {
+      "id": "4",
+      "title": "Lab Fast Pro",
+      "image": "assets/products/Lab_Fast_Pro.png",
+      "content": "제품에 대한 설명"
+    },
+    {
+      "id": "5",
       "title": "Pilot Compact Reactor (10 ~ 30L)",
       "image": "assets/products/Pilot_compact_reactor.png",
       "content": "제품에 대한 설명"
@@ -74,14 +93,13 @@ class HomePage extends StatelessWidget {
   String? _selectedName;
   String? _selectedImage;
   String? _selectedContent;
+
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
     final width = size.width;
     final height = size.height;
-    final html.IFrameElement _iFrameElement = html.IFrameElement(
-    );
+    final html.IFrameElement _iFrameElement = html.IFrameElement();
 
     _iFrameElement.style.height = '120%';
     _iFrameElement.style.width = '80%';
@@ -91,7 +109,7 @@ class HomePage extends StatelessWidget {
 // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
       'iframeElement',
-          (int viewId) => _iFrameElement,
+      (int viewId) => _iFrameElement,
     );
 
     return SingleChildScrollView(
@@ -113,18 +131,43 @@ class HomePage extends StatelessWidget {
               children: [
                 Spacer(),
                 Image.asset('assets/logo-white.png', width: width * 0.1564),
-
-   Spacer(),
-
+                Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    buildBrandButton("Heidolph", "assets/heidolph_logo.png",
-                        width * 0.0978, height * 0.0277),
-                    buildBrandButton("NORMAG", "assets/normag_logo.png",
-                        width * 0.0978, height * 0.0277),
-                    buildBrandButton("CINC_Industry", "assets/CINCIndustry.png",
-                        width * 0.0978, height * 0.0277),
+                    GestureDetector(
+                      onTap: () {
+                        onProductNavigate(0); // Heidolph 탭으로 이동
+                      },
+                      child: buildBrandButton(
+                        "Heidolph",
+                        "assets/heidolph_logo.png",
+                        width * 0.1200,
+                        height * 0.0400,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        onProductNavigate(1); // NORMAG 탭으로 이동
+                      },
+                      child: buildBrandButton(
+                        "NORMAG",
+                        "assets/normag_logo.png",
+                        width * 0.1200,
+                        height * 0.0400,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        onProductNavigate(2); // CINC Industry 탭으로 이동
+                      },
+                      child: buildBrandButton(
+                        "CINC Industry",
+                        "assets/CINCIndustry.png",
+                        width * 0.1200,
+                        height * 0.0400,
+                      ),
+                    ),
                   ],
                 ),
                 Spacer(),
@@ -136,11 +179,17 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
+                SizedBox(
+                  height: 30,
+                ),
                 Text("PRODUCT",
                     style: TextStyle(
                         fontSize: 15,
                         color: Colors.red,
                         fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 12,
+                ),
                 Text("대표 제품", style: TextStyle(fontSize: 35)),
                 SizedBox(height: height * 0.0347),
                 Container(
@@ -167,8 +216,8 @@ class HomePage extends StatelessWidget {
                             productData[index]['image']!,
                             productData[index]['content']!,
                             context,
-                            width * 0.0586,
-                            height * 0.1041);
+                            width * 0.1200,
+                            height * 0.2000);
                       },
                     ),
                   ),
@@ -256,17 +305,15 @@ class HomePage extends StatelessWidget {
                 ),
                 Container(
                   color: Colors.white,
-                  padding: EdgeInsets.only(top:20),
+                  padding: EdgeInsets.only(top: 20),
                   height: height * 0.2900,
                   child: Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         Container(
                           width: width * 0.15,
-
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -311,7 +358,6 @@ class HomePage extends StatelessWidget {
 
                         // 두 번째 위젯 - Contact Us 정보
                         Container(
-
                           height: width * 0.15,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,80 +370,69 @@ class HomePage extends StatelessWidget {
                                         fontSize: width * 0.01,
                                         fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(width: width* 0.08),
+                                  SizedBox(width: width * 0.08),
                                   IconButton(
                                       onPressed: () {
                                         onNavigate(3); // ContactScreen으로 이동
                                       },
                                       icon:
-                                      Icon(Icons.arrow_forward_ios_sharp)),
+                                          Icon(Icons.arrow_forward_ios_sharp)),
                                 ],
                               ),
                               SizedBox(height: height * 0.02),
-
-                               Text(
-                                  "전문가에게 맡겨주세요!",
-                                  style: TextStyle(
-                                      fontSize: width * 0.008,
-                                      color: Colors.blueAccent,
-                                      fontWeight: FontWeight.w400,),
-                                 textAlign: TextAlign.center,
-
+                              Text(
+                                "전문가에게 맡겨주세요!",
+                                style: TextStyle(
+                                  fontSize: width * 0.008,
+                                  color: Colors.blueAccent,
+                                  fontWeight: FontWeight.w400,
                                 ),
-
-
-                                Text(
-                                  "문의 및 상담 내용을 작성해서 접수하시면,\n전문가들이 24시간 이내에 빠르고 성실하게\n답변 드리겠습니다.",
-                                  style: TextStyle(fontSize: width * 0.006),
-                                ),
-
-
-
-
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                "문의 및 상담 내용을 작성해서 접수하시면,\n전문가들이 24시간 이내에 빠르고 성실하게\n답변 드리겠습니다.",
+                                style: TextStyle(fontSize: width * 0.006),
+                              ),
                             ],
                           ),
                         ),
 
                         // 세 번째 위젯 - 오시는 길 (지도 이미지)
                         Container(
-
                           width: width * 0.300,
                           height: height * 0.35,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children:
-                            [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "오시는 길",
-                                      style: TextStyle(
-                                          fontSize: width * 0.01,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(width: width* 0.19),
-                                    IconButton(
-                                        onPressed: () {
-                                          onNavigate(1); // ContactScreen으로 이동
-                                        },
-                                        icon:
-                                        Icon(Icons.arrow_forward_ios_sharp)),
-                                  ],
-                                ),
-
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    "오시는 길",
+                                    style: TextStyle(
+                                        fontSize: width * 0.01,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(width: width * 0.19),
+                                  IconButton(
+                                      onPressed: () {
+                                        onCompanyNavigate(
+                                            2); // "오시는 길" 탭으로 이동 (인덱스 2)
+                                      },
+                                      icon:
+                                          Icon(Icons.arrow_forward_ios_sharp)),
+                                ],
+                              ),
 
                               SizedBox(height: height * 0.01),
                               // 지도 예시 이미지
                               Container(
                                 width: width * 0.40,
                                 height: height * 0.15,
-
                                 child: _iframeWidget,
                               ),
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -429,8 +464,8 @@ class HomePage extends StatelessWidget {
                                   ),
                                   SizedBox(height: 10),
                                   Text(
-                                    "대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n"
-                                    "경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호",
+                                    "▶  대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n"
+                                    "▶  경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호",
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize: width * 0.005,
@@ -560,15 +595,38 @@ class HomePage extends StatelessWidget {
   }
 
   // Widget for product card
-  Widget buildProductCard(
-      String title, String imagePath, String content, BuildContext context,double width, double height) {
+  Widget buildProductCard(String title, String imagePath, String content,
+      BuildContext context, double width, double height) {
     return Column(
       children: [
-        Image.asset(imagePath, width: width, height: height),
-        Text(title,
-            style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue)),
-        Text("제품에 대한 설명을 여기에 넣을 수 있습니다.", textAlign: TextAlign.center),
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.white, // 배경 색상
+              border: Border.all(
+                color: Colors.grey, // 테두리 색상
+                width: 1.0, // 테두리 두께
+              ),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              )),
+          child: Transform.scale(scale: 0.98,child: Image.asset(imagePath, width: width, height: height),)
+        ),
+        Container(
+            decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                )),
+            width: width * 1.01,
+            child: Center(
+              child: Text(title,
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+            )),
       ],
     );
   }
@@ -594,8 +652,10 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+
 // Product Card Widget
-  Widget _buildProductCard(String name, String imagePath, String content, BuildContext context) {
+  Widget _buildProductCard(
+      String name, String imagePath, String content, BuildContext context) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center, // 텍스트를 이미지 중앙 정렬
@@ -620,48 +680,40 @@ class HomePage extends StatelessWidget {
     );
   }
 
-
-
-
-  Future<void> _dialogBuilder(BuildContext context, String name , String image , String content) {
+  Future<void> _dialogBuilder(
+      BuildContext context, String name, String image, String content) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.zero
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
           title: Row(
             children: [
               Text('${name}'),
               Spacer(),
-              IconButton(onPressed: (){
-                Navigator.of(context).pop();
-              }, icon: Icon(Icons.close)),
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(Icons.close)),
             ],
           ),
-          content:  Container(
+          content: Container(
             height: 500,
-            child: Column(
-                children: [
-                  Image.asset(
-                    image,
-                    fit: BoxFit.contain,
-                    width: 300,
-                    height: 300,
-                  ),
-                  Text(
-                      '${content}'
-                  ),
-                ]
-
-            ),
+            child: Column(children: [
+              Image.asset(
+                image,
+                fit: BoxFit.contain,
+                width: 300,
+                height: 300,
+              ),
+              Text('${content}'),
+            ]),
           ),
-
-
         );
       },
     );
   }
 }
+
 class MyWidgetFactory extends WidgetFactory with WebViewFactory {}

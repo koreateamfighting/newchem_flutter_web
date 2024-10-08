@@ -1,14 +1,41 @@
 import 'package:flutter/material.dart';
 
 class ProductScreen extends StatefulWidget {
+  final int initialTabIndex; // 초기 탭 인덱스를 받을 변수 추가
+
+  ProductScreen({this.initialTabIndex = 0}); // 기본값 0으로 설정
+
   @override
   _ProductScreenState createState() => _ProductScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
+class _ProductScreenState extends State<ProductScreen>
+    with TickerProviderStateMixin {
   String? _selectedName;
   String? _selectedImage;
   String? _selectedContent;
+  late TabController _mainTabController; // 메인 탭 컨트롤러
+  late TabController _heidolphTabController; // Heidolph 하위 탭 컨트롤러
+  late TabController _normagTabController; // NORMAG 하위 탭 컨트롤러
+
+  @override
+  void initState() {
+    super.initState();
+    // TabController에 초기 인덱스를 설정
+    _mainTabController = TabController(
+        length: 3, vsync: this, initialIndex: widget.initialTabIndex);
+    _heidolphTabController =
+        TabController(length: 5, vsync: this); // Heidolph 하위 탭
+    _normagTabController = TabController(length: 3, vsync: this); // NORMAG 하위 탭
+  }
+
+  @override
+  void dispose() {
+    _mainTabController.dispose();
+    _heidolphTabController.dispose();
+    _normagTabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,98 +43,97 @@ class _ProductScreenState extends State<ProductScreen> {
     final width = size.width;
     final height = size.height;
 
-    return DefaultTabController(
-      length: 3, // Heidolph, NORMAG, CINC Industry
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize:
-               Size.fromHeight(MediaQuery.of(context).size.height * 0.3369),
-
-          child: AppBar(
-            flexibleSpace: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/main-background2.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Products",
-                        style: TextStyle(color: Colors.white, fontSize: 60),
-                      ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize:
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.3369),
+        child: AppBar(
+          flexibleSpace: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/main-background2.png'),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ),
-
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.3,
-                  color: Colors.white, // TabBar 배경색 설정
                   child: Center(
-                    child: TabBar(
-                      labelColor: Colors.blue,
-                      // 선택된 탭의 텍스트 색상
-                      unselectedLabelColor: Colors.grey,
-                      // 선택되지 않은 탭의 텍스트 색상
-                      indicatorColor: Colors.blue,
-                      // 탭 선택 시 밑줄 색상
-                      isScrollable: true,
-                      tabs: [
-                        Tab(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 50.0), // 탭 간격 조정
-                            child: Text(
-                              "Heidolph",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ),
-                        ),
-                        Tab(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 30.0), // 탭 간격 조정
-                            child: Text(
-                              "NORMAG",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ),
-                        ),
-                        Tab(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 30.0), // 탭 간격 조정
-                            child: Text(
-                              "CINC Industry",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      "Products",
+                      style: TextStyle(color: Colors.white, fontSize: 60),
                     ),
                   ),
                 ),
-              ],
-            ),
-            backgroundColor: Colors.transparent, // 배경 투명
-            elevation: 0, // 그림자 제거
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.4,
+                color: Color(0xff28225b), // TabBar 배경색 설정
+                child: Center(
+                  child: TabBar(
+                    controller: _mainTabController,
+                    // TabController 설정
+                    labelColor: Colors.blue,
+                    // 선택된 탭의 텍스트 색상
+                    unselectedLabelColor: Colors.white,
+                    // 선택되지 않은 탭의 텍스트 색상
+                    indicatorColor: Colors.blue,
+                    // 탭 선택 시 밑줄 색상
+
+                    tabs: [
+                      Tab(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                          // 탭 간격 조정
+                          child: Text(
+                            "Heidolph",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                          // 탭 간격 조정
+                          child: Text(
+                            "NORMAG",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                      Tab(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                          // 탭 간격 조정
+                          child: Text(
+                            "CINC Industry",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
+          backgroundColor: Colors.transparent, // 배경 투명
+          elevation: 0, // 그림자 제거
         ),
-        body: Column(
+      ),
+      body: Container(
+        child: Column(
           children: [
-
-
             Expanded(
               child: Container(
+                height: MediaQuery.of(context).size.height * 0.75,
                 color: Colors.white,
                 child: TabBarView(
+                  controller: _mainTabController, // TabController 설정
                   children: [
                     _buildHeidolphTab(),
                     _buildNormagTab(),
@@ -116,52 +142,60 @@ class _ProductScreenState extends State<ProductScreen> {
                 ),
               ),
             ),
-            // 제품 설명을 위한 새로운 컨테이너
-
           ],
         ),
-
-
       ),
     );
   }
 
   // Heidolph 대분류 탭
   Widget _buildHeidolphTab() {
-    return DefaultTabController(
-      length: 5, // Heidolph의 중분류 탭 개수
-      child: Column(
-        children: [
-          Container(
-            width: 800,
-
-            child: TabBar(
-              labelColor: Colors.blueAccent,
-              // 선택된 탭의 텍스트 색상
-              unselectedLabelColor: Colors.grey,
-              // 선택되지 않은 탭의 텍스트 색상
-              indicatorColor: Colors.blueAccent,
-              // 탭 선택 시 밑줄 색상
-              isScrollable: true,
-              // 스크롤 가능하도록 설정
-              tabs: [
-                Tab(text: "Rotary Evaporator"),
-                Tab(text: "Stirring"),
-                Tab(text: "Automation"),
-                Tab(text: "Voltex & Shaking"),
-                Tab(text: "Liquid Handling"),
-              ],
-            ),
+    return Column(
+      children: [
+        Center(
+            // 탭바를 중앙에 배치하기 위해 Center로 감싸기
+            child: Container(
+              padding: EdgeInsets.fromLTRB(400, 0, 400, 0),
+          child: TabBar(
+            controller: _heidolphTabController,
+            labelColor: Colors.blue,
+            unselectedLabelColor: Colors.grey,
+            indicatorColor: Colors.blue,
+            // 탭 간격을 중앙에서 일정하게 하기 위해 Alignment 조정
+            tabs: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                // 각 탭에 일정 간격 설정
+                child: Tab(text: "Rotary Evaporator"),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                child: Tab(text: "Stirring"),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                child: Tab(text: "Automation"),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                child: Tab(text: "Voltex & Shaking"),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                child: Tab(text: "Liquid Handling"),
+              ),
+            ],
           ),
-
-          Expanded(
-            child: TabBarView(
-              children: [
-                _buildProductList([
-                  {
-                    "name": "Hei-VAP Series",
-                    "image": "assets/products/Hei-VAP_Series.png",
-                    "content": """
+        )),
+        Expanded(
+          child: TabBarView(
+            controller: _heidolphTabController,
+            children: [
+              _buildProductList([
+                {
+                  "name": "Hei-VAP Series",
+                  "image": "assets/products/Hei-VAP_Series.png",
+                  "content": """
                   •5“ 터치 디스플레이의 중앙 제어 패널
                   •G1/G3 사선 글래스웨어의 핸드/모터 리프트 모델
                   •전체 값에 대한 명확한 디스플레이(베이직 및 어드밴스 모드)
@@ -173,11 +207,11 @@ class _ProductScreenState extends State<ProductScreen> {
                   •증기 온도 디스플레이(옵션)
                   •진공 및 냉각기 컨트롤 포함, 가능한 경우 Hei-VAP Expert Control로 차후
                   업그레이드"""
-                  },
-                  {
-                    "name": "Hei-VAP Industrial",
-                    "image": "assets/products/Hei-VAP_Industrial.png",
-                    "content": """
+                },
+                {
+                  "name": "Hei-VAP Industrial",
+                  "image": "assets/products/Hei-VAP_Industrial.png",
+                  "content": """
 •고강도 투명 PMMA 도어로 탁월한 사용자 안전 보장
 •김 서림 방지 안전유리 및 금속 프레임 가드 후드가 탁월한 사용자 보호
 기능 제공
@@ -195,11 +229,11 @@ class _ProductScreenState extends State<ProductScreen> {
 •모든 공정의 설정 조건을 포함하는 조명 디스플레이의 대형 터치 스크린
 제어 패널, 프로그래밍할 수 있는 램프
                     """
-                  },
-                  {
-                    "name": "Automatic Distillation",
-                    "image": "assets/products/Automatic_Distillation.png",
-                    "content": """
+                },
+                {
+                  "name": "Automatic Distillation",
+                  "image": "assets/products/Automatic_Distillation.png",
+                  "content": """
 탈부착 가능한 7“ 터치스크린 컨트롤 패널을 이용해 회전 플라스크의 센서
 및 시간 제어 충진을 위한 샘플의 설정 조건을 입력할 수 있습니다.
 농축물 냉각(약 1L) 코팅 콜렉터 베셀 및 압축기를 통한 회전 플라스크
@@ -212,11 +246,11 @@ Hei-VOLUME Distimatic 24/7의 통합 콤프레셔가 설치된 타워는 제공�
 모든 범주의 실험에서 효율적인 무인 가동이 가능합니다.
 최고 수준의 안전성과 다양한 실험을 실현하기 위해 제공되는 튜빙 등
 샘플과 접촉하는 모든 부품은 내화학성 재료로 제작됐습니다."""
-                  },
-                  {
-                    "name": "Hei Chill Peltier (소형 냉각기)",
-                    "image": "assets/products/Hei_Chill_Peltier.png",
-                    "content": """
+                },
+                {
+                  "name": "Hei Chill Peltier (소형 냉각기)",
+                  "image": "assets/products/Hei_Chill_Peltier.png",
+                  "content": """
 Hei-CHILL Peltier Thermostat은 600와트의 높은 냉각 용량과 거의 두 배에
 달하는 높은 난방 전력을 갖추고 있어 많은 온도 제어 작업에
 적합합니다.온도 조절기는 다양한 인터페이스를 사용하는 Hei-PROCESS 
@@ -230,11 +264,11 @@ Hei-CHILL Peltier Thermostat은 600와트의 높은 냉각 용량과 거의 두 
 • 현대식 2.83인치 터치 디스플레이
 • 처리 솔루션 통합을 위한 이더넷, RS 232 및 RS 485 인터페이스
                     """
-                  },
-                  {
-                    "name": "Hei Chill Peltier (대형 냉각기)",
-                    "image": "assets/products/Hei_Chill_5000.png",
-                    "content": """
+                },
+                {
+                  "name": "Hei Chill Peltier (대형 냉각기)",
+                  "image": "assets/products/Hei_Chill_5000.png",
+                  "content": """
 5,000W의 냉각 용량으로 까다로운 냉각 작업에 대해 포괄적인 범위의
 냉각이 가능합니다.
 •상단에 용액 충진부, 후방에 배수 탭
@@ -245,13 +279,13 @@ SmartCool 시스템
 •명확히 배치된 제어 요소, 대형 TFT 디스플레이, 멤브레인 키패드
 •USB 인터페이스와 알람 컨택트가 표준 기능으로 통합되어 있음
                     """
-                  },
-                ]),
-                _buildProductList([
-                  {
-                    "name": "Magnetic Stirrer",
-                    "image": "assets/products/Magnetic_stirrer.png",
-                    "content": """
+                },
+              ]),
+              _buildProductList([
+                {
+                  "name": "Magnetic Stirrer",
+                  "image": "assets/products/Magnetic_stirrer.png",
+                  "content": """
 Hei-PLATE Mix ‘n’ series는 자력 교반기에서 가장 많이 사용되는 제품입니다. 
 이를 통해 사용자는 최대 1,400rpm까지 부드럽게 교반하고 최대 350°C의
 온도까지 높은 정밀도로 가열할 수 있습니다. 또한 언제든지 제품을
@@ -271,11 +305,11 @@ easy (연구가 쉬워짐)" 을 의미합니다.
 수 있는 디지털 디스플레이를 제공합니다. 오버슈팅이 없는 이 정밀한
 온도는 두 가지 선택 가능한 가열 모드(FAST/PRECISE)와 옵션인 외부 온도
 센서 Pt1000에 의해 제어됩니다."""
-                  },
-                  {
-                    "name": "오버헤드 교반기",
-                    "image": "assets/products/Overhead_stirrer.png",
-                    "content": """
+                },
+                {
+                  "name": "오버헤드 교반기",
+                  "image": "assets/products/Overhead_stirrer.png",
+                  "content": """
 Hei-TORQUE 제품군 장치는 Heidolph 고성능 교반기입니다.
 Hei-TORQUE Ultimate 200 실험실 교반기는 점도는 최고 100,000mPas, 
 부피는 최대 50리터(H2O)까지 강력한 교반에 적합합니다. 넓은 속도
@@ -295,13 +329,13 @@ PC를 통한 최대 4개 장치의 원격 조정용 무료 Hei-Control 소프트
 Ultimate 200에는 지름 10.5mm의 퀵 액션 척(안전 링이 포함된 퀵
 척)이 있어서, 다양한 임펠라와 결합해 최상의 교반 결과를 도출할 수
 있습니다."""
-                  },
-                ]),
-                _buildProductList([
-                  {
-                    "name": "Hei-Process Cloud Core",
-                    "image": "assets/products/Hei-Process_Cloud_Core.png",
-                    "content": """
+                },
+              ]),
+              _buildProductList([
+                {
+                  "name": "Hei-Process Cloud Core",
+                  "image": "assets/products/Hei-Process_Cloud_Core.png",
+                  "content": """
 네트워크화되고 자동화된 실험실 환경을 마련하는 것은 결코 쉬운 일이
 아닙니다. 수동 작업 흐름을 완전히 자동화된 프로세스로 전환하는 것은
 서로 다른 장치와 소프트웨어 간의 호환성 문제로 인해 종종 장애물에
@@ -311,22 +345,24 @@ Ultimate 200에는 지름 10.5mm의 퀵 액션 척(안전 링이 포함된 퀵
 이러한 문제를 인식하고 지원하고자 합니다. Hei-PROCESS는 개별 실험실
 장치를 원활하게 통합하고 원격으로 제어하거나 복잡한 프로세스를 완전히
 자동화하는 등 고객의 요구에 맞는 맞춤형 솔루션을 제공합니다."""
-                  },
-                ]),
-                _buildProductList([
-                  {
-                    "name": "Platform shakers",
-                    "image": "assets/products/Platform_shakers.png",
-                    "content": """
+                },
+              ]),
+              _buildProductList([
+                {
+                  "name": "Platform shakers",
+                  "image": "assets/products/Platform_shakers.png",
+                  "content": """
 Hei-SHAKE 시리즈의 플랫폼 셰이커를 사용하면 다양한 유형의 이동, 하중
 무게 및 흔들림 및 혼합을 위한 광범위한 액세서리를 통해 가능한 수많은
 응용 프로그램을 얻을 수 있습니다.
 올바른 액세서리와 함께 최고 요구 사항을 충족하는 신뢰할 수 있는 플랫폼
 셰이커를 가질 수 있으며, 강력한 디자인과 직관적인 작동 덕분에 실험실의
 일상적인 요구 사항을 충족합니다."""
-                  },
-                  {"name": "Vortexer", "image": "assets/products/Vortexer.png",
-                    "content": """
+                },
+                {
+                  "name": "Vortexer",
+                  "image": "assets/products/Vortexer.png",
+                  "content": """
 Vortexer는 모든 실험실에서 핵심적인 역할을 합니다. 사용 편의성과 실험실
 연구원으로서 얻을 수 있는 빠른 결과에 중점을 둡니다. 고체를 용해시키기
 위한 것이든, 세포 펠렛을 신선한 배지에 용해시키기 위한 것이든, 
@@ -335,23 +371,24 @@ Vortexer는 모든 실험실에서 핵심적인 역할을 합니다. 사용 편�
 Heidolph Instruments GmbH & Co.KG에는 세 개의 다른 Voltexer가 있으므로, 
 매일 사용할 수 있는 것이 있습니다. 게다가, 단일 Voltexer는 다양한
 액세서리로 확장될 수 있어서, 다른 샘플들이 더 쉽고 빠르게 처리될 수
-있습니다. 직접 보세요!"""},
-                  {
-                    "name": "오버헤드 쉐이커",
-                    "image": "assets/products/Overhead_shakers.png",
-                    "content": """
+있습니다. 직접 보세요!"""
+                },
+                {
+                  "name": "오버헤드 쉐이커",
+                  "image": "assets/products/Overhead_shakers.png",
+                  "content": """
 콤팩트한 오버헤드 셰이커는 다양한 용도에 적합합니다. 특히 페인트 및
 바니시 기술에서 이 도구는 색상 안료를 적절하게 분배하여 원하는 고른
 결과를 얻기 위한 중요한 전제 조건을 제공합니다. 또한 대용량 모델(Reax 
 20)에는 모두 별도의 비상 스위치가 장착되어 있어 무거운 하중과
 고회전에도 절대적인 안전성이 보장됩니다."""
-                  },
-                ]),
-                _buildProductList([
-                  {
-                    "name": "Liquid handling",
-                    "image": "assets/products/Liquid_handling.png",
-                    "content": """
+                },
+              ]),
+              _buildProductList([
+                {
+                  "name": "Liquid handling",
+                  "image": "assets/products/Liquid_handling.png",
+                  "content": """
 정확한 투여는 제약, 화장품 및 식품 부문에서 특히나 중요합니다 종합적인
 공정 여건은 민감한 샘플의 안전한 운반에 전제 조건입니다. 이는 오차 범위
 ±0.5%의 제어 정확성과 정밀한 속도 조절(5~120rpm)로 보장됩니다.
@@ -364,44 +401,59 @@ ml이고, 멀티 채널 헤드는 분당 0.005~364 ml입니다. 공정 중점에
 매개 변수를 장치에서 설정할 수 있습니다. 속도, 튜빙 지름, 유량 디스플레이, 
 계량 부피, 투여 간격 및 쉬는 시간. 펌프는 최적의 투여 결과를 위해
 조정됩니다."""
-                  },
-                ]),
-              ],
-            ),
+                },
+              ]),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
-  // NORMAG 대분류 탭
+// NORMAG 대분류 탭
   Widget _buildNormagTab() {
-    return DefaultTabController(
-      length: 3, // NORMAG의 중분류 탭 개수
-      child: Column(
-        children: [
-          Container(
-            width: 800,
-            child: TabBar(
-              labelColor: Colors.blueAccent,
+    return Column(
+      children: [
+        Center(
+          child: Container(
+            padding: EdgeInsets.fromLTRB(400, 0, 400, 0),
+           child:  TabBar(
+              controller: _normagTabController,
+              labelColor: Colors.blue,
               unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.blueAccent,
-              isScrollable: true,
+              indicatorColor: Colors.blue,
               tabs: [
-                Tab(text: "Lab Fast Pro"),
-                Tab(text: "Pilot Compact"),
-                Tab(text: "Process Reaction System"),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  // 각 탭에 일정 간격 설정
+                  child: Tab(text: "Lab Fast Pro"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  // 각 탭에 일정 간격 설정
+                  child: Tab(text: "Pilot Compact"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                  // 각 탭에 일정 간격 설정
+                  child: Tab(text: "Process Reaction System"),
+                ),
+
               ],
             ),
           ),
-          Expanded(
-            child: TabBarView(
-              children: [
-                _buildProductList([
-                  {
-                    "name": "Lab Fast Pro",
-                    "image": "assets/products/Lab_Fast_Pro.png",
-                    "content": """
+        ),
+
+        Expanded(
+          child: TabBarView(
+            controller: _normagTabController,
+            children: [
+              _buildProductList([
+                {
+                  "name": "Lab Fast Pro",
+                  "image": "assets/products/Lab_Fast_Pro.png",
+                  "content": """
 NORMAG LAB reaction, filter, filter reactor 시스템은 별도의 도구 없이도
 몇 단계 만에 시스템 완성이 가능하여 공간, 비용, 시간을 절약할수 있습니다. 
 트리플 홀더 Basic과 Pro 덕분에 볼과 후드를 독립적으로 변경할수 있습니다. 
@@ -414,13 +466,13 @@ Advantages
 • 기존 액세서리를 사용할수 있습니다
 • CU Pro2(Control Unit)에 의한 타 실험실 기기와의 연결
 • 데이터 저장 및 레시피 관리"""
-                  },
-                ]),
-                _buildProductList([
-                  {
-                    "name": "Pilot Compact Reactor (10 ~ 30L)",
-                    "image": "assets/products/Pilot_compact_reactor.png",
-                    "content": """
+                },
+              ]),
+              _buildProductList([
+                {
+                  "name": "Pilot Compact Reactor (10 ~ 30L)",
+                  "image": "assets/products/Pilot_compact_reactor.png",
+                  "content": """
 Advantages
 
 Pilot compact 10 to 30L Reactor: jacketed vessel, PFA coated flat lid
@@ -430,20 +482,19 @@ Safety features: Pressure gauge, overpressure relief valve, burst disk
 Spare nozzles for a variety of sensors and feeds 
 Design completely GMP compliant: fully drainable, cleanable, non-contaminating 
 seal…"""
-                  },
-                ]),
-                _buildProductList([
-                  {
-                    "name": "Glass Reaction System",
-                    "image": "assets/products/ReactionSystemPilot.png",
-                    "content": ""
-                  },
-                ]),
-              ],
-            ),
+                },
+              ]),
+              _buildProductList([
+                {
+                  "name": "Glass Reaction System",
+                  "image": "assets/products/ReactionSystemPilot.png",
+                  "content": ""
+                },
+              ]),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -467,6 +518,9 @@ seal…"""
 
   // Product List Builder
   Widget _buildProductList(List<Map<String, String>> products) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
     return Center(
       child: Container(
         width: 1500,
@@ -480,11 +534,13 @@ seal…"""
           ),
           itemCount: products.length,
           itemBuilder: (context, index) {
-            return _buildProductCard(
+            return buildProductCard(
                 products[index]["name"]!,
                 products[index]["image"]!,
                 products[index]["content"]!,
-            );
+                context,
+                width * 0.1200,
+                height * 0.2000);
           },
         ),
       ),
@@ -492,79 +548,131 @@ seal…"""
   }
 
   // Product Card Widget
-  Widget _buildProductCard(String name, String imagePath, String content) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center, // 텍스트를 이미지 중앙 정렬
-        children: [
-          GestureDetector(
+  Widget buildProductCard(String name, String imagePath, String content,
+      BuildContext context, double width, double height) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center, // 텍스트를 이미지 중앙 정렬
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.white, // 배경 색상
+              border: Border.all(
+                color: Colors.grey, // 테두리 색상
+                width: 1.0, // 테두리 두께
+              ),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              )),
+          child: GestureDetector(
             onTap: () {
               // 제품 클릭 시 이름과 이미지 설정
 
               setState(() {
-               _selectedName = name;
-                 _selectedImage = imagePath;
-               _selectedContent = content;
-                _dialogBuilder(context,name,imagePath,content);
+                _selectedName = name;
+                _selectedImage = imagePath;
+                _selectedContent = content;
+                _dialogBuilder(context, name, imagePath, content);
               });
             },
-            child: Image.asset(
-              imagePath,
-              fit: BoxFit.contain,
-              width: 300,
-              height: 300,
-            ),
+            child: Transform.scale(
+                scale: 0.9,
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.contain,
+                  width: 300,
+                  height: 300,
+                )),
           ),
-          Text(
-            name,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
+        ),
+        Container(
+            decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                )),
+            width: width * 1.01,
+            child: Center(
+              child: Text(name,
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
+            )),
+      ],
     );
   }
 
-
-  Future<void> _dialogBuilder(BuildContext context, String name , String image , String content) {
+  Future<void> _dialogBuilder(
+      BuildContext context, String name, String image, String content) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero
-          ),
-          title: Row(
-           children: [
-             Text('${name}'),
-              Spacer(),
-             IconButton(onPressed: (){
-               Navigator.of(context).pop();
-             }, icon: Icon(Icons.close)),
-           ],
-          ),
-          content:  Container(
-            height: 800,
-            child: Column(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          content: Container(
+            height: 850,
+            width: MediaQuery.of(context).size.width * 0.35,
+            child: Column(children: [
+              Row(
                 children: [
-                  Image.asset(
-                    image,
-                    fit: BoxFit.contain,
-                    width: 300,
-                    height: 300,
+                  Spacer(),
+                  Container(
+                    alignment: Alignment.center,
+                    color: Colors.black,
+                    child: Text(
+                      '${name}',
+                      style: TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          letterSpacing: 4),
+                    ),
                   ),
-                  Text(
-                      '${content}'
-                  ),
-                ]
-
-            ),
+                  Spacer(),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(Icons.close)),
+                ],
+              ),
+              Spacer(),
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                    color: Colors.white, // 배경 색상
+                    border: Border.all(
+                      color: Colors.blueAccent, // 테두리 색상
+                      width: 1.0, // 테두리 두께
+                    ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10),
+                    )),
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.contain,
+                  height: 300,
+                  width: 300,
+                ),
+              ),
+              Spacer(),
+              Text(
+                '${content}',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.black),
+              ),
+            ]),
           ),
-
-
         );
       },
     );
   }
-
 }
-
