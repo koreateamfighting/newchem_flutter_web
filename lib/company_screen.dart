@@ -21,252 +21,298 @@ class _CompanyPageState extends State<CompanyPage> {
     key: UniqueKey(),
   );
 
-
-  void initState(){
+  void initState() {
     super.initState();
     _selectedTabIndex = widget.selectedTabIndex;
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = MediaQuery
+        .of(context)
+        .size;
     final width = size.width;
     final height = size.height;
-    final html.IFrameElement _iFrameElement = html.IFrameElement(
-    );
+    final isM = width < 600;
+    final html.IFrameElement _iFrameElement = html.IFrameElement();
 
     _iFrameElement.style.height = '120%';
-    _iFrameElement.style.width = '60%';
+    _iFrameElement.style.width = isM? '100':'60%';
     _iFrameElement.src = '${url}';
     _iFrameElement.style.border = 'none';
 
 // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
       'iframeElement',
-      (int viewId) => _iFrameElement,
+          (int viewId) => _iFrameElement,
     );
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 0.3,
-              // 높이를 반응형으로 조정
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/main-background2.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Spacer(),
-                  Text(
-                    "Company",
-                    style: TextStyle(color: Colors.white, fontSize: 60),
-                  ),
-                  Spacer(),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
+    return MaterialApp(
+      home: LayoutBuilder(builder: (context, constraints) {
+        // width와 height 모두를 고려한 반응형 조건 설정
+        final isMobile = width < 600 && height < 800;
+        final isTablet = width >= 600 && width < 1024 && height < 1200;
+        final isDesktop = width >= 1024 && height >= 1200;
 
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Spacer(),
-
-                  _buildTabButton("기업 소개", 0),
-
-                  _buildTabButton("기업 연혁", 1),
-
-                  _buildTabButton("오시는 길", 2),
-
-                  Spacer(),
-                ],
-              ),
-            ),
-            Column(
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
+            child: Column(
               children: [
-                Divider(),
-                SizedBox(
-                  height: 60,
-                ),
-                _buildTabContent(),
-              ],
-            ),
-            Container(
-                height: height * 0.2000,
-                color: Colors.black,
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                child: Center(
+                Container(
+                  width: width,
+                  height: isMobile
+                ? height * 0.2000
+
+                    : height * 0.3369,
+                  // 높이를 반응형으로 조정
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/main-background2.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  alignment: Alignment.center,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Divider(color: Colors.white, thickness: 1), // 구분선
-                      SizedBox(height: 10),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      Spacer(),
+                      Text(
+                        "Company",
+                        style: TextStyle(color: Colors.white, fontSize: isMobile? 30:60),
+                      ),
+                      Spacer(),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Spacer(),
+                      _buildTabButton("기업 소개", 0),
+                      _buildTabButton("기업 연혁", 1),
+                      _buildTabButton("오시는 길", 2),
+                      Spacer(),
+                    ],
+                  ),
+                ),
+                Column(
+                  children: [
+                    Divider(),
+                    SizedBox(
+                      height: 60,
+                    ),
+                    _buildTabContent(),
+                  ],
+                ),
+                Container(
+                    height: isMobile ? height * 0.1500 : height * 0.2000,
+                    color: Colors.black,
+                    padding: EdgeInsets.symmetric(
+                        vertical: isMobile ? 0 : 20, horizontal: 20),
+                    child: Center(
+                      child: Column(
                         children: [
-                          Spacer(),
-                          Column(
+                          Divider(
+                              color: Colors.white,
+                              thickness: isMobile ? 0.5 : 1), // 구분선
+                          SizedBox(height: isMobile ? 0 : 10),
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                "(주) NewChem",
-                                style: TextStyle(
-                                  fontSize: width * 0.01,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                "▶  대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n"
-                                    "▶  경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: width * 0.005,
-                                ),
-                              ),
-                              SizedBox(height: 10),
-                              Row(
+                              Spacer(),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Icon(Icons.phone, color: Colors.white),
-                                  SizedBox(width: 10),
                                   Text(
-                                    "070-8098-7424",
+                                    "(주) NewChem",
                                     style: TextStyle(
+                                      fontSize: isMobile
+                                          ? width * 0.02
+                                          : width * 0.01,
                                       color: Colors.white,
-                                      fontSize: width * 0.005,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 20),
-                                  Icon(Icons.phone, color: Colors.white),
-                                  SizedBox(width: 10),
+                                  SizedBox(height: isMobile ? 10 : 10),
                                   Text(
-                                    "042-367-7427",
+                                    "▶  대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n"
+                                        "▶  경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: width * 0.005,
+                                      fontSize: isMobile
+                                          ? width * 0.007
+                                          : width * 0.005,
                                     ),
                                   ),
-                                  SizedBox(width: 20),
-                                  Icon(Icons.email, color: Colors.white),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    "cmkim@new-chem.co.kr",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: width * 0.005,
+                                  SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.phone,
+                                        color: Colors.white,
+                                        size: isMobile ? 9 : 20,
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(
+                                        "070-8098-7424",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: isMobile
+                                              ? width * 0.007
+                                              : width * 0.005,
+                                        ),
+                                      ),
+                                      SizedBox(width: 20),
+                                      Icon(
+                                        Icons.phone,
+                                        color: Colors.white,
+                                        size: isMobile ? 9 : 20,
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(
+                                        "042-367-7427",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: isMobile
+                                              ? width * 0.007
+                                              : width * 0.005,
+                                        ),
+                                      ),
+                                      SizedBox(width: 20),
+                                      Icon(
+                                        Icons.email,
+                                        color: Colors.white,
+                                        size: isMobile ? 9 : 20,
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(
+                                        "cmkim@new-chem.co.kr",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: isMobile
+                                              ? width * 0.007
+                                              : width * 0.005,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Spacer(),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Image.asset(
+                                    'assets/logo-white.png',
+                                    width:
+                                    isMobile ? width * 0.15 : width * 0.10,
+                                  ),
+                                  SizedBox(height: isMobile ? 10 : 20),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      side: BorderSide(color: Colors.white),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: isMobile ? 6 : 15,
+                                        horizontal: isMobile ? 20 : 40,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      // ContactScreen으로 이동
+                                    },
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          "Contact Us",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: width * 0.010,
+                                          ),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Icon(
+                                          Icons.arrow_forward,
+                                          color: Colors.white,
+                                          size: width * 0.005,
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
+                              Spacer(),
                             ],
                           ),
-                          Spacer(),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Image.asset(
-                                'assets/logo-white.png',
-                                width: width * 0.10,
-                              ),
-                              SizedBox(height: 20),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  side: BorderSide(color: Colors.white),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 15,
-                                    horizontal: 30,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  // ContactScreen으로 이동
-
-                                },
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "Contact Us",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: width * 0.010,
-                                      ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.white,
-                                      size: width * 0.005,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                          SizedBox(height: isMobile ? 0 : 5),
+                          Divider(
+                              color: Colors.white,
+                              thickness: isMobile ? 0.5 : 1), // 구분선
+                          SizedBox(height: isMobile ? 0 : 5),
+                          Text(
+                            "COPYRIGHT © NewChem (뉴켐) All rights reserved | Designed by Aichemist",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize:
+                              isMobile ? width * 0.004 : width * 0.005,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          Spacer(),
                         ],
                       ),
-                      SizedBox(height: 5),
-                      Divider(color: Colors.white, thickness: 1), // 구분선
-                      SizedBox(height: 5),
-                      Text(
-                        "COPYRIGHT © NewChem (뉴켐) All rights reserved | Designed by Aichemist",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: width * 0.005,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ))
-
-          ],
-        ),
-      ),
+                    ))
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 
   Widget _buildTabButton(String title, int index) {
-    return Container(
-      color: Color(0xff28225b), // TabBar 배경색 설정
-      width: MediaQuery.of(context).size.width * 0.08,
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            _selectedTabIndex = index;
-            widget.onTabChanged(index); // 탭 변경 시 부모에 알림
-          });
-        },
-        child: Text(
-          title,
-          style: TextStyle(
-              fontSize: 18,
-              fontWeight: _selectedTabIndex == index
-                  ? FontWeight.bold
-                  : FontWeight.normal,
-              color: _selectedTabIndex == index ? Colors.blueAccent : Colors.white,
-              decoration: _selectedTabIndex == index
-                  ? TextDecoration.underline
-                  : TextDecoration.none,
-              // 언더라인 추가
-              decorationColor: Colors.blueAccent),
+    return LayoutBuilder(builder: (context, constraints) {
+      final size = MediaQuery.of(context).size;
+      final width = size.width;
+      final height = size.height;
+      // width와 height 모두를 고려한 반응형 조건 설정
+      final isMobile = width < 600 && height < 800;
+      final isTablet = width >= 600 && width < 1024 && height < 1200;
+      final isDesktop = width >= 1024 && height >= 1200;
+      return Container(
+        color: Color(0xff28225b), // TabBar 배경색 설정
+        width: isMobile? width * 0.20:width * 0.08,
+        child: TextButton(
+          onPressed: () {
+            setState(() {
+              _selectedTabIndex = index;
+              widget.onTabChanged(index); // 탭 변경 시 부모에 알림
+            });
+          },
+          child: Text(
+            title,
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: _selectedTabIndex == index
+                    ? FontWeight.bold
+                    : FontWeight.normal,
+                color:
+                _selectedTabIndex == index ? Colors.blueAccent : Colors.white,
+                decoration: _selectedTabIndex == index
+                    ? TextDecoration.underline
+                    : TextDecoration.none,
+                // 언더라인 추가
+                decorationColor: Colors.blueAccent),
+          ),
         ),
-      ),
+      );
+    }
     );
   }
 
@@ -284,118 +330,164 @@ class _CompanyPageState extends State<CompanyPage> {
   }
 
   Widget _buildIntroTab() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-          child: Container(
-        width: MediaQuery.of(context).size.width * 0.4,
-        height: MediaQuery.of(context).size.height * 0.6,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "뉴켐 홈페이지에 오신 것을 환영합니다.",
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-            ),
-            Divider(
-              color: Colors.grey,
-            ),
-            SizedBox(height: 40),
-            Text(
-              "뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지,\n"
-              "합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다. "
-              "\n\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,"
-              "\n고객이 신뢰할 수 있는 회사로 자리매김해 왔습니다."
-              "\n\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.",
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 50),
-            Text(
-              "(주) 뉴켐 대표\n김 천 만",
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic),
-              textAlign: TextAlign.end,
-            ),
-          ],
-        ),
-      )),
+    return LayoutBuilder(builder: (context, constraints) {
+      final size = MediaQuery.of(context).size;
+      final width = size.width;
+      final height = size.height;
+      // width와 height 모두를 고려한 반응형 조건 설정
+      final isMobile = width < 600 && height < 800;
+      final isTablet = width >= 600 && width < 1024 && height < 1200;
+      final isDesktop = width >= 1024 && height >= 1200;
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+            child: Container(
+              width:isMobile? width*0.90:width * 0.4,
+              height: height * 0.6,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "뉴켐 홈페이지에 오신 것을 환영합니다.",
+                    style: TextStyle(fontSize: isMobile?24:40, fontWeight: FontWeight.bold),
+                  ),
+                  Divider(
+                    color: Colors.grey,
+                  ),
+                  SizedBox(height: 40),
+                  Text(
+                    "뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지,\n"
+                        "합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다. "
+                        "\n\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,"
+                        "\n고객이 신뢰할 수 있는 회사로 자리매김해 왔습니다."
+                        "\n\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.",
+                    style: TextStyle(fontSize: isMobile? 15:20,letterSpacing: isMobile? -0.9:0),
+                  ),
+                  SizedBox(height: 50),
+                  Text(
+                    "(주) 뉴켐 대표\n김 천 만",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic),
+                    textAlign: TextAlign.end,
+                  ),
+                ],
+              ),
+            )),
+      );
+    }
     );
   }
 
   Widget _buildHistoryTab() {
-    return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.4,
+    return
+      LayoutBuilder(builder: (context, constraints) {
+        final size = MediaQuery.of(context).size;
+        final width = size.width;
+        final height = size.height;
+        // width와 height 모두를 고려한 반응형 조건 설정
+        final isMobile = width < 600 && height < 800;
+        final isTablet = width >= 600 && width < 1024 && height < 1200;
+        final isDesktop = width >= 1024 && height >= 1200;
 
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("기업 연혁",
-                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
-              Divider(
-                color: Colors.grey,
+        return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
+              width:isMobile? width*0.90:width * 0.4,
+              height: height * 0.6,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("기업 연혁",
+                    style: TextStyle(fontSize: isMobile?24:40, fontWeight: FontWeight.bold),),
+                  Divider(
+                    color: Colors.grey,
+                  ),
+                  SizedBox(height: 40),
+                  _buildHistoryItem("2024년 4월", "설립"),
+                  _buildHistoryItem("2024년 5월", "Heidolph Korea 대전지역 독점대리점 계약"),
+                  _buildHistoryItem("2024년 6월", "독일 NORMAG 파트너쉽 체결"),
+                  _buildHistoryItem("2024년 8월", "미국 CINC사 파트너쉽 체결"),
+                  SizedBox(
+                    height: isMobile? height * 0.17:height * 0.4,
+                  ),
+                ],
               ),
-              SizedBox(height: 40),
-              _buildHistoryItem("2024년 4월", "설립"),
-              _buildHistoryItem("2024년 5월", "Heidolph Korea 대전지역 독점대리점 계약"),
-              _buildHistoryItem("2024년 6월", "독일 NORMAG 파트너쉽 체결"),
-              _buildHistoryItem("2024년 8월", "미국 CINC사 파트너쉽 체결"),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.4,),
-            ],
-          ),
-        ));
+            ));
+      }
+      );
   }
 
   Widget _buildHistoryItem(String date, String event) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            date,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-          ),
-          SizedBox(width: 10),
-          Expanded(child: Text(event, style: TextStyle(fontSize: 20))),
-        ],
-      ),
+    return LayoutBuilder(builder: (context, constraints) {
+      final size = MediaQuery.of(context).size;
+      final width = size.width;
+      final height = size.height;
+      // width와 height 모두를 고려한 반응형 조건 설정
+      final isMobile = width < 600 && height < 800;
+      final isTablet = width >= 600 && width < 1024 && height < 1200;
+      final isDesktop = width >= 1024 && height >= 1200;
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              date,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            SizedBox(width: 10),
+            Expanded(child: Text(event, style: TextStyle(fontSize: 20))),
+          ],
+        ),
+      );
+    }
     );
   }
 
   Widget _buildLocationTab() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-          child: Container(
-        width: MediaQuery.of(context).size.width * 0.4,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "오시는 길",
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-            ),
-            Divider(
-              color: Colors.grey,
-            ),
-            SizedBox(height: 40),
-            Text(
-              "● 주소 : 경기사무소 (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
-            ),
-            SizedBox(height: 50),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.8,
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: _iframeWidget,
-            )
-          ],
-        ),
-      )),
+    return LayoutBuilder(builder: (context, constraints) {
+      final size = MediaQuery.of(context).size;
+      final width = size.width;
+      final height = size.height;
+      // width와 height 모두를 고려한 반응형 조건 설정
+      final isMobile = width < 600 && height < 800;
+      final isTablet = width >= 600 && width < 1024 && height < 1200;
+      final isDesktop = width >= 1024 && height >= 1200;
+      return
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+              child: Container(
+                width:isMobile? width*0.90:width * 0.4,
+                height: height * 0.6,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "오시는 길",
+                      style: TextStyle(fontSize: isMobile?24:40, fontWeight: FontWeight.bold),),
+                    Divider(
+                      color: Colors.grey,
+                    ),
+                    SizedBox(height: 40),
+                    Text(
+                      isMobile? "● 주소 : 경기사무소 (18021) 경기 평택시 도시지원로 121\n \t\t\t\t\t\t\t\t\t\t\t\t\t\t고덕지식공작소아이타워 510호":"● 주소 : 경기사무소 (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호",
+                      style: TextStyle(
+                          fontSize: isMobile? 14:20, fontWeight: FontWeight.w400),
+                    ),
+                    SizedBox(height: 50),
+                    Container(
+                      width: isMobile? width :width * 0.8,
+                      height: height * 0.3,
+                      child: _iframeWidget,
+                    )
+                  ],
+                ),
+              )),
+        );
+    }
     );
   }
 }

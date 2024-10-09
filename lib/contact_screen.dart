@@ -82,98 +82,111 @@ class _ContactScreenState extends State<ContactScreen> {
     final size = MediaQuery.of(context).size;
     final width = size.width;
     final height = size.height;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.3,
-            // 높이를 반응형으로 조정
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/main-background2.png'),
-                fit: BoxFit.cover,
+
+    return MaterialApp(
+        home: LayoutBuilder(builder: (context, constraints)
+    {
+      // width와 height 모두를 고려한 반응형 조건 설정
+      final isMobile = width < 600 && height < 800;
+      final isTablet = width >= 600 && width < 1024 && height < 1200;
+      final isDesktop = width >= 1024 && height >= 1200;
+
+      return Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: isMobile? height * 0.2000:height * 0.3,
+              // 높이를 반응형으로 조정
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/main-background2.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Spacer(),
+                  Text(
+                    "Contact Us",
+                    style: TextStyle(color: Colors.white, fontSize: isMobile? 30:60),
+                  ),
+                  Spacer(),
+                ],
               ),
             ),
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Spacer(),
-                Text(
-                  "Contact Us",
-                  style: TextStyle(color: Colors.white, fontSize: 60),
-                ),
-                Spacer(),
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center, // 중앙 정렬
-                      mainAxisAlignment: MainAxisAlignment.center, // 세로 중앙 정렬
-                      children: [
-                        Text(
-                          "안녕하세요, 고객님.\n전문가에게 맡겨주세요!",
-                          style: TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          "아래 내용을 작성해서 접수하시면, 전문가가 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.",
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(height: 20),
-                        _buildTextField("업체명", _companyController),
-                        _buildTextField("성명", _nameController),
-                        _buildTextField("전화번호", _phoneController),
-                        _buildTextField("E-mail", _emailController,
-                            validator: _emailValidator),
-                        _buildDropdownField(
-                            "지역", _selectedRegion, _handleRegionChange),
-                        _buildTextField("제목", _titleController),
-                        _buildTextField("내용", _contentController, maxLines: 12),
-                        _buildAgreementCheckbox(),
-                        SizedBox(height: 20),
-                        Center(
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xff28225b),
-                                foregroundColor: Colors.white),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                if (_agree) {
-                                  _sendEmail();
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content:
-                                              Text("개인정보 수집 및 이용목적에 동의해주세요.")));
-                                }
-                              }
-                            },
-                            child: Text("보내기"),
+            SizedBox(height: 10),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center, // 중앙 정렬
+                        mainAxisAlignment: MainAxisAlignment.center, // 세로 중앙 정렬
+                        children: [
+                          Text(
+                            "안녕하세요, 고객님.\n전문가에게 맡겨주세요!",
+                            style: TextStyle(
+                                fontSize: isMobile? 18:24, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 10),
+                          Text(
+                            "아래 내용을 작성해서 접수하시면, 전문가가 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.",
+                            textAlign: TextAlign.center,style: TextStyle(fontSize: isMobile? 10:16),
+                          ),
+                          SizedBox(height: 20),
+                          _buildTextField("업체명", _companyController),
+                          _buildTextField("성명", _nameController),
+                          _buildTextField("전화번호", _phoneController),
+                          _buildTextField("E-mail", _emailController,
+                              validator: _emailValidator),
+                          _buildDropdownField(
+                              "지역", _selectedRegion, _handleRegionChange),
+                          _buildTextField("제목", _titleController),
+                          _buildTextField(
+                              "내용", _contentController, maxLines: 12),
+                          _buildAgreementCheckbox(),
+                          SizedBox(height: 20),
+                          Center(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xff28225b),
+                                  foregroundColor: Colors.white),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  if (_agree) {
+                                    _sendEmail();
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content:
+                                            Text("개인정보 수집 및 이용목적에 동의해주세요.")));
+                                  }
+                                }
+                              },
+                              child: Text("보내기"),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    }),
+          );
+
   }
 
   // 텍스트 필드 빌더
@@ -221,8 +234,9 @@ class _ContactScreenState extends State<ContactScreen> {
       child: DropdownButtonFormField<String>(
         value: value,
         decoration:
-            InputDecoration(labelText: label, border: OutlineInputBorder()),
+            InputDecoration(labelText: label,labelStyle:TextStyle(color: Color(0xff28225b) ), border: OutlineInputBorder()),
         dropdownColor: Colors.white,
+
         items: [
           '서울특별시',
           '경기도',
@@ -244,7 +258,7 @@ class _ContactScreenState extends State<ContactScreen> {
         ].map((region) {
           return DropdownMenuItem<String>(
             value: region,
-            child: Text(region),
+            child: Text(region,style: TextStyle(color: Color(0xff28225b)),),
           );
         }).toList(),
         onChanged: onChanged,
@@ -266,6 +280,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   _agree = value ?? false;
                 });
               },
+              activeColor: Color(0xff28225b)
             ),
             GestureDetector(
               onTap: () {

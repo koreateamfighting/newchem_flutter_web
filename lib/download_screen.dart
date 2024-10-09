@@ -7,21 +7,24 @@ class DownloadScreen extends StatelessWidget {
     {
       "number": "3",
       "title": "[첨부] 다운로드 자료 타이틀 예 3 (구글드라이브 경로)",
-      "link": "https://drive.google.com/file/d/16UjB2PEM6H520jdrzn614uAXFO0WAMsx/view?usp=sharing",
+      "link":
+          "https://drive.google.com/file/d/16UjB2PEM6H520jdrzn614uAXFO0WAMsx/view?usp=sharing",
       "author": "관리자",
       "date": "2024-00-00"
     },
     {
       "number": "2",
       "title": "[첨부] 다운로드 자료 타이틀 예 2 (구글드라이브 경로)",
-      "link": "https://drive.google.com/file/d/16UjB2PEM6H520jdrzn614uAXFO0WAMsx/view?usp=sharing",
+      "link":
+          "https://drive.google.com/file/d/16UjB2PEM6H520jdrzn614uAXFO0WAMsx/view?usp=sharing",
       "author": "관리자",
       "date": "2024-00-00"
     },
     {
       "number": "1",
       "title": "[첨부] 다운로드 자료 타이틀 예 1 (구글드라이브 경로)",
-      "link": "https://drive.google.com/file/d/16UjB2PEM6H520jdrzn614uAXFO0WAMsx/view?usp=sharing",
+      "link":
+          "https://drive.google.com/file/d/16UjB2PEM6H520jdrzn614uAXFO0WAMsx/view?usp=sharing",
       "author": "관리자",
       "date": "2024-00-00"
     },
@@ -32,82 +35,92 @@ class DownloadScreen extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final width = size.width;
     final height = size.height;
-    return Scaffold(
-      backgroundColor: Colors.white,
+    return MaterialApp(
+      home: LayoutBuilder(builder: (context, constraints) {
+        // width와 height 모두를 고려한 반응형 조건 설정
+        final isMobile = width < 600 && height < 800;
+        final isTablet = width >= 600 && width < 1024 && height < 1200;
+        final isDesktop = width >= 1024 && height >= 1200;
 
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 0.3,
-            // 높이를 반응형으로 조정
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/main-background2.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Spacer(),
-                Text(
-                  "Download",
-                  style: TextStyle(color: Colors.white, fontSize: 60),
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: Column(
+            children: [
+              Container(
+                width: double.infinity,
+                height: isMobile? height * 0.2000:height * 0.3,
+                // 높이를 반응형으로 조정
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/main-background2.png'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                Spacer(),
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
-          SingleChildScrollView(
-
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Data 링크",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 20),
-                Table(
-                  columnWidths: {
-                    0: FixedColumnWidth(MediaQuery.of(context).size.width * 0.1), // 화면 크기에 따라 셀 크기 조정
-                    1: FlexColumnWidth(),
-                    2: FixedColumnWidth(MediaQuery.of(context).size.width * 0.2),
-                  },
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TableRow(
-                      decoration: BoxDecoration(color: Colors.grey[200]),
-                      children: [
-                        _buildTableHeader("번호"),
-                        _buildTableHeader("제목"),
-                        _buildTableHeader("글쓴이"),
-                        _buildTableHeader("작성 날짜"),
-                      ],
+                    Spacer(),
+                    Text(
+                      "Download",
+                      style: TextStyle(color: Colors.white, fontSize: isMobile? 30:60),
                     ),
-                    ...downloadData.map((item) {
-                      return TableRow(
-                        children: [
-                          _buildTableCell(item["number"]!),
-                          _buildLinkCell(item["title"]!, item["link"]!),
-                          _buildTableCell(item["author"]!),
-                          _buildTableCell(item["date"]!),
-                        ],
-                      );
-                    }).toList(),
+                    Spacer(),
                   ],
                 ),
-
-
-              ],
-            ),
+              ),
+              SizedBox(height: 10),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Data 링크",
+                        style: TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 20),
+                      Table(
+                        columnWidths: {
+                          0: FixedColumnWidth(
+                              MediaQuery.of(context).size.width *
+                                  0.1), // 화면 크기에 따라 셀 크기 조정
+                          1: FlexColumnWidth(),
+                          2: FixedColumnWidth(
+                              MediaQuery.of(context).size.width * 0.2),
+                        },
+                        children: [
+                          TableRow(
+                            decoration: BoxDecoration(color: Colors.grey[200]),
+                            children: [
+                              _buildTableHeader("번호"),
+                              _buildTableHeader("제목"),
+                              _buildTableHeader("글쓴이"),
+                              _buildTableHeader("작성 날짜"),
+                            ],
+                          ),
+                          ...downloadData.map((item) {
+                            return TableRow(
+                              children: [
+                                _buildTableCell(item["number"]!),
+                                _buildLinkCell(item["title"]!, item["link"]!),
+                                _buildTableCell(item["author"]!),
+                                _buildTableCell(item["date"]!),
+                              ],
+                            );
+                          }).toList(),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
           ),
-        ],
-      ),
-
+        );
+      }),
     );
   }
 
@@ -149,7 +162,8 @@ class DownloadScreen extends StatelessWidget {
         },
         child: Text(
           title,
-          style: TextStyle(color: Colors.blue, decoration: TextDecoration.underline),
+          style: TextStyle(
+              color: Colors.blue, decoration: TextDecoration.underline),
         ),
       ),
     );
