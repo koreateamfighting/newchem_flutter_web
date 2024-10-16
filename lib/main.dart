@@ -154,8 +154,8 @@ class _MyAppState extends State<MyApp> {
                     mainAxisAlignment: MainAxisAlignment.start, // 로고와 버튼들 사이 간격 설정
                     children: [
                       Container(
-                        width: isMobile? 100: isTablet? 320:280,
-                        height: isMobile? 60:isTablet? 50:60,
+                        width: isMobile? 150: isTablet? 320:320,
+                        height: isMobile? 80:isTablet? 50:80,
                         child:FittedBox(
                           fit: BoxFit.fill,
                           child: IconButton(

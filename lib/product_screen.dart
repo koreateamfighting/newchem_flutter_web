@@ -18,6 +18,97 @@ class _ProductScreenState extends State<ProductScreen>
   late TabController _heidolphTabController; // Heidolph 하위 탭 컨트롤러
   late TabController _normagTabController; // NORMAG 하위 탭 컨트롤러
 
+  final List<List<String>> squadData = [
+    [
+      'SPECIFICATIONS',
+      'Model V-2',
+      'Model V-5 TA(H)/CIP',
+      'Model V-10 TA(H)/CIP',
+      'Model V-16',
+      'Model V-20'
+    ],
+    [
+      'Rotor Size',
+      '2\"\"\n(5.1 cm)',
+      '5\"\"\n(12.7 cm)',
+      '10\"\"\n(25.4 cm)',
+      '16\"\"\n(40.6 cm)',
+      '20\"\"\n(50.8 cm)'
+    ],
+    [
+      'Throughput',
+      '0 - 0.5 GPM\n(0 - 1.9 LPM)',
+      '0.5 -5 GPM\n(1.9 - 19 LPM)',
+      '1 - 30 GPM\n(3.8 - 110 LPM)',
+      '10 - 90 GPM\n(38 - 340 LPM)',
+      '30 - 200 GPM\n(110 - 750 LPM)'
+    ],
+    [
+      'Footprint\n(Separator Only)',
+      '9\"\"X 9\"\"\n(22.9 cm x 22.9 cm)',
+      '12\"\"X 12\"\"\n(30.5 cm x 30.5 cm)',
+      '24\"\"X 24\"\"\n(61 cm x 61 cm)',
+      '48\"\"X 48\"\"\n(122cm x 122cm)',
+      '60\"\"X 60\"\"\n(152.4cm x 152.4cm)'
+    ],
+    [
+      'Height\n(Includes Motor)',
+      '17\"\"to 19\"\"\n(43 to 48 cm)',
+      '36\"\"to 44\"\"\n(31 to 112 cm)',
+      '60\"\"to 72\"\"\n(152 to 183 cm)',
+      '80\"\"\n(203cm)',
+      '112\"\"\n(284.5cm)'
+    ],
+    [
+      'Fittings (NPT Male)\n Input/Output',
+      '3/8\"\" / 3/8\"\"',
+      '1\"\" / 1\"\"',
+      '2\"\" / 2\"\"',
+      '4\"\" / 4\"\"',
+      '4\"\" / 4\"\"'
+    ],
+    [
+      'Standard Power',
+      'Electric',
+      'Electric',
+      'Electric',
+      'Electric',
+      'Electric'
+    ],
+    [
+      'Power Requirements',
+      '1/8 HP\n(.12 kW)',
+      '2 HP\n(1.5 kW)',
+      '7.5 HP\n(5.5 kW)',
+      '30 HP\n(22 kW)',
+      '60 HP\n(45 kW)'
+    ],
+    [
+      '                  ',
+      '110,220 or 440 VAC',
+      '220 or 440 VAC',
+      '220 or 440 VAC',
+      '220 or 440 VAC',
+      '220 or 440 VAC'
+    ],
+    [
+      '                  ',
+      'Single-Phase or\nThree Phase',
+      'Single-Phase or\nThree Phase',
+      'Single-Phase or\nThree Phase',
+      'Three-Phase',
+      'Three-Phase'
+    ],
+    [
+      'Weight - Approx.\n(In Stainless Steel)',
+      '25 lbs\n(11.4 kg)',
+      '150 lbs\n(70 kg)',
+      '750 lbs\n(340 kg)',
+      '3,000 lbs\n(1,360 kg)',
+      '4500 lbs\n(2,041 kg)'
+    ]
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -192,7 +283,8 @@ class _ProductScreenState extends State<ProductScreen>
               // 탭 간격을 중앙에서 일정하게 하기 위해 Alignment 조정
               tabs: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: isMobile ? 0 : 6.0,vertical: 10),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
                   // 각 탭에 일정 간격 설정
                   child: Text(
                     "Rotary Evaporator",
@@ -201,7 +293,8 @@ class _ProductScreenState extends State<ProductScreen>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: isMobile ? 0 : 6.0,vertical: 10),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
                   child: Text(
                     " Stirring",
                     style: TextStyle(
@@ -209,7 +302,8 @@ class _ProductScreenState extends State<ProductScreen>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: isMobile ? 6: 6.0,vertical: 10),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 6 : 6.0, vertical: 10),
                   child: Text(
                     " Automation",
                     style: TextStyle(
@@ -217,7 +311,8 @@ class _ProductScreenState extends State<ProductScreen>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: isMobile ?0: 6.0,vertical: 10),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
                   child: Text(
                     "Voltex & Shaking",
                     style: TextStyle(
@@ -225,7 +320,8 @@ class _ProductScreenState extends State<ProductScreen>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: isMobile ? 2 : 6.0,vertical: 10),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 2 : 6.0, vertical: 10),
                   child: Text(
                     "Liquid Handling",
                     style: TextStyle(
@@ -462,9 +558,7 @@ ml이고, 멀티 채널 헤드는 분당 0.005~364 ml입니다. 공정 중점에
 // NORMAG 대분류 탭
   Widget _buildNormagTab() {
     return LayoutBuilder(builder: (context, constraints) {
-      final size = MediaQuery
-          .of(context)
-          .size;
+      final size = MediaQuery.of(context).size;
       final width = size.width;
       final height = size.height;
       // width와 height 모두를 고려한 반응형 조건 설정
@@ -477,42 +571,8 @@ ml이고, 멀티 채널 헤드는 분당 0.005~364 ml입니다. 공정 중점에
             child: Container(
               padding: EdgeInsets.fromLTRB(
                   isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
-              child: TabBar(
-                controller: _normagTabController,
-                labelColor: Colors.blue,
-                unselectedLabelColor: Colors.grey,
-                indicatorColor: Colors.blue,
-                tabs: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 0 : 6.0,vertical: 10),
-                    child: Text(
-                      "Lab Fast Pro",
-                      style: TextStyle(
-                          fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 0 : 6.0,vertical: 10),
-                    child: Text(
-                      "Pilot Compact",
-                      style: TextStyle(
-                          fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: isMobile ? 0 : 6.0,vertical: 10),
-                    child: Text(
-                      "Process Reaction System",
-                      style: TextStyle(
-                          fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
-                    ),
-                  ),
-
-
-                ],
+              child: Container(
+                height: isMobile ? 50 : 60,
               ),
             ),
           ),
@@ -538,28 +598,35 @@ Advantages
 • CU Pro2(Control Unit)에 의한 타 실험실 기기와의 연결
 • 데이터 저장 및 레시피 관리"""
                   },
-                ]),
-                _buildProductList([
                   {
                     "name": "Pilot Compact Reactor (10 ~ 30L)",
                     "image": "assets/products/Pilot_compact_reactor.png",
                     "content": """
-Advantages
-
-Pilot compact 10 to 30L Reactor: jacketed vessel, PFA coated flat lid
-Mobile, welded and brushed stainless steel frame with round tube additions
-Lifting/Lowering Device for easy accessibility and cleaning of the reactor
-Safety features: Pressure gauge, overpressure relief valve, burst disk
-Spare nozzles for a variety of sensors and feeds 
-Design completely GMP compliant: fully drainable, cleanable, non-contaminating 
-seal…"""
+  - Pilot compact reactor는 공간 활용을 극대화한 시스템입니다
+  - 반응기 용량은 10~30L까지 다양하게 구성 가능
+  - PFA 코팅된 flat lid로 구성
+  - 안전을 위한 Pressure gauge, relief valve, burst disk 장착
+  - 온도, 압력 및 각 종 센서 장착을 위한 Spare nozzle 제공
+  - 시스템 세척을 위한 리프팅 기능(Option)
+  - 다양한 Size의 feed vessel과 receiver vessel 구성 가능
+  - Automation 사용을 위한 운영 software 구성 가능(Option) 
+  - GMP Documents(IQ/OQ/DQ) 제공(Option)
+  - 합리적인 가격"""
                   },
-                ]),
-                _buildProductList([
                   {
                     "name": "Glass Reaction System",
                     "image": "assets/products/ReactionSystemPilot.png",
-                    "content": ""
+                    "content": """
+  - NORMAG의 Glass reaction system은 이중 자켓(100L), 삼중관 자켓(50L)까지 구성 가능
+  - 특수설계된 Stainless steel의 프레임워크
+  - 고객의 요청에 따른 설계 및 제작 가능
+  - 안전을 위한 Pressure gauge, relief valve, burst disk 장착
+  - pH-센서, 레벨-센서, 전도도-센서 및 기타 모든 옵션 사용 가능
+  - 유니크한 Bottom drain valve
+  - Automation을 위한 PLC 구성 가능(Option) 
+  - GMP Documents(IQ/OQ/DQ) 제공(Option)
+  - 합리적인 가격                    
+                    """
                   },
                 ]),
               ],
@@ -567,18 +634,452 @@ seal…"""
           ),
         ],
       );
-    }
-    );
+    });
   }
 
   // CINC Industry 대분류 탭 (업데이트 예정)
   Widget _buildCINCTab() {
-    return Center(
-      child: Text(
-        "업데이트 예정",
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-    );
+    return LayoutBuilder(builder: (context, constraints) {
+      final size = MediaQuery.of(context).size;
+      final width = size.width;
+      final height = size.height;
+      // width와 height 모두를 고려한 반응형 조건 설정
+      final isMobile = width < 600 && height < 800;
+      final isTablet = width >= 600 && width < 1024 && height < 1200;
+      final isDesktop = width >= 1024 && height >= 1200;
+
+      return Column(
+        children: [
+          Center(
+              // 탭바를 중앙에 배치하기 위해 Center로 감싸기
+              child: Container(
+            padding: EdgeInsets.fromLTRB(
+                isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
+            child: TabBar(
+              controller: _heidolphTabController,
+              labelColor: Colors.blue,
+              unselectedLabelColor: Colors.grey,
+              indicatorColor: Colors.blue,
+              // 탭 간격을 중앙에서 일정하게 하기 위해 Alignment 조정
+              tabs: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
+                  // 각 탭에 일정 간격 설정
+                  child: Text(
+                    " 소개",
+                    style: TextStyle(
+                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
+                  child: Text(
+                    " How to Work",
+                    style: TextStyle(
+                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 6 : 6.0, vertical: 10),
+                  child: Text(
+                    " 특징",
+                    style: TextStyle(
+                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
+                  child: Text(
+                    "Application",
+                    style: TextStyle(
+                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isMobile ? 2 : 6.0, vertical: 10),
+                  child: Text(
+                    "Specifications",
+                    style: TextStyle(
+                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                  ),
+                ),
+              ],
+            ),
+          )),
+          Expanded(
+            child: TabBarView(
+              controller: _heidolphTabController,
+              children: [
+                Container(
+                  child: Center(
+                      child: Container(
+                    width: isMobile ? 450 : 1500,
+                    height: isMobile ? 450 : 700,
+                    child: Row(children: [
+                      SizedBox(
+                        width: 48,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white, // 배경 색상
+                            border: Border.all(
+                              color: Colors.grey, // 테두리 색상
+                              width: 1.0, // 테두리 두께
+                            ),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            )),
+                        child: Image.asset(
+                          "assets/products/Cinc_Industry_Product.png",
+                          width: isMobile ? 220 : 600,
+                          height: isMobile ? 400 : 600,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 48,
+                      ),
+                      VerticalDivider(
+                        indent: 12,
+                        endIndent: 24,
+                      ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Text(
+                            "CINC Industry 소개",
+                            style: TextStyle(fontSize: 30),
+                          ),
+                          SizedBox(
+                            height: 70,
+                          ),
+                          Text(
+                            """
+        CINC는 액체-액체 원심분리기를 설계, 제조 및 공급하는 기업으로, 
+      전 세계의 석유, 화학, 광업, 제약, 식품, 
+      향료, 인쇄 및 환경 산업 분야의 연구를 수행하는 고객들의 신뢰를 받고 있습니다.
+      CINC 원심분리기는 조정 가능한 중(重)상 위어(weir)와 가변 속도 모터를 통해
+      특정 중력 차이에 따른 다양한 요구에 유연하게 대응할 수 있으며,
+      자가 흡입 설계로 펌프 또는 중력 공급이 가능해 유량 변화에도 안정적인 성능을 제공합니다.
+      또한 모든 제품은 사내에서 설계, 제조 및 철저한 테스트를 거쳐 최고의 품질을 보장합니다.
+      ISO 9000 및 NAQ-1 기준을 준수하며, cGMP 및 FED 표준에 따라 원심분리기를 제조하고,
+      CE 및 PED 지침, ATEX 100 인증을 보유하고 있습니다.
+      연구개발부터 대량 생산 규모에 이르기까지 다양한 크기로 제공되며, 
+      다양한 산업의 요구를 충족시키기 위해 끊임없이 발전하고 있습니다""",
+                            style: TextStyle(fontSize: 18),
+                          )
+                        ],
+                      )
+                    ]),
+                  )),
+                ),
+                Container(
+                  child: Center(
+                      child: Container(
+                    width: isMobile ? 450 : 1500,
+                    height: isMobile ? 450 : 700,
+                    child: Row(children: [
+                      SizedBox(
+                        width: 48,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white, // 배경 색상
+                            border: Border.all(
+                              color: Colors.grey, // 테두리 색상
+                              width: 1.0, // 테두리 두께
+                            ),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            )),
+                        child: Image.asset(
+                          "assets/how_to_work.png",
+                          width: isMobile ? 220 : 600,
+                          height: isMobile ? 400 : 600,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 48,
+                      ),
+                      VerticalDivider(
+                        indent: 12,
+                        endIndent: 24,
+                      ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Text(
+                            "How to Work",
+                            style: TextStyle(fontSize: 30),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            """
+      1. 작동원리
+        회전하는 로터 내에서 발생하는 원심력을 이용하여 서로 다른 
+        밀도의 두 액체를 분리합니다.
+        
+      2. 입력 방식
+        홉합된 액체가 양쪽 입구로 들어오거나, 각각의 액체가 
+        독립적으로 유입됩니다.
+        
+      3. 혼합
+        로터와 하우징 사이에서 액체가 혼합되고(초록색),
+        로터 하단을 통해 유입됩니다.
+        
+      4. 분리 과정
+        - 밀도가 높은 액체(파란색): 로터 바깥쪽으로 밀려나가
+          높은 단계의 출구로 배출됩니다.          
+        - 밀도가 낮은 액체(노란색): 로터 중심으로 이동해
+          낮은 단계의 출구로 배출됩니다.
+          
+      5. 수집
+        각각의 액체는 다른 수집 링에 모여 분리된 출구로 배출됩니다.
+        """,
+                            style: TextStyle(fontSize: 18),
+                          )
+                        ],
+                      )
+                    ]),
+                  )),
+                ),
+                Container(
+                  child: Center(
+                      child: Column(
+                    children: [
+                      SizedBox(
+                        height: 80,
+                      ),
+                      Text(
+                        """
+-  분당 0.5~200 gallons (1.9~757L)의 유량 처리 가능
+
+- 용매, 세척제 등을 투입할 수 있는 �개의 입구 설계
+
+- 200~1,000g의 원심력만으로도 효율적인 분리 및 추출
+
+- 전단에 민감한 유체를 위한 저혼합 및 직접 투입 옵션 제공
+
+- 중량 차이를 처리할 수 있는 조절 가능한 중상위어와 가변 속도 모터, 펌프식 및 중력식 모두 대응
+
+- 투입 비율의 변화에 자동으로 적응, 별도의 조정 불필요
+
+- 다양한 유량과 유량 중단을 자동으로 제어
+
+- 냉동 온도부터 끓는 온도까지 다양한 투입 온도 처리 가능
+
+- 내구성 높은 스테인리스 스틸 구조, 부식 방지 합금도 선택 가능
+
+- 유지보수가 적고 신뢰성이 높은 제자리 세척(CIP) 로터 시스템
+
+- 하나의 움직이는 부품만 있는 간단한 직접 구동 방식으로 안정성 강화
+
+- 조용한 작동과 유연한 구성을 위한 직접 구동 패키지""",
+                        style: TextStyle(fontSize: 18),
+                      )
+                    ],
+                  )),
+                ),
+                Container(
+                  child: Center(
+                      child: Column(
+                    children: [
+                      SizedBox(
+                        height: 24,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          buildApplicationTextList("""Chemical""", """
+                                  
+- 폴리머 원료 공급
+- 폴리머 생산
+- 부타디엔 및 스티렌 수지
+- 유기 과산화물
+- 공비(共沸) 분리
+- 용매 회수
+- 열전달 유체 회수
+- 유기물 세정
+
+                                """),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          buildApplicationTextList("""Pharmaceutical""", """
+       
+                                  
+- 항생제
+
+- 에리스로마이신
+
+- 페니실린
+
+
+                                """),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          buildApplicationTextList("""Petroleum""", """
+                                          
+- 산류 회수
+
+- 유정 완성 유체 회수
+
+- 생산수 처리
+
+- 오일 탈수
+
+- 육상 및 해상 (FPSO 및 고정 플랫폼)
+
+
+
+
+                                """),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          buildApplicationTextList("""Biotech""", """
+       
+     
+                                  
+- 재조합 DNA 제품
+
+
+- 배양액 추출
+
+
+
+
+                                """),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          buildApplicationTextList("""Environmental""", """
+                                  
+- 유류 유출 정화
+
+- 지하수 복원
+
+- 세척수 재활용
+
+- 빌지수 처리
+
+- 산업 세탁수 탈유
+
+
+                                """),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          buildApplicationTextList(
+                              """Mining and Metals Recovery""", """
+       
+                                  
+- 다양한 금속의 용매 추출
+
+- 용매 회수 및 재활용
+
+- 폐수 분리
+
+
+
+                                """),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          buildApplicationTextList("""Food & Nutrition""", """
+       
+                                       
+- 이소플라본
+
+- 식용유
+
+- 향료 추출
+
+- 영양 보충제
+
+
+
+
+
+                                """),
+                          SizedBox(
+                            width: 16,
+                          ),
+                          buildApplicationTextList(
+                              """Biodisel Production""", """
+                                  
+- 메틸 에스터에서 글리세린 분리
+
+- 바이오디젤 수세
+
+- 조류 세포 농축
+
+- 메틸 에스터에서 글리세린 분리
+
+
+                                """),
+                        ],
+                      ),
+                    ],
+                  )),
+                ),
+                Expanded(
+                    child: SingleChildScrollView(
+                  child: Container(
+                    height: isMobile ? 500 : 800,
+                    padding: EdgeInsets.fromLTRB(
+                        isMobile ? 16 : 250, 0, isMobile ? 16 : 250, 0),
+                    child: Center(
+                        child: Table(
+                      border: TableBorder.all(), // 표에 테두리 추가
+                      defaultVerticalAlignment:
+                          TableCellVerticalAlignment.middle,
+                      children: List.generate(11, (rowIndex) {
+                        return TableRow(
+                          children: List.generate(6, (colIndex) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                squadData[rowIndex][colIndex],
+                                style: TextStyle(
+                                  fontSize:
+                                      isMobile ? 8 : 14, // 각 행에 따라 폰트 크기 변경
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black, // 컬럼 인덱스에 따른 색상 지정
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            );
+                          }),
+                        );
+                      }),
+                    )),
+                  ),
+                )),
+              ],
+            ),
+          ),
+        ],
+      );
+    });
   }
 
   // Sub TabBar for Products
@@ -604,7 +1105,7 @@ seal…"""
         child: Container(
           width: 1500,
           child: GridView.builder(
-            padding: EdgeInsets.fromLTRB(8.0,isMobile? 24:48,0,8),
+            padding: EdgeInsets.fromLTRB(8.0, isMobile ? 24 : 48, 0, 8),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3, // 한 줄에 3개씩 배치
               crossAxisSpacing: 16.0, // 좌우 간격 줄이기
@@ -625,6 +1126,55 @@ seal…"""
         ),
       );
     });
+  }
+
+  Widget buildApplicationTextList(String main, String content) {
+    return Column(
+      children: [
+        Container(
+          width: 300,
+          height: 50,
+          decoration: BoxDecoration(
+              color: Colors.black, // 배경 색상
+              border: Border.all(
+                color: Colors.grey, // 테두리 색상
+                width: 1.0, // 테두리 두께
+              ),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              )),
+          padding: EdgeInsets.symmetric(vertical: 8),
+          child: Text(
+            main,
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Container(
+          width: 300,
+          height: 250,
+          decoration: BoxDecoration(
+              color: Colors.white, // 배경 색상
+              border: Border.all(
+                color: Colors.grey, // 테두리 색상
+                width: 1.0, // 테두리 두께
+              ),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              )),
+          child: Text(
+            content,
+            style: TextStyle(fontSize: 16, color: Colors.black),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
   }
 
   // Product Card Widget
@@ -762,15 +1312,15 @@ seal…"""
                       child: Image.asset(
                         image,
                         fit: BoxFit.contain,
-                        height: isMobile? 150:300,
-                        width: isMobile? 150:300,
+                        height: isMobile ? 150 : 300,
+                        width: isMobile ? 150 : 300,
                       ),
                     ),
                     Spacer(),
                     Text(
                       '${content}',
                       style: TextStyle(
-                          fontSize: isMobile? 8:16,
+                          fontSize: isMobile ? 8 : 16,
                           fontWeight: FontWeight.w400,
                           color: Colors.black),
                     ),

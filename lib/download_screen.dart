@@ -6,27 +6,27 @@ class DownloadScreen extends StatelessWidget {
   final List<Map<String, String>> downloadData = [
     {
       "number": "3",
-      "title": "[첨부] 다운로드 자료 타이틀 예 3 (구글드라이브 경로)",
+      "title": "준비중",
       "link":
-          "https://drive.google.com/file/d/16UjB2PEM6H520jdrzn614uAXFO0WAMsx/view?usp=sharing",
+          "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
       "author": "관리자",
       "date": "2024-00-00"
     },
     {
       "number": "2",
-      "title": "[첨부] 다운로드 자료 타이틀 예 2 (구글드라이브 경로)",
+      "title": "[NORMAG]카달로그.pdf",
       "link":
-          "https://drive.google.com/file/d/16UjB2PEM6H520jdrzn614uAXFO0WAMsx/view?usp=sharing",
+          "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
       "author": "관리자",
-      "date": "2024-00-00"
+      "date": "2024-10-16"
     },
     {
       "number": "1",
-      "title": "[첨부] 다운로드 자료 타이틀 예 1 (구글드라이브 경로)",
+      "title": "[하이돌프] 종합 카달로그 _2024.pdf",
       "link":
-          "https://drive.google.com/file/d/16UjB2PEM6H520jdrzn614uAXFO0WAMsx/view?usp=sharing",
+          "https://drive.google.com/file/d/1Ols-r9GJcyZiHQMKNkxA7Ysaj51_fQa7/view?usp=sharing",
       "author": "관리자",
-      "date": "2024-00-00"
+      "date": "2024-10-16"
     },
   ];
 
