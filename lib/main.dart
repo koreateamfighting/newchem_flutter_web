@@ -17,7 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int _selectedIndex = 2; // default는 Home 페이지
+  int _selectedIndex = 0; // default는 Home 페이지
   int _companyTabIndex = 0; // Company 페이지의 탭 상태를 유지할 변수
   int _productTabIndex = 0; // Product 페이지의 탭 상태를 유지할 변수
   late List<Widget> _pages;
@@ -58,8 +58,31 @@ class _MyAppState extends State<MyApp> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+
     });
+    _navigateToPage(index);
+
   }
+
+  void _navigateToPage(int index) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => _pages[index],
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0); // 화면 오른쪽에서 왼쪽으로 슬라이드
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
+    ));
+  }
+
 
   // ProductScreen으로 이동할 때 호출
   void _navigateToProductTab(int tabIndex) {

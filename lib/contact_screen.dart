@@ -101,7 +101,7 @@ class _ContactScreenState extends State<ContactScreen> {
               // 높이를 반응형으로 조정
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/main-background2.png'),
+                  image: AssetImage('assets/main-background6.png'),
                   fit: BoxFit.cover,
                 ),
               ),

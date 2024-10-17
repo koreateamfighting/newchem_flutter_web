@@ -5,9 +5,9 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:fwfh_webview/fwfh_webview.dart';
 import 'dart:html' as html; // Web용 dart:html 패키지 사용
 import 'dart:ui_web' as ui;
+import 'dart:async';
 
-// Home 페이지 (기존의 Main 페이지)
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final Function(int) onNavigate;
   final Function(int) onProductNavigate;
   final Function(int) onCompanyNavigate;
@@ -17,6 +17,17 @@ class HomePage extends StatelessWidget {
       required this.onProductNavigate,
       required this.onCompanyNavigate});
 
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentImageIndex = 0;
+  final List<String> _backgroundImages = [
+    'assets/main-background2.png',
+    'assets/main-background4.png',
+    'assets/main-background6.png',
+  ];
   String url =
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d669.6223690480622!2d127.01586977089258!3d37.02699966322705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3d001631c641%3A0x2cd353d15ed8488b!2z6rOg642V7KeA7Iud6rO17J6R7IaM7JWE7J207YOA7JuMIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1717727526433!5m2!1sko!2skr" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
 
@@ -56,6 +67,12 @@ class HomePage extends StatelessWidget {
       "image": "assets/products/Pilot_compact_reactor.png",
       "content": "제품에 대한 설명"
     },
+    {
+      "id": "6",
+      "title": "CINC Industry",
+      "image": "assets/products/Cinc_Industry_Product.png",
+      "content": "제품에 대한 설명"
+    },
   ];
 
   final List<String> slideImages = [
@@ -70,7 +87,7 @@ class HomePage extends StatelessWidget {
       "number": "3",
       "title": "준비중",
       "link":
-      "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
+          "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
       "author": "관리자",
       "date": "2024-00-00"
     },
@@ -78,7 +95,7 @@ class HomePage extends StatelessWidget {
       "number": "2",
       "title": "[NORMAG]카달로그.pdf",
       "link":
-      "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
+          "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
       "author": "관리자",
       "date": "2024-10-16"
     },
@@ -86,7 +103,7 @@ class HomePage extends StatelessWidget {
       "number": "1",
       "title": "[하이돌프] 종합 카달로그 _2024.pdf",
       "link":
-      "https://drive.google.com/file/d/1Ols-r9GJcyZiHQMKNkxA7Ysaj51_fQa7/view?usp=sharing",
+          "https://drive.google.com/file/d/1Ols-r9GJcyZiHQMKNkxA7Ysaj51_fQa7/view?usp=sharing",
       "author": "관리자",
       "date": "2024-10-16"
     },
@@ -94,6 +111,17 @@ class HomePage extends StatelessWidget {
   String? _selectedName;
   String? _selectedImage;
   String? _selectedContent;
+
+  void initState() {
+    super.initState();
+    // 3초마다 이미지 전환
+    Timer.periodic(Duration(seconds: 8), (timer) {
+      setState(() {
+        _currentImageIndex =
+            (_currentImageIndex + 1) % _backgroundImages.length;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,68 +157,88 @@ class HomePage extends StatelessWidget {
               children: [
                 // Main section
                 Container(
-                  width: width,
-                  height: isMobile ? height * 0.2000 : height * 0.3369,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/main-background2.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/logo-white.png',
-                        width: isMobile ? width * 0.3000 : width * 0.1564,
-                        height: isMobile ? height * 0.1500 : height * 0.1000,
-                      ),
-                      Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              onProductNavigate(0); // Heidolph 탭으로 이동
-                            },
-                            child: buildBrandButton(
-                              "Heidolph",
-                              "assets/heidolph_logo.png",
-                              isMobile ? width * 0.1200 : width * 0.1200,
-                              isMobile ? height * 0.0400 : height * 0.0400,
-                            ),
+                    width: width,
+                    height: isMobile ? height * 0.2000 : height * 0.3369,
+                    child: Stack(
+                      children: [
+                        AnimatedSwitcher(
+                          duration: Duration(seconds: 8),
+                          child: Image.asset(
+                            _backgroundImages[_currentImageIndex],
+                            key: ValueKey<String>(
+                                _backgroundImages[_currentImageIndex]),
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              onProductNavigate(1); // NORMAG 탭으로 이동
-                            },
-                            child: buildBrandButton(
-                              "NORMAG",
-                              "assets/normag_logo.png",
-                              width * 0.1200,
-                              height * 0.0400,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Spacer(),
+                            // Image.asset(
+                            //   'assets/logo-white.png',
+                            //   width: isMobile ? width * 0.3000 : width * 0.1564,
+                            //   height:
+                            //       isMobile ? height * 0.1500 : height * 0.1000,
+                            // ),
+                            Text(
+                              "Welcome To New-Chem Home Page.",
+                              style: TextStyle(color: Colors.white, fontSize : isMobile?18:48,fontFamily: 'Pretendard',fontStyle: FontStyle.italic),
                             ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              onProductNavigate(2); // CINC Industry 탭으로 이동
-                            },
-                            child: buildBrandButton(
-                              "CINC Industry",
-                              "assets/CINCIndustry.png",
-                              width * 0.1200,
-                              height * 0.0400,
+                            Spacer(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    widget.onProductNavigate(
+                                        0); // Heidolph 탭으로 이동
+                                  },
+                                  child: buildBrandButton(
+                                    "Heidolph",
+                                    "assets/heidolph_logo.png",
+                                    isMobile ? width * 0.1200 : width * 0.1200,
+                                    isMobile
+                                        ? height * 0.0400
+                                        : height * 0.0400,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    widget
+                                        .onProductNavigate(1); // NORMAG 탭으로 이동
+                                  },
+                                  child: buildBrandButton(
+                                    "NORMAG",
+                                    "assets/normag_logo.png",
+                                    width * 0.1200,
+                                    height * 0.0400,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    widget.onProductNavigate(
+                                        2); // CINC Industry 탭으로 이동
+                                  },
+                                  child: buildBrandButton(
+                                    "CINC Industry",
+                                    "assets/CINCIndustry.png",
+                                    width * 0.1200,
+                                    height * 0.0400,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                    ],
-                  ),
-                ),
+                            Spacer(),
+                          ],
+                        ),
+                      ],
+                    )),
                 // Product section
                 Container(
                   padding: const EdgeInsets.all(8.0),
+                  color: Color(0xfff3f3f3),
                   child: Column(
                     children: [
                       SizedBox(height: isMobile ? height * 0.0200 : 30),
@@ -350,7 +398,7 @@ class HomePage extends StatelessWidget {
                                         ),
                                         IconButton(
                                             onPressed: () {
-                                              onNavigate(4);
+                                              widget.onNavigate(4);
                                             },
                                             icon: Icon(
                                                 Icons.arrow_forward_ios_sharp),
@@ -404,7 +452,7 @@ class HomePage extends StatelessWidget {
                                         ),
                                         IconButton(
                                             onPressed: () {
-                                              onNavigate(
+                                              widget.onNavigate(
                                                   3); // ContactScreen으로 이동
                                             },
                                             icon: Icon(
@@ -417,18 +465,23 @@ class HomePage extends StatelessWidget {
                                             ? height * 0.02
                                             : height * 0.02),
                                     Text(
-                                      "전문가에게 맡겨주세요!",
+                                      isMobile?"전문가에게 맡겨주세요!":"\t\t전문가에게 맡겨주세요!",
                                       style: TextStyle(
                                         fontSize: isMobile
                                             ? width * 0.030
-                                            : width * 0.008,
+                                            : width * 0.015,
                                         color: Colors.blueAccent,
                                         fontWeight: FontWeight.w400,
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
+                                    SizedBox(
+                                      height: isMobile ? 0 : 40,
+                                    ),
                                     Text(
-                                      "문의 및 상담 내용을 작성해서 접수하시면,\n전문가들이 24시간 이내에 빠르고 성실하게\n답변 드리겠습니다.",
+                                      isMobile
+                                          ? "문의 및 상담 내용을 작성해서 접수하시면,\n전문가들이 24시간 이내에 빠르고 성실하게\n답변 드리겠습니다."
+                                          : "문의 및 상담 내용을 작성해서 접수하시면, 전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.",
                                       style: TextStyle(
                                           fontSize: isMobile
                                               ? width * 0.0150
@@ -458,7 +511,7 @@ class HomePage extends StatelessWidget {
                                         ),
                                         IconButton(
                                             onPressed: () {
-                                              onCompanyNavigate(
+                                              widget.onCompanyNavigate(
                                                   2); // "오시는 길" 탭으로 이동 (인덱스 2)
                                             },
                                             icon: Icon(
@@ -605,7 +658,8 @@ class HomePage extends StatelessWidget {
                                           ),
                                           onPressed: () {
                                             // ContactScreen으로 이동
-                                            onNavigate(3); // ContactScreen으로 이동
+                                            widget.onNavigate(
+                                                3); // ContactScreen으로 이동
                                           },
                                           child: Row(
                                             mainAxisSize: MainAxisSize.min,

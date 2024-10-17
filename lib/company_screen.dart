@@ -67,7 +67,7 @@ class _CompanyPageState extends State<CompanyPage> {
                   // 높이를 반응형으로 조정
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/main-background2.png'),
+                      image: AssetImage('assets/main-background3.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -84,9 +84,9 @@ class _CompanyPageState extends State<CompanyPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -98,15 +98,10 @@ class _CompanyPageState extends State<CompanyPage> {
                     ],
                   ),
                 ),
-                Column(
-                  children: [
-                    Divider(),
-                    SizedBox(
-                      height: 60,
-                    ),
-                    _buildTabContent(),
-                  ],
-                ),
+                Divider(),
+
+               _buildTabContent(),
+
                 Container(
                     height: isMobile ? height * 0.1500 : height * 0.2000,
                     color: Colors.black,
@@ -288,6 +283,8 @@ class _CompanyPageState extends State<CompanyPage> {
       return Container(
         color: Color(0xff28225b), // TabBar 배경색 설정
         width: isMobile? width * 0.20:width * 0.08,
+        height: 50,
+        padding: EdgeInsets.zero,
         child: TextButton(
           onPressed: () {
             setState(() {
@@ -347,6 +344,7 @@ class _CompanyPageState extends State<CompanyPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 40,),
                   Text(
                     "뉴켐 홈페이지에 오신 것을 환영합니다.",
                     style: TextStyle(fontSize: isMobile?24:40, fontWeight: FontWeight.bold),
@@ -399,6 +397,7 @@ class _CompanyPageState extends State<CompanyPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 40,),
                   Text("기업 연혁",
                     style: TextStyle(fontSize: isMobile?24:40, fontWeight: FontWeight.bold),),
                   Divider(
@@ -410,7 +409,7 @@ class _CompanyPageState extends State<CompanyPage> {
                   _buildHistoryItem("2024년 6월", "독일 NORMAG 파트너쉽 체결"),
                   _buildHistoryItem("2024년 8월", "미국 CINC사 파트너쉽 체결"),
                   SizedBox(
-                    height: isMobile? height * 0.17:height * 0.4,
+                    height: isMobile? height * 0.17:height * 0.3,
                   ),
                 ],
               ),
@@ -465,6 +464,7 @@ class _CompanyPageState extends State<CompanyPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 40,),
                     Text(
                       "오시는 길",
                       style: TextStyle(fontSize: isMobile?24:40, fontWeight: FontWeight.bold),),

@@ -153,7 +153,7 @@ class _ProductScreenState extends State<ProductScreen>
                     child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/main-background2.png'),
+                          image: AssetImage('assets/main-background4.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -1041,8 +1041,20 @@ Advantages
                     ],
                   )),
                 ),
-                Expanded(
-                    child: SingleChildScrollView(
+
+                // Container(
+                //   child: Center(
+                //       child: Column(
+                //         children: [
+                //           SizedBox(
+                //             height: isMobile?0:80,
+                //           ),
+                //           Image.asset("assets/table.png",height: isMobile? 400:600,)
+                //         ],
+                //       )),
+                // ),
+                 SingleChildScrollView(
+                   scrollDirection: Axis.vertical,
                   child: Container(
                     height: isMobile ? 500 : 800,
                     padding: EdgeInsets.fromLTRB(
@@ -1073,7 +1085,7 @@ Advantages
                       }),
                     )),
                   ),
-                )),
+                ),
               ],
             ),
           ),
