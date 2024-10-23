@@ -49,6 +49,7 @@ dependencies:
   google_maps: ^8.1.1
   emailjs: ^1.1.0
   flutter_expandable_table: ^2.1.0
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:

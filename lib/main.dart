@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:newchem_flutter_website/download_screen.dart';
 import 'company_screen.dart'; // CompanyPage 파일 import
 import 'home_screen.dart';
 import 'product_screen.dart';
 import 'contact_screen.dart';
 import 'download_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -161,17 +161,16 @@ class _MyAppState extends State<MyApp> {
         final isTablet = width >= 600 && width < 1024 && height < 1200;
         final isDesktop = width >= 1024 && height >= 1200;
 
-
         // 화면 크기에 따른 반응형 비율 설정
         double appBarHeight = height * 0.1;
         double buttonFontSize = width * 0.015; // width의 1.5%로 버튼 글씨 크기 설정
         double buttonPadding = width * 0.02; // width의 2%로 버튼 간격 설정
 
-
         return Scaffold(
           backgroundColor: Colors.black,
           appBar: AppBar(
-            backgroundColor: Color(0xffd4e2f5).withOpacity(0.9),
+            //backgroundColor: Color(0xffd4e2f5).withOpacity(0.9),
+            backgroundColor: Colors.white,
             // 살짝 투명도를 추가
             elevation: 0,
             // 그림자 제거
@@ -184,8 +183,9 @@ class _MyAppState extends State<MyApp> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   // 로고와 버튼들 사이 간격 설정
                   children: [
+                    SizedBox(width: width *0.2,),
                     Container(
-                        width: width * 0.10, // width의 25%를 로고 크기로 설정
+                        width: width * 0.12,
                         height: isMobile
                             ? 80
                             : isTablet
@@ -198,13 +198,7 @@ class _MyAppState extends State<MyApp> {
                             onPressed: () => _onItemTapped(0),
                           ),
                         )),
-                    SizedBox(
-                      width: isMobile
-                          ? MediaQuery.of(context).size.width * 0.05
-                          : isTablet
-                              ? MediaQuery.of(context).size.width * 0.3
-                              : MediaQuery.of(context).size.width * 0.6,
-                    ),
+                    SizedBox(width: width * 0.25),
                     Expanded(
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
@@ -215,13 +209,13 @@ class _MyAppState extends State<MyApp> {
                                 ? 8
                                 : isTablet
                                     ? 16
-                                    : 16; // 화면 크기에 따른 글씨 크기 설정
+                                    : width * 0.008; // 화면 크기에 따른 글씨 크기 설정
 
                             double buttonSpacing = isMobile
                                 ? 2
                                 : isTablet
                                     ? 8
-                                    : 1; // 화면 크기에 따른 버튼 간격 설정
+                                    : width * 0.0010; // 화면 크기에 따른 버튼 간격 설정
 
                             return Wrap(
                               spacing: buttonSpacing,
@@ -248,7 +242,7 @@ class _MyAppState extends State<MyApp> {
               },
             ),
           ),
-          body: _pages[_selectedIndex], // 선택한 화면을 body에 보여줌
+          body: Container(padding: EdgeInsets.zero,child: _pages[_selectedIndex],), // 선택한 화면을 body에 보여줌
         );
       })),
     );

@@ -6,6 +6,7 @@ import 'package:fwfh_webview/fwfh_webview.dart';
 import 'dart:html' as html; // Web용 dart:html 패키지 사용
 import 'dart:ui_web' as ui;
 import 'dart:async';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   final Function(int) onNavigate;
@@ -256,7 +257,7 @@ class _HomePageState extends State<HomePage> {
         final isDesktop = width >= 1024 && height >= 1200;
 
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor:  Color(0xffd4e2f5).withOpacity(0.9),
           body: SingleChildScrollView(
             child: Column(
               // Column 전체를 SingleChildScrollView로 감싸서 스크롤 가능하게 만듦
@@ -273,9 +274,17 @@ class _HomePageState extends State<HomePage> {
                         width: double.infinity,
                         height: height * 0.7800,
                         decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/main-background3.png'),
-                            fit: BoxFit.cover,
+                          // image: DecorationImage(
+                          //   image: AssetImage('assets/main-background3.png'),
+                          //   fit: BoxFit.cover,
+                          // ),
+                          color : Colors.white,
+
+                          border: Border(
+                            top: BorderSide(
+                              color: Colors.grey, // 위쪽 경계선 색상
+                              width: 1.0, // 위쪽 경계선 두께
+                            ),
                           ),
                         ),
                         child: Row(
@@ -300,22 +309,20 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 SizedBox(height: isMobile ? 2 : 10),
                                 Text(
-                                  """
-                     안녕하세요, (주)뉴켐을 소개합니다.
-                                  """,
+                                  "안녕하세요\n (주)뉴켐을 소개합니다.",
                                   style: TextStyle(
                                     fontSize: isMobile ? 10 : width * 0.015,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 SizedBox(height: height * 0.0300),
                                 Container(
-                                  color: Color.fromRGBO(0, 0, 0, 0.2),
+
                                   // width: isMobile
                                   //     ? width * 0.3200
                                   //     : width * 0.4000,
-                                  child: Text(
+                                  child: SelectableText(
                                     """
                                     뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지, 
                                     합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.
@@ -326,7 +333,7 @@ class _HomePageState extends State<HomePage> {
                                     """,
                                     style: TextStyle(
                                       fontSize: isMobile ? 10 : width * 0.009,
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.w500,
                                       height: 2.5,
                                     ),
@@ -337,11 +344,7 @@ class _HomePageState extends State<HomePage> {
                             SizedBox(
                               width: width * 0.040,
                             ),
-                            VerticalDivider(
-                              indent: 100,
-                              endIndent: 120,
-                              color: Colors.grey,
-                            ),
+
                             SizedBox(
                               width: width * 0.1,
                             ),
@@ -352,8 +355,8 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.indigoAccent,
                                   child: Text(
                                     "대표 제품",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 32),
+                                    style: GoogleFonts.gowunDodum(textStyle : TextStyle(
+                                        color: Colors.white, fontSize: 32),)
                                   ),
                                 ),
                                 SizedBox(
