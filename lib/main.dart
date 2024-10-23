@@ -58,10 +58,8 @@ class _MyAppState extends State<MyApp> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-
     });
     _navigateToPage(index);
-
   }
 
   void _navigateToPage(int index) {
@@ -72,7 +70,8 @@ class _MyAppState extends State<MyApp> {
         const end = Offset.zero;
         const curve = Curves.easeInOut;
 
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
         var offsetAnimation = animation.drive(tween);
 
         return SlideTransition(
@@ -82,7 +81,6 @@ class _MyAppState extends State<MyApp> {
       },
     ));
   }
-
 
   // ProductScreen으로 이동할 때 호출
   void _navigateToProductTab(int tabIndex) {
@@ -120,8 +118,10 @@ class _MyAppState extends State<MyApp> {
       },
     );
   }
+
 // 반응형 TextButton 빌더
-  TextButton _buildTextButton(String label, int index, bool isMobile, double buttonFontSize) {
+  TextButton _buildTextButton(
+      String label, int index, bool isMobile, double buttonFontSize) {
     return TextButton(
       onPressed: () => _onItemTapped(index),
       child: Text(
@@ -133,12 +133,12 @@ class _MyAppState extends State<MyApp> {
       ),
       style: TextButton.styleFrom(
         foregroundColor: Colors.black, // 텍스트 색상을 검은색으로 설정
-        padding: isMobile ? EdgeInsets.symmetric(horizontal: 12) :EdgeInsets.symmetric(horizontal: 16), // 모바일일 경우 버튼 간격을 더 작게 설정
+        padding: isMobile
+            ? EdgeInsets.symmetric(horizontal: 12)
+            : EdgeInsets.symmetric(horizontal: 16), // 모바일일 경우 버튼 간격을 더 작게 설정
       ),
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -147,97 +147,110 @@ class _MyAppState extends State<MyApp> {
     final height = size.height;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WillPopScope(
-        onWillPop: () async {
-          if (_selectedIndex != 0) {
-            setState(() {
-              _selectedIndex = 0; // 뒤로 가기를 눌렀을 때 홈 화면으로 이동
-            });
-            return false; // 앱 종료 방지
-          }
-          return true; // 앱 종료
-        },
-        child: LayoutBuilder(builder: (context,constraints){
-          // width와 height 모두를 고려한 반응형 조건 설정
-          final isMobile = width < 600 && height < 800;
-          final isTablet = width >= 600 && width < 1024 && height < 1200;
-          final isDesktop = width >= 1024 && height >= 1200;
+      home: WillPopScope(onWillPop: () async {
+        if (_selectedIndex != 0) {
+          setState(() {
+            _selectedIndex = 0; // 뒤로 가기를 눌렀을 때 홈 화면으로 이동
+          });
+          return false; // 앱 종료 방지
+        }
+        return true; // 앱 종료
+      }, child: LayoutBuilder(builder: (context, constraints) {
+        // width와 height 모두를 고려한 반응형 조건 설정
+        final isMobile = width < 600 && height < 800;
+        final isTablet = width >= 600 && width < 1024 && height < 1200;
+        final isDesktop = width >= 1024 && height >= 1200;
 
-          return  Scaffold(
-            backgroundColor:  Colors.black,
-            appBar: AppBar(
-              backgroundColor: Color(0xffd4e2f5).withOpacity(0.9), // 살짝 투명도를 추가
-              elevation: 0,  // 그림자 제거
-              surfaceTintColor: Colors.transparent,
-              title: LayoutBuilder(
-                builder: (context, constraints) {
-                  // 화면 너비에 따라 로고 크기 조정
 
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.start, // 로고와 버튼들 사이 간격 설정
-                    children: [
-                      Container(
-                        width: isMobile? 150: isTablet? 320:320,
-                        height: isMobile? 80:isTablet? 50:80,
-                        child:FittedBox(
+        // 화면 크기에 따른 반응형 비율 설정
+        double appBarHeight = height * 0.1;
+        double buttonFontSize = width * 0.015; // width의 1.5%로 버튼 글씨 크기 설정
+        double buttonPadding = width * 0.02; // width의 2%로 버튼 간격 설정
+
+
+        return Scaffold(
+          backgroundColor: Colors.black,
+          appBar: AppBar(
+            backgroundColor: Color(0xffd4e2f5).withOpacity(0.9),
+            // 살짝 투명도를 추가
+            elevation: 0,
+            // 그림자 제거
+            surfaceTintColor: Colors.transparent,
+            title: LayoutBuilder(
+              builder: (context, constraints) {
+                // 화면 너비에 따라 로고 크기 조정
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  // 로고와 버튼들 사이 간격 설정
+                  children: [
+                    Container(
+                        width: width * 0.10, // width의 25%를 로고 크기로 설정
+                        height: isMobile
+                            ? 80
+                            : isTablet
+                                ? 50
+                                : 80,
+                        child: FittedBox(
                           fit: BoxFit.fill,
                           child: IconButton(
                             icon: Image.asset('assets/logo.png'),
-
-
                             onPressed: () => _onItemTapped(0),
                           ),
-                        )
+                        )),
+                    SizedBox(
+                      width: isMobile
+                          ? MediaQuery.of(context).size.width * 0.05
+                          : isTablet
+                              ? MediaQuery.of(context).size.width * 0.3
+                              : MediaQuery.of(context).size.width * 0.6,
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            // 화면이 작아질수록 버튼 간격과 글씨 크기를 줄이기
+                            double buttonFontSize = isMobile
+                                ? 8
+                                : isTablet
+                                    ? 16
+                                    : 16; // 화면 크기에 따른 글씨 크기 설정
 
-                      ),
-                      SizedBox(width: isMobile? MediaQuery.of(context).size.width * 0.05: isTablet? MediaQuery.of(context).size.width * 0.3:MediaQuery.of(context).size.width * 0.6,),
+                            double buttonSpacing = isMobile
+                                ? 2
+                                : isTablet
+                                    ? 8
+                                    : 1; // 화면 크기에 따른 버튼 간격 설정
 
-                      Expanded(
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: LayoutBuilder(
-                            builder: (context, constraints) {
-                              // 화면이 작아질수록 버튼 간격과 글씨 크기를 줄이기
-                              double buttonFontSize = isMobile
-                                  ? 8
-                                  : isTablet
-                                  ? 16
-                                  : 16; // 화면 크기에 따른 글씨 크기 설정
-
-                              double buttonSpacing = isMobile
-                                  ? 2
-                                  :isTablet
-                              ? 8
-                                  : 16; // 화면 크기에 따른 버튼 간격 설정
-
-                              return Wrap(
-                                spacing: buttonSpacing,
-                                alignment: WrapAlignment.end, // 버튼들을 오른쪽 정렬
-                                children: [
-                                  _buildTextButton("HOME", 0, isMobile, buttonFontSize),
-                                  _buildTextButton("COMPANY", 1, isMobile, buttonFontSize),
-                                  _buildTextButton("PRODUCTS", 2, isMobile, buttonFontSize),
-                                  _buildTextButton("CONTACT US", 3, isMobile, buttonFontSize),
-                                  _buildTextButton("DOWNLOADS", 4, isMobile, buttonFontSize),
-                                ],
-                              );
-                            },
-                          ),
+                            return Wrap(
+                              spacing: buttonSpacing,
+                              alignment: WrapAlignment.end, // 버튼들을 오른쪽 정렬
+                              children: [
+                                _buildTextButton(
+                                    "HOME", 0, isMobile, buttonFontSize),
+                                _buildTextButton(
+                                    "COMPANY", 1, isMobile, buttonFontSize),
+                                _buildTextButton(
+                                    "PRODUCTS", 2, isMobile, buttonFontSize),
+                                _buildTextButton(
+                                    "CONTACT US", 3, isMobile, buttonFontSize),
+                                _buildTextButton(
+                                    "DOWNLOADS", 4, isMobile, buttonFontSize),
+                              ],
+                            );
+                          },
                         ),
                       ),
-                    ],
-                  );
-                },
-              ),
+                    ),
+                  ],
+                );
+              },
             ),
-            body: _pages[_selectedIndex], // 선택한 화면을 body에 보여줌
-          );
-        })
-
-      ),
+          ),
+          body: _pages[_selectedIndex], // 선택한 화면을 body에 보여줌
+        );
+      })),
     );
   }
-
 }
-
-

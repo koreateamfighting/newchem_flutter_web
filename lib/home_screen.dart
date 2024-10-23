@@ -157,76 +157,7 @@ class _HomePageState extends State<HomePage> {
       });
     });
 
-    imageSliders = slideImages
-        .map((item) => Container(
-              child: Container(
-                margin: EdgeInsets.all(5.0),
-                child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                    child: Stack(
-                      children: <Widget>[
-                        Column(
-                          children: [
-                            Container(
-                              child: Image.asset(
-                                item['logo']!,
-                                fit: BoxFit.fill,
-                                height: 40,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: (){
-                                widget.onProductNavigate(int.parse(item['route']!));
-                              }
 
-                              ,
-                              child:
-                              Container(
-                                color: Colors.white,
-                                child: Image.network(
-                                  item['image']!,
-                                  fit: BoxFit.contain,
-                                  width: 400.0,
-                                  height: 400,
-                                ),
-                              ),
-                            )
-
-                          ],
-                        ),
-                        Positioned(
-                          bottom: 0.0,
-                          left: 0.0,
-                          right: 0.0,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromARGB(200, 0, 0, 0),
-                                  Color.fromARGB(0, 0, 0, 0)
-                                ],
-                                begin: Alignment.bottomCenter,
-                                end: Alignment.topCenter,
-                              ),
-                            ),
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 20.0),
-                            child: Text(
-                              '${item['name']}', // 파일 이름을 출력
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
-              ),
-            ))
-        .toList();
   }
 
   @override
@@ -242,12 +173,81 @@ class _HomePageState extends State<HomePage> {
     _iFrameElement.src = '${url}';
     _iFrameElement.style.border = 'none';
 
+    imageSliders = slideImages
+        .map((item) => Container(
+      child: Container(
+        margin: EdgeInsets.all(5.0),
+        child: ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            child: Stack(
+              children: <Widget>[
+                Column(
+                  children: [
+                    Container(
+                      child: Image.asset(
+                        item['logo']!,
+                        fit: BoxFit.fill,
+                        height: 40,
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    GestureDetector(
+                      onTap: () {
+                        widget.onProductNavigate(
+                            int.parse(item['route']!));
+                      },
+                      child: Container(
+                        color: Colors.white,
+                        child: Image.asset(
+                          item['image']!,
+                          fit: BoxFit.contain,
+                          width: MediaQuery.of(context).size.width *   0.140,
+                          height: MediaQuery.of(context).size.height * 0.25,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Positioned(
+                  bottom: 0.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color.fromARGB(200, 0, 0, 0),
+                          Color.fromARGB(0, 0, 0, 0)
+                        ],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                      ),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 20.0),
+                    child: Text(
+                      '${item['name']}', // 파일 이름을 출력
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )),
+      ),
+    ))
+        .toList();
+
 // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
       'iframeElement',
       (int viewId) => _iFrameElement,
     );
-
+//내 컴퓨터 환경 2560 * 1440
     return MaterialApp(
       home: LayoutBuilder(builder: (context, constraints) {
         // width와 height 모두를 고려한 반응형 조건 설정
@@ -288,9 +288,11 @@ class _HomePageState extends State<HomePage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Spacer(),
+                                SizedBox(
+                                  height: height * 0.15,
+                                ),
                                 Transform.translate(
-                                  offset: Offset(120, 0),
+                                  offset: Offset(width * 0.0468, 0),
                                   child: Image.asset(
                                     'assets/logo-white.png',
                                     width: isMobile ? 120 : 400,
@@ -302,7 +304,7 @@ class _HomePageState extends State<HomePage> {
                      안녕하세요, (주)뉴켐을 소개합니다.
                                   """,
                                   style: TextStyle(
-                                    fontSize: isMobile ? 10 : 40,
+                                    fontSize: isMobile ? 10 : width * 0.015,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -310,9 +312,9 @@ class _HomePageState extends State<HomePage> {
                                 SizedBox(height: height * 0.0300),
                                 Container(
                                   color: Color.fromRGBO(0, 0, 0, 0.2),
-                                  width: isMobile
-                                      ? width * 0.3200
-                                      : width * 0.4000,
+                                  // width: isMobile
+                                  //     ? width * 0.3200
+                                  //     : width * 0.4000,
                                   child: Text(
                                     """
                                     뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지, 
@@ -323,18 +325,17 @@ class _HomePageState extends State<HomePage> {
                                     저희 뉴켐은 언제나 고객과 함께 하겠습니다.
                                     """,
                                     style: TextStyle(
-                                      fontSize: isMobile ? 10 : 24,
+                                      fontSize: isMobile ? 10 : width * 0.009,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,
                                       height: 2.5,
                                     ),
                                   ),
                                 ),
-                                Spacer(),
                               ],
                             ),
                             SizedBox(
-                              width: 150,
+                              width: width * 0.040,
                             ),
                             VerticalDivider(
                               indent: 100,
@@ -342,24 +343,31 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.grey,
                             ),
                             SizedBox(
-                              width: 250,
-                            ),Column(
-
+                              width: width * 0.1,
+                            ),
+                            Column(
                               children: [
-                                Spacer(),
+                                SizedBox(height: height*0.1388,),
                                 Container(
                                   color: Colors.indigoAccent,
-                                  child: Text("대표 제품",style: TextStyle(color: Colors.white,fontSize: 32),),
+                                  child: Text(
+                                    "대표 제품",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 32),
+                                  ),
                                 ),
-
-                                SizedBox(height: 50,),
+                                SizedBox(
+                                  height: height * 0.0694,
+                                ),
                                 Container(
                                   width: isMobile ? width * 0.4 : width * 0.3,
-                                  height: isMobile ? width * 0.28 : height * 0.4,
+                                  height:
+                                      isMobile ? width * 0.28 : height * 0.4,
                                   color: Colors.white.withOpacity(0.1),
-                                  child:
-                                  Column(children: [
-                                    Expanded(
+                                  child: Column(children: [
+                                    SizedBox(height: 40,),
+                                    Container(
+                                      height: height * 0.3300,
                                       child: CarouselSlider(
                                         items: imageSliders,
                                         carouselController: _controller,
@@ -375,12 +383,16 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children:
-                                      slideImages.asMap().entries.map((entry) {
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: slideImages
+                                          .asMap()
+                                          .entries
+                                          .map((entry) {
                                         return GestureDetector(
                                           onTap: () {
-                                            _controller.animateToPage(entry.key);
+                                            _controller
+                                                .animateToPage(entry.key);
                                           },
                                           child: Container(
                                             width: 12.0,
@@ -389,15 +401,15 @@ class _HomePageState extends State<HomePage> {
                                                 vertical: 8.0, horizontal: 4.0),
                                             decoration: BoxDecoration(
                                                 shape: BoxShape.circle,
-                                                color:
-                                                (Theme.of(context).brightness ==
-                                                    Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.blue)
+                                                color: (Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.blue)
                                                     .withOpacity(
-                                                    _current == entry.key
-                                                        ? 0.9
-                                                        : 0.4)),
+                                                        _current == entry.key
+                                                            ? 0.9
+                                                            : 0.4)),
                                           ),
                                         );
                                       }).toList(),
@@ -407,7 +419,6 @@ class _HomePageState extends State<HomePage> {
                                 Spacer(),
                               ],
                             ),
-
                             Spacer(),
                           ],
                         ),
@@ -462,11 +473,14 @@ class _HomePageState extends State<HomePage> {
                                           return TableRow(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.all(8.0),
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
                                                 child: GestureDetector(
                                                   onTap: () async {
-                                                    final Uri uri = Uri.parse(item["link"]!);
-                                                    if (await canLaunchUrl(uri)) {
+                                                    final Uri uri = Uri.parse(
+                                                        item["link"]!);
+                                                    if (await canLaunchUrl(
+                                                        uri)) {
                                                       await launchUrl(uri);
                                                     } else {
                                                       throw 'Could not launch ${item["link"]}';
@@ -476,9 +490,13 @@ class _HomePageState extends State<HomePage> {
                                                     item["title"]!,
                                                     style: TextStyle(
                                                       color: Colors.blue,
-                                                      decoration: TextDecoration.underline, // 파란색 언더라인
-                                                      decorationColor: Colors.blue,
-                                                      fontSize: isMobile ? 8 : 24,
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                      // 파란색 언더라인
+                                                      decorationColor:
+                                                          Colors.blue,
+                                                      fontSize:
+                                                          isMobile ? 8 : 24,
                                                     ),
                                                   ),
                                                 ),
@@ -611,7 +629,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Container(
-                          height: isMobile ? height * 0.1500 : height * 0.2000,
+                          height: isMobile ? height * 0.1500 : height * 0.2200,
                           color: Colors.black,
                           padding: EdgeInsets.symmetric(
                               vertical: isMobile ? 0 : 20, horizontal: 20),
