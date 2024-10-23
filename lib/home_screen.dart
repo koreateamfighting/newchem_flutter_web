@@ -80,32 +80,38 @@ class _HomePageState extends State<HomePage> {
     {
       'image': 'assets/products/Hei-VAP_Series.png',
       'name': 'Hei-VAP_Series',
-      'logo': 'assets/heidolph_logo.png'
+      'logo': 'assets/heidolph_logo.png',
+      'route': '0'
     },
     {
       'image': 'assets/products/Magnetic_stirrer.png',
       'name': 'Magnetic_stirrer',
-      'logo': 'assets/heidolph_logo.png'
+      'logo': 'assets/heidolph_logo.png',
+      'route': '0'
     },
     {
       'image': 'assets/products/Overhead_stirrer.png',
       'name': 'Overhead_stirrer',
-      'logo': 'assets/heidolph_logo.png'
+      'logo': 'assets/heidolph_logo.png',
+      'route': '0'
     },
     {
       'image': 'assets/products/Lab_Fast_Pro.png',
       'name': 'Lab_Fast_Pro',
-      'logo': 'assets/normag_logo.png'
+      'logo': 'assets/normag_logo.png',
+      'route': '1'
     },
     {
       'image': 'assets/products/Pilot_compact_reactor.png',
       'name': 'Pilot_compact_reactor',
-      'logo': 'assets/normag_logo.png'
+      'logo': 'assets/normag_logo.png',
+      'route': '1'
     },
     {
       'image': 'assets/products/Cinc_Industry_Product.png',
       'name': 'Cinc_Industry_Product',
-      'logo': 'assets/CINCIndustry.png'
+      'logo': 'assets/CINCIndustry.png',
+      'route': '2'
     },
   ];
 
@@ -168,15 +174,24 @@ class _HomePageState extends State<HomePage> {
                                 height: 40,
                               ),
                             ),
-                            Container(
-                              color: Colors.white,
-                              child: Image.network(
-                                item['image']!,
-                                fit: BoxFit.contain,
-                                width: 400.0,
-                                height: 400,
+                            GestureDetector(
+                              onTap: (){
+                                widget.onProductNavigate(int.parse(item['route']!));
+                              }
+
+                              ,
+                              child:
+                              Container(
+                                color: Colors.white,
+                                child: Image.network(
+                                  item['image']!,
+                                  fit: BoxFit.contain,
+                                  width: 400.0,
+                                  height: 400,
+                                ),
                               ),
-                            ),
+                            )
+
                           ],
                         ),
                         Positioned(
@@ -364,7 +379,9 @@ class _HomePageState extends State<HomePage> {
                                       children:
                                       slideImages.asMap().entries.map((entry) {
                                         return GestureDetector(
-                                          onTap: () {},
+                                          onTap: () {
+                                            _controller.animateToPage(entry.key);
+                                          },
                                           child: Container(
                                             width: 12.0,
                                             height: 12.0,
