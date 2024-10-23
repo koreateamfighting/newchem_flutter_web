@@ -164,7 +164,7 @@ class _MyAppState extends State<MyApp> {
           final isDesktop = width >= 1024 && height >= 1200;
 
           return  Scaffold(
-            backgroundColor:  Color(0xffd4e2f5),
+            backgroundColor:  Colors.black,
             appBar: AppBar(
               backgroundColor: Color(0xffd4e2f5).withOpacity(0.9), // 살짝 투명도를 추가
               elevation: 0,  // 그림자 제거

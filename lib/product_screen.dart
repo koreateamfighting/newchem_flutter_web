@@ -170,16 +170,17 @@ class _ProductScreenState extends State<ProductScreen>
                   Container(
                     width: isMobile ? width * 0.90 : width * 0.4,
                     height: isMobile ? 35 : 50,
-                    color: Color(0xff28225b), // TabBar 배경색 설정
+                    // color:  Color(0xffd4e2f5).withOpacity(0.9),
+                    color : Colors.indigoAccent.shade100,
                     child: Center(
                       child: TabBar(
                         controller: _mainTabController,
                         // TabController 설정
-                        labelColor: Colors.blue,
+                        labelColor: Colors.black,
                         // 선택된 탭의 텍스트 색상
                         unselectedLabelColor: Colors.white,
                         // 선택되지 않은 탭의 텍스트 색상
-                        indicatorColor: Colors.blue,
+                        indicatorColor:Colors.black,
                         // 탭 선택 시 밑줄 색상
 
                         tabs: [
@@ -277,9 +278,9 @@ class _ProductScreenState extends State<ProductScreen>
                 isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
             child: TabBar(
               controller: _heidolphTabController,
-              labelColor: Colors.blue,
+              labelColor: Colors.indigoAccent.shade100,
               unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.blue,
+              indicatorColor: Colors.indigoAccent.shade100,
               // 탭 간격을 중앙에서 일정하게 하기 위해 Alignment 조정
               tabs: [
                 Padding(
@@ -657,9 +658,9 @@ Advantages
                 isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
             child: TabBar(
               controller: _heidolphTabController,
-              labelColor: Colors.blue,
+              labelColor: Colors.indigoAccent.shade100,
               unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.blue,
+              indicatorColor: Colors.indigoAccent.shade100,
               // 탭 간격을 중앙에서 일정하게 하기 위해 Alignment 조정
               tabs: [
                 Padding(
@@ -755,7 +756,7 @@ Advantages
                           ),
                           Text(
                             "CINC Industry 소개",
-                            style: TextStyle(fontSize: 30),
+                            style: TextStyle(fontSize: 32, color : Colors.indigoAccent),
                           ),
                           SizedBox(
                             height: 70,
@@ -790,6 +791,8 @@ Advantages
                         width: 48,
                       ),
                       Container(
+                        width: isMobile ? 450 : 700,
+                        height: isMobile ? 450 : 700,
                         decoration: BoxDecoration(
                             color: Colors.white, // 배경 색상
                             border: Border.all(
@@ -802,8 +805,8 @@ Advantages
                             )),
                         child: Image.asset(
                           "assets/how_to_work.png",
-                          width: isMobile ? 220 : 600,
-                          height: isMobile ? 400 : 600,
+                          width: isMobile ? 220 : 700,
+                          height: isMobile ? 400 : 700,
                         ),
                       ),
                       SizedBox(
@@ -820,7 +823,7 @@ Advantages
                           ),
                           Text(
                             "How to Work",
-                            style: TextStyle(fontSize: 30),
+                            style: TextStyle(fontSize: 32,color:Colors.indigoAccent),
                           ),
                           SizedBox(
                             height: 20,
@@ -856,42 +859,141 @@ Advantages
                   )),
                 ),
                 Container(
+                  width: 400,
+                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                   child: Center(
-                      child: Column(
-                    children: [
-                      SizedBox(
-                        height: 80,
-                      ),
-                      Text(
-                        """
--  분당 0.5~200 gallons (1.9~757L)의 유량 처리 가능
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center, // Column 내부의 요소들을 중앙에 배치
+                      crossAxisAlignment: CrossAxisAlignment.start, // 가로 방향으로도 중앙에 배치
+                      children: [
+                       Center(
+                         child: Text(
+                           "CINC Industry 특징",
+                           style: TextStyle(
+                             fontSize: 48,
+                             fontWeight: FontWeight.bold,
+                             color: Colors.indigoAccent,
+                           ),
+                           textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                         ),
+                       ),
+                        SizedBox(height: 80),
 
-- 용매, 세척제 등을 투입할 수 있는 �개의 입구 설계
+                      Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.speed, color: Colors.blueAccent),
+                              SizedBox(width: 8,),
+                              Text(
+                                "분당 0.5~200 gallons (1.9~757L)의 유량 처리 가능",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                              ),
+                            ],
 
-- 200~1,000g의 원심력만으로도 효율적인 분리 및 추출
+                          ),
 
-- 전단에 민감한 유체를 위한 저혼합 및 직접 투입 옵션 제공
+                        Divider(indent: 900,endIndent: 900,),
+                         Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.tune, color: Colors.blueAccent),
+                              SizedBox(width: 8,),
+                              Text(
+                                "200~1,000g의 원심력만으로도 효율적인 분리 및 추출",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                              ),
+                            ],
 
-- 중량 차이를 처리할 수 있는 조절 가능한 중상위어와 가변 속도 모터, 펌프식 및 중력식 모두 대응
+                          ),
 
-- 투입 비율의 변화에 자동으로 적응, 별도의 조정 불필요
 
-- 다양한 유량과 유량 중단을 자동으로 제어
+                        Divider(indent: 900,endIndent: 900,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.local_drink, color: Colors.blueAccent),
+                              SizedBox(width: 8,),
+                              Text(
+                                "전단에 민감한 유체를 위한 저혼합 및 직접 투입 옵션 제공",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                              ),
+                            ],
 
-- 냉동 온도부터 끓는 온도까지 다양한 투입 온도 처리 가능
+                          ),
 
-- 내구성 높은 스테인리스 스틸 구조, 부식 방지 합금도 선택 가능
 
-- 유지보수가 적고 신뢰성이 높은 제자리 세척(CIP) 로터 시스템
+                        Divider(indent: 900,endIndent: 900,),
+                     Row( mainAxisAlignment: MainAxisAlignment.center,
 
-- 하나의 움직이는 부품만 있는 간단한 직접 구동 방식으로 안정성 강화
+                            children: [
+                              Icon(Icons.adjust, color: Colors.blueAccent),
+                              SizedBox(width: 8,),
+                              Text(
+                                "중량 차이를 처리할 수 있는 조절 가능한 중상위어와 가변 속도 모터",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                              ),
+                            ],
 
-- 조용한 작동과 유연한 구성을 위한 직접 구동 패키지""",
-                        style: TextStyle(fontSize: 18),
-                      )
-                    ],
-                  )),
+                          ),
+
+
+                        Divider(indent: 900,endIndent: 900,),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.thermostat, color: Colors.blueAccent),
+                              SizedBox(width: 8,),
+                              Text(
+                                "냉동 온도부터 끓는 온도까지 다양한 투입 온도 처리 가능",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                              ),
+                            ],
+
+                          ),
+
+
+                        Divider(indent: 900,endIndent: 900,),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.build, color: Colors.blueAccent),
+                              SizedBox(width: 8,),
+                              Text(
+                                "내구성 높은 스테인리스 스틸 구조, 부식 방지 합금도 선택 가능",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                              ),
+                            ],
+
+                          ),
+
+
+                        Divider(indent: 900,endIndent: 900,),
+                       Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.cleaning_services, color: Colors.blueAccent),
+                              SizedBox(width: 8,),
+                              Text(
+                                "유지보수가 적고 신뢰성이 높은 제자리 세척(CIP) 로터 시스템",
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                              ),
+                            ],
+
+                          ),
+
+
+                      ],
+                    ),
+                  ),
                 ),
+
                 Container(
                   child: Center(
                       child: Column(
@@ -1260,87 +1362,100 @@ Advantages
   Future<void> _dialogBuilder(
       BuildContext context, String name, String image, String content) {
     return showDialog<void>(
-        context: context,
-        builder: (BuildContext context) {
-          return LayoutBuilder(
-            builder: (context, constraints) {
-              final size = MediaQuery.of(context).size;
-              final width = size.width;
-              final height = size.height;
-              // width와 height 모두를 고려한 반응형 조건 설정
-              final isMobile = width < 600 && height < 800;
-              final isTablet = width >= 600 && width < 1024 && height < 1200;
-              final isDesktop = width >= 1024 && height >= 1200;
-              return AlertDialog(
-                backgroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                content: Container(
-                  height: isMobile ? 500 : 850,
-                  width: width * 0.35,
-                  child: Column(children: [
+      context: context,
+      builder: (BuildContext context) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            final size = MediaQuery.of(context).size;
+            final width = size.width;
+            final height = size.height;
+
+            // 반응형 설정
+            final isMobile = width < 600;
+            final isTablet = width >= 600 && width < 1024;
+            final isDesktop = width >= 1024;
+
+            return AlertDialog(
+              backgroundColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16), // 모서리 둥글게
+              ),
+              content: Container(
+                height: isMobile ? 400 : 600,
+                width: isMobile ? width * 0.8 : width * 0.4,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // 상단 이름과 닫기 버튼
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Spacer(),
-                        Transform.translate(
-                          offset: isMobile ? Offset(10, 0) : Offset(0, 0),
-                          child: Container(
-                            alignment: Alignment.center,
-                            color: Colors.black,
-                            child: Text(
-                              '${name}',
-                              style: TextStyle(
-                                  fontSize: isMobile ? 14 : 36,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                  letterSpacing: isMobile ? 0 : 4),
-                            ),
+                        Text(
+                          name,
+                          style: TextStyle(
+                            fontSize: isMobile ? 16 : 24,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Spacer(),
-                        Transform.translate(
-                            offset: isMobile ? Offset(15, 0) : Offset(0, 0),
-                            child: IconButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                icon: Icon(Icons.close))),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: Icon(Icons.close),
+                        ),
                       ],
                     ),
-                    Spacer(),
+                    SizedBox(height: 16),
+                    // 이미지 섹션
                     Container(
                       padding: EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                          color: Colors.white, // 배경 색상
-                          border: Border.all(
-                            color: Colors.blueAccent, // 테두리 색상
-                            width: 1.0, // 테두리 두께
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16), // 둥근 모서리
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
                           ),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                            bottomRight: Radius.circular(10),
-                            bottomLeft: Radius.circular(10),
-                          )),
+                        ],
+                      ),
                       child: Image.asset(
                         image,
                         fit: BoxFit.contain,
-                        height: isMobile ? 150 : 300,
-                        width: isMobile ? 150 : 300,
+                        height: isMobile ? 150 : 250,
+                        width: isMobile ? 150 : 250,
                       ),
                     ),
-                    Spacer(),
-                    Text(
-                      '${content}',
-                      style: TextStyle(
-                          fontSize: isMobile ? 8 : 16,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black),
+                    SizedBox(height: 16),
+                    // 내용 섹션
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text(
+                            content,
+                            style: TextStyle(
+                              fontSize: isMobile ? 12 : 16,
+                              height: 1.5, // 줄 간격 추가
+                              color: Colors.black87,
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                      ),
                     ),
-                  ]),
+                    SizedBox(height: 16),
+                    // 하단 버튼 (필요하다면 추가 가능)
+                  ],
                 ),
-              );
-            },
-          );
-        });
+              ),
+            );
+          },
+        );
+      },
+    );
   }
+
 }

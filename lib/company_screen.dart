@@ -67,7 +67,7 @@ class _CompanyPageState extends State<CompanyPage> {
                   // 높이를 반응형으로 조정
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/main-background3.png'),
+                      image: AssetImage('assets/main-background7.png'),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -281,7 +281,8 @@ class _CompanyPageState extends State<CompanyPage> {
       final isTablet = width >= 600 && width < 1024 && height < 1200;
       final isDesktop = width >= 1024 && height >= 1200;
       return Container(
-        color: Color(0xff28225b), // TabBar 배경색 설정
+        // color:  Color(0xffd4e2f5).withOpacity(0.9),// TabBar 배경색 설정
+        color:Colors.indigoAccent.shade100,
         width: isMobile? width * 0.20:width * 0.08,
         height: 50,
         padding: EdgeInsets.zero,
@@ -298,14 +299,14 @@ class _CompanyPageState extends State<CompanyPage> {
                 fontSize: 18,
                 fontWeight: _selectedTabIndex == index
                     ? FontWeight.bold
-                    : FontWeight.normal,
+                    : FontWeight.bold,
                 color:
-                _selectedTabIndex == index ? Colors.blueAccent : Colors.white,
+                _selectedTabIndex == index ? Colors.black : Colors.white,
                 decoration: _selectedTabIndex == index
                     ? TextDecoration.underline
                     : TextDecoration.none,
                 // 언더라인 추가
-                decorationColor: Colors.blueAccent),
+                decorationColor: Colors.black),
           ),
         ),
       );
@@ -404,10 +405,10 @@ class _CompanyPageState extends State<CompanyPage> {
                     color: Colors.grey,
                   ),
                   SizedBox(height: 40),
-                  _buildHistoryItem("2024년 4월", "설립"),
-                  _buildHistoryItem("2024년 5월", "Heidolph Korea 대전지역 독점대리점 계약"),
-                  _buildHistoryItem("2024년 6월", "독일 NORMAG 파트너쉽 체결"),
-                  _buildHistoryItem("2024년 8월", "미국 CINC사 파트너쉽 체결"),
+                  _buildHistoryItem("● 2024년 4월", "설립"),
+                  _buildHistoryItem("● 2024년 5월", "Heidolph Korea 대전지역 독점대리점 계약"),
+                  _buildHistoryItem("● 2024년 6월", "독일 NORMAG 파트너쉽 체결"),
+                  _buildHistoryItem("● 2024년 8월", "미국 CINC사 파트너쉽 체결"),
                   SizedBox(
                     height: isMobile? height * 0.17:height * 0.3,
                   ),

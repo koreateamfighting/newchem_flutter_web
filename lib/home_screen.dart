@@ -23,6 +23,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentImageIndex = 0;
+  final CarouselSliderController _controller = CarouselSliderController();
   final List<String> _backgroundImages = [
     'assets/main-background2.png',
     'assets/main-background4.png',
@@ -75,11 +76,37 @@ class _HomePageState extends State<HomePage> {
     },
   ];
 
-  final List<String> slideImages = [
-    'assets/sample1.png',
-    'assets/sample2.png',
-    'assets/sample3.png',
-    'assets/sample4.png',
+  final List<Map<String, String>> slideImages = [
+    {
+      'image': 'assets/products/Hei-VAP_Series.png',
+      'name': 'Hei-VAP_Series',
+      'logo': 'assets/heidolph_logo.png'
+    },
+    {
+      'image': 'assets/products/Magnetic_stirrer.png',
+      'name': 'Magnetic_stirrer',
+      'logo': 'assets/heidolph_logo.png'
+    },
+    {
+      'image': 'assets/products/Overhead_stirrer.png',
+      'name': 'Overhead_stirrer',
+      'logo': 'assets/heidolph_logo.png'
+    },
+    {
+      'image': 'assets/products/Lab_Fast_Pro.png',
+      'name': 'Lab_Fast_Pro',
+      'logo': 'assets/normag_logo.png'
+    },
+    {
+      'image': 'assets/products/Pilot_compact_reactor.png',
+      'name': 'Pilot_compact_reactor',
+      'logo': 'assets/normag_logo.png'
+    },
+    {
+      'image': 'assets/products/Cinc_Industry_Product.png',
+      'name': 'Cinc_Industry_Product',
+      'logo': 'assets/CINCIndustry.png'
+    },
   ];
 
   final List<Map<String, String>> downloadData = [
@@ -111,6 +138,8 @@ class _HomePageState extends State<HomePage> {
   String? _selectedName;
   String? _selectedImage;
   String? _selectedContent;
+  int _current = 0;
+  late List<Widget> imageSliders;
 
   void initState() {
     super.initState();
@@ -121,6 +150,68 @@ class _HomePageState extends State<HomePage> {
             (_currentImageIndex + 1) % _backgroundImages.length;
       });
     });
+
+    imageSliders = slideImages
+        .map((item) => Container(
+              child: Container(
+                margin: EdgeInsets.all(5.0),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                    child: Stack(
+                      children: <Widget>[
+                        Column(
+                          children: [
+                            Container(
+                              child: Image.asset(
+                                item['logo']!,
+                                fit: BoxFit.fill,
+                                height: 40,
+                              ),
+                            ),
+                            Container(
+                              color: Colors.white,
+                              child: Image.network(
+                                item['image']!,
+                                fit: BoxFit.contain,
+                                width: 400.0,
+                                height: 400,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Positioned(
+                          bottom: 0.0,
+                          left: 0.0,
+                          right: 0.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(200, 0, 0, 0),
+                                  Color.fromARGB(0, 0, 0, 0)
+                                ],
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                              ),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 20.0),
+                            child: Text(
+                              '${item['name']}', // 파일 이름을 출력
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+              ),
+            ))
+        .toList();
   }
 
   @override
@@ -156,139 +247,16 @@ class _HomePageState extends State<HomePage> {
               // Column 전체를 SingleChildScrollView로 감싸서 스크롤 가능하게 만듦
               children: [
                 // Main section
-                Container(
-                    width: width,
-                    height: isMobile ? height * 0.2000 : height * 0.3369,
-                    child: Stack(
-                      children: [
-                        AnimatedSwitcher(
-                          duration: Duration(seconds: 8),
-                          child: Image.asset(
-                            _backgroundImages[_currentImageIndex],
-                            key: ValueKey<String>(
-                                _backgroundImages[_currentImageIndex]),
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Spacer(),
-                            // Image.asset(
-                            //   'assets/logo-white.png',
-                            //   width: isMobile ? width * 0.3000 : width * 0.1564,
-                            //   height:
-                            //       isMobile ? height * 0.1500 : height * 0.1000,
-                            // ),
-                            Text(
-                              "Welcome To New-Chem Home Page.",
-                              style: TextStyle(color: Colors.white, fontSize : isMobile?18:48,fontFamily: 'Pretendard',fontStyle: FontStyle.italic),
-                            ),
-                            Spacer(),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    widget.onProductNavigate(
-                                        0); // Heidolph 탭으로 이동
-                                  },
-                                  child: buildBrandButton(
-                                    "Heidolph",
-                                    "assets/heidolph_logo.png",
-                                    isMobile ? width * 0.1200 : width * 0.1200,
-                                    isMobile
-                                        ? height * 0.0400
-                                        : height * 0.0400,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    widget
-                                        .onProductNavigate(1); // NORMAG 탭으로 이동
-                                  },
-                                  child: buildBrandButton(
-                                    "NORMAG",
-                                    "assets/normag_logo.png",
-                                    width * 0.1200,
-                                    height * 0.0400,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    widget.onProductNavigate(
-                                        2); // CINC Industry 탭으로 이동
-                                  },
-                                  child: buildBrandButton(
-                                    "CINC Industry",
-                                    "assets/CINCIndustry.png",
-                                    width * 0.1200,
-                                    height * 0.0400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                          ],
-                        ),
-                      ],
-                    )),
+
                 // Product section
                 Container(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(0),
                   color: Color(0xfff3f3f3),
                   child: Column(
                     children: [
-                      SizedBox(height: isMobile ? height * 0.0200 : 30),
-                      Text("PRODUCT",
-                          style: TextStyle(
-                              fontSize: isMobile ? 8 : 15,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        height: isMobile ? 7 : 12,
-                      ),
-                      Text("대표 제품",
-                          style: TextStyle(
-                              fontSize: isMobile ? 16 : 35,
-                              color: Colors.black)),
-                      SizedBox(height: isMobile ? 8 : height * 0.0347),
-                      Container(
-                        width: isMobile ? width * 0.9 : width * 0.6,
-                        height: isMobile ? 1000 : 1296,
-                        child: GridView.builder(
-                          shrinkWrap: true,
-                          // GridView가 스크롤되도록 설정
-                          physics: NeverScrollableScrollPhysics(),
-                          // GridView 자체는 스크롤되지 않게 함
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: width > 572 ? 3 : 2,
-                            // 화면 크기에 따라 2개 또는 3개로 설정
-                            crossAxisSpacing: isMobile ? 36 : 4,
-                            // 좌우 간격을 줄임
-                            mainAxisSpacing: isMobile ? 100 : 0,
-                            // 상하 간격을 줄임
-                            childAspectRatio: 1.2, // 가로세로 비율을 줄여서 세로로 더 길어지게 설정
-                          ),
-                          itemCount: productData.length,
-                          // 데이터 길이에 따라 자동 생성
-                          itemBuilder: (context, index) {
-                            return buildProductCard(
-                                productData[index]['title']!,
-                                productData[index]['image']!,
-                                productData[index]['content']!,
-                                context,
-                                isMobile ? width * 0.7000 : width * 0.1200,
-                                isMobile ? height * 0.1500 : height * 0.2000);
-                          },
-                        ),
-                      ),
                       Container(
                         width: double.infinity,
-                        height: height * 0.2777,
+                        height: height * 0.7800,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('assets/main-background3.png'),
@@ -296,82 +264,139 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             // 왼쪽 텍스트
-                            Spacer(),
+                            SizedBox(
+                              width: 150,
+                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Spacer(),
                                 Transform.translate(
-                                  offset: Offset(-15, 0),
-                                  child: Image.asset('assets/logo-white.png',
-                                      width: isMobile ? 120 : 200),
+                                  offset: Offset(120, 0),
+                                  child: Image.asset(
+                                    'assets/logo-white.png',
+                                    width: isMobile ? 120 : 400,
+                                  ),
                                 ),
                                 SizedBox(height: isMobile ? 2 : 10),
                                 Text(
-                                  "안녕하세요, (주)뉴켐을 소개합니다.",
+                                  """
+                     안녕하세요, (주)뉴켐을 소개합니다.
+                                  """,
                                   style: TextStyle(
-                                    fontSize: isMobile ? 10 : 24,
+                                    fontSize: isMobile ? 10 : 40,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: height * 0.0138),
+                                SizedBox(height: height * 0.0300),
                                 Container(
+                                  color: Color.fromRGBO(0, 0, 0, 0.2),
                                   width: isMobile
                                       ? width * 0.3200
-                                      : width * 0.1564,
+                                      : width * 0.4000,
                                   child: Text(
-                                    "뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지, "
-                                    "합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n\n"
-                                    "지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며 "
-                                    "고객이 신뢰할 수 있는 회사로 자리매김해 왔습니다. 앞으로도 지속적인 성원 부탁드립니다. "
-                                    "저희 뉴켐은 언제나 고객과 함께 하겠습니다.",
+                                    """
+                                    뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지, 
+                                    합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.
+                                    지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,
+                                    고객이 신뢰할 수 있는 회사로 자리매김해 왔습니다.
+                                    앞으로도 지속적인 성원 부탁드립니다. 
+                                    저희 뉴켐은 언제나 고객과 함께 하겠습니다.
+                                    """,
                                     style: TextStyle(
-                                      fontSize: isMobile ? 8 : 16,
+                                      fontSize: isMobile ? 10 : 24,
                                       color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                      height: 2.5,
                                     ),
                                   ),
                                 ),
                                 Spacer(),
                               ],
                             ),
-                            Spacer(),
-                            Container(
-                              width: isMobile ? width * 0.4 : width * 0.2,
-                              height: isMobile ? width * 0.28 : height * 0.3,
-                              color: Colors.white.withOpacity(0.2),
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: CarouselSlider.builder(
-                                    itemCount:
-                                        slideImages.length, // 슬라이드 이미지 개수
-                                    itemBuilder: (context, index, realIndex) {
-                                      return Container(
-                                        child: Image.asset(
-                                          slideImages[index], // 각 슬라이드 이미지
-                                          fit: BoxFit.fill,
-                                        ),
-                                      );
-                                    },
-                                    options: CarouselOptions(
-                                      autoPlay: true, // 자동 슬라이드
-                                      enlargeCenterPage: true, // 중앙 슬라이드 확대
-                                      aspectRatio: 2.0, // 슬라이드 비율 조정
-                                      viewportFraction: 1.0, // 슬라이드 크기 조정
-                                    ),
-                                  ),
-                                ),
-                              ),
+                            SizedBox(
+                              width: 150,
                             ),
+                            VerticalDivider(
+                              indent: 100,
+                              endIndent: 120,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(
+                              width: 250,
+                            ),Column(
+
+                              children: [
+                                Spacer(),
+                                Container(
+                                  color: Colors.indigoAccent,
+                                  child: Text("대표 제품",style: TextStyle(color: Colors.white,fontSize: 32),),
+                                ),
+
+                                SizedBox(height: 50,),
+                                Container(
+                                  width: isMobile ? width * 0.4 : width * 0.3,
+                                  height: isMobile ? width * 0.28 : height * 0.4,
+                                  color: Colors.white.withOpacity(0.1),
+                                  child:
+                                  Column(children: [
+                                    Expanded(
+                                      child: CarouselSlider(
+                                        items: imageSliders,
+                                        carouselController: _controller,
+                                        options: CarouselOptions(
+                                            autoPlay: true,
+                                            enlargeCenterPage: true,
+                                            aspectRatio: 2.0,
+                                            onPageChanged: (index, reason) {
+                                              setState(() {
+                                                _current = index;
+                                              });
+                                            }),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children:
+                                      slideImages.asMap().entries.map((entry) {
+                                        return GestureDetector(
+                                          onTap: () {},
+                                          child: Container(
+                                            width: 12.0,
+                                            height: 12.0,
+                                            margin: EdgeInsets.symmetric(
+                                                vertical: 8.0, horizontal: 4.0),
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color:
+                                                (Theme.of(context).brightness ==
+                                                    Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.blue)
+                                                    .withOpacity(
+                                                    _current == entry.key
+                                                        ? 0.9
+                                                        : 0.4)),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ]),
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+
                             Spacer(),
                           ],
                         ),
                       ),
                       Container(
-                        color: Colors.white,
+                        color: Colors.black,
                         padding: EdgeInsets.only(top: 20),
                         height: height * 0.2900,
                         child: Center(
@@ -380,7 +405,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                width: isMobile ? width * 0.30 : width * 0.15,
+                                width: isMobile ? width * 0.30 : width * 0.20,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -394,7 +419,8 @@ class _HomePageState extends State<HomePage> {
                                               fontSize: isMobile
                                                   ? width * 0.02
                                                   : width * 0.01,
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                         ),
                                         IconButton(
                                             onPressed: () {
@@ -402,9 +428,11 @@ class _HomePageState extends State<HomePage> {
                                             },
                                             icon: Icon(
                                                 Icons.arrow_forward_ios_sharp),
-                                            iconSize: isMobile ? 10 : 24),
+                                            iconSize: isMobile ? 10 : 24,
+                                            color: Colors.white),
                                       ],
                                     ),
+                                    Divider(),
                                     SizedBox(height: height * 0.01),
                                     Table(
                                       columnWidths: {
@@ -416,11 +444,28 @@ class _HomePageState extends State<HomePage> {
                                         ...downloadData.map((item) {
                                           return TableRow(
                                             children: [
-                                              _buildLinkCell(
-                                                  item["title"]!,
-                                                  item["link"]!,
-                                                  isMobile ? 7 : 16,
-                                                  isMobile ? -0.95 : 0),
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: GestureDetector(
+                                                  onTap: () async {
+                                                    final Uri uri = Uri.parse(item["link"]!);
+                                                    if (await canLaunchUrl(uri)) {
+                                                      await launchUrl(uri);
+                                                    } else {
+                                                      throw 'Could not launch ${item["link"]}';
+                                                    }
+                                                  },
+                                                  child: Text(
+                                                    item["title"]!,
+                                                    style: TextStyle(
+                                                      color: Colors.blue,
+                                                      decoration: TextDecoration.underline, // 파란색 언더라인
+                                                      decorationColor: Colors.blue,
+                                                      fontSize: isMobile ? 8 : 24,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
                                             ],
                                           );
                                         }).toList(),
@@ -428,6 +473,10 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
+                              ),
+
+                              VerticalDivider(
+                                endIndent: 40,
                               ),
 
                               // 두 번째 위젯 - Contact Us 정보
@@ -448,7 +497,8 @@ class _HomePageState extends State<HomePage> {
                                               fontSize: isMobile
                                                   ? width * 0.02
                                                   : width * 0.01,
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                         ),
                                         IconButton(
                                             onPressed: () {
@@ -457,26 +507,30 @@ class _HomePageState extends State<HomePage> {
                                             },
                                             icon: Icon(
                                                 Icons.arrow_forward_ios_sharp),
-                                            iconSize: isMobile ? 10 : 24),
+                                            iconSize: isMobile ? 10 : 24,
+                                            color: Colors.white),
                                       ],
                                     ),
+                                    Divider(),
                                     SizedBox(
                                         height: isMobile
                                             ? height * 0.02
                                             : height * 0.02),
                                     Text(
-                                      isMobile?"전문가에게 맡겨주세요!":"\t\t전문가에게 맡겨주세요!",
+                                      isMobile
+                                          ? "전문가에게 맡겨주세요!"
+                                          : "전문가에게 맡겨주세요!",
                                       style: TextStyle(
                                         fontSize: isMobile
                                             ? width * 0.030
-                                            : width * 0.015,
+                                            : width * 0.012,
                                         color: Colors.blueAccent,
                                         fontWeight: FontWeight.w400,
                                       ),
                                       textAlign: TextAlign.center,
                                     ),
                                     SizedBox(
-                                      height: isMobile ? 0 : 40,
+                                      height: isMobile ? 0 : 20,
                                     ),
                                     Text(
                                       isMobile
@@ -485,10 +539,14 @@ class _HomePageState extends State<HomePage> {
                                       style: TextStyle(
                                           fontSize: isMobile
                                               ? width * 0.0150
-                                              : width * 0.006),
+                                              : width * 0.006,
+                                          color: Colors.white),
                                     ),
                                   ],
                                 ),
+                              ),
+                              VerticalDivider(
+                                endIndent: 40,
                               ),
 
                               // 세 번째 위젯 - 오시는 길 (지도 이미지)
@@ -507,20 +565,22 @@ class _HomePageState extends State<HomePage> {
                                               fontSize: isMobile
                                                   ? width * 0.02
                                                   : width * 0.01,
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                         ),
                                         IconButton(
-                                            onPressed: () {
-                                              widget.onCompanyNavigate(
-                                                  2); // "오시는 길" 탭으로 이동 (인덱스 2)
-                                            },
-                                            icon: Icon(
-                                                Icons.arrow_forward_ios_sharp),
-                                            iconSize: isMobile ? 10 : 24),
+                                          onPressed: () {
+                                            widget.onCompanyNavigate(
+                                                2); // "오시는 길" 탭으로 이동 (인덱스 2)
+                                          },
+                                          icon: Icon(
+                                              Icons.arrow_forward_ios_sharp),
+                                          iconSize: isMobile ? 10 : 24,
+                                          color: Colors.white,
+                                        ),
                                       ],
                                     ),
-                                    SizedBox(
-                                        height: isMobile ? 0 : height * 0.01),
+                                    Divider(),
                                     Container(
                                       width: width * 0.40,
                                       height: height * 0.15,
