@@ -4,6 +4,7 @@ import 'terms_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:emailjs/emailjs.dart' as emailjs;
+import 'package:google_fonts/google_fonts.dart';
 
 class ContactScreen extends StatefulWidget {
   @override
@@ -111,8 +112,8 @@ class _ContactScreenState extends State<ContactScreen> {
                 children: [
                   Spacer(),
                   Text(
-                    "Contact Us",
-                    style: TextStyle(color: Colors.white, fontSize: isMobile? 30:60),
+                      "Contact Us",
+                      style :GoogleFonts.poppins(textStyle:TextStyle(color: Colors.white, fontSize: isMobile? 30:60), )
                   ),
                   Spacer(),
                 ],

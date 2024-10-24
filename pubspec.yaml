@@ -50,6 +50,7 @@ dependencies:
   emailjs: ^1.1.0
   flutter_expandable_table: ^2.1.0
   google_fonts: ^4.0.4
+  smooth_page_indicator: ^1.2.0+3
 
 dev_dependencies:
   flutter_test:

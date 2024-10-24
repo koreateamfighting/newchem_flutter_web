@@ -121,7 +121,7 @@ class _MyAppState extends State<MyApp> {
 
 // 반응형 TextButton 빌더
   TextButton _buildTextButton(
-      String label, int index, bool isMobile, double buttonFontSize) {
+      String label, int index, double buttonFontSize) {
     return TextButton(
       onPressed: () => _onItemTapped(index),
       child: Text(
@@ -132,10 +132,8 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       style: TextButton.styleFrom(
-        foregroundColor: Colors.black, // 텍스트 색상을 검은색으로 설정
-        padding: isMobile
-            ? EdgeInsets.symmetric(horizontal: 12)
-            : EdgeInsets.symmetric(horizontal: 16), // 모바일일 경우 버튼 간격을 더 작게 설정
+        foregroundColor: Colors.white, // 텍스트 색상을 검은색으로 설정
+
       ),
     );
   }
@@ -161,88 +159,68 @@ class _MyAppState extends State<MyApp> {
         final isTablet = width >= 600 && width < 1024 && height < 1200;
         final isDesktop = width >= 1024 && height >= 1200;
 
-        // 화면 크기에 따른 반응형 비율 설정
-        double appBarHeight = height * 0.1;
-        double buttonFontSize = width * 0.015; // width의 1.5%로 버튼 글씨 크기 설정
-        double buttonPadding = width * 0.02; // width의 2%로 버튼 간격 설정
-
         return Scaffold(
-          backgroundColor: Colors.black,
-          appBar: AppBar(
-            //backgroundColor: Color(0xffd4e2f5).withOpacity(0.9),
-            backgroundColor: Colors.white,
-            // 살짝 투명도를 추가
-            elevation: 0,
-            // 그림자 제거
-            surfaceTintColor: Colors.transparent,
-            title: LayoutBuilder(
-              builder: (context, constraints) {
-                // 화면 너비에 따라 로고 크기 조정
+          backgroundColor: Colors.white,
+          body: Container(
+              height: MediaQuery.of(context).size.height,
+              padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
+              child: Column(
+                children: [
+                  Container(
+                    height: height * 0.115,
+                    child: Center(
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      // 로고와 버튼들 사이 간격 설정
+                      children: [
+                        Container(
+                            width: isMobile? width * 0.30: isTablet? width * 0.25 : width * 0.15,
+                            height: height * 0.115,
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: IconButton(
+                                icon: Image.asset('assets/logo.png'),
+                                onPressed: () => _onItemTapped(0),
+                              ),
+                            )),
+                      ],
+                    )),
+                  ),
+                  Container(
+                    color: Colors.black,
+                    child: Center(
+                      child: Container(
 
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  // 로고와 버튼들 사이 간격 설정
-                  children: [
-                    SizedBox(width: width *0.2,),
-                    Container(
-                        width: width * 0.12,
-                        height: isMobile
-                            ? 80
-                            : isTablet
-                                ? 50
-                                : 80,
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: IconButton(
-                            icon: Image.asset('assets/logo.png'),
-                            onPressed: () => _onItemTapped(0),
-                          ),
-                        )),
-                    SizedBox(width: width * 0.25),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: LayoutBuilder(
-                          builder: (context, constraints) {
-                            // 화면이 작아질수록 버튼 간격과 글씨 크기를 줄이기
-                            double buttonFontSize = isMobile
-                                ? 8
-                                : isTablet
-                                    ? 16
-                                    : width * 0.008; // 화면 크기에 따른 글씨 크기 설정
-
-                            double buttonSpacing = isMobile
-                                ? 2
-                                : isTablet
-                                    ? 8
-                                    : width * 0.0010; // 화면 크기에 따른 버튼 간격 설정
-
-                            return Wrap(
-                              spacing: buttonSpacing,
-                              alignment: WrapAlignment.end, // 버튼들을 오른쪽 정렬
-                              children: [
-                                _buildTextButton(
-                                    "HOME", 0, isMobile, buttonFontSize),
-                                _buildTextButton(
-                                    "COMPANY", 1, isMobile, buttonFontSize),
-                                _buildTextButton(
-                                    "PRODUCTS", 2, isMobile, buttonFontSize),
-                                _buildTextButton(
-                                    "CONTACT US", 3, isMobile, buttonFontSize),
-                                _buildTextButton(
-                                    "DOWNLOADS", 4, isMobile, buttonFontSize),
-                              ],
-                            );
-                          },
+                        height: height * 0.05,
+                        child: Row(
+                          children: [
+                            Spacer(),
+                            _buildTextButton(
+                                "HOME", 0, width * 0.010),
+                            SizedBox(width: width * 0.012 ,),
+                            _buildTextButton(
+                                "COMPANY", 1,  width * 0.010),
+                            SizedBox(width: width * 0.012 ,),
+                            _buildTextButton(
+                                "PRODUCTS", 2,  width * 0.010),
+                            SizedBox(width: width * 0.012 ,),
+                            _buildTextButton(
+                                "CONTACT US", 3,  width * 0.010),
+                            SizedBox(width: width * 0.012 ,),
+                            _buildTextButton(
+                                "DOWNLOADS", 4,  width * 0.010),
+                            Spacer(),
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                );
-              },
-            ),
-          ),
-          body: Container(padding: EdgeInsets.zero,child: _pages[_selectedIndex],), // 선택한 화면을 body에 보여줌
+                  ),
+                  Expanded(
+                    child: _pages[_selectedIndex],
+                  )
+                ],
+              )), // 선택한 화면을 body에 보여줌
         );
       })),
     );

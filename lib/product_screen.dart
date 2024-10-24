@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProductScreen extends StatefulWidget {
   final int initialTabIndex; // 초기 탭 인덱스를 받을 변수 추가
@@ -158,12 +159,12 @@ class _ProductScreenState extends State<ProductScreen>
                         ),
                       ),
                       child: Center(
-                        child: Text(
-                          "Products",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: isMobile ? 30 : 60),
-                        ),
+                        child: Text("Products",
+                            style: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: isMobile ? 30 : 60),
+                            )),
                       ),
                     ),
                   ),
@@ -171,7 +172,7 @@ class _ProductScreenState extends State<ProductScreen>
                     width: isMobile ? width * 0.90 : width * 0.4,
                     height: isMobile ? 35 : 50,
                     // color:  Color(0xffd4e2f5).withOpacity(0.9),
-                    color : Colors.indigoAccent.shade100,
+                    color: Colors.grey,
                     child: Center(
                       child: TabBar(
                         controller: _mainTabController,
@@ -180,46 +181,46 @@ class _ProductScreenState extends State<ProductScreen>
                         // 선택된 탭의 텍스트 색상
                         unselectedLabelColor: Colors.white,
                         // 선택되지 않은 탭의 텍스트 색상
-                        indicatorColor:Colors.black,
+                        indicatorColor: Colors.black,
                         // 탭 선택 시 밑줄 색상
 
                         tabs: [
                           Tab(
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: isMobile ? 30 : 50.0),
+                                  horizontal: isMobile ? 30 : width * 0.019),
                               // 탭 간격 조정
                               child: Text(
                                 "Heidolph",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: isMobile ? 12 : 20),
+                                    fontSize: isMobile ? 12 : width * 0.007),
                               ),
                             ),
                           ),
                           Tab(
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: isMobile ? 30 : 50),
+                                  horizontal: isMobile ? 30 : width * 0.019),
                               // 탭 간격 조정
                               child: Text(
                                 "NORMAG",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: isMobile ? 12 : 20),
+                                    fontSize: isMobile ? 12 : width * 0.007),
                               ),
                             ),
                           ),
                           Tab(
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: isMobile ? 20 : 50.0),
+                                  horizontal: isMobile ? 20 : width * 0.019),
                               // 탭 간격 조정
                               child: Text(
                                 "CINC Industry",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: isMobile ? 12 : 20),
+                                    fontSize: isMobile ? 12 : width * 0.007),
                               ),
                             ),
                           ),
@@ -278,55 +279,71 @@ class _ProductScreenState extends State<ProductScreen>
                 isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
             child: TabBar(
               controller: _heidolphTabController,
-              labelColor: Colors.indigoAccent.shade100,
+              labelColor: Colors.black,
               unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.indigoAccent.shade100,
+              indicatorColor: Colors.black,
               // 탭 간격을 중앙에서 일정하게 하기 위해 Alignment 조정
+
               tabs: [
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
+                      horizontal: isMobile ? 0 : width * 0.002,
+                      vertical: height * 0.007),
                   // 각 탭에 일정 간격 설정
                   child: Text(
                     "Rotary Evaporator",
                     style: TextStyle(
-                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                        fontSize: isMobile
+                            ? width * 0.0004
+                            : width * 0.007), // 텍스트 크기를 18로 설정
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
+                      horizontal: isMobile ? 0 : width * 0.002,
+                      vertical: height * 0.007),
                   child: Text(
                     " Stirring",
                     style: TextStyle(
-                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                        fontSize: isMobile
+                            ? width * 0.0004
+                            : width * 0.007), // 텍스트 크기를 18로 설정
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 6 : 6.0, vertical: 10),
+                      horizontal: isMobile ? 0 : width * 0.002,
+                      vertical: height * 0.007),
                   child: Text(
                     " Automation",
                     style: TextStyle(
-                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                        fontSize: isMobile
+                            ? width * 0.0004
+                            : width * 0.007), // 텍스트 크기를 18로 설정
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
+                      horizontal: isMobile ? 0 : width * 0.002,
+                      vertical: height * 0.007),
                   child: Text(
                     "Voltex & Shaking",
                     style: TextStyle(
-                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                        fontSize: isMobile
+                            ? width * 0.0004
+                            : width * 0.007), // 텍스트 크기를 18로 설정
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 2 : 6.0, vertical: 10),
+                      horizontal: isMobile ? 0 : width * 0.002,
+                      vertical: height * 0.007),
                   child: Text(
                     "Liquid Handling",
                     style: TextStyle(
-                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                        fontSize: isMobile
+                            ? width * 0.0004
+                            : width * 0.007), // 텍스트 크기를 18로 설정
                   ),
                 ),
               ],
@@ -658,55 +675,70 @@ Advantages
                 isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
             child: TabBar(
               controller: _heidolphTabController,
-              labelColor: Colors.indigoAccent.shade100,
+              labelColor: Colors.black,
               unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.indigoAccent.shade100,
+              indicatorColor: Colors.black,
               // 탭 간격을 중앙에서 일정하게 하기 위해 Alignment 조정
               tabs: [
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
+                      horizontal: isMobile ? 0 : width * 0.002,
+                      vertical: height * 0.007),
                   // 각 탭에 일정 간격 설정
                   child: Text(
                     " 소개",
                     style: TextStyle(
-                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                        fontSize: isMobile
+                            ? width * 0.0004
+                            : width * 0.007), // 텍스트 크기를 18로 설정
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
+                      horizontal: isMobile ? 0 : width * 0.002,
+                      vertical: height * 0.007),
                   child: Text(
                     " How to Work",
                     style: TextStyle(
-                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                        fontSize: isMobile
+                            ? width * 0.0004
+                            : width * 0.007), // 텍스트 크기를 18로 설정
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 6 : 6.0, vertical: 10),
+                      horizontal: isMobile ? 0 : width * 0.002,
+                      vertical: height * 0.007),
                   child: Text(
                     " 특징",
                     style: TextStyle(
-                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                        fontSize: isMobile
+                            ? width * 0.0004
+                            : width * 0.007), // 텍스트 크기를 18로 설정
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : 6.0, vertical: 10),
+                      horizontal: isMobile ? 0 : width * 0.002,
+                      vertical: height * 0.007),
                   child: Text(
                     "Application",
                     style: TextStyle(
-                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                        fontSize: isMobile
+                            ? width * 0.0004
+                            : width * 0.007), // 텍스트 크기를 18로 설정
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 2 : 6.0, vertical: 10),
+                      horizontal: isMobile ? 0 : width * 0.002,
+                      vertical: height * 0.007),
                   child: Text(
                     "Specifications",
                     style: TextStyle(
-                        fontSize: isMobile ? 10 : 20), // 텍스트 크기를 18로 설정
+                        fontSize: isMobile
+                            ? width * 0.0004
+                            : width * 0.007), // 텍스트 크기를 18로 설정
                   ),
                 ),
               ],
@@ -719,11 +751,11 @@ Advantages
                 Container(
                   child: Center(
                       child: Container(
-                    width: isMobile ? 450 : 1500,
-                    height: isMobile ? 450 : 700,
+                    width: isMobile ? 450 : width * 0.585,
+                    height: isMobile ? 450 : height * 0.520,
                     child: Row(children: [
                       SizedBox(
-                        width: 48,
+                        width: width * 0.018,
                       ),
                       Container(
                         decoration: BoxDecoration(
@@ -738,28 +770,30 @@ Advantages
                             )),
                         child: Image.asset(
                           "assets/products/Cinc_Industry_Product.png",
-                          width: isMobile ? 220 : 600,
-                          height: isMobile ? 400 : 600,
+                          width: isMobile ? 220 : width * 0.234,
+                          height: isMobile ? 400 : height * 0.4166,
                         ),
                       ),
                       SizedBox(
-                        width: 48,
+                        width: width * 0.018,
                       ),
                       VerticalDivider(
-                        indent: 12,
-                        endIndent: 24,
+                        indent: height * 0.0083,
+                        endIndent: height * 0.0166,
                       ),
                       Column(
                         children: [
                           SizedBox(
-                            height: 50,
+                            height: height * 0.0347,
                           ),
-                          Text(
-                            "CINC Industry 소개",
-                            style: TextStyle(fontSize: 32, color : Colors.indigoAccent),
-                          ),
+                          Text("CINC Industry 소개",
+                              style: GoogleFonts.nanumGothic(
+                                textStyle: TextStyle(
+                                    fontSize: width * 0.0125,
+                                    color: Colors.indigoAccent),
+                              )),
                           SizedBox(
-                            height: 70,
+                            height: height * 0.0486,
                           ),
                           Text(
                             """
@@ -774,7 +808,7 @@ Advantages
       CE 및 PED 지침, ATEX 100 인증을 보유하고 있습니다.
       연구개발부터 대량 생산 규모에 이르기까지 다양한 크기로 제공되며, 
       다양한 산업의 요구를 충족시키기 위해 끊임없이 발전하고 있습니다""",
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyle(fontSize: width * 0.007),
                           )
                         ],
                       )
@@ -784,15 +818,15 @@ Advantages
                 Container(
                   child: Center(
                       child: Container(
-                    width: isMobile ? 450 : 1500,
-                    height: isMobile ? 450 : 700,
+                    width: isMobile ? 450 : width * 0.600,
+                    height: isMobile ? 450 : height * 0.486,
                     child: Row(children: [
                       SizedBox(
-                        width: 48,
+                        width: width * 0.018,
                       ),
                       Container(
-                        width: isMobile ? 450 : 700,
-                        height: isMobile ? 450 : 700,
+                        width: isMobile ? 450 : width * 0.273,
+                        height: isMobile ? 450 : height * 0.486,
                         decoration: BoxDecoration(
                             color: Colors.white, // 배경 색상
                             border: Border.all(
@@ -805,201 +839,224 @@ Advantages
                             )),
                         child: Image.asset(
                           "assets/how_to_work.png",
-                          width: isMobile ? 220 : 700,
-                          height: isMobile ? 400 : 700,
+                          width: isMobile ? 220 : width * 0.273,
+                          height: isMobile ? 400 : height * 0.486,
                         ),
                       ),
                       SizedBox(
-                        width: 48,
+                        width: width * 0.018,
                       ),
                       VerticalDivider(
-                        indent: 12,
-                        endIndent: 24,
+                        indent: height * 0.0083,
+                        endIndent: height * 0.0166,
                       ),
-                      Column(
+                      Expanded(
+                          child: Column(
                         children: [
                           SizedBox(
-                            height: 50,
+                            height: height * 0.030,
                           ),
-                          Text(
-                            "How to Work",
-                            style: TextStyle(fontSize: 32,color:Colors.indigoAccent),
-                          ),
+                          Text("How To Work",
+                              style: GoogleFonts.nanumGothic(
+                                textStyle: TextStyle(
+                                    fontSize: width * 0.0125,
+                                    color: Colors.indigoAccent),
+                              )),
                           SizedBox(
-                            height: 20,
+                            height: height * 0.0138,
                           ),
                           Text(
                             """
       1. 작동원리
-        회전하는 로터 내에서 발생하는 원심력을 이용하여 서로 다른 
-        밀도의 두 액체를 분리합니다.
+        회전하는 로터 내에서 발생하는 원심력을 이용하여 서로 다른 밀도의 두 액체를 분리합니다.
         
       2. 입력 방식
-        홉합된 액체가 양쪽 입구로 들어오거나, 각각의 액체가 
-        독립적으로 유입됩니다.
+        홉합된 액체가 양쪽 입구로 들어오거나, 각각의 액체가 독립적으로 유입됩니다.
         
       3. 혼합
-        로터와 하우징 사이에서 액체가 혼합되고(초록색),
-        로터 하단을 통해 유입됩니다.
+        로터와 하우징 사이에서 액체가 혼합되고(초록색), 로터 하단을 통해 유입됩니다.
         
       4. 분리 과정
-        - 밀도가 높은 액체(파란색): 로터 바깥쪽으로 밀려나가
-          높은 단계의 출구로 배출됩니다.          
-        - 밀도가 낮은 액체(노란색): 로터 중심으로 이동해
-          낮은 단계의 출구로 배출됩니다.
+        - 밀도가 높은 액체(파란색): 로터 바깥쪽으로 밀려나가 높은 단계의 출구로 배출됩니다.          
+        - 밀도가 낮은 액체(노란색): 로터 중심으로 이동해 낮은 단계의 출구로 배출됩니다.
           
       5. 수집
         각각의 액체는 다른 수집 링에 모여 분리된 출구로 배출됩니다.
         """,
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyle(fontSize: width * 0.007),
                           )
                         ],
-                      )
+                      ))
                     ]),
                   )),
                 ),
                 Container(
-                  width: 400,
-                  padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+                  width: width * 0.156,
+                  padding: EdgeInsets.symmetric(
+                      horizontal: width * 0.007, vertical: height * 0.0138),
                   child: Center(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center, // Column 내부의 요소들을 중앙에 배치
-                      crossAxisAlignment: CrossAxisAlignment.start, // 가로 방향으로도 중앙에 배치
-                      children: [
-                       Center(
-                         child: Text(
-                           "CINC Industry 특징",
-                           style: TextStyle(
-                             fontSize: 48,
-                             fontWeight: FontWeight.bold,
-                             color: Colors.indigoAccent,
-                           ),
-                           textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                         ),
-                       ),
-                        SizedBox(height: 80),
-
-                      Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.speed, color: Colors.blueAccent),
-                              SizedBox(width: 8,),
-                              Text(
-                                "분당 0.5~200 gallons (1.9~757L)의 유량 처리 가능",
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                              ),
-                            ],
-
-                          ),
-
-                        Divider(indent: 900,endIndent: 900,),
-                         Row(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.tune, color: Colors.blueAccent),
-                              SizedBox(width: 8,),
-                              Text(
-                                "200~1,000g의 원심력만으로도 효율적인 분리 및 추출",
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                              ),
-                            ],
-
-                          ),
-
-
-                        Divider(indent: 900,endIndent: 900,),
-                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.local_drink, color: Colors.blueAccent),
-                              SizedBox(width: 8,),
-                              Text(
-                                "전단에 민감한 유체를 위한 저혼합 및 직접 투입 옵션 제공",
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                              ),
-                            ],
-
-                          ),
-
-
-                        Divider(indent: 900,endIndent: 900,),
-                     Row( mainAxisAlignment: MainAxisAlignment.center,
-
-                            children: [
-                              Icon(Icons.adjust, color: Colors.blueAccent),
-                              SizedBox(width: 8,),
-                              Text(
-                                "중량 차이를 처리할 수 있는 조절 가능한 중상위어와 가변 속도 모터",
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                              ),
-                            ],
-
-                          ),
-
-
-                        Divider(indent: 900,endIndent: 900,),
-                       Row(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.thermostat, color: Colors.blueAccent),
-                              SizedBox(width: 8,),
-                              Text(
-                                "냉동 온도부터 끓는 온도까지 다양한 투입 온도 처리 가능",
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                              ),
-                            ],
-
-                          ),
-
-
-                        Divider(indent: 900,endIndent: 900,),
-                       Row(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.build, color: Colors.blueAccent),
-                              SizedBox(width: 8,),
-                              Text(
-                                "내구성 높은 스테인리스 스틸 구조, 부식 방지 합금도 선택 가능",
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                              ),
-                            ],
-
-                          ),
-
-
-                        Divider(indent: 900,endIndent: 900,),
-                       Row(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.cleaning_services, color: Colors.blueAccent),
-                              SizedBox(width: 8,),
-                              Text(
-                                "유지보수가 적고 신뢰성이 높은 제자리 세척(CIP) 로터 시스템",
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                              ),
-                            ],
-
-                          ),
-
-
+                      // Column 내부의 요소들을 중앙에 배치
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // 가로 방향으로도 중앙에 배치
+                      children: [
+                        Center(
+                          child: Text("CINC Industry 특징",
+                              style: GoogleFonts.nanumGothic(
+                                textStyle: TextStyle(
+                                    fontSize: width * 0.018,
+                                    color: Colors.indigoAccent),
+                              )),
+                        ),
+                        SizedBox(height: height * 0.0556),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.speed, color: Colors.blueAccent),
+                            SizedBox(
+                              width: width * 0.003,
+                            ),
+                            Text(
+                              "분당 0.5~200 gallons (1.9~757L)의 유량 처리 가능",
+                              style: TextStyle(
+                                  fontSize: width * 0.007,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          indent: width * 0.351,
+                          endIndent: width * 0.351,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.tune, color: Colors.blueAccent),
+                            SizedBox(
+                              width: width * 0.003,
+                            ),
+                            Text(
+                              "200~1,000g의 원심력만으로도 효율적인 분리 및 추출",
+                              style: TextStyle(
+                                  fontSize: width * 0.007,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          indent: width * 0.351,
+                          endIndent: width * 0.351,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.local_drink, color: Colors.blueAccent),
+                            SizedBox(
+                              width: width * 0.003,
+                            ),
+                            Text(
+                              "전단에 민감한 유체를 위한 저혼합 및 직접 투입 옵션 제공",
+                              style: TextStyle(
+                                  fontSize: width * 0.007,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          indent: width * 0.351,
+                          endIndent: width * 0.351,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.adjust, color: Colors.blueAccent),
+                            SizedBox(
+                              width: width * 0.003,
+                            ),
+                            Text(
+                              "중량 차이를 처리할 수 있는 조절 가능한 중상위어와 가변 속도 모터",
+                              style: TextStyle(
+                                  fontSize: width * 0.007,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          indent: width * 0.351,
+                          endIndent: width * 0.351,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.thermostat, color: Colors.blueAccent),
+                            SizedBox(
+                              width: width * 0.003,
+                            ),
+                            Text(
+                              "냉동 온도부터 끓는 온도까지 다양한 투입 온도 처리 가능",
+                              style: TextStyle(
+                                  fontSize: width * 0.007,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          indent: width * 0.351,
+                          endIndent: width * 0.351,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.build, color: Colors.blueAccent),
+                            SizedBox(
+                              width: width * 0.003,
+                            ),
+                            Text(
+                              "내구성 높은 스테인리스 스틸 구조, 부식 방지 합금도 선택 가능",
+                              style: TextStyle(
+                                  fontSize: width * 0.007,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                            ),
+                          ],
+                        ),
+                        Divider(
+                          indent: width * 0.351,
+                          endIndent: width * 0.351,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.cleaning_services,
+                                color: Colors.blueAccent),
+                            SizedBox(
+                              width: width * 0.003,
+                            ),
+                            Text(
+                              "유지보수가 적고 신뢰성이 높은 제자리 세척(CIP) 로터 시스템",
+                              style: TextStyle(
+                                  fontSize: width * 0.007,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
                 ),
+                SingleChildScrollView(
 
-                Container(
-                  child: Center(
-                      child: Column(
+                  child:  Column(
                     children: [
                       SizedBox(
-                        height: 24,
+                        height: height * 0.0250,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -1017,7 +1074,7 @@ Advantages
 
                                 """),
                           SizedBox(
-                            width: 16,
+                            width: width * 0.006,
                           ),
                           buildApplicationTextList("""Pharmaceutical""", """
        
@@ -1031,7 +1088,7 @@ Advantages
 
                                 """),
                           SizedBox(
-                            width: 16,
+                            width: width * 0.006,
                           ),
                           buildApplicationTextList("""Petroleum""", """
                                           
@@ -1050,7 +1107,7 @@ Advantages
 
                                 """),
                           SizedBox(
-                            width: 16,
+                            width: width * 0.006,
                           ),
                           buildApplicationTextList("""Biotech""", """
        
@@ -1068,7 +1125,7 @@ Advantages
                         ],
                       ),
                       SizedBox(
-                        height: 24,
+                        height: height * 0.0250,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -1088,7 +1145,7 @@ Advantages
 
                                 """),
                           SizedBox(
-                            width: 16,
+                            width: width * 0.006,
                           ),
                           buildApplicationTextList(
                               """Mining and Metals Recovery""", """
@@ -1104,7 +1161,7 @@ Advantages
 
                                 """),
                           SizedBox(
-                            width: 16,
+                            width: width * 0.006,
                           ),
                           buildApplicationTextList("""Food & Nutrition""", """
        
@@ -1123,7 +1180,7 @@ Advantages
 
                                 """),
                           SizedBox(
-                            width: 16,
+                            width: width * 0.006,
                           ),
                           buildApplicationTextList(
                               """Biodisel Production""", """
@@ -1141,7 +1198,7 @@ Advantages
                         ],
                       ),
                     ],
-                  )),
+                  ),
                 ),
 
                 // Container(
@@ -1155,12 +1212,12 @@ Advantages
                 //         ],
                 //       )),
                 // ),
-                 SingleChildScrollView(
-                   scrollDirection: Axis.vertical,
+                SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
                   child: Container(
-                    height: isMobile ? 500 : 800,
-                    padding: EdgeInsets.fromLTRB(
-                        isMobile ? 16 : 250, 0, isMobile ? 16 : 250, 0),
+                    height: isMobile ? 500 : height * 0.5800,
+                    padding: EdgeInsets.fromLTRB(isMobile ? 16 : width * 0.097,
+                        0, isMobile ? 16 : width * 0.097, 0),
                     child: Center(
                         child: Table(
                       border: TableBorder.all(), // 표에 테두리 추가
@@ -1175,7 +1232,7 @@ Advantages
                                 squadData[rowIndex][colIndex],
                                 style: TextStyle(
                                   fontSize:
-                                      isMobile ? 8 : 14, // 각 행에 따라 폰트 크기 변경
+                                      isMobile ? 8 : width * 0.005, // 각 행에 따라 폰트 크기 변경
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black, // 컬럼 인덱스에 따른 색상 지정
                                 ),
@@ -1234,7 +1291,7 @@ Advantages
                   products[index]["content"]!,
                   context,
                   isMobile ? width * 0.0400 : width * 0.1200,
-                  isMobile ? height * 0.0100 : height * 0.2000);
+                  isMobile ? height * 0.0100 : height * 0.400);
             },
           ),
         ),
@@ -1457,5 +1514,4 @@ Advantages
       },
     );
   }
-
 }

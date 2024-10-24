@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher_web/url_launcher_web.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DownloadScreen extends StatelessWidget {
   final List<Map<String, String>> downloadData = [
@@ -62,8 +62,8 @@ class DownloadScreen extends StatelessWidget {
                   children: [
                     Spacer(),
                     Text(
-                      "Download",
-                      style: TextStyle(color: Colors.white, fontSize: isMobile? 30:60),
+                      "Downloads",
+                      style :GoogleFonts.poppins(textStyle:TextStyle(color: Colors.white, fontSize: isMobile? 30:60), )
                     ),
                     Spacer(),
                   ],
@@ -76,11 +76,7 @@ class DownloadScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Data 링크",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
+
                       SizedBox(height: 20),
                       Table(
                         columnWidths: {
