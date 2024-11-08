@@ -7,6 +7,9 @@ import 'dart:html' as html; // Web용 dart:html 패키지 사용
 import 'dart:ui_web' as ui;
 import 'dart:async';
 import 'package:google_fonts/google_fonts.dart';
+import 'popup.dart';
+import 'dart:html' as html;
+import 'package:newchem_flutter_website/main.dart';
 
 class HomePage extends StatefulWidget {
   final Function(int) onNavigate;
@@ -25,6 +28,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentImageIndex = 0;
   final CarouselSliderController _controller = CarouselSliderController();
+  final ScrollController _scrollController = ScrollController();
+
   final List<String> _backgroundImages = [
     'assets/main-background2.png',
     'assets/main-background4.png',
@@ -32,7 +37,8 @@ class _HomePageState extends State<HomePage> {
   ];
   String url =
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d669.6223690480622!2d127.01586977089258!3d37.02699966322705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3d001631c641%3A0x2cd353d15ed8488b!2z6rOg642V7KeA7Iud6rO17J6R7IaM7JWE7J207YOA7JuMIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1717727526433!5m2!1sko!2skr" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
-
+  int _currentStep = 1; // 현재 단계 설정
+  double _lineOpacity = 0.2; // 선의 초기 불투명도
   final Widget _iframeWidget = HtmlElementView(
     viewType: 'iframeElement',
     key: UniqueKey(),
@@ -79,79 +85,69 @@ class _HomePageState extends State<HomePage> {
 
   final List<Map<String, String>> slideImages = [
     {
-      'image': 'assets/products/Hei-VAP_Series_bg.png',
-      'name': 'Hei-VAP Series',
+      'image': 'assets/sliderbackground01.png',
+      'name': 'Rotary Evaporator',
       'logo': 'assets/heidolph_logo.png',
       'route': '0',
-      'koreaname': '제품의 부제 기재',
-      'description': '간단한 1~2줄의 설명을 기재',
+      'description': '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
     },
     {
-      'image': 'assets/products/Magnetic_stirrer_bg.png',
-      'name': 'Magnetic Stirrer',
+      'image': 'assets/sliderbackground02.png',
+      'name': 'Stirring',
       'logo': 'assets/heidolph_logo.png',
       'route': '0',
-      'koreaname': '제품의 부제 기재',
-      'description': '간단한 1~2줄의 설명을 기재',
+      'description': '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
     },
     {
-      'image': 'assets/products/Overhead_stirrer_bg.png',
-      'name': 'Overhead Stirrer',
+      'image': 'assets/sliderbackground03.png',
+      'name': 'Automation',
       'logo': 'assets/heidolph_logo.png',
       'route': '0',
-      'koreaname': '제품의 부제 기재',
-      'description': '간단한 1~2줄의 설명을 기재',
+      'description': '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
     },
     {
-      'image': 'assets/products/Lab_Fast_Pro_bg.png',
-      'name': 'Lab Fast Pro',
-      'logo': 'assets/normag_logo.png',
-      'route': '1',
-      'koreaname': '제품의 부제 기재',
-      'description': '간단한 1~2줄의 설명을 기재',
+      'image': 'assets/sliderbackground04.png',
+      'name': 'Voltex & Shaking',
+      'logo': 'assets/heidolph_logo.png',
+      'route': '0',
+      'description': '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
     },
     {
-      'image': 'assets/products/Pilot_compact_reactor_bg.png',
-      'name': 'Pilot Compact Reactor',
-      'logo': 'assets/normag_logo.png',
-      'route': '1',
-      'koreaname': '제품의 부제 기재',
-      'description': '간단한 1~2줄의 설명을 기재',
-    },
-    {
-      'image': 'assets/products/Cinc_Industry_Product_bg.png',
-      'name': 'Cinc Industry Product',
-      'logo': 'assets/CINCIndustry.png',
-      'route': '2',
-      'koreaname': '제품의 부제 기재',
-      'description': '간단한 1~2줄의 설명을 기재',
+      'image': 'assets/sliderbackground05.png',
+      'name': 'Liquid handling',
+      'logo': 'assets/heidolph_logo.png',
+      'route': '0',
+      'description': '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
     },
   ];
 
   final List<Map<String, String>> downloadData = [
+    {
+      "number": "1",
+      "title": "[NORMAG]카달로그",
+      "link":
+          "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
+      "author": "관리자",
+      "date": "2024.10.16",
+      "image": 'assets/download_image_01.png'
+    },
+    {
+      "number": "2",
+      "title": "[하이돌프] 종합 카달로그",
+      "link":
+          "https://drive.google.com/file/d/1Ols-r9GJcyZiHQMKNkxA7Ysaj51_fQa7/view?usp=sharing",
+      "author": "관리자",
+      "date": "2024.10.16",
+      "image": 'assets/download_image_02.png'
+    },
     {
       "number": "3",
       "title": "준비중",
       "link":
           "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
       "author": "관리자",
-      "date": "2024-00-00"
-    },
-    {
-      "number": "2",
-      "title": "[NORMAG]카달로그.pdf",
-      "link":
-          "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
-      "author": "관리자",
-      "date": "2024-10-16"
-    },
-    {
-      "number": "1",
-      "title": "[하이돌프] 종합 카달로그 _2024.pdf",
-      "link":
-          "https://drive.google.com/file/d/1Ols-r9GJcyZiHQMKNkxA7Ysaj51_fQa7/view?usp=sharing",
-      "author": "관리자",
-      "date": "2024-10-16"
+      "date": "2024.10.17",
+      "image": 'assets/download_image_02.png'
     },
   ];
 
@@ -161,12 +157,59 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // 3초마다 이미지 전환
+
     Timer.periodic(Duration(seconds: 8), (timer) {
       setState(() {
         _currentImageIndex =
             (_currentImageIndex + 1) % _backgroundImages.length;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  String getStepLabel(int index) {
+    switch (index) {
+      case 0:
+        return '문의 작성';
+      case 1:
+        return '답변 중';
+      case 2:
+        return '답변 완료';
+      default:
+        return '';
+    }
+  }
+
+  final PageController _pageController = PageController();
+  int _currentIndex = 0;
+
+  void _previousPage() {
+    if (_currentIndex > 0) {
+      _pageController.previousPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+      setState(() {
+        _currentIndex--;
+      });
+    }
+  }
+
+  void _nextPage() {
+    if (_currentIndex < downloadData.length - 1) {
+      _pageController.nextPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+      setState(() {
+        _currentIndex++;
+      });
+    }
   }
 
   @override
@@ -179,6 +222,7 @@ class _HomePageState extends State<HomePage> {
     final isMobile = width < 600 && height < 800;
     final isTablet = width >= 600 && width < 1024 && height < 1200;
     final isDesktop = width >= 1024 && height >= 1200;
+
     final html.IFrameElement _iFrameElement = html.IFrameElement();
 
     _iFrameElement.style.height = isM ? '150%' : '120%';
@@ -197,782 +241,1659 @@ class _HomePageState extends State<HomePage> {
         return Scaffold(
           backgroundColor: Color(0xffd4e2f5).withOpacity(0.9),
           body: SingleChildScrollView(
+            controller: _scrollController,
             child: Container(
-                height: height * 2.18, //뭔가 항목 늘릴때 사용해라.
-                color: Colors.white70,
+                width: width,
+                height: 4745, //뭔가 항목 늘릴때 사용해라.
+                color: Colors.white,
                 child: Column(
                   children: [
                     Container(
+                      padding: EdgeInsets.zero,
                       width: width,
-                      height: height * 0.65,
                       child: Column(
+                        mainAxisSize: MainAxisSize.min, // Column의 높이를 자식 크기에 맞춤
                         children: [
-                          Expanded(
-                            child: CarouselSlider(
-                              carouselController: _controller,
-                              items: slideImages
-                                  .map((item) => Container(
-                                        width: width * 0.9,
-                                        height: height * 0.65,
+                          Stack(
+                            children: [
+                              CarouselSlider(
+                                carouselController: _controller,
+                                items: slideImages
+                                    .map(
+                                      (item) => GestureDetector(
+                                        onTap: () {
+                                          widget.onProductNavigate(
+                                              int.parse(item['route']!));
+                                        },
                                         child: Container(
-                                          child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5.0)),
-                                              child: Stack(
-                                                children: <Widget>[
-                                                  Column(
+                                            width: width,
+                                            height: 1200,
+                                            child: Stack(
+                                              children: [
+                                                Image.asset(
+                                                  item['image']!,
+                                                  fit: BoxFit.fill,
+                                                  width: width,
+                                                  height: 1200,
+                                                ),
+                                                Center(
+                                                  child: Column(
                                                     children: [
-                                                      // Container(
-                                                      //   child: Image.asset(
-                                                      //     item['logo']!,
-                                                      //     fit: BoxFit.fill,
-                                                      //     height: 40,
-                                                      //   ),
-                                                      // ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          widget.onProductNavigate(
-                                                              int.parse(item[
-                                                                  'route']!));
-                                                        },
-                                                        child: Container(
-                                                            width: width,
-                                                            color: Colors.white,
-                                                            child: Stack(
-                                                              children: [
-                                                                Image.asset(
-                                                                    item[
-                                                                        'image']!,
-                                                                    fit: BoxFit
-                                                                        .fill,
-                                                                    width: double
-                                                                        .infinity,
-                                                                    height:
-                                                                        height *
-                                                                            0.50),
-                                                                Container(
-                                                                  width: width *
-                                                                      0.46,
-                                                                  height:
-                                                                      height *
-                                                                          0.555,
-                                                                  child: Column(
-                                                                    children: [
-                                                                      SizedBox(
-                                                                        height: height *
-                                                                            0.1388,
-                                                                      ),
-                                                                      Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        children: [
-                                                                          SizedBox(
-                                                                            width:
-                                                                                width * 0.078,
-                                                                          ),
-                                                                          Container(
-                                                                              width: width * 0.109,
-                                                                              height: height * 0.062,
-                                                                              decoration: BoxDecoration(
-                                                                                border: Border.all(
-                                                                                  color: Colors.black,
-                                                                                  // 테두리 색상
-                                                                                  width: 2, // 테두리 두께
-                                                                                ),
-                                                                              ),
-                                                                              child: Image.asset(
-                                                                                item['logo']!,
-                                                                                fit: BoxFit.fill,
-                                                                                height: height * 0.0277,
-                                                                              ))
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height: height *
-                                                                            0.0277,
-                                                                      ),
-                                                                      Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        children: [
-                                                                          SizedBox(
-                                                                            width:
-                                                                                width * 0.078,
-                                                                          ),
-                                                                          SelectableText(
-                                                                              "${item['name']}",
-                                                                              style: GoogleFonts.openSans(textStyle: TextStyle(fontSize: width * 0.018, fontWeight: FontWeight.bold))),
-                                                                        ],
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height: height *
-                                                                            0.0277,
-                                                                      ),
-                                                                      Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        children: [
-                                                                          SizedBox(
-                                                                            width:
-                                                                                width * 0.078,
-                                                                          ),
-                                                                          SelectableText(
-                                                                              "${item['description']}",
-                                                                              style: GoogleFonts.nanumGothic(textStyle: TextStyle(fontSize: width * 0.010, color: Colors.grey, fontWeight: FontWeight.bold))),
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            )),
+                                                      SizedBox(
+                                                        height: 230,
+                                                      ),
+                                                      Text(
+                                                        item['name']!,
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 54,
+                                                          fontFamily:
+                                                              'Pretendard',
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 32,
+                                                      ),
+                                                      Text(
+                                                        item['description']!,
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20,
+                                                          fontFamily: 'Pretendard',
+                                                          fontWeight: FontWeight.w500,
+                                                          letterSpacing: 0.60,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 75,
+                                                      ),
+                                                      Container(
+                                                        width: 186,
+                                                        height: 54,
+                                                        color: Colors.transparent,
+                                                        child: ElevatedButton(
+                                                          onPressed: () {
+                                                            widget.onNavigate(1);
+                                                          },
+                                                          child: Text(
+                                                            'company',
+                                                            style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 24,
+                                                              fontFamily: 'Pretendard',
+                                                              fontWeight: FontWeight.w600,
+                                                              height: 0,
+                                                            ),
+                                                          ),
+                                                          style: ElevatedButton.styleFrom(
+                                                              backgroundColor: Colors.transparent.withOpacity(0.01),
+                                                              foregroundColor: Colors.white,
+                                                              shape: RoundedRectangleBorder(
+                                                                  borderRadius: BorderRadius.circular(61))),
+                                                        ),
                                                       )
+
                                                     ],
                                                   ),
-                                                ],
-                                              )),
+                                                ),
+                                              ],
+                                            )),
+                                      ),
+                                    )
+                                    .toList(),
+                                options: CarouselOptions(
+                                    autoPlay: true,
+                                    enlargeCenterPage: true,
+                                    viewportFraction: 1,
+                                    // aspectRatio: 2,
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        _current = index;
+                                      });
+                                    }),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(height: 240),
+                                      ...slideImages
+                                          .asMap()
+                                          .entries
+                                          .map((entry) {
+                                        return Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                _controller
+                                                    .animateToPage(entry.key);
+                                              },
+                                              child: Container(
+                                                width: 32.0,
+                                                // 바깥쪽 원의 크기를 좀 더 크게 설정
+                                                height: 32.0,
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 4.0),
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: _current == entry.key
+                                                      ? Colors.transparent
+                                                      : Colors.transparent,
+                                                  border: Border.all(
+                                                    color: _current == entry.key
+                                                        ? Colors.white
+                                                        : Colors.transparent,
+                                                    width: _current == entry.key
+                                                        ? 1
+                                                        : 0, // 선택된 항목에만 테두리를 주기
+                                                  ),
+                                                ),
+                                                child: Center(
+                                                  child: Container(
+                                                    width: 10.0,
+                                                    // 선택된 항목일 때 작은 원을 표시
+                                                    height: 10.0,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 26),
+
+                                            // 원 사이의 간격 설정
+                                          ],
+                                        );
+                                      }).toList(),
+                                      SizedBox(
+                                        height: 348,
+                                      ),
+                                      Transform(
+                                        transform: Matrix4.identity()
+                                          ..translate(10, 12)
+                                          ..rotateZ(-1.57),
+                                        child: Text(
+                                          'Scroll',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontFamily: 'Pretendard',
+                                            fontWeight: FontWeight.w500,
+                                            height: 0,
+                                          ),
                                         ),
-                                      ))
-                                  .toList(),
-                              options: CarouselOptions(
-                                  autoPlay: true,
-                                  enlargeCenterPage: true,
-                                  viewportFraction: 1,
-                                  aspectRatio: 2,
-                                  onPageChanged: (index, reason) {
-                                    setState(() {
-                                      _current = index;
-                                    });
-                                  }),
+                                      ),
+                                      Image.asset('assets/arrow_down.png'),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 43,
+                                  ),
+                                ],
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      color: Colors.white,
+                      height: 852,
+                      child: Column(
+                        children: [
+                          SizedBox(height: 150),
+                          Text(
+                            'Contacts Us',
+                            style: TextStyle(
+                              color: Color(0xFF191919),
+                              fontSize: 56,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w700,
+                              height: 0,
                             ),
                           ),
+                          SizedBox(height: 12),
+                          Text(
+                            '전문가에게 맡겨주세요 ',
+                            style: TextStyle(
+                              color: Color(0xFF191919),
+                              fontSize: 28,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w500,
+                              height: 0,
+                            ),
+                          ),
+                          SizedBox(height: 48),
+                          SelectableText(
+                            '문의 및 상담 내용을 작성해서 접수하시면',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF191919),
+                              fontSize: 20,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          SelectableText(
+                            '전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF191919),
+                              fontSize: 20,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          // 진행 단계 표시 Row 추가
+                          SizedBox(height: 145),
+                          // Step Progress Indicator
                           Container(
-                            height: height * 0.030,
+                            padding: EdgeInsets.symmetric(vertical: 20),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:
-                                  slideImages.asMap().entries.map((entry) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    _controller.animateToPage(entry.key);
-                                  },
-                                  child: Container(
-                                    width: 12.0,
-                                    height: 12.0,
-                                    margin: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 4.0),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: (Theme.of(context).brightness ==
-                                                    Brightness.dark
-                                                ? Colors.white
-                                                : Colors.blue)
-                                            .withOpacity(_current == entry.key
-                                                ? 0.9
-                                                : 0.4)),
-                                  ),
-                                );
-                              }).toList(),
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: List.generate(5, (index) {
+                                if (index.isOdd) {
+                                  // 선 표시
+                                  return AnimatedContainer(
+                                    duration: Duration(milliseconds: 800),
+                                    width: 50,
+                                    height: 2,
+                                    color: Colors.blue.withOpacity(
+                                      index <= _currentStep * 2 ? 1.0 : 0.2,
+                                    ),
+                                  );
+                                } else {
+                                  // 원 표시
+                                  int stepIndex = index ~/ 2;
+                                  bool isActive = stepIndex == _currentStep;
+                                  return Column(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: isActive ? 12 : 10,
+                                        backgroundColor: isActive
+                                            ? Colors.blue
+                                            : Colors.grey,
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text(
+                                        getStepLabel(stepIndex),
+                                        style: TextStyle(
+                                          color: isActive
+                                              ? Colors.blue
+                                              : Colors.grey,
+                                          fontWeight: isActive
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                }
+                              }),
+                            ),
+                          ),
+                          SizedBox(height: 80),
+
+                          Container(
+                            width: 323,
+                            height: 62,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                widget.onNavigate(3);
+                              },
+                              child: Text(
+                                '문의하기',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w600,
+                                  height: 0,
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xff5695F0),
+                                  foregroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8))),
                             ),
                           )
                         ],
                       ),
                     ),
-                    Container(height: height * 0.01,color:Colors.grey),
                     Container(
-                      width: width,
-                      height: height * 0.3,
-                      color: Colors.white,
-                      child: Row(
-                        children: [
-                          SizedBox(width: width * 0.15),
-                          Container(
-                              child: Column(
-                            children: [
-                              SizedBox(
-                                height: height * 0.035,
-                              ),
-                              SizedBox(
-                                height: height * 0.02,
-                              ),
-                              Container(
-                                width: width * 0.35,
-                                child: SelectableText(
-                                    '\t(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지',
-                                    textAlign: TextAlign.left,
-                                    style: GoogleFonts.nanumGothic(
-                                        textStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: width * 0.010,
-                                    ))),
-                              ),
-                              SizedBox(
-                                height: height * 0.008,
-                              ),
-                              Container(
-                                width: width * 0.35,
-                                child: SelectableText(
-                                    '합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.',
-                                    textAlign: TextAlign.left,
-                                    style: GoogleFonts.nanumGothic(
-                                        textStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: width * 0.010,
-                                    ))),
-                              ),
-                              SizedBox(
-                                height: height * 0.008,
-                              ),
-                              Container(
-                                width: width * 0.35,
-                                child: SelectableText(
-                                    '지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,',
-                                    textAlign: TextAlign.left,
-                                    style: GoogleFonts.nanumGothic(
-                                        textStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: width * 0.010,
-                                    ))),
-                              ),
-                              SizedBox(
-                                height: height * 0.008,
-                              ),
-                              Container(
-                                width: width * 0.35,
-                                child: SelectableText(
-                                    '고객이 신뢰할 수 있는 회사로 자리 매김해 왔습니다.',
-                                    textAlign: TextAlign.left,
-                                    style: GoogleFonts.nanumGothic(
-                                        textStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: width * 0.010,
-                                    ))),
-                              ),
-                              SizedBox(
-                                height: height * 0.008,
-                              ),
-                              Container(
-                                width: width * 0.35,
-                                child: SelectableText('앞으로도 지속적인 성원 부탁드립니다.',
-                                    textAlign: TextAlign.left,
-                                    style: GoogleFonts.nanumGothic(
-                                        textStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: width * 0.010,
-                                    ))),
-                              ),
-                              SizedBox(
-                                height: height * 0.008,
-                              ),
-                              Container(
-                                width: width * 0.35,
-                                child:
-                                    SelectableText('저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
-                                        textAlign: TextAlign.left,
-                                        style: GoogleFonts.nanumGothic(
-                                            textStyle: TextStyle(
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: width * 0.010,
-                                        ))),
-                              ),
-                            ],
-                          )),
-                          SizedBox(width: width * 0.18),
-                          Container(
-                            child: Text("Welcome!",
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                      fontSize: width * 0.025,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blueAccent),
-                                )),
-                          ),
-                        ],
+                      height: 625,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/main-background00.png"),
+                          fit: BoxFit.cover, // 이미지를 전체 배경에 맞게 채움
+                        ),
                       ),
-                    ),
-                    Container(height: height * 0.01,color:Colors.grey),
-                    Container(
-                        width: width,
-                        height: height * 0.3,
-                        color: Colors.white,
-                        child: GestureDetector(
-                          onTap: () {
-                            widget.onNavigate(3);
-                          },
-                          child: Row(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: height * 0.08,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: width * 0.15,
-                                      ),
-                                      Container(
-                                        child: Text("Contact Us",
-                                            style: GoogleFonts.poppins(
-                                              textStyle: TextStyle(
-                                                  fontSize: width * 0.025,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.redAccent),
-                                            )),
-                                      ),
-                                      SizedBox(
-                                        width: width * 0.20,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Text('전문가에게 맡겨주세요!',
-                                              style: GoogleFonts.nanumGothic(
-                                                  textStyle: TextStyle(
-                                                      fontSize: width * 0.015,
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold))),
-                                          SizedBox(
-                                            height: height * 0.04,
-                                          ),
-                                          Text('문의 및 상담 내용을 작성해서 접수하시면',
-                                              style: GoogleFonts.nanumMyeongjo(
-                                                  textStyle: TextStyle(
-                                                      fontSize: width * 0.012,
-                                                      color:
-                                                          Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold))),
-                                          Text(
-                                              '전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.',
-                                              style: GoogleFonts.nanumMyeongjo(
-                                                  textStyle: TextStyle(
-                                                      fontSize: width * 0.012,
-                                                      color:
-                                                          Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold))),
-                                        ],
-                                      )
-
-                                      // IconButton(
-                                      //     onPressed: () {
-                                      //       widget.onNavigate(3); // ContactScreen으로 이동
-                                      //     },
-                                      //     icon: Icon(Icons.arrow_forward_ios_sharp),
-                                      //     iconSize: isMobile ? 10 : 24,
-                                      //     color: Colors.white),
-                                    ],
-                                  ),
-                                  Divider(),
-                                  SizedBox(
-                                      height: isMobile
-                                          ? height * 0.02
-                                          : height * 0.02),
-                                  // Text(
-                                  //   isMobile ? "전문가에게 맡겨주세요!" : "전문가에게 맡겨주세요!",
-                                  //   style: TextStyle(
-                                  //     fontSize: isMobile
-                                  //         ? width * 0.030
-                                  //         : width * 0.012,
-                                  //     color: Colors.blueAccent,
-                                  //     fontWeight: FontWeight.w400,
-                                  //   ),
-                                  //   textAlign: TextAlign.center,
-                                  // ),
-                                  // SizedBox(
-                                  //   height: isMobile ? 0 : 20,
-                                  // ),
-                                  // Text(
-                                  //   isMobile
-                                  //       ? "문의 및 상담 내용을 작성해서 접수하시면,\n전문가들이 24시간 이내에 빠르고 성실하게\n답변 드리겠습니다."
-                                  //       : "문의 및 상담 내용을 작성해서 접수하시면, 전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.",
-                                  //   style: TextStyle(
-                                  //       fontSize: isMobile
-                                  //           ? width * 0.0150
-                                  //           : width * 0.006,
-                                  //       color: Colors.white),
-                                  // ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        )),
-                    Container(height: height * 0.01,color:Colors.grey),
-                    Container(
-                      width: width,
-                      height: height * 0.3,
-                      color: Colors.white,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(width: width * 0.15),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: height * 0.035,
-                              ),
-
-                              // Table(
-                              //   columnWidths: {
-                              //     0: FixedColumnWidth(
-                              //         MediaQuery.of(context).size.width *
-                              //             0.5), // 화면 크기에 따라 셀 크기 조정
-                              //   },
-                              //   children: [
-                              //     ...downloadData.map((item) {
-                              //       return TableRow(
-                              //         children: [
-                              //           Padding(
-                              //             padding: const EdgeInsets.all(8.0),
-                              //             child: GestureDetector(
-                              //               onTap: () async {
-                              //                 final Uri uri =
-                              //                     Uri.parse(item["link"]!);
-                              //                 if (await canLaunchUrl(uri)) {
-                              //                   await launchUrl(uri);
-                              //                 } else {
-                              //                   throw 'Could not launch ${item["link"]}';
-                              //                 }
-                              //               },
-                              //               child: Text(
-                              //                 item["title"]!,
-                              //                 style: TextStyle(
-                              //                   color: Colors.blue,
-                              //                   decoration:
-                              //                       TextDecoration.underline,
-                              //                   // 파란색 언더라인
-                              //                   decorationColor: Colors.blue,
-                              //                   fontSize: isMobile ? 8 : 32,
-                              //                 ),
-                              //               ),
-                              //             ),
-                              //           ),
-                              //         ],
-                              //       );
-                              //     }).toList(),
-                              //   ],
-                              // ),
-                              Container(
-                                color: Colors.transparent,
-                                width: width * 0.42,
-                                height: height * 0.20,
-                                child: Row(
-                                  children: [
-                                    Container(
-                                        width: width * 0.114,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.black, width: 1)),
-                                        child: Column(children: [
-                                          GestureDetector(
-                                            onTap: () async {
-                                              final Uri uri = Uri.parse(
-                                                  'https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing');
-                                              if (await canLaunchUrl(uri)) {
-                                                await launchUrl(uri);
-                                              } else {
-                                                throw 'Could not launch url';
-                                              }
-                                            },
-                                            child: Image.asset(
-                                              'assets/download_image_01.png',
-                                              width: width * 0.114,
-                                              height: height * 0.18,
-                                            ),
-                                          ),
-                                          Text(
-                                            "[NORMAG]카달로그.pdf",
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ])),
-                                    Spacer(),
-                                    Container(
-                                        width: width * 0.114,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.black, width: 1)),
-                                        child: Column(children: [
-                                          GestureDetector(
-                                            onTap: () async {
-                                              final Uri uri = Uri.parse(
-                                                  'https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing');
-                                              if (await canLaunchUrl(uri)) {
-                                                await launchUrl(uri);
-                                              } else {
-                                                throw 'Could not launch url';
-                                              }
-                                            },
-                                            child: Image.asset(
-                                              'assets/download_image_02.png',
-                                              width: width * 0.115,
-                                              height: height * 0.18,
-                                            ),
-                                          ),
-                                          Text(
-                                            "[하이돌프] 종합 카달로그 _2024.pdf",
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ])),
-                                    Spacer(),
-                                    Container(
-                                        width: width * 0.114,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.black, width: 1)),
-                                        child: Column(children: [
-                                          // Image.asset(
-                                          //     'assets/download_image_01.png',
-                                          //   width:  width * 0.115,
-                                          //   height: height* 0.18,),
-                                          Container(
-                                              width: width * 0.115,
-                                              height: height * 0.18,
-                                              color: Colors.grey),
-                                          Text(
-                                            "준비중",
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ])),
-                                  ],
+                          SizedBox(
+                            width: 360,
+                          ),
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 230,
                                 ),
-                              ),
-                              Divider(),
-                              SizedBox(
-                                  height:
-                                      isMobile ? height * 0.02 : height * 0.04),
-                            ],
-                          ),
-                          SizedBox(width: width * 0.10),
-                          Container(
-                            child: Text("Downloads",
-                                style: GoogleFonts.poppins(
-                                  textStyle: TextStyle(
-                                      fontSize: width * 0.025,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.greenAccent),
-                                )),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(height: height * 0.01,color:Colors.grey),
-                    Container(
-                      width: width,
-                      height: height * 0.3,
-                      color: Colors.white,
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: height * 0.02,
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: width * 0.15,
+                                Text(
+                                  'Welcome',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Color(0xFF191919),
+                                    fontSize: 56,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w700,
+                                    height: 0,
                                   ),
-                                  Container(
-                                    child: Text("Direction",
-                                        style: GoogleFonts.poppins(
-                                          textStyle: TextStyle(
-                                              fontSize: width * 0.025,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        )),
-                                  ),
-                                  SizedBox(
-                                    width: width * 0.20,
-                                  ),
-                                  Container(
-                                    width: width * 0.40,
-                                    height: height * 0.18,
-                                    child: _iframeWidget,
-                                  ),
-                                ],
-                              ),
-                              Divider(),
-                              SizedBox(
-                                  height:
-                                      isMobile ? height * 0.02 : height * 0.02),
-
-                              // Text(
-                              //   isMobile ? "전문가에게 맡겨주세요!" : "전문가에게 맡겨주세요!",
-                              //   style: TextStyle(
-                              //     fontSize: isMobile
-                              //         ? width * 0.030
-                              //         : width * 0.012,
-                              //     color: Colors.blueAccent,
-                              //     fontWeight: FontWeight.w400,
-                              //   ),
-                              //   textAlign: TextAlign.center,
-                              // ),
-                              // SizedBox(
-                              //   height: isMobile ? 0 : 20,
-                              // ),
-                              // Text(
-                              //   isMobile
-                              //       ? "문의 및 상담 내용을 작성해서 접수하시면,\n전문가들이 24시간 이내에 빠르고 성실하게\n답변 드리겠습니다."
-                              //       : "문의 및 상담 내용을 작성해서 접수하시면, 전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.",
-                              //   style: TextStyle(
-                              //       fontSize: isMobile
-                              //           ? width * 0.0150
-                              //           : width * 0.006,
-                              //       color: Colors.white),
-                              // ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                        height: isMobile ? height * 0.1500 : height * 0.25,
-                        color: Colors.black,
-                        padding: EdgeInsets.symmetric(
-                            vertical: height * 0.0138,
-                            horizontal: width * 0.007),
-                        child: Center(
-                          child: Column(
-                            children: [
-                              Divider(
-                                  color: Colors.white,
-                                  thickness: isMobile ? 0.5 : 1), // 구분선
-                              SizedBox(height: height * 0.007),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Spacer(),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: height * 0.02,
-                                      ),
-                                      Text(
-                                        "(주) NewChem",
-                                        style: TextStyle(
-                                          fontSize: width * 0.013,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(height: height * 0.0007),
-                                      Text(
-                                        "▶  대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n"
-                                        "▶  경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: width * 0.006),
-                                      ),
-                                      SizedBox(height: height * 0.007),
-                                      Row(
-                                        children: [
-                                          Icon(Icons.phone,
-                                              color: Colors.white,
-                                              size: width * 0.0078),
-                                          SizedBox(width: width * 0.004),
-                                          Text(
-                                            "070-8098-7424",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: width * 0.005,
-                                            ),
-                                          ),
-                                          SizedBox(width: width * 0.007),
-                                          Icon(Icons.phone,
-                                              color: Colors.white,
-                                              size: width * 0.0078),
-                                          SizedBox(width: width * 0.005),
-                                          Text(
-                                            "042-367-7427",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: width * 0.005,
-                                            ),
-                                          ),
-                                          SizedBox(width: width * 0.007),
-                                          Icon(
-                                            Icons.email,
-                                            color: Colors.white,
-                                            size: isMobile ? 9 : 20,
-                                          ),
-                                          SizedBox(width: 10),
-                                          Text(
-                                            "cmkim@new-chem.co.kr",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: isMobile
-                                                  ? width * 0.007
-                                                  : width * 0.005,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  /*        Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Image.asset(
-                                        'assets/logo-white.png',
-                                        width: isMobile
-                                            ? width * 0.15
-                                            : width * 0.10,
-                                      ),
-                                      SizedBox(height: isMobile ? 10 : 20),
-                                    ],
-                                  ),*/
-                                  Container(
-                                    width: width * 0.15,
-                                    height: 200,
-                                    child: Image.asset(
-                                      'assets/logo-white.png',
-                                      width: isMobile
-                                          ? width * 0.15
-                                          : width * 0.10,
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Container(
+                                  width: 558,
+                                  height: 7,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      begin: Alignment(1.00, 0.00),
+                                      end: Alignment(-1, 0),
+                                      colors: [
+                                        Color(0xFF6194F9),
+                                        Color(0xFF82ACFF)
+                                      ],
                                     ),
                                   ),
-                                  Spacer(),
+                                ),
+                                SizedBox(
+                                  height: 90,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    widget.onNavigate(1);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'more view',
+                                        style: TextStyle(
+                                          color: Color(0xFF6194F9),
+                                          fontSize: 21.50,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w400,
+                                          height: 0.07,
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.arrow_right,
+                                        color: Color(0xFF6194F9),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 61,
+                          ),
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 200,
+                                ),
+                                Text(
+                                  '(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지\n합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,\n고객이 신뢰할 수 있는 회사로 자리 매김해 왔습니다.\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
+                                  style: TextStyle(
+                                    color: Color(0xFF191919),
+                                    fontSize: 20,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w400,
+                                    height: 2,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 650,
+                      color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 360,
+                          ),
+                          Container(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 220,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Downloads',
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: Color(0xFF191919),
+                                        fontSize: 56,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w700,
+                                        height: 0,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 85,
+                                    ),
+                                    Transform.translate(
+                                      offset: Offset(0, 10),
+                                      child: InkWell(
+                                        onTap: () {
+                                          widget.onNavigate(4);
+                                        },
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'more view',
+                                              style: TextStyle(
+                                                color: Color(0xFF6194F9),
+                                                fontSize: 21.50,
+                                                fontFamily: 'Pretendard',
+                                                fontWeight: FontWeight.w400,
+                                                height: 0.07,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.arrow_right,
+                                              color: Color(0xFF6194F9),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Container(
+                                  width: 502,
+                                  height: 3,
+                                  decoration:
+                                      BoxDecoration(color: Color(0xFF6194F9)),
+                                ),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.zero,
+                                  width: 502,
+                                  child: Column(
+                                    children: [
+                                      ...downloadData
+                                          .asMap()
+                                          .entries
+                                          .map((entry) {
+                                        int index = entry.key;
+                                        var item = entry.value;
+
+                                        return Column(
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  0, 8, 0, 0),
+                                              child: Table(
+                                                columnWidths: {
+                                                  0: FixedColumnWidth(38),
+                                                  1: FixedColumnWidth(380),
+                                                  2: FixedColumnWidth(102),
+                                                },
+                                                children: [
+                                                  TableRow(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                vertical: 12.0),
+                                                        child: Container(
+                                                          width: 38,
+                                                          height: 38,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0xFF6394F9),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
+                                                          ),
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  vertical: 6.0,
+                                                                  horizontal:
+                                                                      6.0),
+                                                          child: Text(
+                                                            item["number"]!
+                                                                .padLeft(
+                                                                    2, '0'),
+                                                            maxLines: 1,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 20,
+                                                              fontFamily:
+                                                                  'Pretendard',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                            textAlign:
+                                                                TextAlign.left,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .fromLTRB(
+                                                                16, 16, 0, 16),
+                                                        child: GestureDetector(
+                                                          onTap: () async {
+                                                            final Uri uri =
+                                                                Uri.parse(item[
+                                                                    "link"]!);
+                                                            if (await canLaunchUrl(
+                                                                uri)) {
+                                                              await launchUrl(
+                                                                  uri);
+                                                            } else {
+                                                              throw 'Could not launch ${item["link"]}';
+                                                            }
+                                                          },
+                                                          child: Text(
+                                                            item["title"]!,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 18,
+                                                              fontFamily:
+                                                                  'Pretendard',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 86,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .fromLTRB(
+                                                                0, 16, 16, 0),
+                                                        child: Text(
+                                                          item["date"]!,
+                                                          maxLines: 1,
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                                    0xff191919)
+                                                                .withOpacity(
+                                                                    0.4),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            letterSpacing: -1,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            // 마지막 항목이 아닌 경우에만 `Divider` 추가
+                                            if (index < downloadData.length - 1)
+                                              Column(children: [
+                                                SizedBox(
+                                                  height: 16,
+                                                ),
+                                                Divider(
+                                                  color: Color(0xff191919)
+                                                      .withOpacity(0.2),
+                                                  thickness: 1,
+                                                  height: 1,
+                                                ),
+                                              ])
+                                          ],
+                                        );
+                                      }).toList(),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 90,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 24,
+                          ),
+                          Container(
+                            color: Colors.white,
+                            child: Column(children: [
+                              SizedBox(
+                                height: 240,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // 왼쪽 화살표 아이콘
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                            Color(0xff6194f9).withOpacity(0.3)),
+                                    child: IconButton(
+                                      onPressed: _previousPage,
+                                      icon: Icon(Icons.arrow_back_ios_sharp),
+                                      color:
+                                          Color(0xff6194f9), // 아이콘 색상을 흰색으로 변경
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  // ListView로 3개 아이템을 한 번에 보여줌
+                                  Container(
+                                    width: 635, // 3개 항목이 보이도록 전체 컨테이너 너비 설정
+                                    height: 317, // 슬라이드 높이
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: downloadData.length,
+                                      itemBuilder: (context, index) {
+                                        final item = downloadData[index];
+                                        return GestureDetector(
+                                          onTap: () async {
+                                            final Uri uri =
+                                                Uri.parse(item["link"]!);
+                                            if (await canLaunchUrl(uri)) {
+                                              await launchUrl(uri);
+                                            } else {
+                                              throw 'Could not launch ${item["link"]}';
+                                            }
+                                          },
+                                          child: Container(
+                                            width: 199,
+                                            // 개별 아이템 너비를 줄여서 3개가 보이게 함
+                                            margin: EdgeInsets.symmetric(
+                                                horizontal: 5.0),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.2),
+                                                  blurRadius: 6,
+                                                  offset: Offset(0, 3),
+                                                ),
+                                              ],
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                // 이미지 크기 줄이기
+                                                SizedBox(
+                                                  height: 280,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.vertical(
+                                                            top:
+                                                                Radius.circular(
+                                                                    10.0)),
+                                                    child: Image.asset(
+                                                      item["image"]!,
+                                                      fit: BoxFit.cover,
+                                                      width: double.infinity,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: double.infinity,
+                                                  padding: EdgeInsets.all(8.0),
+                                                  color: Color(0xFF6394F9)
+                                                      .withOpacity(0.2),
+                                                  child: Text(
+                                                    item["title"]!,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  // 오른쪽 화살표 아이콘
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color:
+                                            Color(0xff6194f9).withOpacity(0.3)),
+                                    child: IconButton(
+                                      onPressed: _previousPage,
+                                      icon: Icon(Icons.arrow_forward_ios_sharp),
+                                      color:
+                                          Color(0xff6194f9), // 아이콘 색상을 흰색으로 변경
+                                    ),
+                                  ),
                                 ],
                               ),
-                              SizedBox(height: isMobile ? 0 : 5),
-                              Divider(
-                                  color: Colors.white,
-                                  thickness: isMobile ? 0.5 : 1), // 구분선
-                              SizedBox(height: isMobile ? 0 : 5),
-                              Text(
-                                "COPYRIGHT © NewChem (뉴켐) All rights reserved | Designed by Aichemist",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize:
-                                      isMobile ? width * 0.004 : width * 0.005,
+                            ]),
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                        height: 590,
+                        alignment: Alignment.topLeft,
+                        color: Colors.white,
+                        child: Stack(
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 360,
                                 ),
-                                textAlign: TextAlign.center,
+                                Column(
+                                  children: [
+                                    Container(
+                                      width: 240,
+                                      height: 67,
+                                      child: Text(
+                                        'Direction',
+                                        style: TextStyle(
+                                          color: Color(0xFF191919),
+                                          fontSize: 56,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w700,
+                                          letterSpacing: -1,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 111,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: 1065,
+                                      height: 450,
+                                      child: _iframeWidget,
+                                    ),
+                                    SizedBox(
+                                      height: 100,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: 21,
+                                          height: 27,
+                                          child: Image.asset(
+                                            'assets/direction.png',
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 14,
+                                        ),
+                                        Text(
+                                          '경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
+                                          style: TextStyle(
+                                            color: Color(0xFF191919),
+                                            fontSize: 22,
+                                            fontFamily: 'Pretendard',
+                                            fontWeight: FontWeight.w500,
+                                            letterSpacing: 0.66,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 50,
+                                ),
+                              ],
+                            ),
+                            // 우측 하단 고정 버튼
+                            Positioned(
+                              bottom: 140.0, // 하단 여백 설정
+                              right: 64.0, // 우측 여백 설정
+                              child: InkWell(
+                                onTap: () {
+                                  _scrollController.animateTo(
+                                    0, // 맨 위로 스크롤
+                                    duration: Duration(seconds: 1),
+                                    // 스크롤 애니메이션 시간
+                                    curve: Curves.easeInOut, // 애니메이션 곡선
+                                  );
+                                },
+                                child: Image.asset(
+                                  'assets/scroll_up.png',
+                                  width: 63, // 버튼의 너비 (필요에 맞게 조절)
+                                  height: 63, // 버튼의 높이 (필요에 맞게 조절)
+                                ),
                               ),
+                            ),
+                          ],
+                        )),
+                    Container(
+                      height: 395,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/bg-gradation01.png"),
+                          fit: BoxFit.fill, // 이미지를 전체 배경에 맞게 채움
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 462,
+                      color: Colors.black,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 72,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 327,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  buildTextButton2("HOME", 0, 14, onItemTapped),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  buildTextButton2(
+                                      "COMPANY", 1, 14, onItemTapped),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  buildTextButton2(
+                                      "PRODUCTS", 2, 14, onItemTapped),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  buildTextButton2(
+                                      "CONTACT US", 3, 14, onItemTapped),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  buildTextButton2(
+                                      "DOWNLOADS", 4, 14, onItemTapped),
+                                ],
+                              ),
+
+                              // Spacer(),
+                              // Column(
+                              //   crossAxisAlignment:
+                              //   CrossAxisAlignment.start,
+                              //   children: [
+                              //     SizedBox(
+                              //       height: height * 0.02,
+                              //     ),
+                              //     Text(
+                              //       "(주) NewChem",
+                              //       style: TextStyle(
+                              //         fontSize: width * 0.013,
+                              //         color: Colors.white,
+                              //         fontWeight: FontWeight.bold,
+                              //       ),
+                              //     ),
+                              //     SizedBox(height: height * 0.0007),
+                              //     Text(
+                              //       "▶  대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n"
+                              //           "▶  경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호",
+                              //       style: TextStyle(
+                              //           color: Colors.white,
+                              //           fontSize: width * 0.006),
+                              //     ),
+                              //     SizedBox(height: height * 0.007),
+                              //     Row(
+                              //       children: [
+                              //         Icon(Icons.phone,
+                              //             color: Colors.white,
+                              //             size: width * 0.0078),
+                              //         SizedBox(width: width * 0.004),
+                              //         Text(
+                              //           "070-8098-7424",
+                              //           style: TextStyle(
+                              //             color: Colors.white,
+                              //             fontSize: width * 0.005,
+                              //           ),
+                              //         ),
+                              //         SizedBox(width: width * 0.007),
+                              //         Icon(Icons.phone,
+                              //             color: Colors.white,
+                              //             size: width * 0.0078),
+                              //         SizedBox(width: width * 0.005),
+                              //         Text(
+                              //           "042-367-7427",
+                              //           style: TextStyle(
+                              //             color: Colors.white,
+                              //             fontSize: width * 0.005,
+                              //           ),
+                              //         ),
+                              //         SizedBox(width: width * 0.007),
+                              //         Icon(
+                              //           Icons.email,
+                              //           color: Colors.white,
+                              //           size: isMobile ? 9 : 20,
+                              //         ),
+                              //         SizedBox(width: 10),
+                              //         Text(
+                              //           "cmkim@new-chem.co.kr",
+                              //           style: TextStyle(
+                              //             color: Colors.white,
+                              //             fontSize: isMobile
+                              //                 ? width * 0.007
+                              //                 : width * 0.005,
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ],
+                              // ),
+                              // Spacer(),
+                              // /*        Column(
+                              //   crossAxisAlignment: CrossAxisAlignment.end,
+                              //   children: [
+                              //     Image.asset(
+                              //       'assets/logo-white.png',
+                              //       width: isMobile
+                              //           ? width * 0.15
+                              //           : width * 0.10,
+                              //     ),
+                              //     SizedBox(height: isMobile ? 10 : 20),
+                              //   ],
+                              // ),*/
+                              // Container(
+                              //   width: width * 0.15,
+                              //   height: 200,
+                              //   child: Image.asset(
+                              //     'assets/logo-white.png',
+                              //     width: isMobile
+                              //         ? width * 0.15
+                              //         : width * 0.10,
+                              //   ),
+                              // ),
+                              // Spacer(),
                             ],
                           ),
-                        )),
+                          SizedBox(
+                            height: 27,
+                          ),
+                          Container(
+                            width: 1200,
+                            child: Divider(
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 45,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 360,
+                              ),
+                              Container(
+                                width: 606,
+                                height: 50,
+                                child: Text(
+                                  '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0.54,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 47,
+                          ),
+                          Container(
+                            height: 67,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 360,
+                                ),
+                                Transform.translate(
+                                  offset: Offset(0, -15),
+                                  child: Icon(
+                                    Icons.phone,
+                                    color: Colors.white,
+                                    size: 18,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Container(
+                                  width: 155,
+                                  height: 50,
+                                  child: SelectableText(
+                                    '070-8098-7424',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 0.54,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 16,
+                                ),
+                                Transform.translate(
+                                  offset: Offset(0, -12),
+                                  child: Icon(
+                                    Icons.print,
+                                    color: Colors.white,
+                                    size: 18,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Container(
+                                  width: 160,
+                                  height: 50,
+                                  child: SelectableText(
+                                    '042-367-7427',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 0.54,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Transform.translate(
+                                  offset: Offset(0, -12),
+                                  child: Icon(
+                                    Icons.local_post_office,
+                                    color: Colors.white,
+                                    size: 18,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Container(
+                                  width: 280,
+                                  height: 50,
+                                  child: SelectableText(
+                                    'cmkim@new-chem.co.kr',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 0.54,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 240),
+                                Transform.translate(
+                                    offset: Offset(0, -12),
+                                    child: Container(
+                                      width: 282,
+                                      child:
+                                          Image.asset('assets/logo-white.png'),
+                                    )),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 47,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 380,
+                              ),
+                              Text(
+                                'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.3),
+                                  fontSize: 18,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.54,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    // Container(
+                    //   width: width,
+                    //   height: height * 0.3,
+                    //   color: Colors.white,
+                    //   child: Row(
+                    //     children: [
+                    //       SizedBox(width: width * 0.15),
+                    //       Container(
+                    //           child: Column(
+                    //         children: [
+                    //           SizedBox(
+                    //             height: height * 0.035,
+                    //           ),
+                    //           SizedBox(
+                    //             height: height * 0.02,
+                    //           ),
+                    //           Container(
+                    //             width: width * 0.35,
+                    //             child: SelectableText(
+                    //                 '\t(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지',
+                    //                 textAlign: TextAlign.left,
+                    //                 style: GoogleFonts.nanumGothic(
+                    //                     textStyle: TextStyle(
+                    //                   color: Colors.grey,
+                    //                   fontWeight: FontWeight.w500,
+                    //                   fontSize: width * 0.010,
+                    //                 ))),
+                    //           ),
+                    //           SizedBox(
+                    //             height: height * 0.008,
+                    //           ),
+                    //           Container(
+                    //             width: width * 0.35,
+                    //             child: SelectableText(
+                    //                 '합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.',
+                    //                 textAlign: TextAlign.left,
+                    //                 style: GoogleFonts.nanumGothic(
+                    //                     textStyle: TextStyle(
+                    //                   color: Colors.grey,
+                    //                   fontWeight: FontWeight.w500,
+                    //                   fontSize: width * 0.010,
+                    //                 ))),
+                    //           ),
+                    //           SizedBox(
+                    //             height: height * 0.008,
+                    //           ),
+                    //           Container(
+                    //             width: width * 0.35,
+                    //             child: SelectableText(
+                    //                 '지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,',
+                    //                 textAlign: TextAlign.left,
+                    //                 style: GoogleFonts.nanumGothic(
+                    //                     textStyle: TextStyle(
+                    //                   color: Colors.grey,
+                    //                   fontWeight: FontWeight.w500,
+                    //                   fontSize: width * 0.010,
+                    //                 ))),
+                    //           ),
+                    //           SizedBox(
+                    //             height: height * 0.008,
+                    //           ),
+                    //           Container(
+                    //             width: width * 0.35,
+                    //             child: SelectableText(
+                    //                 '고객이 신뢰할 수 있는 회사로 자리 매김해 왔습니다.',
+                    //                 textAlign: TextAlign.left,
+                    //                 style: GoogleFonts.nanumGothic(
+                    //                     textStyle: TextStyle(
+                    //                   color: Colors.grey,
+                    //                   fontWeight: FontWeight.w500,
+                    //                   fontSize: width * 0.010,
+                    //                 ))),
+                    //           ),
+                    //           SizedBox(
+                    //             height: height * 0.008,
+                    //           ),
+                    //           Container(
+                    //             width: width * 0.35,
+                    //             child: SelectableText('앞으로도 지속적인 성원 부탁드립니다.',
+                    //                 textAlign: TextAlign.left,
+                    //                 style: GoogleFonts.nanumGothic(
+                    //                     textStyle: TextStyle(
+                    //                   color: Colors.grey,
+                    //                   fontWeight: FontWeight.w500,
+                    //                   fontSize: width * 0.010,
+                    //                 ))),
+                    //           ),
+                    //           SizedBox(
+                    //             height: height * 0.008,
+                    //           ),
+                    //           Container(
+                    //             width: width * 0.35,
+                    //             child:
+                    //                 SelectableText('저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
+                    //                     textAlign: TextAlign.left,
+                    //                     style: GoogleFonts.nanumGothic(
+                    //                         textStyle: TextStyle(
+                    //                       color: Colors.grey,
+                    //                       fontWeight: FontWeight.w500,
+                    //                       fontSize: width * 0.010,
+                    //                     ))),
+                    //           ),
+                    //         ],
+                    //       )),
+                    //       SizedBox(width: width * 0.18),
+                    //       Container(
+                    //         child: Text("Welcome",
+                    //             style: GoogleFonts.roboto(
+                    //               textStyle: TextStyle(
+                    //                   fontSize: width * 0.025,
+                    //                   fontWeight: FontWeight.bold,
+                    //                   color: Colors.blueAccent),
+                    //             )),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // Container(height: height * 0.01, color: Colors.grey),
+                    // Container(
+                    //     width: width,
+                    //     height: height * 0.3,
+                    //     color: Colors.white,
+                    //     child: GestureDetector(
+                    //       onTap: () {
+                    //         widget.onNavigate(3);
+                    //       },
+                    //       child: Row(
+                    //         children: [
+                    //           Column(
+                    //             crossAxisAlignment: CrossAxisAlignment.start,
+                    //             children: [
+                    //               SizedBox(
+                    //                 height: height * 0.08,
+                    //               ),
+                    //               Row(
+                    //                 children: [
+                    //                   SizedBox(
+                    //                     width: width * 0.15,
+                    //                   ),
+                    //                   Container(
+                    //                     child: Text("Contact Us",
+                    //                         style: GoogleFonts.roboto(
+                    //                           textStyle: TextStyle(
+                    //                               fontSize: width * 0.025,
+                    //                               fontWeight: FontWeight.bold,
+                    //                               color: Colors.redAccent),
+                    //                         )),
+                    //                   ),
+                    //                   SizedBox(
+                    //                     width: width * 0.20,
+                    //                   ),
+                    //                   Column(
+                    //                     mainAxisAlignment:
+                    //                         MainAxisAlignment.start,
+                    //                     children: [
+                    //                       Text('전문가에게 맡겨주세요',
+                    //                           style: GoogleFonts.nanumGothic(
+                    //                               textStyle: TextStyle(
+                    //                                   fontSize: width * 0.015,
+                    //                                   color: Colors.black,
+                    //                                   fontWeight:
+                    //                                       FontWeight.bold))),
+                    //                       SizedBox(
+                    //                         height: height * 0.04,
+                    //                       ),
+                    //                       Text('문의 및 상담 내용을 작성해서 접수하시면',
+                    //                           style: GoogleFonts.nanumMyeongjo(
+                    //                               textStyle: TextStyle(
+                    //                                   fontSize: width * 0.012,
+                    //                                   color: Colors.black,
+                    //                                   fontWeight:
+                    //                                       FontWeight.bold))),
+                    //                       Text(
+                    //                           '전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.',
+                    //                           style: GoogleFonts.nanumMyeongjo(
+                    //                               textStyle: TextStyle(
+                    //                                   fontSize: width * 0.012,
+                    //                                   color: Colors.black,
+                    //                                   fontWeight:
+                    //                                       FontWeight.bold))),
+                    //                     ],
+                    //                   )
+                    //
+                    //                   // IconButton(
+                    //                   //     onPressed: () {
+                    //                   //       widget.onNavigate(3); // ContactScreen으로 이동
+                    //                   //     },
+                    //                   //     icon: Icon(Icons.arrow_forward_ios_sharp),
+                    //                   //     iconSize: isMobile ? 10 : 24,
+                    //                   //     color: Colors.white),
+                    //                 ],
+                    //               ),
+                    //               Divider(),
+                    //               SizedBox(
+                    //                   height: isMobile
+                    //                       ? height * 0.02
+                    //                       : height * 0.02),
+                    //               // Text(
+                    //               //   isMobile ? "전문가에게 맡겨주세요!" : "전문가에게 맡겨주세요!",
+                    //               //   style: TextStyle(
+                    //               //     fontSize: isMobile
+                    //               //         ? width * 0.030
+                    //               //         : width * 0.012,
+                    //               //     color: Colors.blueAccent,
+                    //               //     fontWeight: FontWeight.w400,
+                    //               //   ),
+                    //               //   textAlign: TextAlign.center,
+                    //               // ),
+                    //               // SizedBox(
+                    //               //   height: isMobile ? 0 : 20,
+                    //               // ),
+                    //               // Text(
+                    //               //   isMobile
+                    //               //       ? "문의 및 상담 내용을 작성해서 접수하시면,\n전문가들이 24시간 이내에 빠르고 성실하게\n답변 드리겠습니다."
+                    //               //       : "문의 및 상담 내용을 작성해서 접수하시면, 전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.",
+                    //               //   style: TextStyle(
+                    //               //       fontSize: isMobile
+                    //               //           ? width * 0.0150
+                    //               //           : width * 0.006,
+                    //               //       color: Colors.white),
+                    //               // ),
+                    //             ],
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     )),
+                    // Container(height: height * 0.01, color: Colors.grey),
+                    // Container(
+                    //   width: width,
+                    //   height: height * 0.3,
+                    //   color: Colors.white,
+                    //   child: Row(
+                    //     children: [
+                    //       SizedBox(width: width * 0.15),
+                    //       Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           SizedBox(
+                    //             height: height * 0.035,
+                    //           ),
+                    //
+                    //           // Table(
+                    //           //   columnWidths: {
+                    //           //     0: FixedColumnWidth(
+                    //           //         MediaQuery.of(context).size.width *
+                    //           //             0.5), // 화면 크기에 따라 셀 크기 조정
+                    //           //   },
+                    //           //   children: [
+                    //           //     ...downloadData.map((item) {
+                    //           //       return TableRow(
+                    //           //         children: [
+                    //           //           Padding(
+                    //           //             padding: const EdgeInsets.all(8.0),
+                    //           //             child: GestureDetector(
+                    //           //               onTap: () async {
+                    //           //                 final Uri uri =
+                    //           //                     Uri.parse(item["link"]!);
+                    //           //                 if (await canLaunchUrl(uri)) {
+                    //           //                   await launchUrl(uri);
+                    //           //                 } else {
+                    //           //                   throw 'Could not launch ${item["link"]}';
+                    //           //                 }
+                    //           //               },
+                    //           //               child: Text(
+                    //           //                 item["title"]!,
+                    //           //                 style: TextStyle(
+                    //           //                   color: Colors.blue,
+                    //           //                   decoration:
+                    //           //                       TextDecoration.underline,
+                    //           //                   // 파란색 언더라인
+                    //           //                   decorationColor: Colors.blue,
+                    //           //                   fontSize: isMobile ? 8 : 32,
+                    //           //                 ),
+                    //           //               ),
+                    //           //             ),
+                    //           //           ),
+                    //           //         ],
+                    //           //       );
+                    //           //     }).toList(),
+                    //           //   ],
+                    //           // ),
+                    //           Container(
+                    //             color: Colors.transparent,
+                    //             width: width * 0.42,
+                    //             height: height * 0.20,
+                    //             child: Row(
+                    //               children: [
+                    //                 Container(
+                    //                     width: width * 0.114,
+                    //                     decoration: BoxDecoration(
+                    //                         border: Border.all(
+                    //                             color: Colors.black, width: 1)),
+                    //                     child: Column(children: [
+                    //                       GestureDetector(
+                    //                         onTap: () async {
+                    //                           final Uri uri = Uri.parse(
+                    //                               'https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing');
+                    //                           if (await canLaunchUrl(uri)) {
+                    //                             await launchUrl(uri);
+                    //                           } else {
+                    //                             throw 'Could not launch url';
+                    //                           }
+                    //                         },
+                    //                         child: Image.asset(
+                    //                           'assets/download_image_01.png',
+                    //                           width: width * 0.114,
+                    //                           height: height * 0.18,
+                    //                         ),
+                    //                       ),
+                    //                       Text(
+                    //                         "[NORMAG]카달로그.pdf",
+                    //                         style: TextStyle(
+                    //                             fontSize: 10,
+                    //                             fontWeight: FontWeight.bold),
+                    //                       ),
+                    //                     ])),
+                    //                 Spacer(),
+                    //                 Container(
+                    //                     width: width * 0.114,
+                    //                     decoration: BoxDecoration(
+                    //                         border: Border.all(
+                    //                             color: Colors.black, width: 1)),
+                    //                     child: Column(children: [
+                    //                       GestureDetector(
+                    //                         onTap: () async {
+                    //                           final Uri uri = Uri.parse(
+                    //                               'https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing');
+                    //                           if (await canLaunchUrl(uri)) {
+                    //                             await launchUrl(uri);
+                    //                           } else {
+                    //                             throw 'Could not launch url';
+                    //                           }
+                    //                         },
+                    //                         child: Image.asset(
+                    //                           'assets/download_image_02.png',
+                    //                           width: width * 0.115,
+                    //                           height: height * 0.18,
+                    //                         ),
+                    //                       ),
+                    //                       Text(
+                    //                         "[하이돌프] 종합 카달로그 _2024.pdf",
+                    //                         style: TextStyle(
+                    //                             fontSize: 10,
+                    //                             fontWeight: FontWeight.bold),
+                    //                       ),
+                    //                     ])),
+                    //                 Spacer(),
+                    //                 Container(
+                    //                     width: width * 0.114,
+                    //                     decoration: BoxDecoration(
+                    //                         border: Border.all(
+                    //                             color: Colors.black, width: 1)),
+                    //                     child: Column(children: [
+                    //                       // Image.asset(
+                    //                       //     'assets/download_image_01.png',
+                    //                       //   width:  width * 0.115,
+                    //                       //   height: height* 0.18,),
+                    //                       Container(
+                    //                           width: width * 0.115,
+                    //                           height: height * 0.18,
+                    //                           color: Colors.grey),
+                    //                       Text(
+                    //                         "준비중",
+                    //                         style: TextStyle(
+                    //                             fontSize: 10,
+                    //                             fontWeight: FontWeight.bold),
+                    //                       ),
+                    //                     ])),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //           Divider(),
+                    //           SizedBox(
+                    //               height:
+                    //                   isMobile ? height * 0.02 : height * 0.04),
+                    //         ],
+                    //       ),
+                    //       SizedBox(width: width * 0.10),
+                    //       Container(
+                    //         child: Text("Downloads",
+                    //             style: GoogleFonts.roboto(
+                    //               textStyle: TextStyle(
+                    //                   fontSize: width * 0.025,
+                    //                   fontWeight: FontWeight.bold,
+                    //                   color: Colors.greenAccent),
+                    //             )),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // Container(height: height * 0.01, color: Colors.grey),
+                    // Container(
+                    //   width: width,
+                    //   height: height * 0.3,
+                    //   color: Colors.white,
+                    //   child: Row(
+                    //     children: [
+                    //       Column(
+                    //         crossAxisAlignment: CrossAxisAlignment.start,
+                    //         children: [
+                    //           SizedBox(
+                    //             height: height * 0.02,
+                    //           ),
+                    //           Row(
+                    //             children: [
+                    //               SizedBox(
+                    //                 width: width * 0.15,
+                    //               ),
+                    //               Container(
+                    //                 child: Text("Direction",
+                    //                     style: GoogleFonts.roboto(
+                    //                       textStyle: TextStyle(
+                    //                           fontSize: width * 0.025,
+                    //                           fontWeight: FontWeight.bold,
+                    //                           color: Colors.black),
+                    //                     )),
+                    //               ),
+                    //               SizedBox(
+                    //                 width: width * 0.20,
+                    //               ),
+                    //               Container(
+                    //                 width: width * 0.40,
+                    //                 height: height * 0.18,
+                    //                 child: _iframeWidget,
+                    //               ),
+                    //             ],
+                    //           ),
+                    //           Divider(),
+                    //           SizedBox(
+                    //               height:
+                    //                   isMobile ? height * 0.02 : height * 0.02),
+                    //
+                    //           // Text(
+                    //           //   isMobile ? "전문가에게 맡겨주세요!" : "전문가에게 맡겨주세요!",
+                    //           //   style: TextStyle(
+                    //           //     fontSize: isMobile
+                    //           //         ? width * 0.030
+                    //           //         : width * 0.012,
+                    //           //     color: Colors.blueAccent,
+                    //           //     fontWeight: FontWeight.w400,
+                    //           //   ),
+                    //           //   textAlign: TextAlign.center,
+                    //           // ),
+                    //           // SizedBox(
+                    //           //   height: isMobile ? 0 : 20,
+                    //           // ),
+                    //           // Text(
+                    //           //   isMobile
+                    //           //       ? "문의 및 상담 내용을 작성해서 접수하시면,\n전문가들이 24시간 이내에 빠르고 성실하게\n답변 드리겠습니다."
+                    //           //       : "문의 및 상담 내용을 작성해서 접수하시면, 전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.",
+                    //           //   style: TextStyle(
+                    //           //       fontSize: isMobile
+                    //           //           ? width * 0.0150
+                    //           //           : width * 0.006,
+                    //           //       color: Colors.white),
+                    //           // ),
+                    //         ],
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 )),
           ),
@@ -1146,6 +2067,35 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
+}
+
+// 전역에서 사용 가능한 `buildTextButton` 함수 정의
+Container buildTextButton2(String label, int index, double buttonFontSize,
+    Function(int) onItemTapped) {
+  return Container(
+    width: 115,
+    height: 46,
+    child: TextButton(
+      onPressed: () => onItemTapped(index),
+      child: Text(
+        label,
+        maxLines: 1,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: 'Pretendard',
+          fontWeight: FontWeight.w600,
+          fontSize: buttonFontSize,
+          letterSpacing: -0.2,
+        ),
+      ),
+      style: TextButton.styleFrom(
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero, // 직사각형으로 설정
+        ),
+      ),
+    ),
+  );
 }
 
 class MyWidgetFactory extends WidgetFactory with WebViewFactory {}

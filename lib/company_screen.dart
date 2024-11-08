@@ -336,7 +336,7 @@ class _CompanyPageState extends State<CompanyPage> {
                   ),
                   SizedBox(height: 50),
                   Text(
-                    "(주) 뉴켐 대표\n김 천 만",
+                    "(주) 뉴켐 대표\t\t 김 천 만",
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,

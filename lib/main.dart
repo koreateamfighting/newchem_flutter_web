@@ -1,228 +1,212 @@
 import 'package:flutter/material.dart';
-import 'package:newchem_flutter_website/download_screen.dart';
-import 'company_screen.dart'; // CompanyPage 파일 import
+import 'package:go_router/go_router.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+import 'company_screen.dart';
 import 'home_screen.dart';
 import 'product_screen.dart';
 import 'contact_screen.dart';
 import 'download_screen.dart';
+import 'popup.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:html' as html; // Web용 dart:html 패키지 사용
+
+// 디자인 가이드 해상도 기준 상수
+const double baseWidth = 1920.0;
+const double baseHeight = 4826.0;
 
 void main() {
+  setUrlStrategy(PathUrlStrategy()); // Path URL 사용
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      routerConfig: _router,
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
-  int _selectedIndex = 0; // default는 Home 페이지
-  int _companyTabIndex = 0; // Company 페이지의 탭 상태를 유지할 변수
-  int _productTabIndex = 0; // Product 페이지의 탭 상태를 유지할 변수
-  late List<Widget> _pages;
-
-  @override
-  void initState() {
-    super.initState();
-    // 초기 화면 목록 설정
-    _pages = [
-      HomePage(
+// go_router 설정
+final GoRouter _router = GoRouter(
+  initialLocation: '/', // 초기 위치
+  routes: [
+    GoRoute(
+      path: '/', // 홈 페이지 경로
+      builder: (context, state) => MyAppContainer(
+          child: HomePage(
         onNavigate: (int index) {
-          _onItemTapped(index);
+          _router.go(_getPathByIndex(index)); // 페이지 전환
         },
         onProductNavigate: (int tabIndex) {
-          _navigateToProductTab(tabIndex); // HomePage에서 탭 인덱스 전달받음
+          _router.go('/products/$tabIndex'); // Product 탭 전환
         },
         onCompanyNavigate: (int tabIndex) {
-          _navigateToCompanyTab(tabIndex); // CompanyPage에서 탭 인덱스 전달받음
+          _router.go('/company/$tabIndex'); // Company 탭 전환
         },
-      ), // 0: Home 화면
-      CompanyPage(
-        selectedTabIndex: _companyTabIndex, // 전달된 탭 인덱스
-        onTabChanged: (int tabIndex) {
-          setState(() {
-            _companyTabIndex = tabIndex; // 선택된 탭 인덱스를 저장
-          });
-        },
-      ), // 1: Company 화면
-      ProductScreen(
-        initialTabIndex: _productTabIndex, // 전달된 탭 인덱스로 ProductScreen 열기
-      ), // 2: Products 화면
-      ContactScreen(), // 3: Contact Us 화면
-      DownloadScreen(), // 4: Downloads 화면
-    ];
-  }
-
-  // 페이지 전환 시 실행되는 함수
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    _navigateToPage(index);
-  }
-
-  void _navigateToPage(int index) {
-    Navigator.of(context).push(PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => _pages[index],
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0); // 화면 오른쪽에서 왼쪽으로 슬라이드
-        const end = Offset.zero;
-        const curve = Curves.easeInOut;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(
-          position: offsetAnimation,
-          child: child,
+      )),
+    ),
+    GoRoute(
+      path: '/company/:tabIndex', // Company 페이지의 탭별 경로
+      builder: (context, state) {
+        final tabIndex =
+            int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
+        return MyAppContainer(
+          child: CompanyPage(
+            selectedTabIndex: tabIndex,
+            onTabChanged: (int newTabIndex) {
+              context.go('/company/$newTabIndex'); // 탭 변경 시 URL 업데이트
+            },
+          ),
         );
       },
-    ));
-  }
-
-  // ProductScreen으로 이동할 때 호출
-  void _navigateToProductTab(int tabIndex) {
-    setState(() {
-      _productTabIndex = tabIndex; // Product 탭 상태 변경
-      _selectedIndex = 2; // ProductScreen으로 이동
-      _updateProductScreen(); // 페이지 새로고침
-    });
-  }
-
-  // CompanyPage로 이동할 때 호출
-  void _navigateToCompanyTab(int tabIndex) {
-    setState(() {
-      _companyTabIndex = tabIndex; // Company 탭 상태 변경
-      _selectedIndex = 1; // CompanyPage로 이동
-      _updateCompanyPage(); // 페이지 새로고침
-    });
-  }
-
-  // ProductScreen을 새로고침하는 함수
-  void _updateProductScreen() {
-    _pages[2] = ProductScreen(
-      initialTabIndex: _productTabIndex, // 현재 선택된 Product 탭 인덱스 반영
-    );
-  }
-
-  // CompanyPage를 새로고침하는 함수
-  void _updateCompanyPage() {
-    _pages[1] = CompanyPage(
-      selectedTabIndex: _companyTabIndex, // 현재 선택된 Company 탭 인덱스 반영
-      onTabChanged: (int tabIndex) {
-        setState(() {
-          _companyTabIndex = tabIndex;
-        });
+    ),
+    GoRoute(
+      path: '/products/:tabIndex', // Products 페이지 경로 및 탭별 설정
+      builder: (context, state) {
+        final tabIndex =
+            int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
+        return MyAppContainer(
+          child: ProductScreen(initialTabIndex: tabIndex),
+        );
       },
-    );
-  }
+    ),
+    GoRoute(
+      path: '/contact', // Contact 페이지 경로
+      builder: (context, state) => MyAppContainer(child: ContactScreen()),
+    ),
+    GoRoute(
+      path: '/downloads', // Downloads 페이지 경로
+      builder: (context, state) => MyAppContainer(child: DownloadScreen()),
+    ),
+  ],
+);
 
-// 반응형 TextButton 빌더
-  TextButton _buildTextButton(
-      String label, int index, double buttonFontSize) {
-    return TextButton(
-      onPressed: () => _onItemTapped(index),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: buttonFontSize, // 전달받은 fontSize 값 적용
-        ),
-      ),
-      style: TextButton.styleFrom(
-        foregroundColor: Colors.white, // 텍스트 색상을 검은색으로 설정
-
-      ),
-    );
+// 인덱스에 따른 경로를 반환하는 함수
+String _getPathByIndex(int index) {
+  switch (index) {
+    case 0:
+      return '/';
+    case 1:
+      return '/company/0';
+    case 2:
+      return '/products/0';
+    case 3:
+      return '/contact';
+    case 4:
+      return '/downloads';
+    case 5:
+      return '/popup';
+    default:
+      return '/';
   }
+}
+
+// 기존 StatefulWidget MyApp 구조를 유지하기 위해 MyApp을 StatefulWidget으로 감쌈
+class MyAppContainer extends StatefulWidget {
+  final Widget child;
+
+  MyAppContainer({required this.child});
+
+  @override
+  _MyAppContainerState createState() => _MyAppContainerState();
+}
+
+class _MyAppContainerState extends State<MyAppContainer> {
+  int _selectedIndex = 0; // default는 Home 페이지
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final width = size.width;
     final height = size.height;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: WillPopScope(onWillPop: () async {
-        if (_selectedIndex != 0) {
-          setState(() {
-            _selectedIndex = 0; // 뒤로 가기를 눌렀을 때 홈 화면으로 이동
-          });
-          return false; // 앱 종료 방지
-        }
-        return true; // 앱 종료
-      }, child: LayoutBuilder(builder: (context, constraints) {
-        // width와 height 모두를 고려한 반응형 조건 설정
-        final isMobile = width < 600 && height < 800;
-        final isTablet = width >= 600 && width < 1024 && height < 1200;
-        final isDesktop = width >= 1024 && height >= 1200;
 
-        return Scaffold(
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(81), // 원하는 높이로 설정
+        child: AppBar(
+          elevation: 0, // 그림자 제거
           backgroundColor: Colors.white,
-          body: Container(
-              height: MediaQuery.of(context).size.height,
-              padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-              child: Column(
-                children: [
-                  Container(
-                    height: height * 0.115,
-                    child: Center(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      // 로고와 버튼들 사이 간격 설정
-                      children: [
-                        Container(
-                            width: isMobile? width * 0.30: isTablet? width * 0.25 : width * 0.15,
-                            height: height * 0.115,
-                            child: FittedBox(
-                              fit: BoxFit.contain,
-                              child: IconButton(
-                                icon: Image.asset('assets/logo.png'),
-                                onPressed: () => _onItemTapped(0),
-                              ),
-                            )),
-                      ],
-                    )),
-                  ),
-                  Container(
-                    color: Colors.black,
-                    child: Center(
-                      child: Container(
-
-                        height: height * 0.05,
-                        child: Row(
-                          children: [
-                            Spacer(),
-                            _buildTextButton(
-                                "HOME", 0, width * 0.010),
-                            SizedBox(width: width * 0.012 ,),
-                            _buildTextButton(
-                                "COMPANY", 1,  width * 0.010),
-                            SizedBox(width: width * 0.012 ,),
-                            _buildTextButton(
-                                "PRODUCTS", 2,  width * 0.010),
-                            SizedBox(width: width * 0.012 ,),
-                            _buildTextButton(
-                                "CONTACT US", 3,  width * 0.010),
-                            SizedBox(width: width * 0.012 ,),
-                            _buildTextButton(
-                                "DOWNLOADS", 4,  width * 0.010),
-                            Spacer(),
-                          ],
-                        ),
-                      ),
+          title: Container(
+            padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 320),
+                Container(
+                  width: 170,
+                  height: 49,
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: IconButton(
+                      icon: Image.asset('assets/logo.png'),
+                      onPressed: () => onItemTapped(0), // 수정된 부분
                     ),
                   ),
-                  Expanded(
-                    child: _pages[_selectedIndex],
-                  )
-                ],
-              )), // 선택한 화면을 body에 보여줌
-        );
-      })),
+                ),
+                SizedBox(width: 470),
+                Row(
+                  children: [
+                    buildTextButton("HOME", 0, 12, onItemTapped),
+                    // 수정된 부분
+                    SizedBox(width: 4),
+                    buildTextButton("COMPANY", 1, 12, onItemTapped),
+                    // 수정된 부분
+                    SizedBox(width: 4),
+                    buildTextButton("PRODUCTS", 2, 12, onItemTapped),
+                    // 수정된 부분
+                    SizedBox(width: 4),
+                    buildTextButton("CONTACT US", 3, 12, onItemTapped),
+                    // 수정된 부분
+                    SizedBox(width: 4),
+                    buildTextButton("DOWNLOADS", 4, 12, onItemTapped),
+                    // 수정된 부분
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      backgroundColor: Colors.white,
+      body: widget.child, // 현재 페이지의 내용을 표시
     );
   }
+}
+
+// 전역에서 사용 가능한 `_onItemTapped` 함수 정의
+void onItemTapped(int index) {
+  _router.go(_getPathByIndex(index));
+}
+
+// 전역에서 사용 가능한 `buildTextButton` 함수 정의
+Container buildTextButton(String label, int index, double buttonFontSize,
+    Function(int) onItemTapped) {
+  return Container(
+    width: 100,
+    height: 40,
+    child: TextButton(
+      onPressed: () => onItemTapped(index),
+      child: Text(
+        label,
+        maxLines: 1,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: 'Pretendard',
+          fontWeight: FontWeight.w600,
+          fontSize: buttonFontSize,
+          letterSpacing: -0.2,
+        ),
+      ),
+      style: TextButton.styleFrom(
+        foregroundColor: Color(0xff191919),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.zero, // 직사각형으로 설정
+        ),
+      ),
+    ),
+  );
 }
