@@ -10,9 +10,7 @@ import 'popup.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:html' as html; // Web용 dart:html 패키지 사용
 
-// 디자인 가이드 해상도 기준 상수
-const double baseWidth = 1920.0;
-const double baseHeight = 4826.0;
+
 
 void main() {
   setUrlStrategy(PathUrlStrategy()); // Path URL 사용
@@ -120,25 +118,25 @@ class _MyAppContainerState extends State<MyAppContainer> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final width = size.width;
-    final height = size.height;
+    final width = size.width; //1920
+    final height = size.height; //1080
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(81), // 원하는 높이로 설정
+        preferredSize: Size.fromHeight(height * 0.075), // 원하는 높이로 설정
         child: AppBar(
           elevation: 0, // 그림자 제거
           backgroundColor: Colors.white,
           title: Container(
-            padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, height * 0.0148, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width: 320),
+                SizedBox(width: width * 0.1616),
                 Container(
-                  width: 170,
-                  height: 49,
+                  width: width * 0.0858,
+                  height: height * 0.0453,
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: IconButton(
@@ -147,22 +145,22 @@ class _MyAppContainerState extends State<MyAppContainer> {
                     ),
                   ),
                 ),
-                SizedBox(width: 470),
+                SizedBox(width: width * 0.2373),
                 Row(
                   children: [
-                    buildTextButton("HOME", 0, 12, onItemTapped),
+                    buildTextButton("HOME", 0, width * 0.006, onItemTapped),
                     // 수정된 부분
-                    SizedBox(width: 4),
-                    buildTextButton("COMPANY", 1, 12, onItemTapped),
+                    SizedBox(width: width * 0.002),
+                    buildTextButton("COMPANY", 1, width * 0.006, onItemTapped),
                     // 수정된 부분
-                    SizedBox(width: 4),
-                    buildTextButton("PRODUCTS", 2, 12, onItemTapped),
+                    SizedBox(width: width * 0.002),
+                    buildTextButton("PRODUCTS", 2, width * 0.006, onItemTapped),
                     // 수정된 부분
-                    SizedBox(width: 4),
-                    buildTextButton("CONTACT US", 3, 12, onItemTapped),
+                    SizedBox(width: width * 0.002),
+                    buildTextButton("CONTACT US", 3, width * 0.006, onItemTapped),
                     // 수정된 부분
-                    SizedBox(width: 4),
-                    buildTextButton("DOWNLOADS", 4, 12, onItemTapped),
+                    SizedBox(width: width * 0.002),
+                    buildTextButton("DOWNLOADS", 4, width * 0.006, onItemTapped),
                     // 수정된 부분
                   ],
                 ),
