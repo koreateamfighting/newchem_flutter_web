@@ -10,8 +10,6 @@ import 'popup.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:html' as html; // Web용 dart:html 패키지 사용
 
-
-
 void main() {
   setUrlStrategy(PathUrlStrategy()); // Path URL 사용
   runApp(MyApp());
@@ -113,7 +111,7 @@ class MyAppContainer extends StatefulWidget {
 }
 
 class _MyAppContainerState extends State<MyAppContainer> {
-  int _selectedIndex = 0; // default는 Home 페이지
+
 
   @override
   Widget build(BuildContext context) {
@@ -123,17 +121,20 @@ class _MyAppContainerState extends State<MyAppContainer> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height * 0.075), // 원하는 높이로 설정
+        preferredSize: Size.fromHeight(height * 0.074), // 원하는 높이로 설정
         child: AppBar(
-          elevation: 0, // 그림자 제거
           backgroundColor: Colors.white,
+          elevation: 0, // 그림자 제거
+          shadowColor: Colors.transparent,
+          surfaceTintColor: Colors.transparent,
           title: Container(
             padding: EdgeInsets.fromLTRB(0, height * 0.0148, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width: width * 0.1616),
+                SizedBox(width: width * 0.1770),
                 Container(
                   width: width * 0.0858,
                   height: height * 0.0453,
@@ -145,22 +146,24 @@ class _MyAppContainerState extends State<MyAppContainer> {
                     ),
                   ),
                 ),
-                SizedBox(width: width * 0.2373),
+                SizedBox(width: width * 0.2600),
                 Row(
                   children: [
-                    buildTextButton("HOME", 0, width * 0.006, onItemTapped),
+                    buildTextButton("HOME", 0, width * 0.006,width * 0.05208,height *  0.0370,onItemTapped),
                     // 수정된 부분
-                    SizedBox(width: width * 0.002),
-                    buildTextButton("COMPANY", 1, width * 0.006, onItemTapped),
+                    SizedBox(width: width * 0.004),
+                    buildTextButton("COMPANY", 1, width * 0.006, width * 0.05208,height *  0.0370,onItemTapped),
                     // 수정된 부분
-                    SizedBox(width: width * 0.002),
-                    buildTextButton("PRODUCTS", 2, width * 0.006, onItemTapped),
+                    SizedBox(width: width * 0.004),
+                    buildTextButton("PRODUCTS", 2, width * 0.006,width * 0.05208,height *  0.0370, onItemTapped),
                     // 수정된 부분
-                    SizedBox(width: width * 0.002),
-                    buildTextButton("CONTACT US", 3, width * 0.006, onItemTapped),
+                    SizedBox(width: width * 0.004),
+                    buildTextButton(
+                        "CONTACT US", 3, width * 0.006,width * 0.05208,height *  0.0370, onItemTapped),
                     // 수정된 부분
-                    SizedBox(width: width * 0.002),
-                    buildTextButton("DOWNLOADS", 4, width * 0.006, onItemTapped),
+                    SizedBox(width: width * 0.004),
+                    buildTextButton(
+                        "DOWNLOADS", 4, width * 0.006,width * 0.05208,height *  0.0370, onItemTapped),
                     // 수정된 부분
                   ],
                 ),
@@ -174,18 +177,19 @@ class _MyAppContainerState extends State<MyAppContainer> {
     );
   }
 }
-
+int selectedIndex = 0; // default는 Home 페이지
 // 전역에서 사용 가능한 `_onItemTapped` 함수 정의
 void onItemTapped(int index) {
+  selectedIndex = index;
   _router.go(_getPathByIndex(index));
 }
 
 // 전역에서 사용 가능한 `buildTextButton` 함수 정의
-Container buildTextButton(String label, int index, double buttonFontSize,
+Container buildTextButton(String label, int index, double buttonFontSize,double buttonWidth,double buttonHeight ,
     Function(int) onItemTapped) {
   return Container(
-    width: 100,
-    height: 40,
+    width: buttonWidth,
+    height: buttonHeight,
     child: TextButton(
       onPressed: () => onItemTapped(index),
       child: Text(
@@ -197,6 +201,7 @@ Container buildTextButton(String label, int index, double buttonFontSize,
           fontWeight: FontWeight.w600,
           fontSize: buttonFontSize,
           letterSpacing: -0.2,
+           color:  selectedIndex == index ? Color(0xff6194f9) : Color(0xff191919),
         ),
       ),
       style: TextButton.styleFrom(

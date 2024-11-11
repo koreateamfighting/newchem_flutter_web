@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
   int _currentImageIndex = 0;
   final CarouselSliderController _controller = CarouselSliderController();
   final ScrollController _scrollController = ScrollController();
+  bool isHovered = false;
 
   final List<String> _backgroundImages = [
     'assets/main-background2.png',
@@ -83,41 +84,77 @@ class _HomePageState extends State<HomePage> {
     },
   ];
 
-  final List<Map<String, String>> slideImages = [
+  final List<Map<String, dynamic>> slideImages = [
     {
       'image': 'assets/sliderbackground01.png',
       'name': 'Rotary Evaporator',
       'logo': 'assets/heidolph_logo.png',
       'route': '0',
-      'description': '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
+      'description':
+          '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
+      'productImages': [
+        'assets/products/Hei-VAP_Series.png',
+        'assets/products/Hei-VAP_Industrial.png',
+        'assets/products/Automatic_Distillation.png'
+      ],
+      'productName': [
+        'Hei-VAP Series',
+        'Hei-VAP Industrial',
+        'Automatic Distillation'
+      ]
     },
     {
       'image': 'assets/sliderbackground02.png',
       'name': 'Stirring',
       'logo': 'assets/heidolph_logo.png',
       'route': '0',
-      'description': '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
+      'description':
+          '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
+      'productImages': [
+        'assets/products/Magnetic_stirrer.png',
+        'assets/products/Overhead_stirrer.png'
+      ],
+      'productName': ['Magnetic stirrer', '오버헤드 교반기']
     },
     {
       'image': 'assets/sliderbackground03.png',
       'name': 'Automation',
       'logo': 'assets/heidolph_logo.png',
       'route': '0',
-      'description': '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
+      'description':
+          '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
+      'productImages': [
+        'assets/products/Hei-Process_Cloud_Core.png',
+      ],
+      'productName': [
+        'Hei-Process Cloud Core',
+      ]
     },
     {
       'image': 'assets/sliderbackground04.png',
       'name': 'Voltex & Shaking',
       'logo': 'assets/heidolph_logo.png',
       'route': '0',
-      'description': '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
+      'description':
+          '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
+      'productImages': [
+        'assets/products/Platform_shakers.png',
+        'assets/products/Vortexer.png',
+        'assets/products/Overhead_stirrer.png'
+      ],
+      'productName': ['Platform shakers', 'Vortexer', '오버헤드 쉐이커']
     },
     {
       'image': 'assets/sliderbackground05.png',
       'name': 'Liquid handling',
       'logo': 'assets/heidolph_logo.png',
       'route': '0',
-      'description': '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
+      'description':
+          '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.(제품에 대한 간단한 설명)',
+      'productImages': [
+        'assets/products/Liquid_handling.png',
+      ],
+      'productName': ['Liquid handling']
     },
   ];
 
@@ -244,7 +281,7 @@ class _HomePageState extends State<HomePage> {
             controller: _scrollController,
             child: Container(
                 width: width,
-                height: height * 4.6, //뭔가 항목 늘릴때 사용해라.
+                height: height * 4.665, //뭔가 항목 늘릴때 사용해라.
                 color: Colors.white,
                 child: Column(
                   children: [
@@ -258,107 +295,220 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               CarouselSlider(
                                 carouselController: _controller,
-                                items: slideImages
-                                    .map(
-                                      (item) => GestureDetector(
-                                        onTap: () {
-                                          widget.onProductNavigate(
-                                              int.parse(item['route']!));
-                                        },
-                                        child: Container(
+                                items: slideImages.map((item) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      widget.onProductNavigate(
+                                          int.parse(item['route']!));
+                                    },
+                                    child: Container(
+                                      width: width,
+                                      height: height * 1.111,
+                                      child: Stack(
+                                        children: [
+                                          Image.asset(
+                                            item['image']!,
+                                            fit: BoxFit.fill,
                                             width: width,
                                             height: height * 1.111,
-                                            child: Stack(
+                                          ),
+                                          Center(
+                                            child: Column(
                                               children: [
-                                                Image.asset(
-                                                  item['image']!,
-                                                  fit: BoxFit.fill,
-                                                  width: width,
-                                                  height: height * 1.111,
-                                                ),
-                                                Center(
-                                                  child: Column(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: height * 0.2129,
-                                                      ),
-                                                      Text(
-                                                        item['name']!,
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: width * 0.0281,
-                                                          fontFamily:
-                                                              'Pretendard',
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: height * 0.0296,
-                                                      ),
-                                                      Text(
-                                                        item['description']!,
-                                                        textAlign: TextAlign.center,
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: width * 0.0101,
-                                                          fontFamily: 'Pretendard',
-                                                          fontWeight: FontWeight.w500,
-                                                          letterSpacing: 0.60,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: height * 0.0694,
-                                                      ),
-                                                      Container(
-                                                        width: width * 0.0968,
-                                                        height: height * 0.05,
-                                                        color: Colors.transparent,
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            widget.onNavigate(1);
-                                                          },
-                                                          child: Container(
-                                                            width: width * 0.096,
-                                                            height: height * 0.05,
-                                                            alignment: Alignment.center,
-                                                            decoration: BoxDecoration(
-                                                              border: Border.all(color: Colors.white, width: width * 0.001), // 흰색 테두리와 두께 설정
-                                                              borderRadius: BorderRadius.circular(61), // 모서리 반경 설정
-                                                            ),
-                                                            child: Text(
-                                                              'company',
-                                                              style: TextStyle(
-                                                                color: Colors.white,
-                                                                fontSize: width * 0.0125,
-                                                                fontFamily: 'Pretendard',
-                                                                fontWeight: FontWeight.w600,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        )
-
-                                                        ,
-                                                      )
-
-                                                    ],
+                                                SizedBox(
+                                                    height: height * 0.2129),
+                                                Text(
+                                                  item['name']!,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: width * 0.0281,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w600,
                                                   ),
                                                 ),
+                                                SizedBox(
+                                                    height: height * 0.0296),
+                                                Text(
+                                                  item['description']!,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: width * 0.0101,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w500,
+                                                    letterSpacing: 0.60,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                    height: height * 0.0694),
+                                                Container(
+                                                  width: width * 0.0968,
+                                                  height: height * 0.05,
+                                                  color: Colors.transparent,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      widget.onNavigate(1);
+                                                    },
+                                                    child: MouseRegion(
+                                                      onEnter: (_) => setState(() => isHovered = true),
+                                                      onExit: (_) => setState(() => isHovered = false),
+                                                      child: Container(
+                                                        alignment:
+                                                        Alignment.center,
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color:  isHovered ?  Color(0xff5695F0) : Colors.white,
+                                                              width:
+                                                              width * 0.001),
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(61),
+                                                        ),
+                                                        child: Text(
+                                                          'company',
+                                                          style: TextStyle(
+                                                            color: isHovered ? Color(0xff5695F0) : Colors.white,
+                                                            fontSize:
+                                                            width * 0.0125,
+                                                            fontFamily:
+                                                            'Pretendard',
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                    height: height * 0.042),
+                                                // 추가된 productImages와 productName을 위한 Row
+
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    ...List.generate(
+                                                      item['productImages']
+                                                          .length,
+                                                      (index) {
+                                                        String productImage =
+                                                            item['productImages']
+                                                                [index];
+                                                        String productName =
+                                                            item['productName']
+                                                                [index];
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  horizontal:
+                                                                      8.0),
+                                                          child: Container(
+                                                            width: width * 0.2479,
+                                                            height: height * 0.4407,
+                                                            decoration:
+                                                                ShapeDecoration(
+                                                              color: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                      0.65),
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                side: BorderSide(
+                                                                    width: width * 0.001,
+                                                                    color: Colors
+                                                                        .white),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8),
+                                                              ),
+                                                            ),
+                                                            child: Column(
+                                                              children: [
+                                                                SizedBox(
+                                                                    height: height * 0.0303),
+                                                                Image.asset(
+                                                                  item['logo'],
+                                                                  width: width * 0.036,
+                                                                  // 로고 이미지의 크기 조정
+                                                                  height: height * 0.0129,
+                                                                  fit: BoxFit
+                                                                      .fitWidth,
+                                                                ),
+                                                                Text(
+                                                                  productName,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                        width * 0.015,
+                                                                    fontFamily:
+                                                                        'Pretendard',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    height: height * 0.0011,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                    height: 16),
+                                                                Image.asset(
+                                                                  productImage,
+                                                                  width: width *
+                                                                      0.2,
+                                                                  height: height * 0.2879,
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                ),
+                                                                SizedBox(
+                                                                  height: height * 0.00690,
+                                                                ),
+                                                                Text(
+                                                                  'NewChem',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Color(
+                                                                            0xFF729DF6)
+                                                                        .withOpacity(
+                                                                            0.7),
+                                                                    fontSize:
+                                                                        width * 0.009,
+                                                                    fontFamily:
+                                                                        'Pretendard',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
                                               ],
-                                            )),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    )
-                                    .toList(),
+                                    ),
+                                  );
+                                }).toList(),
                                 options: CarouselOptions(
-                                    autoPlay: true,
-                                    enlargeCenterPage: true,
-                                    viewportFraction: 1,
-                                    // aspectRatio: 2,
-                                    onPageChanged: (index, reason) {
-                                      setState(() {
-                                        _current = index;
-                                      });
-                                    }),
+                                  autoPlay: true,
+                                  enlargeCenterPage: true,
+                                  viewportFraction: 1,
+                                  onPageChanged: (index, reason) {
+                                    setState(() {
+                                      _current = index;
+                                    });
+                                  },
+                                ),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -417,7 +567,7 @@ class _HomePageState extends State<HomePage> {
                                         );
                                       }).toList(),
                                       SizedBox(
-                                        height: height * 0.3222,
+                                        height: height * 0.3450,
                                       ),
                                       Transform(
                                         transform: Matrix4.identity()
@@ -433,6 +583,9 @@ class _HomePageState extends State<HomePage> {
                                             height: 0,
                                           ),
                                         ),
+                                      ),
+                                      SizedBox(
+                                        height: height * 0.0050,
                                       ),
                                       Image.asset('assets/arrow_down.png'),
                                     ],
@@ -499,49 +652,49 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(height: height * 0.1421),
                           // Step Progress Indicator
                           Container(
-                            padding: EdgeInsets.symmetric(vertical: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: List.generate(5, (index) {
-                                if (index.isOdd) {
-                                  // 선 표시
-                                  return AnimatedContainer(
-                                    duration: Duration(milliseconds: 800),
-                                    width: 50,
-                                    height: 2,
-                                    color: Colors.blue.withOpacity(
-                                      index <= _currentStep * 2 ? 1.0 : 0.2,
-                                    ),
-                                  );
-                                } else {
-                                  // 원 표시
-                                  int stepIndex = index ~/ 2;
-                                  bool isActive = stepIndex == _currentStep;
-                                  return Column(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: isActive ? 12 : 10,
-                                        backgroundColor: isActive
-                                            ? Colors.blue
-                                            : Colors.grey,
-                                      ),
-                                      SizedBox(height: height * 0.0074),
-                                      Text(
-                                        getStepLabel(stepIndex),
-                                        style: TextStyle(
-                                          color: isActive
-                                              ? Colors.blue
-                                              : Colors.grey,
-                                          fontWeight: isActive
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-                                }
-                              }),
-                            ),
+                            padding: EdgeInsets.symmetric(vertical: width * 0.0083),
+                            // child: Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            //   children: List.generate(5, (index) {
+                            //     if (index.isOdd) {
+                            //       // 선 표시
+                            //       return AnimatedContainer(
+                            //         duration: Duration(milliseconds: 800),
+                            //         width: width * 0.0260,
+                            //         height: height * 0.0018,
+                            //         color: Colors.blue.withOpacity(
+                            //           index <= _currentStep * 2 ? 1.0 : 0.2,
+                            //         ),
+                            //       );
+                            //     } else {
+                            //       // 원 표시
+                            //       int stepIndex = index ~/ 2;
+                            //       bool isActive = stepIndex == _currentStep;
+                            //       return Column(
+                            //         children: [
+                            //           CircleAvatar(
+                            //             radius: isActive ? 12 : 10,
+                            //             backgroundColor: isActive
+                            //                 ? Colors.blue
+                            //                 : Colors.grey,
+                            //           ),
+                            //           SizedBox(height: height * 0.0074),
+                            //           Text(
+                            //             getStepLabel(stepIndex),
+                            //             style: TextStyle(
+                            //               color: isActive
+                            //                   ? Colors.blue
+                            //                   : Colors.grey,
+                            //               fontWeight: isActive
+                            //                   ? FontWeight.bold
+                            //                   : FontWeight.normal,
+                            //             ),
+                            //           ),
+                            //         ],
+                            //       );
+                            //     }
+                            //   }),
+                            // ),
                           ),
                           SizedBox(height: height * 0.0740),
 
@@ -652,9 +805,7 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ),
-                          SizedBox(
-                            width: width * 0.03177
-                          ),
+                          SizedBox(width: width * 0.03177),
                           Container(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -670,7 +821,7 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: width * 0.0104,
                                     fontFamily: 'Pretendard',
                                     fontWeight: FontWeight.w400,
-                                    height: height * 0.0018,
+                                    height: height * 0.0020,
                                   ),
                                 )
                               ],
@@ -774,9 +925,12 @@ class _HomePageState extends State<HomePage> {
                                                   0, height * 0.0074, 0, 0),
                                               child: Table(
                                                 columnWidths: {
-                                                  0: FixedColumnWidth(width * 0.01978),
-                                                  1: FixedColumnWidth(width * 0.19790),
-                                                  2: FixedColumnWidth(width * 0.053),
+                                                  0: FixedColumnWidth(
+                                                      width * 0.01978),
+                                                  1: FixedColumnWidth(
+                                                      width * 0.19790),
+                                                  2: FixedColumnWidth(
+                                                      width * 0.053),
                                                 },
                                                 children: [
                                                   TableRow(
@@ -787,8 +941,10 @@ class _HomePageState extends State<HomePage> {
                                                                 .symmetric(
                                                                 vertical: 12.0),
                                                         child: Container(
-                                                          width: width * 0.01979,
-                                                          height: height * 0.0351,
+                                                          width:
+                                                              width * 0.01979,
+                                                          height:
+                                                              height * 0.0351,
                                                           decoration:
                                                               BoxDecoration(
                                                             color: Color(
@@ -811,7 +967,8 @@ class _HomePageState extends State<HomePage> {
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.white,
-                                                              fontSize: width * 0.01041,
+                                                              fontSize: width *
+                                                                  0.01041,
                                                               fontFamily:
                                                                   'Pretendard',
                                                               fontWeight:
@@ -846,7 +1003,8 @@ class _HomePageState extends State<HomePage> {
                                                             style: TextStyle(
                                                               color:
                                                                   Colors.black,
-                                                              fontSize: width * 0.009,
+                                                              fontSize:
+                                                                  width * 0.009,
                                                               fontFamily:
                                                                   'Pretendard',
                                                               fontWeight:
@@ -870,7 +1028,8 @@ class _HomePageState extends State<HomePage> {
                                                                     0xff191919)
                                                                 .withOpacity(
                                                                     0.4),
-                                                            fontSize: width * 0.0093,
+                                                            fontSize:
+                                                                width * 0.0093,
                                                             fontWeight:
                                                                 FontWeight.w400,
                                                             letterSpacing: -1,
@@ -923,10 +1082,12 @@ class _HomePageState extends State<HomePage> {
                                   Container(
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color:
-                                            Color(0xff6194f9).withOpacity(0.3)),
+                                        // color:
+                                        //     Color(0xff6194f9).withOpacity(0.3)),
+                                      color: Color(0xFFD9D9D9)),
                                     child: IconButton(
-                                      onPressed: _previousPage,
+                                      //onPressed: _previousPage,
+                                      onPressed: null,
                                       icon: Icon(Icons.arrow_back_ios_sharp),
                                       color:
                                           Color(0xff6194f9), // 아이콘 색상을 흰색으로 변경
@@ -937,8 +1098,10 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   // ListView로 3개 아이템을 한 번에 보여줌
                                   Container(
-                                    width: width * 0.3307, // 3개 항목이 보이도록 전체 컨테이너 너비 설정
-                                    height: height * 0.2935, // 슬라이드 높이
+                                    width: width * 0.3307,
+                                    // 3개 항목이 보이도록 전체 컨테이너 너비 설정
+                                    height: height * 0.2935,
+                                    // 슬라이드 높이
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: downloadData.length,
@@ -1033,6 +1196,8 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
+                    SizedBox(height: height * 0.18,),
+
                     Container(
                         height: height * 0.5462,
                         alignment: Alignment.topLeft,
@@ -1048,7 +1213,7 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Container(
                                       width: width * 0.125,
-                                      height: height * 0.0620,
+                                      height: height * 0.0630,
                                       child: Text(
                                         'Direction',
                                         style: TextStyle(
@@ -1125,7 +1290,8 @@ class _HomePageState extends State<HomePage> {
                                 child: Image.asset(
                                   'assets/scroll_up.png',
                                   width: width * 0.0328, // 버튼의 너비 (필요에 맞게 조절)
-                                  height: height * 0.05833, // 버튼의 높이 (필요에 맞게 조절)
+                                  height:
+                                      height * 0.05833, // 버튼의 높이 (필요에 맞게 조절)
                                 ),
                               ),
                             ),
@@ -1141,7 +1307,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Container(
-                      height: height * 0.4277,
+                      height: height * 0.4500,
                       color: Colors.black,
                       child: Column(
                         children: [
@@ -1158,124 +1324,31 @@ class _HomePageState extends State<HomePage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  buildTextButton2("HOME", 0, width * 0.00729, onItemTapped),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
                                   buildTextButton2(
-                                      "COMPANY", 1, width * 0.00729, onItemTapped),
+                                      "HOME", 0, width * 0.00729, onItemTapped),
                                   SizedBox(
-                                    width: 4,
+                                    width: width * 0.0020,
                                   ),
-                                  buildTextButton2(
-                                      "PRODUCTS", 2, width * 0.00729, onItemTapped),
+                                  buildTextButton2("COMPANY", 1,
+                                      width * 0.00729, onItemTapped),
                                   SizedBox(
-                                    width: 4,
+                                    width: width * 0.0020,
                                   ),
-                                  buildTextButton2(
-                                      "CONTACT US", 3, width * 0.00729, onItemTapped),
+                                  buildTextButton2("PRODUCTS", 2,
+                                      width * 0.00729, onItemTapped),
                                   SizedBox(
-                                    width: 4,
+                                    width: width * 0.0020,
                                   ),
-                                  buildTextButton2(
-                                      "DOWNLOADS", 4, width * 0.00729, onItemTapped),
+                                  buildTextButton2("CONTACT US", 3,
+                                      width * 0.00729, onItemTapped),
+                                  SizedBox(
+                                    width: width * 0.0020,
+                                  ),
+                                  buildTextButton2("DOWNLOADS", 4,
+                                      width * 0.00729, onItemTapped),
                                 ],
                               ),
 
-                              // Spacer(),
-                              // Column(
-                              //   crossAxisAlignment:
-                              //   CrossAxisAlignment.start,
-                              //   children: [
-                              //     SizedBox(
-                              //       height: height * 0.02,
-                              //     ),
-                              //     Text(
-                              //       "(주) NewChem",
-                              //       style: TextStyle(
-                              //         fontSize: width * 0.013,
-                              //         color: Colors.white,
-                              //         fontWeight: FontWeight.bold,
-                              //       ),
-                              //     ),
-                              //     SizedBox(height: height * 0.0007),
-                              //     Text(
-                              //       "▶  대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n"
-                              //           "▶  경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호",
-                              //       style: TextStyle(
-                              //           color: Colors.white,
-                              //           fontSize: width * 0.006),
-                              //     ),
-                              //     SizedBox(height: height * 0.007),
-                              //     Row(
-                              //       children: [
-                              //         Icon(Icons.phone,
-                              //             color: Colors.white,
-                              //             size: width * 0.0078),
-                              //         SizedBox(width: width * 0.004),
-                              //         Text(
-                              //           "070-8098-7424",
-                              //           style: TextStyle(
-                              //             color: Colors.white,
-                              //             fontSize: width * 0.005,
-                              //           ),
-                              //         ),
-                              //         SizedBox(width: width * 0.007),
-                              //         Icon(Icons.phone,
-                              //             color: Colors.white,
-                              //             size: width * 0.0078),
-                              //         SizedBox(width: width * 0.005),
-                              //         Text(
-                              //           "042-367-7427",
-                              //           style: TextStyle(
-                              //             color: Colors.white,
-                              //             fontSize: width * 0.005,
-                              //           ),
-                              //         ),
-                              //         SizedBox(width: width * 0.007),
-                              //         Icon(
-                              //           Icons.email,
-                              //           color: Colors.white,
-                              //           size: isMobile ? 9 : 20,
-                              //         ),
-                              //         SizedBox(width: 10),
-                              //         Text(
-                              //           "cmkim@new-chem.co.kr",
-                              //           style: TextStyle(
-                              //             color: Colors.white,
-                              //             fontSize: isMobile
-                              //                 ? width * 0.007
-                              //                 : width * 0.005,
-                              //           ),
-                              //         ),
-                              //       ],
-                              //     ),
-                              //   ],
-                              // ),
-                              // Spacer(),
-                              // /*        Column(
-                              //   crossAxisAlignment: CrossAxisAlignment.end,
-                              //   children: [
-                              //     Image.asset(
-                              //       'assets/logo-white.png',
-                              //       width: isMobile
-                              //           ? width * 0.15
-                              //           : width * 0.10,
-                              //     ),
-                              //     SizedBox(height: isMobile ? 10 : 20),
-                              //   ],
-                              // ),*/
-                              // Container(
-                              //   width: width * 0.15,
-                              //   height: 200,
-                              //   child: Image.asset(
-                              //     'assets/logo-white.png',
-                              //     width: isMobile
-                              //         ? width * 0.15
-                              //         : width * 0.10,
-                              //   ),
-                              // ),
-                              // Spacer(),
                             ],
                           ),
                           SizedBox(
@@ -1317,7 +1390,7 @@ class _HomePageState extends State<HomePage> {
                             height: height * 0.04351,
                           ),
                           Container(
-                            height: height * 0.0620,
+                            height: height * 0.0680,
                             child: Row(
                               children: [
                                 SizedBox(
@@ -1438,467 +1511,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    // Container(
-                    //   width: width,
-                    //   height: height * 0.3,
-                    //   color: Colors.white,
-                    //   child: Row(
-                    //     children: [
-                    //       SizedBox(width: width * 0.15),
-                    //       Container(
-                    //           child: Column(
-                    //         children: [
-                    //           SizedBox(
-                    //             height: height * 0.035,
-                    //           ),
-                    //           SizedBox(
-                    //             height: height * 0.02,
-                    //           ),
-                    //           Container(
-                    //             width: width * 0.35,
-                    //             child: SelectableText(
-                    //                 '\t(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지',
-                    //                 textAlign: TextAlign.left,
-                    //                 style: GoogleFonts.nanumGothic(
-                    //                     textStyle: TextStyle(
-                    //                   color: Colors.grey,
-                    //                   fontWeight: FontWeight.w500,
-                    //                   fontSize: width * 0.010,
-                    //                 ))),
-                    //           ),
-                    //           SizedBox(
-                    //             height: height * 0.008,
-                    //           ),
-                    //           Container(
-                    //             width: width * 0.35,
-                    //             child: SelectableText(
-                    //                 '합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.',
-                    //                 textAlign: TextAlign.left,
-                    //                 style: GoogleFonts.nanumGothic(
-                    //                     textStyle: TextStyle(
-                    //                   color: Colors.grey,
-                    //                   fontWeight: FontWeight.w500,
-                    //                   fontSize: width * 0.010,
-                    //                 ))),
-                    //           ),
-                    //           SizedBox(
-                    //             height: height * 0.008,
-                    //           ),
-                    //           Container(
-                    //             width: width * 0.35,
-                    //             child: SelectableText(
-                    //                 '지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,',
-                    //                 textAlign: TextAlign.left,
-                    //                 style: GoogleFonts.nanumGothic(
-                    //                     textStyle: TextStyle(
-                    //                   color: Colors.grey,
-                    //                   fontWeight: FontWeight.w500,
-                    //                   fontSize: width * 0.010,
-                    //                 ))),
-                    //           ),
-                    //           SizedBox(
-                    //             height: height * 0.008,
-                    //           ),
-                    //           Container(
-                    //             width: width * 0.35,
-                    //             child: SelectableText(
-                    //                 '고객이 신뢰할 수 있는 회사로 자리 매김해 왔습니다.',
-                    //                 textAlign: TextAlign.left,
-                    //                 style: GoogleFonts.nanumGothic(
-                    //                     textStyle: TextStyle(
-                    //                   color: Colors.grey,
-                    //                   fontWeight: FontWeight.w500,
-                    //                   fontSize: width * 0.010,
-                    //                 ))),
-                    //           ),
-                    //           SizedBox(
-                    //             height: height * 0.008,
-                    //           ),
-                    //           Container(
-                    //             width: width * 0.35,
-                    //             child: SelectableText('앞으로도 지속적인 성원 부탁드립니다.',
-                    //                 textAlign: TextAlign.left,
-                    //                 style: GoogleFonts.nanumGothic(
-                    //                     textStyle: TextStyle(
-                    //                   color: Colors.grey,
-                    //                   fontWeight: FontWeight.w500,
-                    //                   fontSize: width * 0.010,
-                    //                 ))),
-                    //           ),
-                    //           SizedBox(
-                    //             height: height * 0.008,
-                    //           ),
-                    //           Container(
-                    //             width: width * 0.35,
-                    //             child:
-                    //                 SelectableText('저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
-                    //                     textAlign: TextAlign.left,
-                    //                     style: GoogleFonts.nanumGothic(
-                    //                         textStyle: TextStyle(
-                    //                       color: Colors.grey,
-                    //                       fontWeight: FontWeight.w500,
-                    //                       fontSize: width * 0.010,
-                    //                     ))),
-                    //           ),
-                    //         ],
-                    //       )),
-                    //       SizedBox(width: width * 0.18),
-                    //       Container(
-                    //         child: Text("Welcome",
-                    //             style: GoogleFonts.roboto(
-                    //               textStyle: TextStyle(
-                    //                   fontSize: width * 0.025,
-                    //                   fontWeight: FontWeight.bold,
-                    //                   color: Colors.blueAccent),
-                    //             )),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    // Container(height: height * 0.01, color: Colors.grey),
-                    // Container(
-                    //     width: width,
-                    //     height: height * 0.3,
-                    //     color: Colors.white,
-                    //     child: GestureDetector(
-                    //       onTap: () {
-                    //         widget.onNavigate(3);
-                    //       },
-                    //       child: Row(
-                    //         children: [
-                    //           Column(
-                    //             crossAxisAlignment: CrossAxisAlignment.start,
-                    //             children: [
-                    //               SizedBox(
-                    //                 height: height * 0.08,
-                    //               ),
-                    //               Row(
-                    //                 children: [
-                    //                   SizedBox(
-                    //                     width: width * 0.15,
-                    //                   ),
-                    //                   Container(
-                    //                     child: Text("Contact Us",
-                    //                         style: GoogleFonts.roboto(
-                    //                           textStyle: TextStyle(
-                    //                               fontSize: width * 0.025,
-                    //                               fontWeight: FontWeight.bold,
-                    //                               color: Colors.redAccent),
-                    //                         )),
-                    //                   ),
-                    //                   SizedBox(
-                    //                     width: width * 0.20,
-                    //                   ),
-                    //                   Column(
-                    //                     mainAxisAlignment:
-                    //                         MainAxisAlignment.start,
-                    //                     children: [
-                    //                       Text('전문가에게 맡겨주세요',
-                    //                           style: GoogleFonts.nanumGothic(
-                    //                               textStyle: TextStyle(
-                    //                                   fontSize: width * 0.015,
-                    //                                   color: Colors.black,
-                    //                                   fontWeight:
-                    //                                       FontWeight.bold))),
-                    //                       SizedBox(
-                    //                         height: height * 0.04,
-                    //                       ),
-                    //                       Text('문의 및 상담 내용을 작성해서 접수하시면',
-                    //                           style: GoogleFonts.nanumMyeongjo(
-                    //                               textStyle: TextStyle(
-                    //                                   fontSize: width * 0.012,
-                    //                                   color: Colors.black,
-                    //                                   fontWeight:
-                    //                                       FontWeight.bold))),
-                    //                       Text(
-                    //                           '전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.',
-                    //                           style: GoogleFonts.nanumMyeongjo(
-                    //                               textStyle: TextStyle(
-                    //                                   fontSize: width * 0.012,
-                    //                                   color: Colors.black,
-                    //                                   fontWeight:
-                    //                                       FontWeight.bold))),
-                    //                     ],
-                    //                   )
-                    //
-                    //                   // IconButton(
-                    //                   //     onPressed: () {
-                    //                   //       widget.onNavigate(3); // ContactScreen으로 이동
-                    //                   //     },
-                    //                   //     icon: Icon(Icons.arrow_forward_ios_sharp),
-                    //                   //     iconSize: isMobile ? 10 : 24,
-                    //                   //     color: Colors.white),
-                    //                 ],
-                    //               ),
-                    //               Divider(),
-                    //               SizedBox(
-                    //                   height: isMobile
-                    //                       ? height * 0.02
-                    //                       : height * 0.02),
-                    //               // Text(
-                    //               //   isMobile ? "전문가에게 맡겨주세요!" : "전문가에게 맡겨주세요!",
-                    //               //   style: TextStyle(
-                    //               //     fontSize: isMobile
-                    //               //         ? width * 0.030
-                    //               //         : width * 0.012,
-                    //               //     color: Colors.blueAccent,
-                    //               //     fontWeight: FontWeight.w400,
-                    //               //   ),
-                    //               //   textAlign: TextAlign.center,
-                    //               // ),
-                    //               // SizedBox(
-                    //               //   height: isMobile ? 0 : 20,
-                    //               // ),
-                    //               // Text(
-                    //               //   isMobile
-                    //               //       ? "문의 및 상담 내용을 작성해서 접수하시면,\n전문가들이 24시간 이내에 빠르고 성실하게\n답변 드리겠습니다."
-                    //               //       : "문의 및 상담 내용을 작성해서 접수하시면, 전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.",
-                    //               //   style: TextStyle(
-                    //               //       fontSize: isMobile
-                    //               //           ? width * 0.0150
-                    //               //           : width * 0.006,
-                    //               //       color: Colors.white),
-                    //               // ),
-                    //             ],
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     )),
-                    // Container(height: height * 0.01, color: Colors.grey),
-                    // Container(
-                    //   width: width,
-                    //   height: height * 0.3,
-                    //   color: Colors.white,
-                    //   child: Row(
-                    //     children: [
-                    //       SizedBox(width: width * 0.15),
-                    //       Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           SizedBox(
-                    //             height: height * 0.035,
-                    //           ),
-                    //
-                    //           // Table(
-                    //           //   columnWidths: {
-                    //           //     0: FixedColumnWidth(
-                    //           //         MediaQuery.of(context).size.width *
-                    //           //             0.5), // 화면 크기에 따라 셀 크기 조정
-                    //           //   },
-                    //           //   children: [
-                    //           //     ...downloadData.map((item) {
-                    //           //       return TableRow(
-                    //           //         children: [
-                    //           //           Padding(
-                    //           //             padding: const EdgeInsets.all(8.0),
-                    //           //             child: GestureDetector(
-                    //           //               onTap: () async {
-                    //           //                 final Uri uri =
-                    //           //                     Uri.parse(item["link"]!);
-                    //           //                 if (await canLaunchUrl(uri)) {
-                    //           //                   await launchUrl(uri);
-                    //           //                 } else {
-                    //           //                   throw 'Could not launch ${item["link"]}';
-                    //           //                 }
-                    //           //               },
-                    //           //               child: Text(
-                    //           //                 item["title"]!,
-                    //           //                 style: TextStyle(
-                    //           //                   color: Colors.blue,
-                    //           //                   decoration:
-                    //           //                       TextDecoration.underline,
-                    //           //                   // 파란색 언더라인
-                    //           //                   decorationColor: Colors.blue,
-                    //           //                   fontSize: isMobile ? 8 : 32,
-                    //           //                 ),
-                    //           //               ),
-                    //           //             ),
-                    //           //           ),
-                    //           //         ],
-                    //           //       );
-                    //           //     }).toList(),
-                    //           //   ],
-                    //           // ),
-                    //           Container(
-                    //             color: Colors.transparent,
-                    //             width: width * 0.42,
-                    //             height: height * 0.20,
-                    //             child: Row(
-                    //               children: [
-                    //                 Container(
-                    //                     width: width * 0.114,
-                    //                     decoration: BoxDecoration(
-                    //                         border: Border.all(
-                    //                             color: Colors.black, width: 1)),
-                    //                     child: Column(children: [
-                    //                       GestureDetector(
-                    //                         onTap: () async {
-                    //                           final Uri uri = Uri.parse(
-                    //                               'https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing');
-                    //                           if (await canLaunchUrl(uri)) {
-                    //                             await launchUrl(uri);
-                    //                           } else {
-                    //                             throw 'Could not launch url';
-                    //                           }
-                    //                         },
-                    //                         child: Image.asset(
-                    //                           'assets/download_image_01.png',
-                    //                           width: width * 0.114,
-                    //                           height: height * 0.18,
-                    //                         ),
-                    //                       ),
-                    //                       Text(
-                    //                         "[NORMAG]카달로그.pdf",
-                    //                         style: TextStyle(
-                    //                             fontSize: 10,
-                    //                             fontWeight: FontWeight.bold),
-                    //                       ),
-                    //                     ])),
-                    //                 Spacer(),
-                    //                 Container(
-                    //                     width: width * 0.114,
-                    //                     decoration: BoxDecoration(
-                    //                         border: Border.all(
-                    //                             color: Colors.black, width: 1)),
-                    //                     child: Column(children: [
-                    //                       GestureDetector(
-                    //                         onTap: () async {
-                    //                           final Uri uri = Uri.parse(
-                    //                               'https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing');
-                    //                           if (await canLaunchUrl(uri)) {
-                    //                             await launchUrl(uri);
-                    //                           } else {
-                    //                             throw 'Could not launch url';
-                    //                           }
-                    //                         },
-                    //                         child: Image.asset(
-                    //                           'assets/download_image_02.png',
-                    //                           width: width * 0.115,
-                    //                           height: height * 0.18,
-                    //                         ),
-                    //                       ),
-                    //                       Text(
-                    //                         "[하이돌프] 종합 카달로그 _2024.pdf",
-                    //                         style: TextStyle(
-                    //                             fontSize: 10,
-                    //                             fontWeight: FontWeight.bold),
-                    //                       ),
-                    //                     ])),
-                    //                 Spacer(),
-                    //                 Container(
-                    //                     width: width * 0.114,
-                    //                     decoration: BoxDecoration(
-                    //                         border: Border.all(
-                    //                             color: Colors.black, width: 1)),
-                    //                     child: Column(children: [
-                    //                       // Image.asset(
-                    //                       //     'assets/download_image_01.png',
-                    //                       //   width:  width * 0.115,
-                    //                       //   height: height* 0.18,),
-                    //                       Container(
-                    //                           width: width * 0.115,
-                    //                           height: height * 0.18,
-                    //                           color: Colors.grey),
-                    //                       Text(
-                    //                         "준비중",
-                    //                         style: TextStyle(
-                    //                             fontSize: 10,
-                    //                             fontWeight: FontWeight.bold),
-                    //                       ),
-                    //                     ])),
-                    //               ],
-                    //             ),
-                    //           ),
-                    //           Divider(),
-                    //           SizedBox(
-                    //               height:
-                    //                   isMobile ? height * 0.02 : height * 0.04),
-                    //         ],
-                    //       ),
-                    //       SizedBox(width: width * 0.10),
-                    //       Container(
-                    //         child: Text("Downloads",
-                    //             style: GoogleFonts.roboto(
-                    //               textStyle: TextStyle(
-                    //                   fontSize: width * 0.025,
-                    //                   fontWeight: FontWeight.bold,
-                    //                   color: Colors.greenAccent),
-                    //             )),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    // Container(height: height * 0.01, color: Colors.grey),
-                    // Container(
-                    //   width: width,
-                    //   height: height * 0.3,
-                    //   color: Colors.white,
-                    //   child: Row(
-                    //     children: [
-                    //       Column(
-                    //         crossAxisAlignment: CrossAxisAlignment.start,
-                    //         children: [
-                    //           SizedBox(
-                    //             height: height * 0.02,
-                    //           ),
-                    //           Row(
-                    //             children: [
-                    //               SizedBox(
-                    //                 width: width * 0.15,
-                    //               ),
-                    //               Container(
-                    //                 child: Text("Direction",
-                    //                     style: GoogleFonts.roboto(
-                    //                       textStyle: TextStyle(
-                    //                           fontSize: width * 0.025,
-                    //                           fontWeight: FontWeight.bold,
-                    //                           color: Colors.black),
-                    //                     )),
-                    //               ),
-                    //               SizedBox(
-                    //                 width: width * 0.20,
-                    //               ),
-                    //               Container(
-                    //                 width: width * 0.40,
-                    //                 height: height * 0.18,
-                    //                 child: _iframeWidget,
-                    //               ),
-                    //             ],
-                    //           ),
-                    //           Divider(),
-                    //           SizedBox(
-                    //               height:
-                    //                   isMobile ? height * 0.02 : height * 0.02),
-                    //
-                    //           // Text(
-                    //           //   isMobile ? "전문가에게 맡겨주세요!" : "전문가에게 맡겨주세요!",
-                    //           //   style: TextStyle(
-                    //           //     fontSize: isMobile
-                    //           //         ? width * 0.030
-                    //           //         : width * 0.012,
-                    //           //     color: Colors.blueAccent,
-                    //           //     fontWeight: FontWeight.w400,
-                    //           //   ),
-                    //           //   textAlign: TextAlign.center,
-                    //           // ),
-                    //           // SizedBox(
-                    //           //   height: isMobile ? 0 : 20,
-                    //           // ),
-                    //           // Text(
-                    //           //   isMobile
-                    //           //       ? "문의 및 상담 내용을 작성해서 접수하시면,\n전문가들이 24시간 이내에 빠르고 성실하게\n답변 드리겠습니다."
-                    //           //       : "문의 및 상담 내용을 작성해서 접수하시면, 전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.",
-                    //           //   style: TextStyle(
-                    //           //       fontSize: isMobile
-                    //           //           ? width * 0.0150
-                    //           //           : width * 0.006,
-                    //           //       color: Colors.white),
-                    //           // ),
-                    //         ],
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+
                   ],
                 )),
           ),
@@ -1944,7 +1557,6 @@ class _HomePageState extends State<HomePage> {
   Widget buildProductCard(String title, String imagePath, String content,
       BuildContext context, double width, double height) {
     return LayoutBuilder(builder: (context, constraints) {
-
       final size = MediaQuery.of(context).size;
       final width = size.width;
       final height = size.height;
@@ -2088,7 +1700,6 @@ class _HomePageState extends State<HomePage> {
 // 전역에서 사용 가능한 `buildTextButton` 함수 정의
 Container buildTextButton2(String label, int index, double buttonFontSize,
     Function(int) onItemTapped) {
-
   return Container(
     width: 115,
     height: 46,

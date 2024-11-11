@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:html' as html; // Web용 dart:html 패키지 사용
 import 'dart:ui' as ui;
+import 'main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CompanyPage extends StatefulWidget {
@@ -29,23 +30,21 @@ class _CompanyPageState extends State<CompanyPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery
-        .of(context)
-        .size;
+    final size = MediaQuery.of(context).size;
     final width = size.width;
     final height = size.height;
     final isM = width < 600;
     final html.IFrameElement _iFrameElement = html.IFrameElement();
 
     _iFrameElement.style.height = '120%';
-    _iFrameElement.style.width = isM? '100':'60%';
+    _iFrameElement.style.width = isM ? '100' : '60%';
     _iFrameElement.src = '${url}';
     _iFrameElement.style.border = 'none';
 
 // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
       'iframeElement',
-          (int viewId) => _iFrameElement,
+      (int viewId) => _iFrameElement,
     );
     return MaterialApp(
       home: LayoutBuilder(builder: (context, constraints) {
@@ -57,187 +56,280 @@ class _CompanyPageState extends State<CompanyPage> {
         return Scaffold(
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
-            child: Container(
-              height: height * 1.25,
-              color: Colors.white70,
-              child: Column(
-                children: [
-                  Container(
-                    width: width,
-                    height: isMobile
-                        ? height * 0.2000
-                        : height * 0.3369,
-                    // 높이를 반응형으로 조정
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/main-background7.png'),
-                        fit: BoxFit.cover,
+              child: Container(
+            height: _selectedTabIndex == 0 ? height * 1.995 : height * 2.472,
+            color: Colors.white70,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: width,
+                  height: height * 0.5185,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/company_background.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: height * 0.300,
                       ),
-                    ),
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Spacer(),
-                        Text(
-                            "Company",
-                            style :GoogleFonts.poppins(textStyle:TextStyle(color: Colors.white, fontSize: isMobile? 30:width * 0.023), )
+                      Text(
+                        'COMPANY',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: width * 0.028,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                          letterSpacing: 2.16,
                         ),
-                        Spacer(),
-                      ],
-                    ),
-                  ),
-                  Container(
-
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Spacer(),
-                        _buildTabButton("기업 소개", 0),
-                        _buildTabButton("기업 연혁", 1),
-                        _buildTabButton("오시는 길", 2),
-                        Spacer(),
-                      ],
-                    ),
-                  ),
-                  Divider(),
-                  _buildTabContent(),
-                  Expanded(child:  Container(
-                      height: isMobile ? height * 0.1500 : height * 0.25,
-                      color: Colors.black,
-                      padding: EdgeInsets.symmetric(
-                          vertical: height * 0.0138,
-                          horizontal: width * 0.007),
-                      child: Center(
-                        child: Column(
+                      ),
+                      Spacer(),
+                      Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Divider(
-                                color: Colors.white,
-                                thickness: isMobile ? 0.5 : 1), // 구분선
-                            SizedBox(height: height * 0.007),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceAround,
-                              children: [
-                                Spacer(),
-                                Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: height * 0.02,
-                                    ),
-                                    Text(
-                                      "(주) NewChem",
-                                      style: TextStyle(
-                                        fontSize: width * 0.013,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: height * 0.0007),
-                                    Text(
-                                      "▶  대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n"
-                                          "▶  경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: width * 0.006),
-                                    ),
-                                    SizedBox(height: height * 0.007),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.phone,
-                                            color: Colors.white,
-                                            size: width * 0.0078),
-                                        SizedBox(width: width * 0.004),
-                                        Text(
-                                          "070-8098-7424",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: width * 0.005,
-                                          ),
-                                        ),
-                                        SizedBox(width: width * 0.007),
-                                        Icon(Icons.phone,
-                                            color: Colors.white,
-                                            size: width * 0.0078),
-                                        SizedBox(width: width * 0.005),
-                                        Text(
-                                          "042-367-7427",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: width * 0.005,
-                                          ),
-                                        ),
-                                        SizedBox(width: width * 0.007),
-                                        Icon(
-                                          Icons.email,
-                                          color: Colors.white,
-                                          size: isMobile ? 9 : 20,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Text(
-                                          "cmkim@new-chem.co.kr",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: isMobile
-                                                ? width * 0.007
-                                                : width * 0.005,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Spacer(),
-                                /*        Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Image.asset(
-                                        'assets/logo-white.png',
-                                        width: isMobile
-                                            ? width * 0.15
-                                            : width * 0.10,
-                                      ),
-                                      SizedBox(height: isMobile ? 10 : 20),
-                                    ],
-                                  ),*/
-                                Container(
-                                  width: width * 0.15,
-                                  height: height * 0.1388,
-                                  child: Image.asset(
-                                    'assets/logo-white.png',
-                                    width: isMobile
-                                        ? width * 0.15
-                                        : width * 0.10,
-                                  ),
-                                ),
-                                Spacer(),
-                              ],
+                            Container(
+                              height: height * 0.060,
+                              width: width * 0.322,
+                              color: Colors.black.withOpacity(0.5),
                             ),
-                            SizedBox(height:  height* 0.0027),
-                            Divider(
-                                color: Colors.white,
-                                thickness: 1), // 구분선
-
-                            Text(
-                              "COPYRIGHT © NewChem (뉴켐) All rights reserved | Designed by Aichemist",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize:
-                                isMobile ? width * 0.004 : width * 0.005,
-                              ),
-                              textAlign: TextAlign.center,
+                            _buildTabButton("기업 소개", 0),
+                            _buildTabButton("기업 연혁", 1),
+                            _buildTabButton("오시는 길", 2),
+                            Container(
+                              height: height * 0.060,
+                              width: width * 0.328,
+                              color: Colors.black.withOpacity(0.5),
                             ),
                           ],
                         ),
-                      )),)
-
-                ],
-              ),
-            )
-          ),
+                      ),
+                    ],
+                  ),
+                ),
+                _buildTabContent(),
+                //SizedBox(height: 75,),
+                Container(
+                  height: height * 0.3722,
+                  child: Image.asset(
+                    'assets/bottom_background.png',
+                    width: width,
+                    height: height * 0.3900,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+                Container(
+                  height: height * 0.4500,
+                  color: Colors.black,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: height * 0.0666,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width * 0.1703,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              buildTextButton2(
+                                  "HOME", 0, width * 0.00729, onItemTapped),
+                              SizedBox(
+                                width: width * 0.0020,
+                              ),
+                              buildTextButton2(
+                                  "COMPANY", 1, width * 0.00729, onItemTapped),
+                              SizedBox(
+                                width: width * 0.0020,
+                              ),
+                              buildTextButton2(
+                                  "PRODUCTS", 2, width * 0.00729, onItemTapped),
+                              SizedBox(
+                                width: width * 0.0020,
+                              ),
+                              buildTextButton2("CONTACT US", 3, width * 0.00729,
+                                  onItemTapped),
+                              SizedBox(
+                                width: width * 0.0020,
+                              ),
+                              buildTextButton2("DOWNLOADS", 4, width * 0.00729,
+                                  onItemTapped),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: height * 0.025,
+                      ),
+                      Container(
+                        width: width * 0.625,
+                        child: Divider(
+                          color: Colors.white,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.0416,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: width * 0.1875,
+                          ),
+                          Container(
+                            width: width * 0.3156,
+                            height: height * 0.0462,
+                            child: Text(
+                              '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: width * 0.0093,
+                                fontFamily: 'Pretendard',
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0.54,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: height * 0.04351,
+                      ),
+                      Container(
+                        height: height * 0.0680,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: width * 0.1875,
+                            ),
+                            Transform.translate(
+                              offset: Offset(0, -height * 0.01388),
+                              child: Icon(
+                                Icons.phone,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * 0.0041,
+                            ),
+                            Container(
+                              width: width * 0.0807,
+                              height: height * 0.0462,
+                              child: SelectableText(
+                                '070-8098-7424',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: width * 0.0093,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.54,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * 0.0083,
+                            ),
+                            Transform.translate(
+                              offset: Offset(0, -height * 0.0111),
+                              child: Icon(
+                                Icons.print,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * 0.0041,
+                            ),
+                            Container(
+                              width: width * 0.08333,
+                              height: height * 0.0462,
+                              child: SelectableText(
+                                '042-367-7427',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: width * 0.009,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.54,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * 0.004,
+                            ),
+                            Transform.translate(
+                              offset: Offset(0, -height * 0.0111),
+                              child: Icon(
+                                Icons.local_post_office,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * 0.004,
+                            ),
+                            Container(
+                              width: width * 0.1458,
+                              height: height * 0.0462,
+                              child: SelectableText(
+                                'cmkim@new-chem.co.kr',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: width * 0.0093,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.54,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: width * 0.125),
+                            Transform.translate(
+                                offset: Offset(0, -height * 0.0111),
+                                child: Container(
+                                  width: width * 0.1468,
+                                  child: Image.asset('assets/logo-white.png'),
+                                )),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.04351,
+                      ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: width * 0.1979,
+                          ),
+                          Text(
+                            'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.3),
+                              fontSize: width * 0.0093,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.54,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )),
         );
       }),
     );
@@ -254,9 +346,11 @@ class _CompanyPageState extends State<CompanyPage> {
       final isDesktop = width >= 1024 && height >= 1200;
       return Container(
         // color:  Color(0xffd4e2f5).withOpacity(0.9),// TabBar 배경색 설정
-        color:Colors.grey,
-        width: isMobile? width * 0.20:width * 0.08,
-        height: height * 0.034,
+        color: _selectedTabIndex == index
+            ? Colors.white.withOpacity(0.6000000238418579)
+            : Colors.black.withOpacity(0.5),
+        width: width * 0.1166,
+        height: height * 0.060,
         padding: EdgeInsets.zero,
         child: TextButton(
           onPressed: () {
@@ -265,25 +359,24 @@ class _CompanyPageState extends State<CompanyPage> {
               widget.onTabChanged(index); // 탭 변경 시 부모에 알림
             });
           },
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.transparent, // 버튼 배경 투명 설정
+            padding: EdgeInsets.zero, // 버튼의 기본 여백을 없애려면 사용
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap, // 버튼의 크기를 최소화
+            splashFactory: NoSplash.splashFactory, // 리플 효과 제거
+          ),
           child: Text(
             title,
             style: TextStyle(
-                fontSize: width * 0.010,
-                fontWeight: _selectedTabIndex == index
-                    ? FontWeight.bold
-                    : FontWeight.bold,
-                color:
-                _selectedTabIndex == index ? Colors.black : Colors.white,
-                decoration: _selectedTabIndex == index
-                    ? TextDecoration.underline
-                    : TextDecoration.none,
-                // 언더라인 추가
+                fontFamily: 'Pretendard',
+                fontSize: width * 0.0104,
+                fontWeight: FontWeight.w600,
+                color: _selectedTabIndex == index ? Colors.black : Colors.white,
                 decorationColor: Colors.black),
           ),
         ),
       );
-    }
-    );
+    });
   }
 
   Widget _buildTabContent() {
@@ -312,83 +405,159 @@ class _CompanyPageState extends State<CompanyPage> {
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
             child: Container(
-              width:isMobile? width*0.90:width * 0.4,
-              height: height * 0.6,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: height *0.028),
-                  Text(
-                    "(주)뉴켐 홈페이지에 오신 것을 환영합니다.",
-                    style: TextStyle(fontSize: isMobile?24:width * 0.015, fontWeight: FontWeight.bold),
-                  ),
-                  Divider(
-                    color: Colors.grey,
-                  ),
-                  SizedBox(height: height *0.028),
-                  Text(
-                    "뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지,\n"
-                        "합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다. "
-                        "\n\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,"
-                        "\n고객이 신뢰할 수 있는 회사로 자리매김해 왔습니다."
-                        "\n\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.",
-                    style: GoogleFonts.nanumGothic(textStyle: TextStyle(fontSize: isMobile? 15:20,letterSpacing: isMobile? -0.9:0),)
-                  ),
-                  SizedBox(height: 50),
-                  Text(
-                    "(주) 뉴켐 대표\t\t 김 천 만",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic),
-                    textAlign: TextAlign.end,
-                  ),
-                ],
+          width: width,
+          height: height * 0.5800,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: height * 0.0796),
+              Text(
+                'COMPANY INTRODUCTION',
+                style: TextStyle(
+                  color: Color(0xFF6194F9),
+                  fontSize: width * 0.0104,
+                  fontFamily: 'Pretendard',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
               ),
-            )),
+              SizedBox(height: height * 0.024),
+              Text(
+                '(주)뉴켐 홈페이지에 오신 것을 환영합니다.',
+                style: TextStyle(
+                  color: Color(0xFF191919),
+                  fontSize: width * 0.0208,
+                  fontFamily: 'Pretendard',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(height: height * 0.05),
+              SizedBox(
+                width: width * 0.4640,
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '(주) 뉴켐은 ',
+                        style: TextStyle(
+                          color: Color(0xFF5C5C5C),
+                          fontSize: width * 0.0104,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w400,
+                          height: 2,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            '실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한            모든 솔루션을 제공하는 회사',
+                        style: TextStyle(
+                          color: Color(0xFF191919),
+                          fontSize: width * 0.0104,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w500,
+                          height: 2,
+                        ),
+                      ),
+                      TextSpan(
+                        text:
+                            '입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며, 고객이 신뢰할 수 있는            회사로 자리 매김해 왔습니다. 앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
+                        style: TextStyle(
+                          color: Color(0xFF5C5C5C),
+                          fontSize: width * 0.0104,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w400,
+                          height: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: height * 0.05),
+              Container(
+                height: 20,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '(주)뉴켐 대표',
+                      style: TextStyle(
+                        color: Color(0xFF5C5C5C),
+                        fontSize: 16,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w400,
+                        height: 0.16,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 14,
+                    ),
+                    Text(
+                      '김천만',
+                      style: TextStyle(
+                        color: Color(0xFF191919),
+                        fontSize: width * 0.0104,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500,
+                        height: 0.10,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        )),
       );
-    }
-    );
+    });
   }
 
   Widget _buildHistoryTab() {
-    return
-      LayoutBuilder(builder: (context, constraints) {
-        final size = MediaQuery.of(context).size;
-        final width = size.width;
-        final height = size.height;
-        // width와 height 모두를 고려한 반응형 조건 설정
-        final isMobile = width < 600 && height < 800;
-        final isTablet = width >= 600 && width < 1024 && height < 1200;
-        final isDesktop = width >= 1024 && height >= 1200;
+    return LayoutBuilder(builder: (context, constraints) {
+      final size = MediaQuery.of(context).size;
+      final width = size.width;
+      final height = size.height;
+      // width와 height 모두를 고려한 반응형 조건 설정
+      final isMobile = width < 600 && height < 800;
+      final isTablet = width >= 600 && width < 1024 && height < 1200;
+      final isDesktop = width >= 1024 && height >= 1200;
 
-        return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              width:isMobile? width*0.90:width * 0.4,
-              height: height * 0.6,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 40,),
-                  Text("기업 연혁",
-                    style: TextStyle(fontSize: isMobile?24:width * 0.015, fontWeight: FontWeight.bold),),
-                  Divider(
-                    color: Colors.grey,
+      return Padding(
+          padding: EdgeInsets.zero,
+          child: Container(
+            width: width,
+            height: height * 1.1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: height * 0.0796),
+                Text(
+                  'HISTORY',
+                  style: TextStyle(
+                    color: Color(0xFF6194F9),
+                    fontSize: width * 0.0104,
+                    fontFamily: 'Pretendard',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
                   ),
-                  SizedBox(height: 40),
-                  _buildHistoryItem("● 2024년 4월", "설립"),
-                  _buildHistoryItem("● 2024년 5월", "Heidolph Korea 대전지역 독점대리점 계약"),
-                  _buildHistoryItem("● 2024년 6월", "독일 NORMAG 파트너쉽 체결"),
-                  _buildHistoryItem("● 2024년 8월", "미국 CINC사 파트너쉽 체결"),
-                  SizedBox(
-                    height: isMobile? height * 0.17:height * 0.3,
+                ),
+                SizedBox(height: height * 0.024),
+                Text(
+                  '기업 연혁',
+                  style: TextStyle(
+                    color: Color(0xFF191919),
+                    fontSize: width * 0.0208,
+                    fontFamily: 'Pretendard',
+                    fontWeight: FontWeight.w700,
                   ),
-                ],
-              ),
-            ));
-      }
-      );
+                ),
+                SizedBox(height: height * 0.065),
+                Image.asset('assets/company_history.png'),
+              ],
+            ),
+          ));
+    });
   }
 
   Widget _buildHistoryItem(String date, String event) {
@@ -414,8 +583,7 @@ class _CompanyPageState extends State<CompanyPage> {
           ],
         ),
       );
-    }
-    );
+    });
   }
 
   Widget _buildLocationTab() {
@@ -427,40 +595,124 @@ class _CompanyPageState extends State<CompanyPage> {
       final isMobile = width < 600 && height < 800;
       final isTablet = width >= 600 && width < 1024 && height < 1200;
       final isDesktop = width >= 1024 && height >= 1200;
-      return
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-              child: Container(
-                width:isMobile? width*0.90:width * 0.4,
-                height: height * 0.6,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 40,),
-                    Text(
-                      "오시는 길",
-                      style: TextStyle(fontSize: isMobile?24:width * 0.015, fontWeight: FontWeight.bold),),
-                    Divider(
-                      color: Colors.grey,
-                    ),
-                    SizedBox(height: 40),
-                    SelectableText(
-                      "● 주소 : 경기사무소 (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호",
-                      style: TextStyle(
-                          fontSize: width * 0.008, fontWeight: FontWeight.w400),
-                    ),
-                    SizedBox(height: height * 0.0347),
-                    Container(
-                      width: isMobile? width :width * 0.8,
-                      height: height * 0.3,
-                      child: _iframeWidget,
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+            child: Container(
+          width: width,
+          height: height * 1.1,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: height * 0.0796),
+              Text(
+                'DIRECTIONS',
+                style: TextStyle(
+                  color: Color(0xFF6194F9),
+                  fontSize: width * 0.0104,
+                  fontFamily: 'Pretendard',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+              SizedBox(height: height * 0.024),
+              Text(
+                '뉴켐 오시는 길',
+                style: TextStyle(
+                  color: Color(0xFF191919),
+                  fontSize: width * 0.0208,
+                  fontFamily: 'Pretendard',
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(height: height * 0.0843),
+              Container(
+                width: width * 0.4817,
+                height: height * 0.0712,
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6)),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x26000000),
+                      blurRadius: 30,
+                      offset: Offset(0, 0),
+                      spreadRadius: 0,
                     )
                   ],
                 ),
-              )),
-        );
-    }
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: width * 0.010,
+                      height: height * 0.025,
+                      child: Image.asset(
+                        'assets/direction.png',
+                      ),
+                    ),
+                    SizedBox(
+                      width: width * 0.011,
+                    ),
+                    SelectableText(
+                      '경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
+                      style: TextStyle(
+                        color: Color(0xFF191919),
+                        fontSize: 22,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500,
+                        height: 0.06,
+                        letterSpacing: 0.66,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: height * 0.0296,
+              ),
+              Transform.translate(
+                offset: Offset(width * 0.156, 0),
+                child: Container(
+                  width: width * 0.7900,
+                  height: height * 0.45,
+                  child: _iframeWidget,
+                ),
+              )
+            ],
+          ),
+        )),
+      );
+    });
+  }
+
+// 전역에서 사용 가능한 `buildTextButton` 함수 정의
+  Container buildTextButton2(String label, int index, double buttonFontSize,
+      Function(int) onItemTapped) {
+    return Container(
+      width: 115,
+      height: 46,
+      child: TextButton(
+        onPressed: () => onItemTapped(index),
+        child: Text(
+          label,
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Pretendard',
+            fontWeight: FontWeight.w600,
+            fontSize: buttonFontSize,
+            letterSpacing: -0.2,
+          ),
+        ),
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero, // 직사각형으로 설정
+          ),
+        ),
+      ),
     );
   }
 }
