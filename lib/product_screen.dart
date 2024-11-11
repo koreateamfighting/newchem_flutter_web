@@ -3,8 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ProductScreen extends StatefulWidget {
   final int initialTabIndex; // 초기 탭 인덱스를 받을 변수 추가
+  final Function(int) onTabChanged;
 
-  ProductScreen({this.initialTabIndex = 0}); // 기본값 0으로 설정
+  ProductScreen(
+      {this.initialTabIndex = 0, required this.onTabChanged}); // 기본값 0으로 설정
 
   @override
   _ProductScreenState createState() => _ProductScreenState();
@@ -12,12 +14,16 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen>
     with TickerProviderStateMixin {
+  int _selectedTabIndex = 0;
   String? _selectedName;
   String? _selectedImage;
   String? _selectedContent;
   late TabController _mainTabController; // 메인 탭 컨트롤러
   late TabController _heidolphTabController; // Heidolph 하위 탭 컨트롤러
   late TabController _normagTabController; // NORMAG 하위 탭 컨트롤러
+  late TabController _cincTabController;
+
+  final Map<int, bool> _isHovered = {};
 
   final List<List<String>> squadData = [
     [
@@ -119,6 +125,7 @@ class _ProductScreenState extends State<ProductScreen>
     _heidolphTabController =
         TabController(length: 5, vsync: this); // Heidolph 하위 탭
     _normagTabController = TabController(length: 3, vsync: this); // NORMAG 하위 탭
+    _cincTabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -126,6 +133,7 @@ class _ProductScreenState extends State<ProductScreen>
     _mainTabController.dispose();
     _heidolphTabController.dispose();
     _normagTabController.dispose();
+    _cincTabController.dispose();
     super.dispose();
   }
 
@@ -143,115 +151,69 @@ class _ProductScreenState extends State<ProductScreen>
         final isDesktop = width >= 1024 && height >= 1200;
         return Scaffold(
           backgroundColor: Colors.white,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(
-              isMobile ? height * 0.2680 : height * 0.3369,
-            ),
-            child: AppBar(
-              flexibleSpace: Column(
+          body: SingleChildScrollView(
+            child: Container(
+              color: Colors.white,
+              child: Column(
                 children: [
-                  Expanded(
-                    child: Container(
+                  Container(
+                      height: height * 0.5175,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/main-background4.png'),
+                          image: AssetImage('assets/product_background.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
-                      child: Center(
-                        child: Text("Products",
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: isMobile ? 30 : 60),
-                            )),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: isMobile ? width * 0.90 : width * 0.4,
-                    height: isMobile ? 35 : 50,
-                    // color:  Color(0xffd4e2f5).withOpacity(0.9),
-                    color: Colors.grey,
-                    child: Center(
-                      child: TabBar(
-                        controller: _mainTabController,
-                        // TabController 설정
-                        labelColor: Colors.black,
-                        // 선택된 탭의 텍스트 색상
-                        unselectedLabelColor: Colors.white,
-                        // 선택되지 않은 탭의 텍스트 색상
-                        indicatorColor: Colors.black,
-                        // 탭 선택 시 밑줄 색상
-
-                        tabs: [
-                          Tab(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: isMobile ? 30 : width * 0.019),
-                              // 탭 간격 조정
-                              child: Text(
-                                "Heidolph",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: isMobile ? 12 : width * 0.007),
-                              ),
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: height * 0.267,
+                          ),
+                          Text(
+                            'PRODUCTS',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: width * 0.028,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w600,
+                              height: 0,
+                              letterSpacing: 2.16,
                             ),
                           ),
-                          Tab(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: isMobile ? 30 : width * 0.019),
-                              // 탭 간격 조정
-                              child: Text(
-                                "NORMAG",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: isMobile ? 12 : width * 0.007),
-                              ),
-                            ),
+                          SizedBox(
+                            height: height * 0.131,
                           ),
-                          Tab(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: isMobile ? 20 : width * 0.019),
-                              // 탭 간격 조정
-                              child: Text(
-                                "CINC Industry",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: isMobile ? 12 : width * 0.007),
-                              ),
+                          Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: height * 0.060,
+                                  width: width * 0.322,
+                                  color: Colors.black.withOpacity(0.5),
+                                ),
+                                _buildTabButton("Heidolph", 0),
+                                _buildTabButton("NORMAG", 1),
+                                _buildTabButton("CINC Industry", 2),
+                                Container(
+                                  height: height * 0.060,
+                                  width: width * 0.328,
+                                  color: Colors.black.withOpacity(0.5),
+                                ),
+                              ],
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                  ),
+                      )),
+                  Container(
+                    height: height * 2.5,
+                    padding: EdgeInsets.only(top: height * 0.0370),
+                    child: _buildTabContent(),
+                  )
                 ],
               ),
-              backgroundColor: Colors.transparent, // 배경 투명
-              elevation: 0, // 그림자 제거
-            ),
-          ),
-          body: Container(
-            child: Column(
-              children: [
-                Expanded(
-                  child: Container(
-                    height: isMobile ? height * 0.90 : height * 0.90,
-                    color: Colors.white,
-                    child: TabBarView(
-                      controller: _mainTabController, // TabController 설정
-                      children: [
-                        _buildHeidolphTab(),
-                        _buildNormagTab(),
-                        _buildCINCTab(),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
             ),
           ),
         );
@@ -272,89 +234,97 @@ class _ProductScreenState extends State<ProductScreen>
 
       return Column(
         children: [
-          Center(
-              // 탭바를 중앙에 배치하기 위해 Center로 감싸기
-              child: Container(
-            padding: EdgeInsets.fromLTRB(
-                isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
+          Container(
+            // padding: EdgeInsets.fromLTRB(
+            //     isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
+            width: width * 0.471875,
             child: TabBar(
               controller: _heidolphTabController,
               labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.black,
-              // 탭 간격을 중앙에서 일정하게 하기 위해 Alignment 조정
-
+              indicatorColor: Color(0xff6194f9),
+              dividerColor: Colors.transparent,
+              unselectedLabelStyle: TextStyle(
+                  fontSize: width * 0.0093,
+                  fontFamily: 'Pretendard',
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
               tabs: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : width * 0.002,
-                      vertical: height * 0.007),
+                Container(
+                  width: width * 0.1130,
+                  height: height * 0.037037,
                   // 각 탭에 일정 간격 설정
                   child: Text(
                     "Rotary Evaporator",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: isMobile
-                            ? width * 0.0004
-                            : width * 0.007), // 텍스트 크기를 18로 설정
+                      fontSize: width * 0.0093,
+                      fontFamily: 'Pretendard',
+                      fontWeight: FontWeight.w500,
+                    ), // 텍스트 크기를 18로 설정
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : width * 0.002,
-                      vertical: height * 0.007),
+                Container(
+                  width: width * 0.0666,
+                  height: height * 0.037037,
+                  // 각 탭에 일정 간격 설정
                   child: Text(
-                    " Stirring",
+                    "Stirring",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: isMobile
-                            ? width * 0.0004
-                            : width * 0.007), // 텍스트 크기를 18로 설정
+                        fontSize: width * 0.0093,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500), // 텍스트 크기를 18로 설정
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : width * 0.002,
-                      vertical: height * 0.007),
+                Container(
+                  width: width * 0.0848,
+                  height: height * 0.037037,
+                  // 각 탭에 일정 간격 설정
                   child: Text(
-                    " Automation",
+                    "Automation",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: isMobile
-                            ? width * 0.0004
-                            : width * 0.007), // 텍스트 크기를 18로 설정
+                        fontSize: width * 0.0093,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500), // 텍스트 크기를 18로 설정
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : width * 0.002,
-                      vertical: height * 0.007),
+                Container(
+                  width: width * 0.1067,
+                  height: height * 0.037037,
+                  // 각 탭에 일정 간격 설정
                   child: Text(
                     "Voltex & Shaking",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: isMobile
-                            ? width * 0.0004
-                            : width * 0.007), // 텍스트 크기를 18로 설정
+                        fontSize: width * 0.0093,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500), // 텍스트 크기를 18로 설정
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : width * 0.002,
-                      vertical: height * 0.007),
+                Container(
+                  width: width * 0.1005,
+                  height: height * 0.037037,
+                  // 각 탭에 일정 간격 설정
                   child: Text(
-                    "Liquid Handling",
+                    "Liquid handling",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: isMobile
-                            ? width * 0.0004
-                            : width * 0.007), // 텍스트 크기를 18로 설정
+                        fontSize: width * 0.0093,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500), // 텍스트 크기를 18로 설정
                   ),
                 ),
               ],
             ),
-          )),
+          ),
           Expanded(
             child: TabBarView(
               controller: _heidolphTabController,
               children: [
                 _buildProductList([
                   {
+                    "brand": "HEIDOLPH",
                     "name": "Hei-VAP Series",
                     "image": "assets/products/Hei-VAP_Series.png",
                     "content": """
@@ -371,6 +341,7 @@ class _ProductScreenState extends State<ProductScreen>
                   업그레이드"""
                   },
                   {
+                    "brand": "HEIDOLPH",
                     "name": "Hei-VAP Industrial",
                     "image": "assets/products/Hei-VAP_Industrial.png",
                     "content": """
@@ -393,6 +364,7 @@ class _ProductScreenState extends State<ProductScreen>
                     """
                   },
                   {
+                    "brand": "HEIDOLPH",
                     "name": "Automatic Distillation",
                     "image": "assets/products/Automatic_Distillation.png",
                     "content": """
@@ -410,6 +382,7 @@ Hei-VOLUME Distimatic 24/7의 통합 콤프레셔가 설치된 타워는 제공�
 샘플과 접촉하는 모든 부품은 내화학성 재료로 제작됐습니다."""
                   },
                   {
+                    "brand": "HEIDOLPH",
                     "name": "Hei Chill Peltier (소형 냉각기)",
                     "image": "assets/products/Hei_Chill_Peltier.png",
                     "content": """
@@ -428,6 +401,7 @@ Hei-CHILL Peltier Thermostat은 600와트의 높은 냉각 용량과 거의 두 
                     """
                   },
                   {
+                    "brand": "HEIDOLPH",
                     "name": "Hei Chill Peltier (대형 냉각기)",
                     "image": "assets/products/Hei_Chill_5000.png",
                     "content": """
@@ -445,6 +419,7 @@ SmartCool 시스템
                 ]),
                 _buildProductList([
                   {
+                    "brand": "HEIDOLPH",
                     "name": "Magnetic Stirrer",
                     "image": "assets/products/Magnetic_stirrer.png",
                     "content": """
@@ -469,6 +444,7 @@ easy (연구가 쉬워짐)" 을 의미합니다.
 센서 Pt1000에 의해 제어됩니다."""
                   },
                   {
+                    "brand": "HEIDOLPH",
                     "name": "오버헤드 교반기",
                     "image": "assets/products/Overhead_stirrer.png",
                     "content": """
@@ -495,6 +471,7 @@ Ultimate 200에는 지름 10.5mm의 퀵 액션 척(안전 링이 포함된 퀵
                 ]),
                 _buildProductList([
                   {
+                    "brand": "HEIDOLPH",
                     "name": "Hei-Process Cloud Core",
                     "image": "assets/products/Hei-Process_Cloud_Core.png",
                     "content": """
@@ -511,6 +488,7 @@ Ultimate 200에는 지름 10.5mm의 퀵 액션 척(안전 링이 포함된 퀵
                 ]),
                 _buildProductList([
                   {
+                    "brand": "HEIDOLPH",
                     "name": "Platform shakers",
                     "image": "assets/products/Platform_shakers.png",
                     "content": """
@@ -522,6 +500,7 @@ Hei-SHAKE 시리즈의 플랫폼 셰이커를 사용하면 다양한 유형의 �
 일상적인 요구 사항을 충족합니다."""
                   },
                   {
+                    "brand": "HEIDOLPH",
                     "name": "Vortexer",
                     "image": "assets/products/Vortexer.png",
                     "content": """
@@ -536,6 +515,7 @@ Heidolph Instruments GmbH & Co.KG에는 세 개의 다른 Voltexer가 있으므�
 있습니다. 직접 보세요!"""
                   },
                   {
+                    "brand": "HEIDOLPH",
                     "name": "오버헤드 쉐이커",
                     "image": "assets/products/Overhead_shakers.png",
                     "content": """
@@ -548,6 +528,7 @@ Heidolph Instruments GmbH & Co.KG에는 세 개의 다른 Voltexer가 있으므�
                 ]),
                 _buildProductList([
                   {
+                    "brand": "HEIDOLPH",
                     "name": "Liquid handling",
                     "image": "assets/products/Liquid_handling.png",
                     "content": """
@@ -567,7 +548,7 @@ ml이고, 멀티 채널 헤드는 분당 0.005~364 ml입니다. 공정 중점에
                 ]),
               ],
             ),
-          ),
+          )
         ],
       );
     });
@@ -585,13 +566,11 @@ ml이고, 멀티 채널 헤드는 분당 0.005~364 ml입니다. 공정 중점에
       final isDesktop = width >= 1024 && height >= 1200;
       return Column(
         children: [
-          Center(
+          Container(
+            padding: EdgeInsets.fromLTRB(
+                isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
             child: Container(
-              padding: EdgeInsets.fromLTRB(
-                  isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
-              child: Container(
-                height: isMobile ? 50 : 60,
-              ),
+              height: isMobile ? 50 : 60,
             ),
           ),
           Expanded(
@@ -600,6 +579,7 @@ ml이고, 멀티 채널 헤드는 분당 0.005~364 ml입니다. 공정 중점에
               children: [
                 _buildProductList([
                   {
+                    "brand": "NORMAG",
                     "name": "Lab Fast Pro",
                     "image": "assets/products/Lab_Fast_Pro.png",
                     "content": """
@@ -617,6 +597,7 @@ Advantages
 • 데이터 저장 및 레시피 관리"""
                   },
                   {
+                    "brand": "NORMAG",
                     "name": "Pilot Compact Reactor (10 ~ 30L)",
                     "image": "assets/products/Pilot_compact_reactor.png",
                     "content": """
@@ -632,6 +613,7 @@ Advantages
   - 합리적인 가격"""
                   },
                   {
+                    "brand": "NORMAG",
                     "name": "Glass Reaction System",
                     "image": "assets/products/ReactionSystemPilot.png",
                     "content": """
@@ -649,7 +631,7 @@ Advantages
                 ]),
               ],
             ),
-          ),
+          )
         ],
       );
     });
@@ -668,85 +650,91 @@ Advantages
 
       return Column(
         children: [
-          Center(
-              // 탭바를 중앙에 배치하기 위해 Center로 감싸기
-              child: Container(
-            padding: EdgeInsets.fromLTRB(
-                isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
+          Container(
+            width: width * 0.471875,
             child: TabBar(
-              controller: _heidolphTabController,
+              controller: _cincTabController,
               labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              indicatorColor: Colors.black,
-              // 탭 간격을 중앙에서 일정하게 하기 위해 Alignment 조정
+              indicatorColor: Color(0xff6194f9),
+              dividerColor: Colors.transparent,
+              unselectedLabelStyle: TextStyle(
+                  fontSize: width * 0.0093,
+                  fontFamily: 'Pretendard',
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black),
               tabs: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : width * 0.002,
-                      vertical: height * 0.007),
+                Container(
+                  width: width * 0.0875,
+                  height: height * 0.037037,
                   // 각 탭에 일정 간격 설정
                   child: Text(
-                    " 소개",
+                    "Introduction",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: isMobile
-                            ? width * 0.0004
-                            : width * 0.007), // 텍스트 크기를 18로 설정
+                      fontSize: width * 0.0093,
+                      fontFamily: 'Pretendard',
+                      fontWeight: FontWeight.w500,
+                    ), // 텍스트 크기를 18로 설정
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : width * 0.002,
-                      vertical: height * 0.007),
+                Container(
+                  width: width * 0.0901,
+                  height: height * 0.037037,
+                  // 각 탭에 일정 간격 설정
                   child: Text(
-                    " How to Work",
+                    "How to Work",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: isMobile
-                            ? width * 0.0004
-                            : width * 0.007), // 텍스트 크기를 18로 설정
+                        fontSize: width * 0.0093,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500), // 텍스트 크기를 18로 설정
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : width * 0.002,
-                      vertical: height * 0.007),
+                Container(
+                  width: width * 0.1005,
+                  height: height * 0.037037,
+                  // 각 탭에 일정 간격 설정
                   child: Text(
-                    " 특징",
+                    "Characteristics",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: isMobile
-                            ? width * 0.0004
-                            : width * 0.007), // 텍스트 크기를 18로 설정
+                        fontSize: width * 0.0093,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500), // 텍스트 크기를 18로 설정
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : width * 0.002,
-                      vertical: height * 0.007),
+                Container(
+                  width: width * 0.0838,
+                  height: height * 0.037037,
+                  // 각 탭에 일정 간격 설정
                   child: Text(
                     "Application",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: isMobile
-                            ? width * 0.0004
-                            : width * 0.007), // 텍스트 크기를 18로 설정
+                        fontSize: width * 0.0093,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500), // 텍스트 크기를 18로 설정
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isMobile ? 0 : width * 0.002,
-                      vertical: height * 0.007),
+                Container(
+                  width: width * 0.0958,
+                  height: height * 0.037037,
+                  // 각 탭에 일정 간격 설정
                   child: Text(
                     "Specifications",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: isMobile
-                            ? width * 0.0004
-                            : width * 0.007), // 텍스트 크기를 18로 설정
+                        fontSize: width * 0.0093,
+                        fontFamily: 'Pretendard',
+                        fontWeight: FontWeight.w500), // 텍스트 크기를 18로 설정
                   ),
                 ),
               ],
             ),
-          )),
+          ),
           Expanded(
             child: TabBarView(
-              controller: _heidolphTabController,
+              controller: _cincTabController,
               children: [
                 Container(
                   child: Center(
@@ -1051,17 +1039,15 @@ Advantages
                     ),
                   ),
                 ),
-                SingleChildScrollView(
-
-                  child:  Column(
-                    children: [
-                      SizedBox(
-                        height: height * 0.0250,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          buildApplicationTextList("""Chemical""", """
+                Column(
+                  children: [
+                    SizedBox(
+                      height: height * 0.0250,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        buildApplicationTextList("""Chemical""", """
                                   
 - 폴리머 원료 공급
 - 폴리머 생산
@@ -1073,10 +1059,10 @@ Advantages
 - 유기물 세정
 
                                 """),
-                          SizedBox(
-                            width: width * 0.006,
-                          ),
-                          buildApplicationTextList("""Pharmaceutical""", """
+                        SizedBox(
+                          width: width * 0.006,
+                        ),
+                        buildApplicationTextList("""Pharmaceutical""", """
        
                                   
 - 항생제
@@ -1087,10 +1073,10 @@ Advantages
 
 
                                 """),
-                          SizedBox(
-                            width: width * 0.006,
-                          ),
-                          buildApplicationTextList("""Petroleum""", """
+                        SizedBox(
+                          width: width * 0.006,
+                        ),
+                        buildApplicationTextList("""Petroleum""", """
                                           
 - 산류 회수
 
@@ -1106,10 +1092,10 @@ Advantages
 
 
                                 """),
-                          SizedBox(
-                            width: width * 0.006,
-                          ),
-                          buildApplicationTextList("""Biotech""", """
+                        SizedBox(
+                          width: width * 0.006,
+                        ),
+                        buildApplicationTextList("""Biotech""", """
        
      
                                   
@@ -1122,15 +1108,15 @@ Advantages
 
 
                                 """),
-                        ],
-                      ),
-                      SizedBox(
-                        height: height * 0.0250,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          buildApplicationTextList("""Environmental""", """
+                      ],
+                    ),
+                    SizedBox(
+                      height: height * 0.0250,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        buildApplicationTextList("""Environmental""", """
                                   
 - 유류 유출 정화
 
@@ -1144,11 +1130,11 @@ Advantages
 
 
                                 """),
-                          SizedBox(
-                            width: width * 0.006,
-                          ),
-                          buildApplicationTextList(
-                              """Mining and Metals Recovery""", """
+                        SizedBox(
+                          width: width * 0.006,
+                        ),
+                        buildApplicationTextList(
+                            """Mining and Metals Recovery""", """
        
                                   
 - 다양한 금속의 용매 추출
@@ -1160,10 +1146,10 @@ Advantages
 
 
                                 """),
-                          SizedBox(
-                            width: width * 0.006,
-                          ),
-                          buildApplicationTextList("""Food & Nutrition""", """
+                        SizedBox(
+                          width: width * 0.006,
+                        ),
+                        buildApplicationTextList("""Food & Nutrition""", """
        
                                        
 - 이소플라본
@@ -1179,11 +1165,10 @@ Advantages
 
 
                                 """),
-                          SizedBox(
-                            width: width * 0.006,
-                          ),
-                          buildApplicationTextList(
-                              """Biodisel Production""", """
+                        SizedBox(
+                          width: width * 0.006,
+                        ),
+                        buildApplicationTextList("""Biodisel Production""", """
                                   
 - 메틸 에스터에서 글리세린 분리
 
@@ -1195,55 +1180,38 @@ Advantages
 
 
                                 """),
-                        ],
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
-
-                // Container(
-                //   child: Center(
-                //       child: Column(
-                //         children: [
-                //           SizedBox(
-                //             height: isMobile?0:80,
-                //           ),
-                //           Image.asset("assets/table.png",height: isMobile? 400:600,)
-                //         ],
-                //       )),
-                // ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Container(
-                    height: isMobile ? 500 : height * 0.5800,
-                    padding: EdgeInsets.fromLTRB(isMobile ? 16 : width * 0.097,
-                        0, isMobile ? 16 : width * 0.097, 0),
-                    child: Center(
-                        child: Table(
-                      border: TableBorder.all(), // 표에 테두리 추가
-                      defaultVerticalAlignment:
-                          TableCellVerticalAlignment.middle,
-                      children: List.generate(11, (rowIndex) {
-                        return TableRow(
-                          children: List.generate(6, (colIndex) {
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                squadData[rowIndex][colIndex],
-                                style: TextStyle(
-                                  fontSize:
-                                      isMobile ? 8 : width * 0.005, // 각 행에 따라 폰트 크기 변경
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black, // 컬럼 인덱스에 따른 색상 지정
-                                ),
-                                textAlign: TextAlign.center,
+                Container(
+                  height: isMobile ? 500 : height * 0.5800,
+                  padding: EdgeInsets.fromLTRB(isMobile ? 16 : width * 0.097, 0,
+                      isMobile ? 16 : width * 0.097, 0),
+                  child: Center(
+                      child: Table(
+                    border: TableBorder.all(), // 표에 테두리 추가
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    children: List.generate(11, (rowIndex) {
+                      return TableRow(
+                        children: List.generate(6, (colIndex) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              squadData[rowIndex][colIndex],
+                              style: TextStyle(
+                                fontSize: isMobile ? 8 : width * 0.005,
+                                // 각 행에 따라 폰트 크기 변경
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black, // 컬럼 인덱스에 따른 색상 지정
                               ),
-                            );
-                          }),
-                        );
-                      }),
-                    )),
-                  ),
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                        }),
+                      );
+                    }),
+                  )),
                 ),
               ],
             ),
@@ -1273,30 +1241,85 @@ Advantages
       final isDesktop = width >= 1024 && height >= 1200;
 
       return Center(
-        child: Container(
-          width: 1500,
           child: GridView.builder(
-            padding: EdgeInsets.fromLTRB(8.0, isMobile ? 24 : 48, 0, 8),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, // 한 줄에 3개씩 배치
-              crossAxisSpacing: 16.0, // 좌우 간격 줄이기
-              mainAxisSpacing: 8.0, // 상하 간격 줄이기
-              childAspectRatio: 0.75, // 아이템 비율 (세로로 길게)
-            ),
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              return buildProductCard(
-                  products[index]["name"]!,
-                  products[index]["image"]!,
-                  products[index]["content"]!,
-                  context,
-                  isMobile ? width * 0.0400 : width * 0.1200,
-                  isMobile ? height * 0.0100 : height * 0.400);
-            },
+        padding: EdgeInsets.only(left: width * 0.1041, right: width * 0.1041),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, // 한 줄에 3개씩 배치
+          crossAxisSpacing: 0, // 좌우 간격 줄이기
+          mainAxisSpacing: 0.0, // 상하 간격 줄이기
+          childAspectRatio: 0.75, // 아이템 비율 (세로로 길게)
+        ),
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          return buildProductCard(
+            products[index]["brand"]!,
+              products[index]["name"]!,
+              products[index]["image"]!,
+              products[index]["content"]!,
+              context,
+              271,
+              337,
+              index);
+        },
+      ));
+    });
+  }
+
+  Widget _buildTabButton(String title, int index) {
+    return LayoutBuilder(builder: (context, constraints) {
+      final size = MediaQuery.of(context).size;
+      final width = size.width;
+      final height = size.height;
+      // width와 height 모두를 고려한 반응형 조건 설정
+      final isMobile = width < 600 && height < 800;
+      final isTablet = width >= 600 && width < 1024 && height < 1200;
+      final isDesktop = width >= 1024 && height >= 1200;
+      return Container(
+        // color:  Color(0xffd4e2f5).withOpacity(0.9),// TabBar 배경색 설정
+        color: _selectedTabIndex == index
+            ? Colors.white.withOpacity(0.6000000238418579)
+            : Colors.black.withOpacity(0.5),
+        width: width * 0.1166,
+        height: height * 0.060,
+        padding: EdgeInsets.zero,
+        child: TextButton(
+          onPressed: () {
+            setState(() {
+              _selectedTabIndex = index;
+              widget.onTabChanged(index); // 탭 변경 시 부모에 알림
+            });
+          },
+          style: TextButton.styleFrom(
+            backgroundColor: Colors.transparent, // 버튼 배경 투명 설정
+            padding: EdgeInsets.zero, // 버튼의 기본 여백을 없애려면 사용
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap, // 버튼의 크기를 최소화
+            splashFactory: NoSplash.splashFactory, // 리플 효과 제거
+          ),
+          child: Text(
+            title,
+            style: TextStyle(
+                fontFamily: 'Pretendard',
+                fontSize: width * 0.0104,
+                fontWeight: FontWeight.w600,
+                color: _selectedTabIndex == index ? Colors.black : Colors.white,
+                decorationColor: Colors.black),
           ),
         ),
       );
     });
+  }
+
+  Widget _buildTabContent() {
+    switch (_selectedTabIndex) {
+      case 0:
+        return _buildHeidolphTab();
+      case 1:
+        return _buildNormagTab();
+      case 2:
+        return _buildCINCTab();
+      default:
+        return Container();
+    }
   }
 
   Widget buildApplicationTextList(String main, String content) {
@@ -1349,69 +1372,111 @@ Advantages
   }
 
   // Product Card Widget
-  Widget buildProductCard(String name, String imagePath, String content,
-      BuildContext context, double width, double height) {
+  Widget buildProductCard(String brand , String name, String imagePath, String content,
+      BuildContext context, double cardWidth, double cardHeight, int index) {
     return LayoutBuilder(builder: (context, constraints) {
       // width와 height 모두를 고려한 반응형 조건 설정
       final size = MediaQuery.of(context).size;
       final width = size.width;
       final height = size.height;
-      final isMobile = width < 600 && height < 800;
-      final isTablet = width >= 600 && width < 1024 && height < 1200;
-      final isDesktop = width >= 1024 && height >= 1200;
 
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center, // 텍스트를 이미지 중앙 정렬
-        children: [
-          Container(
-            width: width * 1,
-            decoration: BoxDecoration(
-                color: Colors.white, // 배경 색상
-                border: Border.all(
-                  color: Colors.grey, // 테두리 색상
-                  width: 1.0, // 테두리 두께
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                )),
-            child: GestureDetector(
-              onTap: () {
-                // 제품 클릭 시 이름과 이미지 설정
-
-                setState(() {
-                  _selectedName = name;
-                  _selectedImage = imagePath;
-                  _selectedContent = content;
-                  _dialogBuilder(context, name, imagePath, content);
-                });
-              },
-              child: Transform.scale(
-                  scale: 0.9,
-                  child: Image.asset(
-                    imagePath,
-                    fit: BoxFit.contain,
-                    width: isMobile ? 150 : 300,
-                    height: isMobile ? 150 : 300,
-                  )),
+      return MouseRegion(
+        onEnter: (_) {
+          setState(() {
+            _isHovered[index] = true; // 마우스가 위에 있을 때 true로 설정
+          });
+        },
+        onExit: (_) {
+          setState(() {
+            _isHovered[index] = false; // 마우스가 나갔을 때 false로 설정
+          });
+        },
+        child: Column(
+          children: [
+            SizedBox(
+              height: height * 0.0925,
             ),
-          ),
-          Container(
-              decoration: BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  )),
-              width: width * 1,
-              child: Center(
-                child: Text(name,
-                    style: TextStyle(
-                        fontSize: isMobile ? 8 : 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white)),
-              )),
-        ],
+            Container(
+                width: width * 0.2432,
+                height: height * 0.4851,
+                decoration: _isHovered[index] == true
+                    ? BoxDecoration(
+                  color: Colors.white, // 배경색
+                  borderRadius: BorderRadius.circular(8), // 테두리 둥글기
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1), // 그림자 색상과 투명도
+                      spreadRadius: 2, // 그림자의 퍼짐 정도
+                      blurRadius: 20, // 그림자의 흐림 정도
+                      offset: Offset(0, 0), // 그림자의 위치 (x, y)
+                    ),
+                  ],
+                )
+                    : BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        )),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // 텍스트를 이미지 중앙 정렬
+                  children: [
+                    Container(
+                      child: GestureDetector(
+                          onTap: () {
+                            // 제품 클릭 시 이름과 이미지 설정
+
+                            setState(() {
+                              _selectedName = name;
+                              _selectedImage = imagePath;
+                              _selectedContent = content;
+                              _dialogBuilder(context, name, imagePath, content);
+                            });
+                          },
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                imagePath,
+                                fit: BoxFit.contain,
+                                width: width * 0.14114,
+                                height: height * 0.3120,
+                              ),
+                              SizedBox(
+                                height: height * 0.0444,
+                              ),
+                              Container(
+                                width: width * 0.0494,
+                                height: height * 0.0194,
+                                child: Text(
+                                  brand,
+                                  style: TextStyle(
+                                      fontSize: width * 0.009,
+                                      fontFamily: 'Pretendard',
+                                      color: Color(0xff6194f9),
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                              SizedBox(
+                                height: height * 0.0111,
+                              ),
+                              Container(
+                                height: height * 0.0268,
+                                child: Text(
+                                  name,
+                                  style: TextStyle(
+                                      fontSize: width * 0.0125,
+                                      fontFamily: 'Pretendard',
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ],
+                          )),
+                    ),
+                  ],
+                ))
+          ],
+        ),
       );
     });
   }
@@ -1435,25 +1500,37 @@ Advantages
             return AlertDialog(
               backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16), // 모서리 둥글게
+
+                borderRadius: BorderRadius.circular(16),
+                side: BorderSide(
+                  color: Colors.black, // 경계선 색상
+                  width: width * 0.0010, // 경계선 두께
+                ),// 모서리 둥글게
               ),
               content: Container(
-                height: isMobile ? 400 : 600,
+                height: isMobile ? 400 : height * 0.55555,
                 width: isMobile ? width * 0.8 : width * 0.4,
+                decoration: BoxDecoration(
+                    color: Colors.white, // 배경 색상
+
+                   ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     // 상단 이름과 닫기 버튼
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        Spacer(),
                         Text(
                           name,
                           style: TextStyle(
-                            fontSize: isMobile ? 16 : 24,
-                            fontWeight: FontWeight.bold,
+                            fontSize: isMobile ? 16 : width * 0.0125,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Pretendard'
                           ),
                         ),
+                        Spacer(),
                         IconButton(
                           onPressed: () {
                             Navigator.of(context).pop();
@@ -1462,10 +1539,10 @@ Advantages
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: height*0.0148),
                     // 이미지 섹션
                     Container(
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.fromLTRB(width * 0.0083,0.0148,width * 0.0083,0.0148),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16), // 둥근 모서리
@@ -1474,36 +1551,34 @@ Advantages
                             color: Colors.grey.withOpacity(0.2),
                             spreadRadius: 2,
                             blurRadius: 5,
-                            offset: Offset(0, 3),
+                            offset: Offset(0, height * 0.0027),
                           ),
                         ],
                       ),
                       child: Image.asset(
                         image,
                         fit: BoxFit.contain,
-                        height: isMobile ? 150 : 250,
-                        width: isMobile ? 150 : 250,
+                        height: isMobile ? 150 : width * 0.1302,
+                        width: isMobile ? 150 : height * 0.2314,
                       ),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: height*0.0148),
                     // 내용 섹션
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(
-                            content,
-                            style: TextStyle(
-                              fontSize: isMobile ? 12 : 16,
-                              height: 1.5, // 줄 간격 추가
-                              color: Colors.black87,
-                            ),
-                            textAlign: TextAlign.left,
+                    Expanded(child: SingleChildScrollView(
+                      child: Padding(
+                        padding:EdgeInsets.symmetric(horizontal: height * 0.0074),
+                        child: SelectableText(
+                          content,
+                          style: TextStyle(
+                            fontSize: isMobile ? 12 : height * 0.0148,
+                            height: 1.5, // 줄 간격 추가
+                            color: Colors.black87,
                           ),
+                          textAlign: TextAlign.left,
                         ),
                       ),
-                    ),
-                    SizedBox(height: 16),
+                    )),
+                    SizedBox(height: height*0.0148),
                     // 하단 버튼 (필요하다면 추가 가능)
                   ],
                 ),

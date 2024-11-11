@@ -65,7 +65,10 @@ final GoRouter _router = GoRouter(
         final tabIndex =
             int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
         return MyAppContainer(
-          child: ProductScreen(initialTabIndex: tabIndex),
+          child: ProductScreen(initialTabIndex: tabIndex,
+            onTabChanged: (int newTabIndex) {
+              context.go('/products/$newTabIndex'); // 탭 변경 시 URL 업데이트
+            },),
         );
       },
     ),

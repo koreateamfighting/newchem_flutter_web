@@ -404,8 +404,9 @@ class _HomePageState extends State<HomePage> {
                                                                   .symmetric(
                                                                   horizontal:
                                                                       8.0),
-                                                          child: Container(
-                                                            width: width * 0.2479,
+                                                          child:   Container(
+                                                            width: item['productImages']
+                                                                .length == 1? width * 0.415:width * 0.2479,
                                                             height: height * 0.4407,
                                                             decoration:
                                                                 ShapeDecoration(
@@ -454,7 +455,7 @@ class _HomePageState extends State<HomePage> {
                                                                   ),
                                                                 ),
                                                                 SizedBox(
-                                                                    height: 16),
+                                                                    height: height * 0.0148),
                                                                 Image.asset(
                                                                   productImage,
                                                                   width: width *
@@ -580,7 +581,6 @@ class _HomePageState extends State<HomePage> {
                                             fontSize: width * 0.0083,
                                             fontFamily: 'Pretendard',
                                             fontWeight: FontWeight.w500,
-                                            height: 0,
                                           ),
                                         ),
                                       ),
@@ -613,7 +613,6 @@ class _HomePageState extends State<HomePage> {
                               fontSize: width * 0.0291,
                               fontFamily: 'Pretendard',
                               fontWeight: FontWeight.w700,
-                              height: 0,
                             ),
                           ),
                           SizedBox(height: height * 0.011),
@@ -624,7 +623,6 @@ class _HomePageState extends State<HomePage> {
                               fontSize: width * 0.0145,
                               fontFamily: 'Pretendard',
                               fontWeight: FontWeight.w500,
-                              height: 0,
                             ),
                           ),
                           SizedBox(height: height * 0.0444),
@@ -712,7 +710,7 @@ class _HomePageState extends State<HomePage> {
                                   fontSize: width * 0.0125,
                                   fontFamily: 'Pretendard',
                                   fontWeight: FontWeight.w600,
-                                  height: 0,
+
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(
@@ -755,7 +753,7 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: width * 0.02916,
                                     fontFamily: 'Pretendard',
                                     fontWeight: FontWeight.w700,
-                                    height: 0,
+
                                   ),
                                 ),
                                 SizedBox(
@@ -858,7 +856,7 @@ class _HomePageState extends State<HomePage> {
                                         fontSize: width * 0.02916,
                                         fontFamily: 'Pretendard',
                                         fontWeight: FontWeight.w700,
-                                        height: 0,
+
                                       ),
                                     ),
                                     SizedBox(
@@ -956,9 +954,9 @@ class _HomePageState extends State<HomePage> {
                                                           ),
                                                           padding: EdgeInsets
                                                               .symmetric(
-                                                                  vertical: 6.0,
+                                                                  vertical: width * 0.003,
                                                                   horizontal:
-                                                                      6.0),
+                                                                      height * 0.0055),
                                                           child: Text(
                                                             item["number"]!
                                                                 .padLeft(
@@ -982,9 +980,9 @@ class _HomePageState extends State<HomePage> {
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsets
+                                                             EdgeInsets
                                                                 .fromLTRB(
-                                                                16, 16, 0, 16),
+                                                                width * 0.0083, height * 0.0148, 0, height * 0.0148),
                                                         child: GestureDetector(
                                                           onTap: () async {
                                                             final Uri uri =
@@ -1017,9 +1015,9 @@ class _HomePageState extends State<HomePage> {
                                                       Container(
                                                         width: width * 0.0447,
                                                         padding:
-                                                            const EdgeInsets
+                                                             EdgeInsets
                                                                 .fromLTRB(
-                                                                0, 16, 16, 0),
+                                                                0, height * 0.0148, width * 0.0083, 0),
                                                         child: Text(
                                                           item["date"]!,
                                                           maxLines: 1,
@@ -1121,7 +1119,7 @@ class _HomePageState extends State<HomePage> {
                                             width: width * 0.1036,
                                             // 개별 아이템 너비를 줄여서 3개가 보이게 함
                                             margin: EdgeInsets.symmetric(
-                                                horizontal: 5.0),
+                                                horizontal: height * 0.0046),
                                             decoration: BoxDecoration(
                                               color: Colors.white,
                                               borderRadius:
@@ -1131,7 +1129,7 @@ class _HomePageState extends State<HomePage> {
                                                   color: Colors.black
                                                       .withOpacity(0.2),
                                                   blurRadius: 6,
-                                                  offset: Offset(0, 3),
+                                                  offset: Offset(0, height * 0.0027),
                                                 ),
                                               ],
                                             ),
@@ -1155,7 +1153,7 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                                 Container(
                                                   width: double.infinity,
-                                                  padding: EdgeInsets.all(8.0),
+                                                  padding: EdgeInsets.fromLTRB(width * 0.0041,height* 0.0074,width * 0.0041,height * 0.0074),
                                                   color: Color(0xFF6394F9)
                                                       .withOpacity(0.2),
                                                   child: Text(
@@ -1301,7 +1299,7 @@ class _HomePageState extends State<HomePage> {
                       height: height * 0.3657,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage("assets/bg-gradation01.png"),
+                          image: AssetImage("assets/gradient_background.png"),
                           fit: BoxFit.fill, // 이미지를 전체 배경에 맞게 채움
                         ),
                       ),
@@ -1325,27 +1323,27 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   buildTextButton2(
-                                      "HOME", 0, width * 0.00729, onItemTapped),
+                                      "HOME", 0, width * 0.00729,width * 0.0598,height*0.0425 ,onItemTapped),
                                   SizedBox(
                                     width: width * 0.0020,
                                   ),
                                   buildTextButton2("COMPANY", 1,
-                                      width * 0.00729, onItemTapped),
+                                      width * 0.00729,width * 0.0598,height*0.0425 , onItemTapped),
                                   SizedBox(
                                     width: width * 0.0020,
                                   ),
                                   buildTextButton2("PRODUCTS", 2,
-                                      width * 0.00729, onItemTapped),
+                                      width * 0.00729,width * 0.0598,height*0.0425 , onItemTapped),
                                   SizedBox(
                                     width: width * 0.0020,
                                   ),
                                   buildTextButton2("CONTACT US", 3,
-                                      width * 0.00729, onItemTapped),
+                                      width * 0.00729,width * 0.0598,height*0.0425 , onItemTapped),
                                   SizedBox(
                                     width: width * 0.0020,
                                   ),
                                   buildTextButton2("DOWNLOADS", 4,
-                                      width * 0.00729, onItemTapped),
+                                      width * 0.00729,width * 0.0598,height*0.0425 , onItemTapped),
                                 ],
                               ),
 
@@ -1533,7 +1531,7 @@ class _HomePageState extends State<HomePage> {
         final isDesktop = width >= 1024 && height >= 1200;
 
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: EdgeInsets.symmetric(horizontal: height * 0.0078),
           child: Column(
             children: [
               Image.asset(imagePath, width: width, height: height),
@@ -1698,11 +1696,11 @@ class _HomePageState extends State<HomePage> {
 }
 
 // 전역에서 사용 가능한 `buildTextButton` 함수 정의
-Container buildTextButton2(String label, int index, double buttonFontSize,
+Container buildTextButton2(String label, int index, double buttonFontSize,double buttonWidth, double buttonHeight,
     Function(int) onItemTapped) {
   return Container(
-    width: 115,
-    height: 46,
+    width: buttonWidth,
+    height: buttonHeight,
     child: TextButton(
       onPressed: () => onItemTapped(index),
       child: Text(
