@@ -273,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                                           children: [
                                             Image.asset(
                                               item['image']!,
-                                              fit: BoxFit.fill,
+                                              fit: BoxFit.contain,
                                               width: width,
                                               height: height *
                                                   (isMobile
@@ -899,7 +899,7 @@ class _HomePageState extends State<HomePage> {
                                     fontFamily: 'Pretendard',
                                     fontWeight: FontWeight.w400,
                                     height:
-                                    height * (isMobile ? 0.0018 : 0.0020),
+                                    height * (isMobile ? 0.0015 : 0.00155),
                                   ),
                                 )
                               ],
@@ -1312,19 +1312,46 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                     color: Color(0xFF6394F9)
                                                         .withOpacity(0.2),
-                                                    child: Text(
-                                                      item["title"]!,
-                                                      textAlign:
-                                                      TextAlign.center,
-                                                      style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: width *
-                                                            (isMobile
-                                                                ? 0.006
-                                                                : 0.0072),
-                                                        fontWeight:
-                                                        FontWeight.w600,
-                                                      ),
+                                                    child: Row(
+                                                      children: [
+
+                                                        Text(
+                                                          item["number"]!
+                                                              .padLeft(
+                                                              2, '0'),
+                                                          maxLines: 1,
+                                                          style: TextStyle(
+                                                              color: Color(0xFF6194F9),
+                                                            fontSize: width *
+                                                                (isMobile
+                                                                    ? 0.006
+                                                                    : 0.0072),
+                                                            fontFamily:
+                                                            'Pretendard',
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .w500,
+                                                          ),
+                                                          textAlign:
+                                                          TextAlign.left,
+                                                        ),
+                                                        SizedBox(width: width * 0.004),
+                                                        Text(
+                                                          item["title"]!,
+                                                          textAlign:
+                                                          TextAlign.center,
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: width *
+                                                                (isMobile
+                                                                    ? 0.006
+                                                                    : 0.0072),
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                          ),
+                                                        ),
+
+                                                      ],
                                                     ),
                                                   ),
                                                 ],
@@ -1396,7 +1423,7 @@ class _HomePageState extends State<HomePage> {
                                     height: height * (isMobile ? 0.08 : 0.13),
                                   ),
                                   Container(
-                                    width: width * (isMobile ? 0.4 : 0.550),
+                                    width: width * (isMobile ? 0.4 : 0.500),
                                     height: height * (isMobile ? 0.3 : 0.4166),
                                     child: _iframeWidget,
                                   ),
@@ -1864,6 +1891,7 @@ Container buildTextButton2(String label, int index, double buttonFontSize,
       ),
       style: TextButton.styleFrom(
         foregroundColor: Colors.white,
+        overlayColor:Colors.transparent,// 눌렀을 때 생기는 그림자 제거
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.zero,
         ),

@@ -426,6 +426,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
         ),
         style: TextButton.styleFrom(
           foregroundColor: Colors.white,
+          overlayColor:Colors.transparent,// 눌렀을 때 생기는 그림자 제거
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.zero, // 직사각형으로 설정
           ),
@@ -434,8 +435,5 @@ class _DownloadScreenState extends State<DownloadScreen> {
     );
   }
 
-  void onItemTapped(int index) {
-    // Implement navigation logic if needed
-    print("Tapped on item $index");
-  }
+
 }

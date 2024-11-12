@@ -31,7 +31,9 @@ final GoRouter _router = GoRouter(
   routes: [
     GoRoute(
       path: '/', // 홈 페이지 경로
-      builder: (context, state) => MyAppContainer(
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: MyAppContainer(
           child: HomePage(
             onNavigate: (int index) {
               _router.go(_getPathByIndex(index)); // 페이지 전환
@@ -42,45 +44,87 @@ final GoRouter _router = GoRouter(
             onCompanyNavigate: (int tabIndex) {
               _router.go('/company/$tabIndex'); // Company 탭 전환
             },
-          )),
+          ),
+        ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
     ),
     GoRoute(
       path: '/company/:tabIndex', // Company 페이지의 탭별 경로
-      builder: (context, state) {
-        final tabIndex =
-            int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
-        return MyAppContainer(
-          child: CompanyPage(
-            selectedTabIndex: tabIndex,
-            onTabChanged: (int newTabIndex) {
-              context.go('/company/$newTabIndex'); // 탭 변경 시 URL 업데이트
-            },
+      pageBuilder: (context, state) {
+        final tabIndex = int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: MyAppContainer(
+            child: CompanyPage(
+              selectedTabIndex: tabIndex,
+              onTabChanged: (int newTabIndex) {
+                context.go('/company/$newTabIndex'); // 탭 변경 시 URL 업데이트
+              },
+            ),
           ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
         );
       },
     ),
     GoRoute(
       path: '/products/:tabIndex', // Products 페이지 경로 및 탭별 설정
-      builder: (context, state) {
-        final tabIndex =
-            int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
-        return MyAppContainer(
-          child: ProductScreen(
-            initialTabIndex: tabIndex,
-            onTabChanged: (int newTabIndex) {
-              context.go('/products/$newTabIndex'); // 탭 변경 시 URL 업데이트
-            },
+      pageBuilder: (context, state) {
+        final tabIndex = int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: MyAppContainer(
+            child: ProductScreen(
+              initialTabIndex: tabIndex,
+              onTabChanged: (int newTabIndex) {
+                context.go('/products/$newTabIndex'); // 탭 변경 시 URL 업데이트
+              },
+            ),
           ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
         );
       },
     ),
     GoRoute(
       path: '/contact', // Contact 페이지 경로
-      builder: (context, state) => MyAppContainer(child: ContactScreen()),
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: MyAppContainer(child: ContactScreen()),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
     ),
     GoRoute(
       path: '/downloads', // Downloads 페이지 경로
-      builder: (context, state) => MyAppContainer(child: DownloadScreen()),
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: MyAppContainer(child: DownloadScreen()),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
     ),
   ],
 );
@@ -171,58 +215,65 @@ class _MyAppContainerState extends State<MyAppContainer> {
                     child: IconButton(
                       icon: Image.asset('assets/logo.png'),
                       onPressed: () => onItemTapped(0), // 수정된 부분
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.all(Colors.transparent), // 눌렀을 때 음영 효과 제거
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(width: width * (isMobile ? 0.2 : isTablet ? 0.23 : 0.2600)),
-                Row(
-                  children: [
-                    buildTextButton(
-                      "HOME",
-                      0,
-                      width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
-                      width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
-                      height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
-                      onItemTapped,
-                    ),
-                    SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
-                    buildTextButton(
-                      "COMPANY",
-                      1,
-                      width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
-                      width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
-                      height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
-                      onItemTapped,
-                    ),
-                    SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
-                    buildTextButton(
-                      "PRODUCTS",
-                      2,
-                      width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
-                      width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
-                      height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
-                      onItemTapped,
-                    ),
-                    SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
-                    buildTextButton(
-                      "CONTACT US",
-                      3,
-                      width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
-                      width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
-                      height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
-                      onItemTapped,
-                    ),
-                    SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
-                    buildTextButton(
-                      "DOWNLOADS",
-                      4,
-                      width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
-                      width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
-                      height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
-                      onItemTapped,
-                    ),
-                  ],
+                Padding(
+                  padding: EdgeInsets.only(top: height * 0.01), // Row 높이를 살짝 내림
+                  child: Row(
+                    children: [
+                      buildTextButton(
+                        "HOME",
+                        0,
+                        width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
+                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
+                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                        onItemTapped,
+                      ),
+                      SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                      buildTextButton(
+                        "COMPANY",
+                        1,
+                        width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
+                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
+                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                        onItemTapped,
+                      ),
+                      SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                      buildTextButton(
+                        "PRODUCTS",
+                        2,
+                        width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
+                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
+                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                        onItemTapped,
+                      ),
+                      SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                      buildTextButton(
+                        "CONTACT US",
+                        3,
+                        width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
+                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
+                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                        onItemTapped,
+                      ),
+                      SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                      buildTextButton(
+                        "DOWNLOADS",
+                        4,
+                        width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
+                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
+                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                        onItemTapped,
+                      ),
+                    ],
+                  ),
                 ),
+
               ],
             ),
           ),
@@ -263,6 +314,7 @@ Container buildTextButton(String label, int index, double buttonFontSize,
       ),
       style: TextButton.styleFrom(
         foregroundColor: Color(0xff191919),
+        overlayColor:Colors.transparent,// 눌렀을 때 생기는 그림자 제거
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.zero, // 직사각형으로 설정
         ),
