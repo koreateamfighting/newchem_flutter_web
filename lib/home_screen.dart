@@ -674,7 +674,17 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     // 진행 단계 표시 Row 추가
-                                    SizedBox(height: height * 0.3200),
+                                    SizedBox(height: height * 0.1600),
+                                    Container(
+                                      width: width * 0.625,
+                                      height: height* 0.07592,
+                                      child: Image.asset(
+                                        'assets/progressbar.png',
+                                        fit: BoxFit.contain,
+
+                                      ),
+                                    ),
+                                    SizedBox(height: height * 0.0900),
 
                                     Container(
                                       width: width * 0.1682,
@@ -834,7 +844,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Container(
                       height: height * 0.6300,
-                      color : Colors.white,
+                      color: Colors.white,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -1111,8 +1121,7 @@ class _HomePageState extends State<HomePage> {
                                     // 3개 항목이 보이도록 전체 컨테이너 너비 설정
                                     height: height * 0.2935,
                                     // 슬라이드 높이
-                                    child:
-                                    ListView.builder(
+                                    child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: downloadData.length,
                                       itemBuilder: (context, index) {
@@ -1219,7 +1228,6 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-
                     Container(
                         height: height * 0.7600,
                         alignment: Alignment.topLeft,
@@ -1235,7 +1243,6 @@ class _HomePageState extends State<HomePage> {
                                     SizedBox(
                                       height: height * 0.13,
                                     ),
-
                                     Container(
                                       width: width * 0.125,
                                       height: height * 0.0630,

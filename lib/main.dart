@@ -141,48 +141,41 @@ class _MyAppContainerState extends State<MyAppContainer> {
       extendBodyBehindAppBar: true,
 
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height * 0.074), // 원하는 높이로 설정
+        preferredSize: Size.fromHeight(isOneToOne ? height * 0.1 : height * 0.074),
         child: AppBar(
           backgroundColor: Colors.white,
           elevation: 0, // 그림자 제거
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
           title: Container(
-            padding: EdgeInsets.fromLTRB(0, height * 0.0148, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, isOneToOne ? height * 0.02 : height * 0.0148, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width: width * 0.1770),
+                SizedBox(width: isOneToOne ? width * 0.12 : width * 0.1770),
                 Container(
-                  width: width * 0.0858,
-                  height: height * 0.0453,
+                  width: isOneToOne ? width * 0.12 : width * 0.0858,
+                  height: isOneToOne ? height * 0.06 : height * 0.0453,
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: IconButton(
                       icon: Image.asset('assets/logo.png'),
-                      onPressed: () => onItemTapped(0), // 수정된 부분
+                      onPressed: () => onItemTapped(0),
                     ),
                   ),
                 ),
-                SizedBox(width: width * 0.2600),
+                SizedBox(width: isOneToOne ? width * 0.15 : width * 0.2600),
                 Row(
                   children: [
-                    buildTextButton("HOME", 0, width * 0.006,width * 0.05208,height *  0.0370,onItemTapped),
-                    // 수정된 부분
+                    buildTextButton("HOME", 0, isOneToOne ? width * 0.008 : width * 0.006, isOneToOne ? width * 0.06 : width * 0.05208, isOneToOne ? height * 0.05 : height * 0.0370, onItemTapped),
+                    SizedBox(width: isOneToOne? width * 0.003:width * 0.004),
+                    buildTextButton("COMPANY", 1, isOneToOne ? width * 0.008 : width * 0.006, isOneToOne ? width * 0.06 : width * 0.05208, isOneToOne ? height * 0.05 : height * 0.0370, onItemTapped),
                     SizedBox(width: width * 0.004),
-                    buildTextButton("COMPANY", 1, width * 0.006, width * 0.05208,height *  0.0370,onItemTapped),
-                    // 수정된 부분
-                    SizedBox(width: width * 0.004),
-                    buildTextButton("PRODUCTS", 2, width * 0.006,width * 0.05208,height *  0.0370, onItemTapped),
-                    // 수정된 부분
-                    SizedBox(width: width * 0.004),
-                    buildTextButton(
-                        "CONTACT US", 3, width * 0.006,width * 0.05208,height *  0.0370, onItemTapped),
-                    // 수정된 부분
-                    SizedBox(width: width * 0.004),
-                    buildTextButton(
-                        "DOWNLOADS", 4, width * 0.006,width * 0.05208,height *  0.0370, onItemTapped),
-                    // 수정된 부분
+                    buildTextButton("PRODUCTS", 2, isOneToOne ? width * 0.008 : width * 0.006, isOneToOne ? width * 0.06 : width * 0.05208, isOneToOne ? height * 0.05 : height * 0.0370, onItemTapped),
+                    SizedBox(width: isOneToOne? width * 0.003:width * 0.004),
+                    buildTextButton("CONTACT US", 3, isOneToOne ? width * 0.008 : width * 0.006, isOneToOne ? width * 0.06 : width * 0.06, isOneToOne ? height * 0.05 : height * 0.0370, onItemTapped),
+                    SizedBox(width: isOneToOne? width * 0.003:width * 0.004),
+                    buildTextButton("DOWNLOADS", 4, isOneToOne ? width * 0.008 : width * 0.006, isOneToOne ? width * 0.06 : width * 0.06, isOneToOne ? height * 0.05 : height * 0.0370, onItemTapped),
                   ],
                 ),
               ],
