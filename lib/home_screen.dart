@@ -672,6 +672,28 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 Spacer(),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      width: width * (isMobile ? 0.6 : 0.7125),
+                                      height:
+                                      height * (isMobile ? 0.2 : 0.3129),
+                                      child: Image.asset(
+                                        'assets/bg-gradation00.png',
+                                        fit: BoxFit.contain,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Spacer(),
+                                Column(
                                   children: [
                                     SizedBox(
                                         height:
@@ -746,7 +768,10 @@ class _HomePageState extends State<HomePage> {
                                       height * (isMobile ? 0.04 : 0.0574),
                                       child: ElevatedButton(
                                         onPressed: () {
-                                          widget.onNavigate(3);
+                                          setState(() {
+                                            widget.onNavigate(3);
+                                          });
+
                                         },
                                         child: Text(
                                           '문의하기',
@@ -773,28 +798,7 @@ class _HomePageState extends State<HomePage> {
                                 Spacer(),
                               ],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Spacer(),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      width: width * (isMobile ? 0.6 : 0.7125),
-                                      height:
-                                      height * (isMobile ? 0.2 : 0.3129),
-                                      child: Image.asset(
-                                        'assets/bg-gradation00.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Spacer(),
-                              ],
-                            )
+
                           ],
                         )), //contact us 부분
                     Container(
