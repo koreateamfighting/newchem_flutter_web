@@ -96,7 +96,7 @@ class _ContactScreenState extends State<ContactScreen> {
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
             child: Container(
-              height: height * 3.21,
+              height: height * 3.165,
               color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -572,7 +572,7 @@ class _ContactScreenState extends State<ContactScreen> {
     return Container(
       width: width,
       height: height,
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: EdgeInsets.symmetric(vertical: width * 0.0041),
       child: TextFormField(
         controller: controller,
         style: TextStyle(
@@ -629,7 +629,7 @@ class _ContactScreenState extends State<ContactScreen> {
         ),
         Container(
           width: width * 0.6245,
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: EdgeInsets.symmetric(vertical: width * 0.0041),
           child: DropdownButtonFormField<String>(
             value: value,
             decoration: InputDecoration(
@@ -881,33 +881,37 @@ class _ContactScreenState extends State<ContactScreen> {
       ),
     );
   }
+
+  // 전역에서 사용 가능한 `buildTextButton` 함수 정의
+  Container buildTextButton2(String label, int index, double buttonFontSize,
+      Function(int) onItemTapped) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
+    return Container(
+      width: width * 0.0598,
+      height: height * 0.0425,
+      child: TextButton(
+        onPressed: () => onItemTapped(index),
+        child: Text(
+          label,
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Pretendard',
+            fontWeight: FontWeight.w600,
+            fontSize: buttonFontSize,
+            letterSpacing: -0.2,
+          ),
+        ),
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero, // 직사각형으로 설정
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-// 전역에서 사용 가능한 `buildTextButton` 함수 정의
-Container buildTextButton2(String label, int index, double buttonFontSize,
-    Function(int) onItemTapped) {
-  return Container(
-    width: 115,
-    height: 46,
-    child: TextButton(
-      onPressed: () => onItemTapped(index),
-      child: Text(
-        label,
-        maxLines: 1,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontFamily: 'Pretendard',
-          fontWeight: FontWeight.w600,
-          fontSize: buttonFontSize,
-          letterSpacing: -0.2,
-        ),
-      ),
-      style: TextButton.styleFrom(
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero, // 직사각형으로 설정
-        ),
-      ),
-    ),
-  );
-}

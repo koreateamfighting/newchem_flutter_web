@@ -114,13 +114,28 @@ class MyAppContainer extends StatefulWidget {
 }
 
 class _MyAppContainerState extends State<MyAppContainer> {
+  late double deviceWidth;
+  late double deviceHeight;
 
+  @override
+  void initState() {
+    super.initState();
 
+    // Flutter Web에서 초기 앱 실행 시 device width와 height를 가져옴
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final size = MediaQuery.of(context).size;
+      deviceWidth = size.width;
+      deviceHeight = size.height;
+      print('Device Width: $deviceWidth, Device Height: $deviceHeight');
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final width = size.width; //1920
     final height = size.height; //1080
+    final isOneToOne = (width / height >= 0.9 && width / height <= 1.1);
+
 
     return Scaffold(
       extendBodyBehindAppBar: true,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'main.dart';
 
 class ProductScreen extends StatefulWidget {
   final int initialTabIndex; // 초기 탭 인덱스를 받을 변수 추가
@@ -157,7 +158,7 @@ class _ProductScreenState extends State<ProductScreen>
               child: Column(
                 children: [
                   Container(
-                      height: height * 0.5175,
+                      height: height * 0.5230,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/product_background.png'),
@@ -169,7 +170,7 @@ class _ProductScreenState extends State<ProductScreen>
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: height * 0.267,
+                            height: height * 0.260,
                           ),
                           Text(
                             'PRODUCTS',
@@ -178,12 +179,11 @@ class _ProductScreenState extends State<ProductScreen>
                               fontSize: width * 0.028,
                               fontFamily: 'Pretendard',
                               fontWeight: FontWeight.w600,
-                              height: 0,
                               letterSpacing: 2.16,
                             ),
                           ),
                           SizedBox(
-                            height: height * 0.131,
+                            height: height * 0.123,
                           ),
                           Container(
                             child: Row(
@@ -208,10 +208,222 @@ class _ProductScreenState extends State<ProductScreen>
                         ],
                       )),
                   Container(
-                    height: height * 2.5,
+                    height: height * 1.45,
                     padding: EdgeInsets.only(top: height * 0.0370),
                     child: _buildTabContent(),
-                  )
+                  ),
+                  Container(
+                    height: height * 0.3722,
+                    child: Image.asset(
+                      'assets/bottom_background.png',
+                      width: width,
+                      height: height * 0.3900,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                  Container(
+                    height: height * 0.4500,
+                    color: Colors.black,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: height * 0.0666,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: width * 0.1703,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                buildTextButton2(
+                                    "HOME", 0, width * 0.00729, onItemTapped),
+                                SizedBox(
+                                  width: width * 0.0020,
+                                ),
+                                buildTextButton2("COMPANY", 1, width * 0.00729,
+                                    onItemTapped),
+                                SizedBox(
+                                  width: width * 0.0020,
+                                ),
+                                buildTextButton2("PRODUCTS", 2, width * 0.00729,
+                                    onItemTapped),
+                                SizedBox(
+                                  width: width * 0.0020,
+                                ),
+                                buildTextButton2("CONTACT US", 3,
+                                    width * 0.00729, onItemTapped),
+                                SizedBox(
+                                  width: width * 0.0020,
+                                ),
+                                buildTextButton2("DOWNLOADS", 4,
+                                    width * 0.00729, onItemTapped),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: height * 0.025,
+                        ),
+                        Container(
+                          width: width * 0.625,
+                          child: Divider(
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(
+                          height: height * 0.0416,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: width * 0.1875,
+                            ),
+                            Container(
+                              width: width * 0.3156,
+                              height: height * 0.0462,
+                              child: Text(
+                                '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: width * 0.0093,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.54,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: height * 0.04351,
+                        ),
+                        Container(
+                          height: height * 0.0680,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: width * 0.1875,
+                              ),
+                              Transform.translate(
+                                offset: Offset(0, -height * 0.01388),
+                                child: Icon(
+                                  Icons.phone,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
+                              ),
+                              SizedBox(
+                                width: width * 0.0041,
+                              ),
+                              Container(
+                                width: width * 0.0807,
+                                height: height * 0.0462,
+                                child: SelectableText(
+                                  '070-8098-7424',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: width * 0.0093,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0.54,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: width * 0.0083,
+                              ),
+                              Transform.translate(
+                                offset: Offset(0, -height * 0.0111),
+                                child: Icon(
+                                  Icons.print,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
+                              ),
+                              SizedBox(
+                                width: width * 0.0041,
+                              ),
+                              Container(
+                                width: width * 0.08333,
+                                height: height * 0.0462,
+                                child: SelectableText(
+                                  '042-367-7427',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: width * 0.009,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0.54,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: width * 0.004,
+                              ),
+                              Transform.translate(
+                                offset: Offset(0, -height * 0.0111),
+                                child: Icon(
+                                  Icons.local_post_office,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
+                              ),
+                              SizedBox(
+                                width: width * 0.004,
+                              ),
+                              Container(
+                                width: width * 0.1458,
+                                height: height * 0.0462,
+                                child: SelectableText(
+                                  'cmkim@new-chem.co.kr',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: width * 0.0093,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0.54,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: width * 0.125),
+                              Transform.translate(
+                                  offset: Offset(0, -height * 0.0111),
+                                  child: Container(
+                                    width: width * 0.1468,
+                                    child: Image.asset('assets/logo-white.png'),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: height * 0.04351,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: width * 0.1979,
+                            ),
+                            Text(
+                              'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.3),
+                                fontSize: width * 0.0093,
+                                fontFamily: 'Pretendard',
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0.54,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -570,7 +782,7 @@ ml이고, 멀티 채널 헤드는 분당 0.005~364 ml입니다. 공정 중점에
             padding: EdgeInsets.fromLTRB(
                 isMobile ? 0 : 400, 0, isMobile ? 0 : 400, 0),
             child: Container(
-              height: isMobile ? 50 : 60,
+              height: height * 0.0555,
             ),
           ),
           Expanded(
@@ -737,482 +949,3118 @@ Advantages
               controller: _cincTabController,
               children: [
                 Container(
-                  child: Center(
-                      child: Container(
-                    width: isMobile ? 450 : width * 0.585,
-                    height: isMobile ? 450 : height * 0.520,
-                    child: Row(children: [
+                  height: height * 1.301,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
                       SizedBox(
-                        width: width * 0.018,
+                        height: height * 0.0435,
+                      ),
+                      Text(
+                        'INTRODUCTION',
+                        style: TextStyle(
+                          color: Color(0xFF6194F9),
+                          fontSize: width * 0.0104,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.0240,
+                      ),
+                      Text(
+                        'CINC lndustry 소개',
+                        style: TextStyle(
+                          color: Color(0xFF191919),
+                          fontSize: width * 0.02083,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.07870,
                       ),
                       Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white, // 배경 색상
-                            border: Border.all(
-                              color: Colors.grey, // 테두리 색상
-                              width: 1.0, // 테두리 두께
-                            ),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            )),
+                        width: width * 0.1505,
+                        height: height * 0.44166,
                         child: Image.asset(
                           "assets/products/Cinc_Industry_Product.png",
-                          width: isMobile ? 220 : width * 0.234,
-                          height: isMobile ? 400 : height * 0.4166,
+                          fit: BoxFit.fitHeight,
                         ),
                       ),
                       SizedBox(
-                        width: width * 0.018,
-                      ),
-                      VerticalDivider(
-                        indent: height * 0.0083,
-                        endIndent: height * 0.0166,
-                      ),
-                      Column(
-                        children: [
-                          SizedBox(
-                            height: height * 0.0347,
-                          ),
-                          Text("CINC Industry 소개",
-                              style: GoogleFonts.nanumGothic(
-                                textStyle: TextStyle(
-                                    fontSize: width * 0.0125,
-                                    color: Colors.indigoAccent),
-                              )),
-                          SizedBox(
-                            height: height * 0.0486,
-                          ),
-                          Text(
-                            """
-        CINC는 액체-액체 원심분리기를 설계, 제조 및 공급하는 기업으로, 
-      전 세계의 석유, 화학, 광업, 제약, 식품, 
-      향료, 인쇄 및 환경 산업 분야의 연구를 수행하는 고객들의 신뢰를 받고 있습니다.
-      CINC 원심분리기는 조정 가능한 중(重)상 위어(weir)와 가변 속도 모터를 통해
-      특정 중력 차이에 따른 다양한 요구에 유연하게 대응할 수 있으며,
-      자가 흡입 설계로 펌프 또는 중력 공급이 가능해 유량 변화에도 안정적인 성능을 제공합니다.
-      또한 모든 제품은 사내에서 설계, 제조 및 철저한 테스트를 거쳐 최고의 품질을 보장합니다.
-      ISO 9000 및 NAQ-1 기준을 준수하며, cGMP 및 FED 표준에 따라 원심분리기를 제조하고,
-      CE 및 PED 지침, ATEX 100 인증을 보유하고 있습니다.
-      연구개발부터 대량 생산 규모에 이르기까지 다양한 크기로 제공되며, 
-      다양한 산업의 요구를 충족시키기 위해 끊임없이 발전하고 있습니다""",
-                            style: TextStyle(fontSize: width * 0.007),
-                          )
-                        ],
-                      )
-                    ]),
-                  )),
-                ),
-                Container(
-                  child: Center(
-                      child: Container(
-                    width: isMobile ? 450 : width * 0.600,
-                    height: isMobile ? 450 : height * 0.486,
-                    child: Row(children: [
-                      SizedBox(
-                        width: width * 0.018,
+                        height: height * 0.0370,
                       ),
                       Container(
-                        width: isMobile ? 450 : width * 0.273,
-                        height: isMobile ? 450 : height * 0.486,
-                        decoration: BoxDecoration(
-                            color: Colors.white, // 배경 색상
-                            border: Border.all(
-                              color: Colors.grey, // 테두리 색상
-                              width: 1.0, // 테두리 두께
-                            ),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            )),
-                        child: Image.asset(
-                          "assets/how_to_work.png",
-                          width: isMobile ? 220 : width * 0.273,
-                          height: isMobile ? 400 : height * 0.486,
+                        width: width * 0.40416,
+                        child: SelectableText.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'CINC는 액체-액체 원심분리기를 설계, 제조 및 공급하는 기업',
+                                style: TextStyle(
+                                    color: Color(0xFF191919),
+                                    fontSize: width * 0.01041,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                    height: height * 0.0018),
+                              ),
+                              TextSpan(
+                                text:
+                                    '으로, 전 세계의 석유, 화학, 광업,\n제약, 식품, 향료, 인쇄 및 환경 산업 분야의 연구를 수행하는 고객들의 신뢰를 받고 있습니다.\n'
+                                    'CINC 원심분리기는 조정 가능한 중(重)상 위어(weir)와 가변 속도 모터를 통해  특정 중력 차이에\n따른 다양한 요구에 유연하게 대응할 수 있으며,자가 흡입 설계로 펌프 또는 중력 공급이 가능해\n'
+                                    '유량 변화에도 안정적인 성능을 제공합니다.\n또한 모든 제품은 사내에서 설계, 제조 및 철저한 테스트를 거쳐 최고의 품질을 보장합니다.\nISO 9000 및 NAQ-1 기준을 준수하며, cGMP 및 FED 표준에 따라 원심분리기를 제조하고,CE 및\n'
+                                    'PED 지침, ATEX 100 인증을 보유하고 있습니다. 연구개발부터 대량 생산 규모에 이르기까지 다양한 크기로 제공되며, 다양한 산업의 요구를 충족시키기 위해 끊임없이 발전하고 있습니다',
+                                style: TextStyle(
+                                    color: Color(0xFF5C5C5C),
+                                    fontSize: width * 0.01041,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w400,
+                                    height: height * 0.0018),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  height: height * 1.301,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: height * 0.0435,
+                      ),
+                      Text(
+                        'HOW TO WORK',
+                        style: TextStyle(
+                          color: Color(0xFF6194F9),
+                          fontSize: width * 0.0104,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       SizedBox(
-                        width: width * 0.018,
+                        height: height * 0.0240,
                       ),
-                      VerticalDivider(
-                        indent: height * 0.0083,
-                        endIndent: height * 0.0166,
+                      Text(
+                        'CINC lndustry 작동원리',
+                        style: TextStyle(
+                          color: Color(0xFF191919),
+                          fontSize: width * 0.02083,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                      Expanded(
-                          child: Column(
-                        children: [
-                          SizedBox(
-                            height: height * 0.030,
-                          ),
-                          Text("How To Work",
-                              style: GoogleFonts.nanumGothic(
-                                textStyle: TextStyle(
-                                    fontSize: width * 0.0125,
-                                    color: Colors.indigoAccent),
-                              )),
-                          SizedBox(
-                            height: height * 0.0138,
-                          ),
-                          Text(
-                            """
-      1. 작동원리
-        회전하는 로터 내에서 발생하는 원심력을 이용하여 서로 다른 밀도의 두 액체를 분리합니다.
-        
-      2. 입력 방식
-        홉합된 액체가 양쪽 입구로 들어오거나, 각각의 액체가 독립적으로 유입됩니다.
-        
-      3. 혼합
-        로터와 하우징 사이에서 액체가 혼합되고(초록색), 로터 하단을 통해 유입됩니다.
-        
-      4. 분리 과정
-        - 밀도가 높은 액체(파란색): 로터 바깥쪽으로 밀려나가 높은 단계의 출구로 배출됩니다.          
-        - 밀도가 낮은 액체(노란색): 로터 중심으로 이동해 낮은 단계의 출구로 배출됩니다.
-          
-      5. 수집
-        각각의 액체는 다른 수집 링에 모여 분리된 출구로 배출됩니다.
-        """,
-                            style: TextStyle(fontSize: width * 0.007),
-                          )
-                        ],
-                      ))
-                    ]),
-                  )),
-                ),
-                Container(
-                  width: width * 0.156,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: width * 0.007, vertical: height * 0.0138),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      // Column 내부의 요소들을 중앙에 배치
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      // 가로 방향으로도 중앙에 배치
-                      children: [
-                        Center(
-                          child: Text("CINC Industry 특징",
-                              style: GoogleFonts.nanumGothic(
-                                textStyle: TextStyle(
-                                    fontSize: width * 0.018,
-                                    color: Colors.indigoAccent),
-                              )),
-                        ),
-                        SizedBox(height: height * 0.0556),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      SizedBox(
+                        height: height * 0.07870,
+                      ),
+                      Container(
+                        width: width * 0.63,
+                        height: height * 0.5,
+
+                        child: Row(
                           children: [
-                            Icon(Icons.speed, color: Colors.blueAccent),
+                            Container(
+                                height: height * 0.5,
+                              child: Image.asset("assets/how_to_work.png",
+                                  fit: BoxFit.contain),
+                            ),
+                            
                             SizedBox(
-                              width: width * 0.003,
+                              width: width * 0.025,
                             ),
-                            Text(
-                              "분당 0.5~200 gallons (1.9~757L)의 유량 처리 가능",
-                              style: TextStyle(
-                                  fontSize: width * 0.007,
-                                  fontWeight: FontWeight.w500),
-                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                            ),
+                            Container(
+                              height : height * 0.5,
+
+                                child:  Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+
+                                    Container(
+                                      width: width * 0.0580,
+                                      height: height * 0.0277,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: height * 0.01661),
+                                      decoration: ShapeDecoration(
+                                        color: Color(0xFF6194F9),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(59.81),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SelectableText.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: '01',
+                                                  style: TextStyle(
+                                                    color: Colors.white
+                                                        .withOpacity(0.5),
+                                                    fontSize: width * 0.008,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.15,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: ' 작동원리',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: width * 0.008,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: width * 0.01,
+                                        ),
+                                        Transform.translate(
+                                          offset: Offset(0, -height * 0.0018),
+                                          child: Container(
+                                            width: width * 0.356,
+                                            decoration: ShapeDecoration(
+                                              shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                  width: 1,
+                                                  strokeAlign:
+                                                  BorderSide.strokeAlignCenter,
+                                                  color: Color(0xFF6194F9),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.0060,
+                                    ),
+                                    SelectableText(
+                                      '회전하는 로터 내에서 발생하는 원심력을 이용하여 서로 다른 밀도의 두 액체를 분리합니다.',
+                                      style: TextStyle(
+                                        color: Color(0xFF414141),
+                                        fontSize: width * 0.0104,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w500,
+                                        height: height * 0.0018,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.0150,
+                                    ),
+                                    Container(
+                                      width: width * 0.0591,
+                                      height: height * 0.0277,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: height * 0.01661),
+                                      decoration: ShapeDecoration(
+                                        color: Color(0xFF6194F9),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(59.81),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SelectableText.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: '02',
+                                                  style: TextStyle(
+                                                    color: Colors.white
+                                                        .withOpacity(0.5),
+                                                    fontSize: width * 0.008,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.15,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: ' 입력방식',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: width * 0.008,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: width * 0.01,
+                                        ),
+                                        Transform.translate(
+                                          offset: Offset(0, -height * 0.0018),
+                                          child: Container(
+                                            width: width * 0.356,
+                                            decoration: ShapeDecoration(
+                                              shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                  width: 1,
+                                                  strokeAlign:
+                                                  BorderSide.strokeAlignCenter,
+                                                  color: Color(0xFF6194F9),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.0060,
+                                    ),
+                                    SelectableText(
+                                      '혼합된 액체가 양쪽 입구로 들어오거나, 각각의 액체가 독립적으로 유입됩니다.',
+                                      style: TextStyle(
+                                        color: Color(0xFF414141),
+                                        fontSize: width * 0.0104,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w500,
+                                        height: height * 0.0018,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.0150,
+                                    ),
+                                    Container(
+                                      width: width * 0.0455,
+                                      height: height * 0.0277,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: height * 0.01661),
+                                      decoration: ShapeDecoration(
+                                        color: Color(0xFF6194F9),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(59.81),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SelectableText.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: '03',
+                                                  style: TextStyle(
+                                                    color: Colors.white
+                                                        .withOpacity(0.5),
+                                                    fontSize: width * 0.008,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.15,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: ' 혼합',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: width * 0.008,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: width * 0.01,
+                                        ),
+                                        Transform.translate(
+                                          offset: Offset(0, -height * 0.0018),
+                                          child: Container(
+                                            width: width * 0.356,
+                                            decoration: ShapeDecoration(
+                                              shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                  width: 1,
+                                                  strokeAlign:
+                                                  BorderSide.strokeAlignCenter,
+                                                  color: Color(0xFF6194F9),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.0060,
+                                    ),
+                                    SelectableText(
+                                      '로터와 하우징 사이에서 액체가 혼합되고(초록색), 로터 하단을 통해 유입됩니다.',
+                                      style: TextStyle(
+                                        color: Color(0xFF414141),
+                                        fontSize: width * 0.0104,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w500,
+                                        height: height * 0.0018,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.0150,
+                                    ),
+                                    Container(
+                                      width: width * 0.0594,
+                                      height: height * 0.0277,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: height * 0.01661),
+                                      decoration: ShapeDecoration(
+                                        color: Color(0xFF6194F9),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(59.81),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SelectableText.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: '04',
+                                                  style: TextStyle(
+                                                    color: Colors.white
+                                                        .withOpacity(0.5),
+                                                    fontSize: width * 0.008,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.15,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: ' 분리과정',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: width * 0.008,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: width * 0.01,
+                                        ),
+                                        Transform.translate(
+                                          offset: Offset(0, -height * 0.0018),
+                                          child: Container(
+                                            width: width * 0.356,
+                                            decoration: ShapeDecoration(
+                                              shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                  width: 1,
+                                                  strokeAlign:
+                                                  BorderSide.strokeAlignCenter,
+                                                  color: Color(0xFF6194F9),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.0060,
+                                    ),
+                                    SelectableText(
+                                      '밀도가 높은 액체(파란색): 로터 바깥쪽으로 밀려나가 높은 단계의 출구로 배출됩니다.\n밀도가 낮은 액체(노란색): 로터 중심으로 이동해 낮은 단계의 출구로 배출됩니다.',
+                                      style: TextStyle(
+                                        color: Color(0xFF414141),
+                                        fontSize: width * 0.0104,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w500,
+                                        height: height * 0.0010,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.0150,
+                                    ),
+                                    Container(
+                                      width: width * 0.0455,
+                                      height: height * 0.0277,
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: height * 0.01661),
+                                      decoration: ShapeDecoration(
+                                        color: Color(0xFF6194F9),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(59.81),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SelectableText.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: '05',
+                                                  style: TextStyle(
+                                                    color: Colors.white
+                                                        .withOpacity(0.5),
+                                                    fontSize: width * 0.008,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.15,
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: ' 수집',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: width * 0.008,
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w600,
+                                                    height: 0.15,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: width * 0.01,
+                                        ),
+                                        Transform.translate(
+                                          offset: Offset(0, -height * 0.0018),
+                                          child: Container(
+                                            width: width * 0.356,
+                                            decoration: ShapeDecoration(
+                                              shape: RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                  width: 1,
+                                                  strokeAlign:
+                                                  BorderSide.strokeAlignCenter,
+                                                  color: Color(0xFF6194F9),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.0074,
+                                    ),
+                                    SelectableText(
+                                      '각각의 액체는 다른 수집 링에 모여 분리된 출구로 배출됩니다.',
+                                      style: TextStyle(
+                                        color: Color(0xFF414141),
+                                        fontSize: width * 0.0104,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w500,
+                                        height: height * 0.0018,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                            )
+
                           ],
                         ),
-                        Divider(
-                          indent: width * 0.351,
-                          endIndent: width * 0.351,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.tune, color: Colors.blueAccent),
-                            SizedBox(
-                              width: width * 0.003,
-                            ),
-                            Text(
-                              "200~1,000g의 원심력만으로도 효율적인 분리 및 추출",
-                              style: TextStyle(
-                                  fontSize: width * 0.007,
-                                  fontWeight: FontWeight.w500),
-                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                            ),
-                          ],
-                        ),
-                        Divider(
-                          indent: width * 0.351,
-                          endIndent: width * 0.351,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.local_drink, color: Colors.blueAccent),
-                            SizedBox(
-                              width: width * 0.003,
-                            ),
-                            Text(
-                              "전단에 민감한 유체를 위한 저혼합 및 직접 투입 옵션 제공",
-                              style: TextStyle(
-                                  fontSize: width * 0.007,
-                                  fontWeight: FontWeight.w500),
-                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                            ),
-                          ],
-                        ),
-                        Divider(
-                          indent: width * 0.351,
-                          endIndent: width * 0.351,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.adjust, color: Colors.blueAccent),
-                            SizedBox(
-                              width: width * 0.003,
-                            ),
-                            Text(
-                              "중량 차이를 처리할 수 있는 조절 가능한 중상위어와 가변 속도 모터",
-                              style: TextStyle(
-                                  fontSize: width * 0.007,
-                                  fontWeight: FontWeight.w500),
-                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                            ),
-                          ],
-                        ),
-                        Divider(
-                          indent: width * 0.351,
-                          endIndent: width * 0.351,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.thermostat, color: Colors.blueAccent),
-                            SizedBox(
-                              width: width * 0.003,
-                            ),
-                            Text(
-                              "냉동 온도부터 끓는 온도까지 다양한 투입 온도 처리 가능",
-                              style: TextStyle(
-                                  fontSize: width * 0.007,
-                                  fontWeight: FontWeight.w500),
-                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                            ),
-                          ],
-                        ),
-                        Divider(
-                          indent: width * 0.351,
-                          endIndent: width * 0.351,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.build, color: Colors.blueAccent),
-                            SizedBox(
-                              width: width * 0.003,
-                            ),
-                            Text(
-                              "내구성 높은 스테인리스 스틸 구조, 부식 방지 합금도 선택 가능",
-                              style: TextStyle(
-                                  fontSize: width * 0.007,
-                                  fontWeight: FontWeight.w500),
-                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                            ),
-                          ],
-                        ),
-                        Divider(
-                          indent: width * 0.351,
-                          endIndent: width * 0.351,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.cleaning_services,
-                                color: Colors.blueAccent),
-                            SizedBox(
-                              width: width * 0.003,
-                            ),
-                            Text(
-                              "유지보수가 적고 신뢰성이 높은 제자리 세척(CIP) 로터 시스템",
-                              style: TextStyle(
-                                  fontSize: width * 0.007,
-                                  fontWeight: FontWeight.w500),
-                              textAlign: TextAlign.center, // 텍스트 중앙 정렬
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                      )
+                    ],
                   ),
                 ),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: height * 0.0250,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        buildApplicationTextList("""Chemical""", """
-                                  
-- 폴리머 원료 공급
-- 폴리머 생산
-- 부타디엔 및 스티렌 수지
-- 유기 과산화물
-- 공비(共沸) 분리
-- 용매 회수
-- 열전달 유체 회수
-- 유기물 세정
-
-                                """),
-                        SizedBox(
-                          width: width * 0.006,
+                Container(
+                  height: height * 1.301,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: height * 0.0435,
+                      ),
+                      Text(
+                        'CHARACTERISTICS',
+                        style: TextStyle(
+                          color: Color(0xFF6194F9),
+                          fontSize: width * 0.0104,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w400,
                         ),
-                        buildApplicationTextList("""Pharmaceutical""", """
-       
-                                  
-- 항생제
-
-- 에리스로마이신
-
-- 페니실린
-
-
-                                """),
-                        SizedBox(
-                          width: width * 0.006,
+                      ),
+                      SizedBox(
+                        height: height * 0.0240,
+                      ),
+                      Text(
+                        'CINC lndustry 특징',
+                        style: TextStyle(
+                          color: Color(0xFF191919),
+                          fontSize: width * 0.02083,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w700,
                         ),
-                        buildApplicationTextList("""Petroleum""", """
-                                          
-- 산류 회수
-
-- 유정 완성 유체 회수
-
-- 생산수 처리
-
-- 오일 탈수
-
-- 육상 및 해상 (FPSO 및 고정 플랫폼)
-
-
-
-
-                                """),
-                        SizedBox(
-                          width: width * 0.006,
+                      ),
+                      SizedBox(
+                        height: height * 0.0824,
+                      ),
+                      Container(
+                        height: height * 0.28796,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                width: width * 0.1489,
+                                height: height * 0.2870,
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Color(0x33000000),
+                                      blurRadius: 14,
+                                      offset: Offset(1, 2),
+                                      spreadRadius: 0,
+                                    )
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.0564,
+                                    ),
+                                    Container(
+                                      width: width * 0.065,
+                                      height: height * 0.1166,
+                                      child: Image.asset('assets/cha01.png',
+                                          fit: BoxFit.contain),
+                                    ),
+                                    SizedBox(height: height * 0.0388),
+                                    SizedBox(
+                                      width: width * 0.1276,
+                                      child: SelectableText(
+                                        '분당 0.5~200gallons (1.9~757L)의 유량 처리 가능',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                            SizedBox(
+                              width: width * 0.0098,
+                            ),
+                            Container(
+                                width: width * 0.1489,
+                                height: height * 0.2870,
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Color(0x33000000),
+                                      blurRadius: 14,
+                                      offset: Offset(1, 2),
+                                      spreadRadius: 0,
+                                    )
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.0564,
+                                    ),
+                                    Container(
+                                      width: width * 0.065,
+                                      height: height * 0.1166,
+                                      child: Image.asset('assets/cha02.png',
+                                          fit: BoxFit.contain),
+                                    ),
+                                    SizedBox(height: height * 0.0388),
+                                    SizedBox(
+                                      width: width * 0.1276,
+                                      child: SelectableText(
+                                        '200~1,000g의 원심력만으로도\n효율적인 분리 및 추출',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                            SizedBox(
+                              width: width * 0.0098,
+                            ),
+                            Container(
+                                width: width * 0.1489,
+                                height: height * 0.2870,
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Color(0x33000000),
+                                      blurRadius: 14,
+                                      offset: Offset(1, 2),
+                                      spreadRadius: 0,
+                                    )
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.0564,
+                                    ),
+                                    Container(
+                                      width: width * 0.065,
+                                      height: height * 0.1166,
+                                      child: Image.asset('assets/cha03.png',
+                                          fit: BoxFit.contain),
+                                    ),
+                                    SizedBox(height: height * 0.0388),
+                                    SizedBox(
+                                      width: width * 0.1276,
+                                      child: SelectableText(
+                                        '전단에 민감한 유체를 위한\n저혼잡 및 직접 두입 옵션 제공',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ],
                         ),
-                        buildApplicationTextList("""Biotech""", """
-       
-     
-                                  
-- 재조합 DNA 제품
-
-
-- 배양액 추출
-
-
-
-
-                                """),
-                      ],
-                    ),
-                    SizedBox(
-                      height: height * 0.0250,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        buildApplicationTextList("""Environmental""", """
-                                  
-- 유류 유출 정화
-
-- 지하수 복원
-
-- 세척수 재활용
-
-- 빌지수 처리
-
-- 산업 세탁수 탈유
-
-
-                                """),
-                        SizedBox(
-                          width: width * 0.006,
+                      ),
+                      SizedBox(height: height * 0.0240),
+                      Container(
+                        height: height * 0.28796,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                                width: width * 0.1489,
+                                height: height * 0.2870,
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Color(0x33000000),
+                                      blurRadius: 14,
+                                      offset: Offset(1, 2),
+                                      spreadRadius: 0,
+                                    )
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.0564,
+                                    ),
+                                    Container(
+                                      width: width * 0.065,
+                                      height: height * 0.1166,
+                                      child: Image.asset('assets/cha04.png',
+                                          fit: BoxFit.contain),
+                                    ),
+                                    SizedBox(height: height * 0.0388),
+                                    SizedBox(
+                                      width: width * 0.1276,
+                                      child: SelectableText(
+                                        '중량 차이를 처리할 수 있는 조절\n가능한 중상위어와 가변 속도 모터',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                            SizedBox(
+                              width: width * 0.0098,
+                            ),
+                            Container(
+                                width: width * 0.1489,
+                                height: height * 0.2870,
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Color(0x33000000),
+                                      blurRadius: 14,
+                                      offset: Offset(1, 2),
+                                      spreadRadius: 0,
+                                    )
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.0564,
+                                    ),
+                                    Container(
+                                      width: width * 0.065,
+                                      height: height * 0.1166,
+                                      child: Image.asset('assets/cha05.png',
+                                          fit: BoxFit.contain),
+                                    ),
+                                    SizedBox(height: height * 0.0388),
+                                    SizedBox(
+                                      width: width * 0.1276,
+                                      child: SelectableText(
+                                        '냉동 온도부터 끓는 온도까지\n다양한 투입 온도 처리 가능',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                            SizedBox(
+                              width: width * 0.0098,
+                            ),
+                            Container(
+                                width: width * 0.1489,
+                                height: height * 0.2870,
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Color(0x33000000),
+                                      blurRadius: 14,
+                                      offset: Offset(1, 2),
+                                      spreadRadius: 0,
+                                    )
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.0564,
+                                    ),
+                                    Container(
+                                      width: width * 0.065,
+                                      height: height * 0.1166,
+                                      child: Image.asset('assets/cha06.png',
+                                          fit: BoxFit.contain),
+                                    ),
+                                    SizedBox(height: height * 0.0388),
+                                    SizedBox(
+                                      width: width * 0.1276,
+                                      child: SelectableText(
+                                        '내구성 높은 스테인리스 스틸\n구조, 부식 방지 합금도 선택 가능',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                            SizedBox(
+                              width: width * 0.0098,
+                            ),
+                            Container(
+                                width: width * 0.1489,
+                                height: height * 0.2870,
+                                decoration: ShapeDecoration(
+                                  color: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  shadows: [
+                                    BoxShadow(
+                                      color: Color(0x33000000),
+                                      blurRadius: 14,
+                                      offset: Offset(1, 2),
+                                      spreadRadius: 0,
+                                    )
+                                  ],
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.0564,
+                                    ),
+                                    Container(
+                                      width: width * 0.065,
+                                      height: height * 0.1166,
+                                      child: Image.asset('assets/cha07.png',
+                                          fit: BoxFit.contain),
+                                    ),
+                                    SizedBox(height: height * 0.0388),
+                                    SizedBox(
+                                      width: width * 0.1276,
+                                      child: SelectableText(
+                                        '유지보수가 적고 신뢰성이 높은\n제자리 세척(CIP) 로터 시스템',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          ],
                         ),
-                        buildApplicationTextList(
-                            """Mining and Metals Recovery""", """
-       
-                                  
-- 다양한 금속의 용매 추출
-
-- 용매 회수 및 재활용
-
-- 폐수 분리
-
-
-
-                                """),
-                        SizedBox(
-                          width: width * 0.006,
-                        ),
-                        buildApplicationTextList("""Food & Nutrition""", """
-       
-                                       
-- 이소플라본
-
-- 식용유
-
-- 향료 추출
-
-- 영양 보충제
-
-
-
-
-
-                                """),
-                        SizedBox(
-                          width: width * 0.006,
-                        ),
-                        buildApplicationTextList("""Biodisel Production""", """
-                                  
-- 메틸 에스터에서 글리세린 분리
-
-- 바이오디젤 수세
-
-- 조류 세포 농축
-
-- 메틸 에스터에서 글리세린 분리
-
-
-                                """),
-                      ],
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
-                  height: isMobile ? 500 : height * 0.5800,
-                  padding: EdgeInsets.fromLTRB(isMobile ? 16 : width * 0.097, 0,
-                      isMobile ? 16 : width * 0.097, 0),
-                  child: Center(
-                      child: Table(
-                    border: TableBorder.all(), // 표에 테두리 추가
-                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                    children: List.generate(11, (rowIndex) {
-                      return TableRow(
-                        children: List.generate(6, (colIndex) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              squadData[rowIndex][colIndex],
-                              style: TextStyle(
-                                fontSize: isMobile ? 8 : width * 0.005,
-                                // 각 행에 따라 폰트 크기 변경
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black, // 컬럼 인덱스에 따른 색상 지정
+                  height: height * 1.301,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: height * 0.0435,
+                      ),
+                      Text(
+                        'Application',
+                        style: TextStyle(
+                          color: Color(0xFF6194F9),
+                          fontSize: width * 0.0104,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.0240,
+                      ),
+                      Text(
+                        'CINC lndustry 응용',
+                        style: TextStyle(
+                          color: Color(0xFF191919),
+                          fontSize: width * 0.02083,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.0824,
+                      ),
+                      Container(
+                        height: height * 0.3686,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: width * 0.14895,
+                              height: height * 0.3686,
+                              decoration: ShapeDecoration(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                shadows: [
+                                  BoxShadow(
+                                    color: Color(0x33000000),
+                                    blurRadius: 14,
+                                    offset: Offset(1, 2),
+                                    spreadRadius: 0,
+                                  )
+                                ],
                               ),
-                              textAlign: TextAlign.center,
+                              child: Column(
+                                children: [
+                                  Container(
+                                      width: width * 0.14895,
+                                      height: height * 0.1085,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          // 상단 왼쪽 모서리만 둥글게
+                                          topRight: Radius.circular(
+                                              8), // 상단 오른쪽 모서리만 둥글게
+                                        ),
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/app01.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: height * 0.0092,
+                                          ),
+                                          Text(
+                                            'Chemical',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.009,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '폴리머 원료 공급', //first
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //2
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                                BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '폴리머 생산',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //3
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                                BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '부타디엔 및 스티렌 수지',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                                BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '유기 과산화물',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                                BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '공비 분리',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                                BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '용매 회수',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                                BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '열전달 유체 회수',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                                BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '유기물 세정',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                ],
+                              ),
                             ),
-                          );
-                        }),
-                      );
-                    }),
-                  )),
+                            SizedBox(
+                              width: width * 0.0098,
+                            ),
+                            Container(
+                              width: width * 0.14895,
+                              height: height * 0.3686,
+                              decoration: ShapeDecoration(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                shadows: [
+                                  BoxShadow(
+                                    color: Color(0x33000000),
+                                    blurRadius: 14,
+                                    offset: Offset(1, 2),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      width: width * 0.14895,
+                                      height: height * 0.1085,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          // 상단 왼쪽 모서리만 둥글게
+                                          topRight: Radius.circular(
+                                              8), // 상단 오른쪽 모서리만 둥글게
+                                        ),
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/app02.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: height * 0.0092,
+                                          ),
+                                          Text(
+                                            'Pharmaceutical',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.009,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '항생제', //first
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //2
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '에리스로마이신',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //3
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '폴리머 원료 공급',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '페니실린',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+
+
+
+
+
+
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * 0.0098,
+                            ),
+                            Container(
+                              width: width * 0.14895,
+                              height: height * 0.3686,
+                              decoration: ShapeDecoration(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                shadows: [
+                                  BoxShadow(
+                                    color: Color(0x33000000),
+                                    blurRadius: 14,
+                                    offset: Offset(1, 2),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      width: width * 0.14895,
+                                      height: height * 0.1085,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          // 상단 왼쪽 모서리만 둥글게
+                                          topRight: Radius.circular(
+                                              8), // 상단 오른쪽 모서리만 둥글게
+                                        ),
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/app03.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: height * 0.0092,
+                                          ),
+                                          Text(
+                                            'Petroleum',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.009,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '산류 회수', //first
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //2
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '유정 완성 유체 회수',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //3
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '생산수 처리',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '오일 탈수',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '육상 및 해상(FPSO 및 고정 플랫폼)',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * 0.0098,
+                            ),
+                            Container(
+                              width: width * 0.14895,
+                              height: height * 0.3686,
+                              decoration: ShapeDecoration(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                shadows: [
+                                  BoxShadow(
+                                    color: Color(0x33000000),
+                                    blurRadius: 14,
+                                    offset: Offset(1, 2),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      width: width * 0.14895,
+                                      height: height * 0.1085,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          // 상단 왼쪽 모서리만 둥글게
+                                          topRight: Radius.circular(
+                                              8), // 상단 오른쪽 모서리만 둥글게
+                                        ),
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/app04.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: height * 0.0092,
+                                          ),
+                                          Text(
+                                            'Biotech',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.009,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '재조합 DNA 제품', //first
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //2
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '배양액 추출',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: height * 0.04630),
+                      Container(
+                        height: height * 0.3686,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: width * 0.14895,
+                              height: height * 0.3686,
+                              decoration: ShapeDecoration(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                shadows: [
+                                  BoxShadow(
+                                    color: Color(0x33000000),
+                                    blurRadius: 14,
+                                    offset: Offset(1, 2),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      width: width * 0.14895,
+                                      height: height * 0.1085,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          // 상단 왼쪽 모서리만 둥글게
+                                          topRight: Radius.circular(
+                                              8), // 상단 오른쪽 모서리만 둥글게
+                                        ),
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/app05.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: height * 0.0092,
+                                          ),
+                                          Text(
+                                            'Environmental',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.009,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '유류 유출 정화', //first
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //2
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '지하수 복원',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //3
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '세척수 재활용',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '빌지수 처리',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '산업 세탁수 탈유',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+
+
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * 0.0098,
+                            ),
+                            Container(
+                              width: width * 0.14895,
+                              height: height * 0.3686,
+                              decoration: ShapeDecoration(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                shadows: [
+                                  BoxShadow(
+                                    color: Color(0x33000000),
+                                    blurRadius: 14,
+                                    offset: Offset(1, 2),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      width: width * 0.14895,
+                                      height: height * 0.1085,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          // 상단 왼쪽 모서리만 둥글게
+                                          topRight: Radius.circular(
+                                              8), // 상단 오른쪽 모서리만 둥글게
+                                        ),
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/app06.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: height * 0.0092,
+                                          ),
+                                          Text(
+                                            'Mining and Metals Recovery',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.009,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '다양한 금속의 용매 추출', //first
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //2
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '용매 회수 및 재활용',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //3
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '폐수 분리',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * 0.0098,
+                            ),
+                            Container(
+                              width: width * 0.14895,
+                              height: height * 0.3686,
+                              decoration: ShapeDecoration(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                shadows: [
+                                  BoxShadow(
+                                    color: Color(0x33000000),
+                                    blurRadius: 14,
+                                    offset: Offset(1, 2),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      width: width * 0.14895,
+                                      height: height * 0.1085,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          // 상단 왼쪽 모서리만 둥글게
+                                          topRight: Radius.circular(
+                                              8), // 상단 오른쪽 모서리만 둥글게
+                                        ),
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/app07.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: height * 0.0092,
+                                          ),
+                                          Text(
+                                            'Food & Nutrition',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.009,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '이소플라본', //first
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //2
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '식용유',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //3
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '항료 추출',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '영양 보충제',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * 0.0098,
+                            ),
+                            Container(
+                              width: width * 0.14895,
+                              height: height * 0.3686,
+                              decoration: ShapeDecoration(
+                                color: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                shadows: [
+                                  BoxShadow(
+                                    color: Color(0x33000000),
+                                    blurRadius: 14,
+                                    offset: Offset(1, 2),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      width: width * 0.14895,
+                                      height: height * 0.1085,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          // 상단 왼쪽 모서리만 둥글게
+                                          topRight: Radius.circular(
+                                              8), // 상단 오른쪽 모서리만 둥글게
+                                        ),
+                                        image: DecorationImage(
+                                          image: AssetImage('assets/app08.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            height: height * 0.0092,
+                                          ),
+                                          Text(
+                                            'Biodisel Production',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.009,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '메틸 에스터에서 글리세린 추출', //first
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //2
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '바이오디젤 수세',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ), //3
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '조류 세포 농축',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0015,
+                                  ),
+                                  Opacity(
+                                    opacity: 0.10,
+                                    child: Container(
+                                      width: width * 0.1286,
+                                      decoration: ShapeDecoration(
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            width: 0.5,
+                                            strokeAlign:
+                                            BorderSide.strokeAlignCenter,
+                                            color: Color(0xFF191919),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.008,
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.0130,
+                                      ),
+                                      Container(
+                                        width: width * 0.0020,
+                                        height: height * 0.0037,
+                                        decoration: ShapeDecoration(
+                                          color: Color(0xFF6194F9),
+                                          shape: OvalBorder(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * 0.0083,
+                                      ),
+                                      SelectableText(
+                                        '메틸 에스터에서 글리세린 분리',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.0083,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+                Container(
+                  height: height * 1.301,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: height * 0.0435,
+                      ),
+                      Text(
+                        'SPECIFICATIONS',
+                        style: TextStyle(
+                          color: Color(0xFF6194F9),
+                          fontSize: width * 0.0104,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.0240,
+                      ),
+                      Text(
+                        'CINC lndustry 특성',
+                        style: TextStyle(
+                          color: Color(0xFF191919),
+                          fontSize: width * 0.02083,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(
+                        height: height * 0.07870,
+                      ),
+                      Container(
+                          width : width * 0.625,
+                          height : height * 0.81574,
+                          child : Image.asset(
+                          'assets/table.png',
+                          fit: BoxFit.contain
+                      )
+                      )
+
+                    ],
+                  ),
+                ),
+
+
+                // Container(
+                //   height: isMobile ? 500 : height * 0.5800,
+                //   padding: EdgeInsets.fromLTRB(isMobile ? 16 : width * 0.097, 0,
+                //       isMobile ? 16 : width * 0.097, 0),
+                //   child: Center(
+                //       child: Table(
+                //     border: TableBorder.all(), // 표에 테두리 추가
+                //     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                //     children: List.generate(11, (rowIndex) {
+                //       return TableRow(
+                //         children: List.generate(6, (colIndex) {
+                //           return Padding(
+                //             padding: const EdgeInsets.all(8.0),
+                //             child: Text(
+                //               squadData[rowIndex][colIndex],
+                //               style: TextStyle(
+                //                 fontSize: isMobile ? 8 : width * 0.005,
+                //                 // 각 행에 따라 폰트 크기 변경
+                //                 fontWeight: FontWeight.bold,
+                //                 color: Colors.black, // 컬럼 인덱스에 따른 색상 지정
+                //               ),
+                //               textAlign: TextAlign.center,
+                //             ),
+                //           );
+                //         }),
+                //       );
+                //     }),
+                //   )),
+                // ),
               ],
             ),
           ),
@@ -1252,7 +4100,7 @@ Advantages
         itemCount: products.length,
         itemBuilder: (context, index) {
           return buildProductCard(
-            products[index]["brand"]!,
+              products[index]["brand"]!,
               products[index]["name"]!,
               products[index]["image"]!,
               products[index]["content"]!,
@@ -1323,11 +4171,14 @@ Advantages
   }
 
   Widget buildApplicationTextList(String main, String content) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
     return Column(
       children: [
         Container(
           width: 300,
-          height: 50,
+          height: height * 0.04629,
           decoration: BoxDecoration(
               color: Colors.black, // 배경 색상
               border: Border.all(
@@ -1342,15 +4193,15 @@ Advantages
           child: Text(
             main,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: width * 0.0104,
               color: Colors.white,
             ),
             textAlign: TextAlign.center,
           ),
         ),
         Container(
-          width: 300,
-          height: 250,
+          width: width * 0.1562,
+          height: height * 0.2314,
           decoration: BoxDecoration(
               color: Colors.white, // 배경 색상
               border: Border.all(
@@ -1363,7 +4214,7 @@ Advantages
               )),
           child: Text(
             content,
-            style: TextStyle(fontSize: 16, color: Colors.black),
+            style: TextStyle(fontSize: width * 0.0083, color: Colors.black),
             textAlign: TextAlign.center,
           ),
         ),
@@ -1372,8 +4223,15 @@ Advantages
   }
 
   // Product Card Widget
-  Widget buildProductCard(String brand , String name, String imagePath, String content,
-      BuildContext context, double cardWidth, double cardHeight, int index) {
+  Widget buildProductCard(
+      String brand,
+      String name,
+      String imagePath,
+      String content,
+      BuildContext context,
+      double cardWidth,
+      double cardHeight,
+      int index) {
     return LayoutBuilder(builder: (context, constraints) {
       // width와 height 모두를 고려한 반응형 조건 설정
       final size = MediaQuery.of(context).size;
@@ -1401,17 +4259,17 @@ Advantages
                 height: height * 0.4851,
                 decoration: _isHovered[index] == true
                     ? BoxDecoration(
-                  color: Colors.white, // 배경색
-                  borderRadius: BorderRadius.circular(8), // 테두리 둥글기
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1), // 그림자 색상과 투명도
-                      spreadRadius: 2, // 그림자의 퍼짐 정도
-                      blurRadius: 20, // 그림자의 흐림 정도
-                      offset: Offset(0, 0), // 그림자의 위치 (x, y)
-                    ),
-                  ],
-                )
+                        color: Colors.white, // 배경색
+                        borderRadius: BorderRadius.circular(8), // 테두리 둥글기
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1), // 그림자 색상과 투명도
+                            spreadRadius: 2, // 그림자의 퍼짐 정도
+                            blurRadius: 20, // 그림자의 흐림 정도
+                            offset: Offset(0, 0), // 그림자의 위치 (x, y)
+                          ),
+                        ],
+                      )
                     : BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(
@@ -1457,10 +4315,10 @@ Advantages
                                 ),
                               ),
                               SizedBox(
-                                height: height * 0.0111,
+                                height: height * 0.0110,
                               ),
                               Container(
-                                height: height * 0.0268,
+                                height: height * 0.0500,
                                 child: Text(
                                   name,
                                   style: TextStyle(
@@ -1500,20 +4358,18 @@ Advantages
             return AlertDialog(
               backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(
-
                 borderRadius: BorderRadius.circular(16),
                 side: BorderSide(
                   color: Colors.black, // 경계선 색상
                   width: width * 0.0010, // 경계선 두께
-                ),// 모서리 둥글게
+                ), // 모서리 둥글게
               ),
               content: Container(
                 height: isMobile ? 400 : height * 0.55555,
                 width: isMobile ? width * 0.8 : width * 0.4,
                 decoration: BoxDecoration(
-                    color: Colors.white, // 배경 색상
-
-                   ),
+                  color: Colors.white, // 배경 색상
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -1522,27 +4378,27 @@ Advantages
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Spacer(),
-                        Text(
+                        SelectableText(
                           name,
                           style: TextStyle(
-                            fontSize: isMobile ? 16 : width * 0.0125,
-                            fontWeight: FontWeight.w500,
-                            fontFamily: 'Pretendard'
-                          ),
+                              fontSize: isMobile ? 16 : width * 0.0125,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'Pretendard'),
                         ),
                         Spacer(),
                         IconButton(
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          icon: Icon(Icons.close),
+                          icon: Icon(Icons.close,size: width * 0.025,),
                         ),
                       ],
                     ),
-                    SizedBox(height: height*0.0148),
+                    SizedBox(height: height * 0.0148),
                     // 이미지 섹션
                     Container(
-                      padding: EdgeInsets.fromLTRB(width * 0.0083,0.0148,width * 0.0083,0.0148),
+                      padding: EdgeInsets.fromLTRB(
+                          width * 0.0083, 0.0148, width * 0.0083, 0.0148),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(16), // 둥근 모서리
@@ -1562,23 +4418,25 @@ Advantages
                         width: isMobile ? 150 : height * 0.2314,
                       ),
                     ),
-                    SizedBox(height: height*0.0148),
+                    SizedBox(height: height * 0.0148),
                     // 내용 섹션
-                    Expanded(child: SingleChildScrollView(
+                    Expanded(
+                        child: SingleChildScrollView(
                       child: Padding(
-                        padding:EdgeInsets.symmetric(horizontal: height * 0.0074),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: height * 0.0074),
                         child: SelectableText(
                           content,
                           style: TextStyle(
                             fontSize: isMobile ? 12 : height * 0.0148,
-                            height: 1.5, // 줄 간격 추가
+                            height: height * 0.00138, // 줄 간격 추가
                             color: Colors.black87,
                           ),
                           textAlign: TextAlign.left,
                         ),
                       ),
                     )),
-                    SizedBox(height: height*0.0148),
+                    SizedBox(height: height * 0.0148),
                     // 하단 버튼 (필요하다면 추가 가능)
                   ],
                 ),
@@ -1587,6 +4445,38 @@ Advantages
           },
         );
       },
+    );
+  }
+
+  // 전역에서 사용 가능한 `buildTextButton` 함수 정의
+  Container buildTextButton2(String label, int index, double buttonFontSize,
+      Function(int) onItemTapped) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
+    return Container(
+      width: width * 0.0598,
+      height: height * 0.0425,
+      child: TextButton(
+        onPressed: () => onItemTapped(index),
+        child: Text(
+          label,
+          maxLines: 1,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Pretendard',
+            fontWeight: FontWeight.w600,
+            fontSize: buttonFontSize,
+            letterSpacing: -0.2,
+          ),
+        ),
+        style: TextButton.styleFrom(
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.zero, // 직사각형으로 설정
+          ),
+        ),
+      ),
     );
   }
 }

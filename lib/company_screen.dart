@@ -57,14 +57,14 @@ class _CompanyPageState extends State<CompanyPage> {
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
               child: Container(
-            height: _selectedTabIndex == 0 ? height * 1.995 : height * 2.472,
+            height: _selectedTabIndex == 0 ? height * 1.958 :_selectedTabIndex == 1? height * 2.446 : height * 2.476,
             color: Colors.white70,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   width: width,
-                  height: height * 0.5185,
+                  height: height * 0.5230,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/company_background.png'),
@@ -76,7 +76,7 @@ class _CompanyPageState extends State<CompanyPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: height * 0.300,
+                        height: height * 0.260,
                       ),
                       Text(
                         'COMPANY',
@@ -147,23 +147,23 @@ class _CompanyPageState extends State<CompanyPage> {
                               SizedBox(
                                 width: width * 0.0020,
                               ),
-                              buildTextButton2(
-                                  "COMPANY", 1, width * 0.00729, onItemTapped),
-                              SizedBox(
-                                width: width * 0.0020,
-                              ),
-                              buildTextButton2(
-                                  "PRODUCTS", 2, width * 0.00729, onItemTapped),
-                              SizedBox(
-                                width: width * 0.0020,
-                              ),
-                              buildTextButton2("CONTACT US", 3, width * 0.00729,
+                              buildTextButton2("COMPANY", 1, width * 0.00729,
                                   onItemTapped),
                               SizedBox(
                                 width: width * 0.0020,
                               ),
-                              buildTextButton2("DOWNLOADS", 4, width * 0.00729,
+                              buildTextButton2("PRODUCTS", 2, width * 0.00729,
                                   onItemTapped),
+                              SizedBox(
+                                width: width * 0.0020,
+                              ),
+                              buildTextButton2("CONTACT US", 3,
+                                  width * 0.00729, onItemTapped),
+                              SizedBox(
+                                width: width * 0.0020,
+                              ),
+                              buildTextButton2("DOWNLOADS", 4,
+                                  width * 0.00729, onItemTapped),
                             ],
                           ),
                         ],
@@ -402,7 +402,7 @@ class _CompanyPageState extends State<CompanyPage> {
       final isTablet = width >= 600 && width < 1024 && height < 1200;
       final isDesktop = width >= 1024 && height >= 1200;
       return Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding:  EdgeInsets.fromLTRB(width * 0.0083, height * 0.0148, width * 0.0083, height * 0.0148),
         child: SingleChildScrollView(
             child: Container(
           width: width,
@@ -422,7 +422,7 @@ class _CompanyPageState extends State<CompanyPage> {
                 ),
               ),
               SizedBox(height: height * 0.024),
-              Text(
+              SelectableText(
                 '(주)뉴켐 홈페이지에 오신 것을 환영합니다.',
                 style: TextStyle(
                   color: Color(0xFF191919),
@@ -434,7 +434,7 @@ class _CompanyPageState extends State<CompanyPage> {
               SizedBox(height: height * 0.05),
               SizedBox(
                 width: width * 0.4640,
-                child: Text.rich(
+                child: SelectableText.rich(
                   TextSpan(
                     children: [
                       TextSpan(
@@ -444,7 +444,7 @@ class _CompanyPageState extends State<CompanyPage> {
                           fontSize: width * 0.0104,
                           fontFamily: 'Pretendard',
                           fontWeight: FontWeight.w400,
-                          height: 2,
+                          height: height * 0.0018,
                         ),
                       ),
                       TextSpan(
@@ -455,7 +455,7 @@ class _CompanyPageState extends State<CompanyPage> {
                           fontSize: width * 0.0104,
                           fontFamily: 'Pretendard',
                           fontWeight: FontWeight.w500,
-                          height: 2,
+                          height: height * 0.0018,
                         ),
                       ),
                       TextSpan(
@@ -466,7 +466,7 @@ class _CompanyPageState extends State<CompanyPage> {
                           fontSize: width * 0.0104,
                           fontFamily: 'Pretendard',
                           fontWeight: FontWeight.w400,
-                          height: 2,
+                          height: height * 0.0018,
                         ),
                       ),
                     ],
@@ -476,24 +476,24 @@ class _CompanyPageState extends State<CompanyPage> {
               ),
               SizedBox(height: height * 0.05),
               Container(
-                height: 20,
+                height: height * 0.0185,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    SelectableText(
                       '(주)뉴켐 대표',
                       style: TextStyle(
                         color: Color(0xFF5C5C5C),
-                        fontSize: 16,
+                        fontSize: width * 0.0083,
                         fontFamily: 'Pretendard',
                         fontWeight: FontWeight.w400,
                         height: 0.16,
                       ),
                     ),
                     SizedBox(
-                      width: 14,
+                      width: width *0.00729,
                     ),
-                    Text(
+                    SelectableText(
                       '김천만',
                       style: TextStyle(
                         color: Color(0xFF191919),
@@ -570,7 +570,7 @@ class _CompanyPageState extends State<CompanyPage> {
       final isTablet = width >= 600 && width < 1024 && height < 1200;
       final isDesktop = width >= 1024 && height >= 1200;
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: EdgeInsets.symmetric(vertical: width * 0.0041),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -596,7 +596,7 @@ class _CompanyPageState extends State<CompanyPage> {
       final isTablet = width >= 600 && width < 1024 && height < 1200;
       final isDesktop = width >= 1024 && height >= 1200;
       return Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding:  EdgeInsets.fromLTRB(width * 0.0083, height * 0.0148, width * 0.0083, height * 0.0148),
         child: SingleChildScrollView(
             child: Container(
           width: width,
@@ -659,7 +659,7 @@ class _CompanyPageState extends State<CompanyPage> {
                       '경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
                       style: TextStyle(
                         color: Color(0xFF191919),
-                        fontSize: 22,
+                        fontSize: width * 0.0114,
                         fontFamily: 'Pretendard',
                         fontWeight: FontWeight.w500,
                         height: 0.06,
@@ -672,14 +672,20 @@ class _CompanyPageState extends State<CompanyPage> {
               SizedBox(
                 height: height * 0.0296,
               ),
-              Transform.translate(
-                offset: Offset(width * 0.156, 0),
-                child: Container(
-                  width: width * 0.7900,
-                  height: height * 0.45,
-                  child: _iframeWidget,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(width: width * 0.25,),
+                  Container(
+                    width: width * 0.8000,
+                    height: height * 0.45,
+                    child: _iframeWidget,
+                  ),
+
+                ],
               )
+
+
             ],
           ),
         )),
@@ -687,12 +693,15 @@ class _CompanyPageState extends State<CompanyPage> {
     });
   }
 
-// 전역에서 사용 가능한 `buildTextButton` 함수 정의
+  // 전역에서 사용 가능한 `buildTextButton` 함수 정의
   Container buildTextButton2(String label, int index, double buttonFontSize,
       Function(int) onItemTapped) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
     return Container(
-      width: 115,
-      height: 46,
+      width: width * 0.0598,
+      height: height * 0.0425,
       child: TextButton(
         onPressed: () => onItemTapped(index),
         child: Text(
