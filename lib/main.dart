@@ -33,16 +33,16 @@ final GoRouter _router = GoRouter(
       path: '/', // 홈 페이지 경로
       builder: (context, state) => MyAppContainer(
           child: HomePage(
-        onNavigate: (int index) {
-          _router.go(_getPathByIndex(index)); // 페이지 전환
-        },
-        onProductNavigate: (int tabIndex) {
-          _router.go('/products/$tabIndex'); // Product 탭 전환
-        },
-        onCompanyNavigate: (int tabIndex) {
-          _router.go('/company/$tabIndex'); // Company 탭 전환
-        },
-      )),
+            onNavigate: (int index) {
+              _router.go(_getPathByIndex(index)); // 페이지 전환
+            },
+            onProductNavigate: (int tabIndex) {
+              _router.go('/products/$tabIndex'); // Product 탭 전환
+            },
+            onCompanyNavigate: (int tabIndex) {
+              _router.go('/company/$tabIndex'); // Company 탭 전환
+            },
+          )),
     ),
     GoRoute(
       path: '/company/:tabIndex', // Company 페이지의 탭별 경로
@@ -65,10 +65,12 @@ final GoRouter _router = GoRouter(
         final tabIndex =
             int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
         return MyAppContainer(
-          child: ProductScreen(initialTabIndex: tabIndex,
+          child: ProductScreen(
+            initialTabIndex: tabIndex,
             onTabChanged: (int newTabIndex) {
               context.go('/products/$newTabIndex'); // 탭 변경 시 URL 업데이트
-            },),
+            },
+          ),
         );
       },
     ),
@@ -129,53 +131,96 @@ class _MyAppContainerState extends State<MyAppContainer> {
       print('Device Width: $deviceWidth, Device Height: $deviceHeight');
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final width = size.width; //1920
-    final height = size.height; //1080
-    final isOneToOne = (width / height >= 0.9 && width / height <= 1.1);
+    final width = size.width;
+    final height = size.height;
 
+    // 모바일, 태블릿, 데스크톱 기준으로 각기 다른 비율 설정
+    final isMobile = width < 600;
+    final isTablet = width >= 600 && width < 1024;
+    final isDesktop = width >= 1024;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(isOneToOne ? height * 0.1 : height * 0.074),
+        preferredSize: Size.fromHeight(height * (isMobile ? 0.1 : isTablet ? 0.08 : 0.07)),
         child: AppBar(
           backgroundColor: Colors.white,
           elevation: 0, // 그림자 제거
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
           title: Container(
-            padding: EdgeInsets.fromLTRB(0, isOneToOne ? height * 0.02 : height * 0.0148, 0, 0),
+            padding: EdgeInsets.fromLTRB(
+              0,
+              height * (isMobile ? 0.018 : isTablet ? 0.015 : 0.0148),
+              0,
+              0,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width: isOneToOne ? width * 0.12 : width * 0.1770),
+                SizedBox(width: width * (isMobile ? 0.15 : isTablet ? 0.18 : 0.1770)),
                 Container(
-                  width: isOneToOne ? width * 0.12 : width * 0.0858,
-                  height: isOneToOne ? height * 0.06 : height * 0.0453,
+                  width: width * (isMobile ? 0.1 : isTablet ? 0.09 : 0.0858),
+                  height: height * (isMobile ? 0.05 : isTablet ? 0.047 : 0.0453),
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: IconButton(
                       icon: Image.asset('assets/logo.png'),
-                      onPressed: () => onItemTapped(0),
+                      onPressed: () => onItemTapped(0), // 수정된 부분
                     ),
                   ),
                 ),
-                SizedBox(width: isOneToOne ? width * 0.15 : width * 0.2600),
+                SizedBox(width: width * (isMobile ? 0.2 : isTablet ? 0.23 : 0.2600)),
                 Row(
                   children: [
-                    buildTextButton("HOME", 0, isOneToOne ? width * 0.008 : width * 0.006, isOneToOne ? width * 0.06 : width * 0.05208, isOneToOne ? height * 0.05 : height * 0.0370, onItemTapped),
-                    SizedBox(width: isOneToOne? width * 0.003:width * 0.004),
-                    buildTextButton("COMPANY", 1, isOneToOne ? width * 0.008 : width * 0.006, isOneToOne ? width * 0.06 : width * 0.05208, isOneToOne ? height * 0.05 : height * 0.0370, onItemTapped),
-                    SizedBox(width: width * 0.004),
-                    buildTextButton("PRODUCTS", 2, isOneToOne ? width * 0.008 : width * 0.006, isOneToOne ? width * 0.06 : width * 0.05208, isOneToOne ? height * 0.05 : height * 0.0370, onItemTapped),
-                    SizedBox(width: isOneToOne? width * 0.003:width * 0.004),
-                    buildTextButton("CONTACT US", 3, isOneToOne ? width * 0.008 : width * 0.006, isOneToOne ? width * 0.06 : width * 0.06, isOneToOne ? height * 0.05 : height * 0.0370, onItemTapped),
-                    SizedBox(width: isOneToOne? width * 0.003:width * 0.004),
-                    buildTextButton("DOWNLOADS", 4, isOneToOne ? width * 0.008 : width * 0.006, isOneToOne ? width * 0.06 : width * 0.06, isOneToOne ? height * 0.05 : height * 0.0370, onItemTapped),
+                    buildTextButton(
+                      "HOME",
+                      0,
+                      width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
+                      width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
+                      height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                      onItemTapped,
+                    ),
+                    SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                    buildTextButton(
+                      "COMPANY",
+                      1,
+                      width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
+                      width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
+                      height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                      onItemTapped,
+                    ),
+                    SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                    buildTextButton(
+                      "PRODUCTS",
+                      2,
+                      width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
+                      width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
+                      height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                      onItemTapped,
+                    ),
+                    SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                    buildTextButton(
+                      "CONTACT US",
+                      3,
+                      width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
+                      width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
+                      height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                      onItemTapped,
+                    ),
+                    SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                    buildTextButton(
+                      "DOWNLOADS",
+                      4,
+                      width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
+                      width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
+                      height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                      onItemTapped,
+                    ),
                   ],
                 ),
               ],
@@ -188,6 +233,7 @@ class _MyAppContainerState extends State<MyAppContainer> {
     );
   }
 }
+
 int selectedIndex = 0; // default는 Home 페이지
 // 전역에서 사용 가능한 `_onItemTapped` 함수 정의
 void onItemTapped(int index) {
@@ -196,8 +242,8 @@ void onItemTapped(int index) {
 }
 
 // 전역에서 사용 가능한 `buildTextButton` 함수 정의
-Container buildTextButton(String label, int index, double buttonFontSize,double buttonWidth,double buttonHeight ,
-    Function(int) onItemTapped) {
+Container buildTextButton(String label, int index, double buttonFontSize,
+    double buttonWidth, double buttonHeight, Function(int) onItemTapped) {
   return Container(
     width: buttonWidth,
     height: buttonHeight,
@@ -212,7 +258,7 @@ Container buildTextButton(String label, int index, double buttonFontSize,double 
           fontWeight: FontWeight.w600,
           fontSize: buttonFontSize,
           letterSpacing: -0.2,
-           color:  selectedIndex == index ? Color(0xff6194f9) : Color(0xff191919),
+          color: selectedIndex == index ? Color(0xff6194f9) : Color(0xff191919),
         ),
       ),
       style: TextButton.styleFrom(
