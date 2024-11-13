@@ -18,8 +18,8 @@ class HomePage extends StatefulWidget {
 
   HomePage(
       {required this.onNavigate,
-        required this.onProductNavigate,
-        required this.onCompanyNavigate});
+      required this.onProductNavigate,
+      required this.onCompanyNavigate});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -38,10 +38,18 @@ class _HomePageState extends State<HomePage> {
   ];
   String url =
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d669.6223690480622!2d127.01586977089258!3d37.02699966322705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3d001631c641%3A0x2cd353d15ed8488b!2z6rOg642V7KeA7Iud6rO17J6R7IaM7JWE7J207YOA7JuMIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1717727526433!5m2!1sko!2skr" width="849" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
+  String url2 =
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3214.0718188284864!2d127.40560918528085!3d36.33480920020751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35654939a7b233b1%3A0x1a9c09f4d30f558f!2z64yA7KCE6rSR7Jet7IucIOykkeq1rCDrqqnrj5nroZwgNDI!5e0!3m2!1sko!2skr!4v1731478790160!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
+
   int _currentStep = 1; // 현재 단계 설정
   double _lineOpacity = 0.2; // 선의 초기 불투명도
-  final Widget _iframeWidget = HtmlElementView(
-    viewType: 'iframeElement',
+  final Widget _iframeWidget1 = HtmlElementView(
+    viewType: 'iframeElement1',
+    key: UniqueKey(),
+  );
+
+  final Widget _iframeWidget2 = HtmlElementView(
+    viewType: 'iframeElement2',
     key: UniqueKey(),
   );
 
@@ -50,9 +58,10 @@ class _HomePageState extends State<HomePage> {
       'image': 'assets/sliderbackground01.png',
       'name': 'Rotary Evaporator',
       'logo': 'assets/heidolph_logo.png',
+      'logoname' : 'HEIDOLPH',
       'route': '0',
       'description':
-      '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.',
+          'Heidolph는 혁신적이고 글로벌한 기업으로서, 프리미엄 실험실 장비 생산의 선두주자입니다.\n저희 뉴켐은 Heidolph 전 제품을 대전지역에 독점 공급하고 있습니다.',
       'productImages': [
         'assets/products/Hei-VAP_Series.png',
         'assets/products/Hei-VAP_Industrial.png',
@@ -68,54 +77,47 @@ class _HomePageState extends State<HomePage> {
       'image': 'assets/sliderbackground02.png',
       'name': 'Stirring',
       'logo': 'assets/heidolph_logo.png',
+      'logoname' : 'HEIDOLPH',
       'route': '0',
       'description':
-      '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.',
+          'Heidolph는 혁신적이고 글로벌한 기업으로서, 프리미엄 실험실 장비 생산의 선두주자입니다.\n저희 뉴켐은 Heidolph 전 제품을 대전지역에 독점 공급하고 있습니다.',
       'productImages': [
         'assets/products/Magnetic_stirrer.png',
         'assets/products/Overhead_stirrer.png'
       ],
-      'productName': ['Magnetic stirrer', '오버헤드 교반기']
-    },
-    {
-      'image': 'assets/sliderbackground03.png',
-      'name': 'Automation',
-      'logo': 'assets/heidolph_logo.png',
-      'route': '0',
-      'description':
-      '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.',
-      'productImages': [
-        'assets/products/Hei-Process_Cloud_Core.png',
-      ],
-      'productName': [
-        'Hei-Process Cloud Core',
-      ]
+      'productName': ['Magnetic stirrer', 'Overhead stirrer']
     },
     {
       'image': 'assets/sliderbackground04.png',
-      'name': 'Voltex & Shaking',
-      'logo': 'assets/heidolph_logo.png',
-      'route': '0',
+      'name': 'Glass Reaction System',
+      'logo': 'assets/normag_logo.png',
+      'logoname' : 'NORMAG',
+      'route': '1',
       'description':
-      '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.',
+          '독일 NORMAG는 화학 및 제약 산업의 실험실부터 생산용 scale까지\n유리 반응기 및 부품을 제조/판매하는 회사입니다.',
       'productImages': [
-        'assets/products/Platform_shakers.png',
-        'assets/products/Vortexer.png',
-        'assets/products/Overhead_stirrer.png'
+        'assets/products/Lab_Fast_Pro.png',
+        'assets/products/Pilot_compact_reactor.png',
+        'assets/products/ReactionSystemPilot.png'
       ],
-      'productName': ['Platform shakers', 'Vortexer', '오버헤드 쉐이커']
+      'productName': [
+        'Lab Fast Pro',
+        'Pilot Compact Reactor (10 ~ 30L)',
+        'Glass Reaction System(30 ~200L)'
+      ]
     },
     {
       'image': 'assets/sliderbackground05.png',
-      'name': 'Liquid handling',
-      'logo': 'assets/heidolph_logo.png',
-      'route': '0',
+      'name': 'Continuous Cetrifuse Extractor',
+      'logo': 'assets/CINCIndustry_logo.png',
+      'logoname' : 'CINC Inc.',
+      'route': '2',
       'description':
-      '뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사입니다.',
+          '미국 CINC는 액체-액체 원심분리기를 설계,제조 및 공급하는 기업으로,전 세계의 석유,화학,광업,\n제약,식품,향료,인쇄 및 환경 산업 분야의 연구를 수행하는 고객들의 신뢰를 받고 있습니다.',
       'productImages': [
-        'assets/products/Liquid_handling.png',
+        'assets/products/Cinc_Industry_Product.png',
       ],
-      'productName': ['Liquid handling']
+      'productName': ['CINC Industries']
     },
   ];
 
@@ -124,7 +126,7 @@ class _HomePageState extends State<HomePage> {
       "number": "1",
       "title": "[NORMAG]카달로그",
       "link":
-      "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
+          "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
       "author": "관리자",
       "date": "2024.10.16",
       "image": 'assets/download_image_01.png'
@@ -133,7 +135,7 @@ class _HomePageState extends State<HomePage> {
       "number": "2",
       "title": "[하이돌프] 종합 카달로그",
       "link":
-      "https://drive.google.com/file/d/1Ols-r9GJcyZiHQMKNkxA7Ysaj51_fQa7/view?usp=sharing",
+          "https://drive.google.com/file/d/1Ols-r9GJcyZiHQMKNkxA7Ysaj51_fQa7/view?usp=sharing",
       "author": "관리자",
       "date": "2024.10.16",
       "image": 'assets/download_image_02.png'
@@ -142,7 +144,7 @@ class _HomePageState extends State<HomePage> {
       "number": "3",
       "title": "준비중",
       "link":
-      "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
+          "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
       "author": "관리자",
       "date": "2024.10.17",
       "image": 'assets/download_image_02.png'
@@ -207,22 +209,38 @@ class _HomePageState extends State<HomePage> {
     final isTablet = width >= 600 && width < 1024 && height < 1200;
     final isDesktop = width >= 1024 && height >= 1200;
 
-    // Iframe 설정
-    final html.IFrameElement _iFrameElement = html.IFrameElement();
-    _iFrameElement.style.height = isMobile
-        ? '150%'
-        : isTablet
-        ? '130%'
-        : '120%';
-    _iFrameElement.style.width = isMobile ? '100%' : '80%';
-    _iFrameElement.src = '${url}';
-    _iFrameElement.style.border = 'none';
+    final html.IFrameElement _iFrameElement1 = html.IFrameElement();
+    final html.IFrameElement _iFrameElement2 = html.IFrameElement();
+
+    _iFrameElement1.style.height = '100%';
+    _iFrameElement1.style.width = '100%';
+    _iFrameElement1.src = '${url}';
+    _iFrameElement1.style.border = 'none';
+
+    _iFrameElement2.style.height = '100%';
+    _iFrameElement2.style.width = '100%';
+    _iFrameElement2.src = '${url2}';
+    _iFrameElement2.style.border = 'none';
 // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
-      'iframeElement',
-          (int viewId) => _iFrameElement,
+      'iframeElement1',
+      (int viewId) {
+        final element = html.IFrameElement();
+        element.src = url;
+        element.style.border = 'none';
+        return element;
+      },
     );
 
+    ui.platformViewRegistry.registerViewFactory(
+      'iframeElement2',
+      (int viewId) {
+        final element = html.IFrameElement();
+        element.src = url2;
+        element.style.border = 'none';
+        return element;
+      },
+    );
 //내 컴퓨터 환경 2560 * 1440
     return MaterialApp(
       home: LayoutBuilder(builder: (context, constraints) {
@@ -236,8 +254,8 @@ class _HomePageState extends State<HomePage> {
                     (isMobile
                         ? 6
                         : isTablet
-                        ? 5
-                        : 4.6887),
+                            ? 5
+                            : 4.6887),
                 color: Colors.white,
                 child: Column(
                   children: [
@@ -256,9 +274,9 @@ class _HomePageState extends State<HomePage> {
                                     (isMobile
                                         ? 0.9
                                         : isTablet
-                                        ? 1.0
-                                        : 1.111),
-                                child:    CarouselSlider(
+                                            ? 1.0
+                                            : 1.111),
+                                child: CarouselSlider(
                                   carouselController: _controller,
                                   items: slideImages.map((item) {
                                     return GestureDetector(
@@ -268,7 +286,6 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       child: Container(
                                         width: width,
-
                                         child: Stack(
                                           children: [
                                             Image.asset(
@@ -279,20 +296,20 @@ class _HomePageState extends State<HomePage> {
                                                   (isMobile
                                                       ? 0.9
                                                       : isTablet
-                                                      ? 1.0
-                                                      : 1.111),
+                                                          ? 1.0
+                                                          : 1.111),
                                             ),
                                             Column(
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 SizedBox(
                                                     height: height *
                                                         (isMobile
                                                             ? 0.15
                                                             : isTablet
-                                                            ? 0.2
-                                                            : 0.2129)),
+                                                                ? 0.2
+                                                                : 0.2129)),
                                                 Text(
                                                   item['name']!,
                                                   style: TextStyle(
@@ -301,8 +318,8 @@ class _HomePageState extends State<HomePage> {
                                                         (isMobile
                                                             ? 0.05
                                                             : isTablet
-                                                            ? 0.025
-                                                            : 0.0281),
+                                                                ? 0.025
+                                                                : 0.0281),
                                                     fontFamily: 'Pretendard',
                                                     fontWeight: FontWeight.w600,
                                                   ),
@@ -339,44 +356,58 @@ class _HomePageState extends State<HomePage> {
                                                   color: Colors.transparent,
                                                   child: InkWell(
                                                     onTap: () {
-                                                      widget.onNavigate(1);
+                                                      int tabIndex;
+                                                      // item['logoname'] 값에 따라 탭 인덱스를 설정
+                                                      if (item['logoname'] == 'HEIDOLPH') {
+                                                        tabIndex = 0;
+                                                      } else if (item['logoname'] == 'NORMAG') {
+                                                        tabIndex = 1;
+                                                      } else if (item['logoname'] == 'CINC Inc.') {
+                                                        tabIndex = 2;
+                                                      } else {
+                                                        tabIndex = 0; // 기본값으로 설정할 인덱스 (필요시)
+                                                      }
+                                                      widget.onProductNavigate(tabIndex);
                                                     },
                                                     child: MouseRegion(
                                                       onEnter: (_) => setState(
-                                                              () => isHovered = true),
+                                                          () =>
+                                                              isHovered = true),
                                                       onExit: (_) => setState(
-                                                              () =>
-                                                          isHovered = false),
+                                                          () => isHovered =
+                                                              false),
                                                       child: Container(
                                                         alignment:
-                                                        Alignment.center,
-                                                        decoration: BoxDecoration(
+                                                            Alignment.center,
+                                                        decoration:
+                                                            BoxDecoration(
                                                           border: Border.all(
                                                               color: isHovered
                                                                   ? Color(
-                                                                  0xff5695F0)
-                                                                  : Colors.white,
-                                                              width:
-                                                              width * 0.001),
+                                                                      0xff5695F0)
+                                                                  : Colors
+                                                                      .white,
+                                                              width: width *
+                                                                  0.001),
                                                           borderRadius:
-                                                          BorderRadius
-                                                              .circular(61),
+                                                              BorderRadius
+                                                                  .circular(61),
                                                         ),
                                                         child: Text(
-                                                          'company',
+                                                          item['logoname']!,
                                                           style: TextStyle(
                                                             color: isHovered
                                                                 ? Color(
-                                                                0xff5695F0)
+                                                                    0xff5695F0)
                                                                 : Colors.white,
                                                             fontSize: width *
                                                                 (isMobile
                                                                     ? 0.025
                                                                     : 0.0125),
                                                             fontFamily:
-                                                            'Pretendard',
+                                                                'Pretendard',
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
@@ -392,18 +423,18 @@ class _HomePageState extends State<HomePage> {
 
                                                 Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     ...List.generate(
                                                       item['productImages']
                                                           .length,
-                                                          (index) {
+                                                      (index) {
                                                         String productImage =
-                                                        item['productImages']
-                                                        [index];
+                                                            item['productImages']
+                                                                [index];
                                                         String productName =
-                                                        item['productName']
-                                                        [index];
+                                                            item['productName']
+                                                                [index];
                                                         return Padding(
                                                           padding: EdgeInsets.symmetric(
                                                               horizontal: height *
@@ -412,36 +443,37 @@ class _HomePageState extends State<HomePage> {
                                                                       : 0.0074)),
                                                           child: Container(
                                                             width: item['productImages']
-                                                                .length ==
-                                                                1
+                                                                        .length ==
+                                                                    1
                                                                 ? width *
-                                                                (isMobile
-                                                                    ? 0.35
-                                                                    : 0.415)
+                                                                    (isMobile
+                                                                        ? 0.35
+                                                                        : 0.415)
                                                                 : width *
-                                                                (isMobile
-                                                                    ? 0.22
-                                                                    : 0.2479),
+                                                                    (isMobile
+                                                                        ? 0.22
+                                                                        : 0.2479),
                                                             height: height *
                                                                 (isMobile
                                                                     ? 0.3
                                                                     : 0.4407),
                                                             decoration:
-                                                            ShapeDecoration(
-                                                              color: Colors.white
+                                                                ShapeDecoration(
+                                                              color: Colors
+                                                                  .white
                                                                   .withOpacity(
-                                                                  0.65),
+                                                                      0.65),
                                                               shape:
-                                                              RoundedRectangleBorder(
+                                                                  RoundedRectangleBorder(
                                                                 side: BorderSide(
                                                                     width: width *
                                                                         0.001,
                                                                     color: Colors
                                                                         .white),
                                                                 borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                    8),
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8),
                                                               ),
                                                             ),
                                                             child: Column(
@@ -462,12 +494,12 @@ class _HomePageState extends State<HomePage> {
                                                                           ? 0.01
                                                                           : 0.0129),
                                                                   fit: BoxFit
-                                                                      .fitWidth,
+                                                                      .fill,
                                                                 ),
                                                                 Text(
                                                                   productName,
                                                                   style:
-                                                                  TextStyle(
+                                                                      TextStyle(
                                                                     color: Colors
                                                                         .black,
                                                                     fontSize: width *
@@ -475,10 +507,10 @@ class _HomePageState extends State<HomePage> {
                                                                             ? 0.012
                                                                             : 0.015),
                                                                     fontFamily:
-                                                                    'Pretendard',
+                                                                        'Pretendard',
                                                                     fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
+                                                                        FontWeight
+                                                                            .w500,
                                                                     height: height *
                                                                         (isMobile
                                                                             ? 0.0015
@@ -511,20 +543,20 @@ class _HomePageState extends State<HomePage> {
                                                                 Text(
                                                                   'NewChem',
                                                                   style:
-                                                                  TextStyle(
+                                                                      TextStyle(
                                                                     color: Color(
-                                                                        0xFF729DF6)
+                                                                            0xFF729DF6)
                                                                         .withOpacity(
-                                                                        0.7),
+                                                                            0.7),
                                                                     fontSize: width *
                                                                         (isMobile
                                                                             ? 0.008
                                                                             : 0.009),
                                                                     fontFamily:
-                                                                    'Pretendard',
+                                                                        'Pretendard',
                                                                     fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
+                                                                        FontWeight
+                                                                            .w500,
                                                                   ),
                                                                 )
                                                               ],
@@ -544,8 +576,15 @@ class _HomePageState extends State<HomePage> {
                                   }).toList(),
                                   options: CarouselOptions(
                                     autoPlay: true,
+                                    autoPlayInterval: Duration(seconds: 8),
+                                    // 자동 재생 시간 조절
+                                    autoPlayAnimationDuration:
+                                        Duration(milliseconds: 1000),
+                                    // 전환 속도 조절
                                     enlargeCenterPage: true,
                                     viewportFraction: 1,
+                                    scrollPhysics: BouncingScrollPhysics(),
+                                    // 부드러운 스크롤 적용
                                     onPageChanged: (index, reason) {
                                       setState(() {
                                         _current = index;
@@ -554,7 +593,6 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -649,7 +687,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   SizedBox(
                                       width:
-                                      width * (isMobile ? 0.015 : 0.02239)),
+                                          width * (isMobile ? 0.015 : 0.02239)),
                                 ],
                               )
                             ],
@@ -663,8 +701,8 @@ class _HomePageState extends State<HomePage> {
                             (isMobile
                                 ? 0.6
                                 : isTablet
-                                ? 0.7
-                                : 0.7870),
+                                    ? 0.7
+                                    : 0.7870),
                         child: Stack(
                           children: [
                             Row(
@@ -678,7 +716,7 @@ class _HomePageState extends State<HomePage> {
                                     Container(
                                       width: width * (isMobile ? 0.6 : 0.7125),
                                       height:
-                                      height * (isMobile ? 0.2 : 0.3129),
+                                          height * (isMobile ? 0.2 : 0.3129),
                                       child: Image.asset(
                                         'assets/bg-gradation00.png',
                                         fit: BoxFit.contain,
@@ -697,7 +735,7 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     SizedBox(
                                         height:
-                                        height * (isMobile ? 0.1 : 0.1388)),
+                                            height * (isMobile ? 0.1 : 0.1388)),
                                     Text(
                                       'Contacts Us',
                                       style: TextStyle(
@@ -706,8 +744,8 @@ class _HomePageState extends State<HomePage> {
                                             (isMobile
                                                 ? 0.022
                                                 : isTablet
-                                                ? 0.025
-                                                : 0.0291),
+                                                    ? 0.025
+                                                    : 0.0291),
                                         fontFamily: 'Pretendard',
                                         fontWeight: FontWeight.w700,
                                         height: height *
@@ -719,7 +757,7 @@ class _HomePageState extends State<HomePage> {
                                       style: TextStyle(
                                         color: Color(0xFF191919),
                                         fontSize:
-                                        width * (isMobile ? 0.012 : 0.0145),
+                                            width * (isMobile ? 0.012 : 0.0145),
                                         fontFamily: 'Pretendard',
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -733,7 +771,7 @@ class _HomePageState extends State<HomePage> {
                                       style: TextStyle(
                                         color: Color(0xFF191919),
                                         fontSize:
-                                        width * (isMobile ? 0.008 : 0.0104),
+                                            width * (isMobile ? 0.008 : 0.0104),
                                         fontFamily: 'Pretendard',
                                         fontWeight: FontWeight.w400,
                                         height: height *
@@ -746,7 +784,7 @@ class _HomePageState extends State<HomePage> {
                                       style: TextStyle(
                                         color: Color(0xFF191919),
                                         fontSize:
-                                        width * (isMobile ? 0.008 : 0.0104),
+                                            width * (isMobile ? 0.008 : 0.0104),
                                         fontFamily: 'Pretendard',
                                         fontWeight: FontWeight.w400,
                                       ),
@@ -765,13 +803,12 @@ class _HomePageState extends State<HomePage> {
                                     Container(
                                       width: width * (isMobile ? 0.15 : 0.1682),
                                       height:
-                                      height * (isMobile ? 0.04 : 0.0574),
+                                          height * (isMobile ? 0.04 : 0.0574),
                                       child: ElevatedButton(
                                         onPressed: () {
                                           setState(() {
                                             widget.onNavigate(3);
                                           });
-
                                         },
                                         child: Text(
                                           '문의하기',
@@ -788,7 +825,7 @@ class _HomePageState extends State<HomePage> {
                                           foregroundColor: Colors.white,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
-                                            BorderRadius.circular(8),
+                                                BorderRadius.circular(8),
                                           ),
                                         ),
                                       ),
@@ -798,7 +835,6 @@ class _HomePageState extends State<HomePage> {
                                 Spacer(),
                               ],
                             ),
-
                           ],
                         )), //contact us 부분
                     Container(
@@ -820,21 +856,21 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 SizedBox(
                                     height:
-                                    height * (isMobile ? 0.15 : 0.2129)),
+                                        height * (isMobile ? 0.15 : 0.2129)),
                                 Text(
                                   'Welcome',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     color: Color(0xFF191919),
                                     fontSize:
-                                    width * (isMobile ? 0.025 : 0.02916),
+                                        width * (isMobile ? 0.025 : 0.02916),
                                     fontFamily: 'Pretendard',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 SizedBox(
                                     height:
-                                    height * (isMobile ? 0.005 : 0.007)),
+                                        height * (isMobile ? 0.005 : 0.007)),
                                 Container(
                                   width: width * (isMobile ? 0.25 : 0.2906),
                                   height: height * (isMobile ? 0.004 : 0.006),
@@ -851,7 +887,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 SizedBox(
                                     height:
-                                    height * (isMobile ? 0.05 : 0.0833)),
+                                        height * (isMobile ? 0.05 : 0.0833)),
                                 InkWell(
                                   onTap: () {
                                     widget.onNavigate(1);
@@ -889,17 +925,17 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 SizedBox(
                                     height:
-                                    height * (isMobile ? 0.15 : 0.1851)),
+                                        height * (isMobile ? 0.15 : 0.1851)),
                                 SelectableText(
                                   '(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지\n합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,\n고객이 신뢰할 수 있는 회사로 자리 매김해 왔습니다.\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
                                   style: TextStyle(
                                     color: Color(0xFF191919),
                                     fontSize:
-                                    width * (isMobile ? 0.008 : 0.0104),
+                                        width * (isMobile ? 0.008 : 0.0104),
                                     fontFamily: 'Pretendard',
                                     fontWeight: FontWeight.w400,
                                     height:
-                                    height * (isMobile ? 0.0015 : 0.00155),
+                                        height * (isMobile ? 0.0015 : 0.00155),
                                   ),
                                 )
                               ],
@@ -951,7 +987,7 @@ class _HomePageState extends State<HomePage> {
                                         },
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Text(
                                               'more view',
@@ -986,7 +1022,7 @@ class _HomePageState extends State<HomePage> {
                                   width: width * (isMobile ? 0.2 : 0.26145),
                                   height: height * (isMobile ? 0.002 : 0.00277),
                                   decoration:
-                                  BoxDecoration(color: Color(0xFF6194F9)),
+                                      BoxDecoration(color: Color(0xFF6194F9)),
                                 ),
                                 SizedBox(
                                   height: height * (isMobile ? 0.004 : 0.0055),
@@ -1034,9 +1070,9 @@ class _HomePageState extends State<HomePage> {
                                                     children: [
                                                       Padding(
                                                         padding:
-                                                        const EdgeInsets
-                                                            .symmetric(
-                                                            vertical: 12.0),
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                vertical: 12.0),
                                                         child: Container(
                                                           width: width *
                                                               (isMobile
@@ -1047,13 +1083,13 @@ class _HomePageState extends State<HomePage> {
                                                                   ? 0.025
                                                                   : 0.0351),
                                                           decoration:
-                                                          BoxDecoration(
+                                                              BoxDecoration(
                                                             color: Color(
                                                                 0xFF6394F9),
                                                             borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                6),
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
                                                           ),
                                                           padding: EdgeInsets
                                                               .symmetric(
@@ -1069,45 +1105,45 @@ class _HomePageState extends State<HomePage> {
                                                           child: Text(
                                                             item["number"]!
                                                                 .padLeft(
-                                                                2, '0'),
+                                                                    2, '0'),
                                                             maxLines: 1,
                                                             style: TextStyle(
                                                               color:
-                                                              Colors.white,
+                                                                  Colors.white,
                                                               fontSize: width *
                                                                   (isMobile
                                                                       ? 0.008
                                                                       : 0.01041),
                                                               fontFamily:
-                                                              'Pretendard',
+                                                                  'Pretendard',
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .w500,
+                                                                  FontWeight
+                                                                      .w500,
                                                             ),
                                                             textAlign:
-                                                            TextAlign.left,
+                                                                TextAlign.left,
                                                           ),
                                                         ),
                                                       ),
                                                       Padding(
                                                         padding:
-                                                        EdgeInsets.fromLTRB(
-                                                            width *
-                                                                (isMobile
-                                                                    ? 0.006
-                                                                    : 0.0083),
-                                                            height *
-                                                                (isMobile
-                                                                    ? 0.012
-                                                                    : 0.0148),
-                                                            0,
-                                                            height *
-                                                                0.0148),
+                                                            EdgeInsets.fromLTRB(
+                                                                width *
+                                                                    (isMobile
+                                                                        ? 0.006
+                                                                        : 0.0083),
+                                                                height *
+                                                                    (isMobile
+                                                                        ? 0.012
+                                                                        : 0.0148),
+                                                                0,
+                                                                height *
+                                                                    0.0148),
                                                         child: GestureDetector(
                                                           onTap: () async {
                                                             final Uri uri =
-                                                            Uri.parse(item[
-                                                            "link"]!);
+                                                                Uri.parse(item[
+                                                                    "link"]!);
                                                             if (await canLaunchUrl(
                                                                 uri)) {
                                                               await launchUrl(
@@ -1120,16 +1156,16 @@ class _HomePageState extends State<HomePage> {
                                                             item["title"]!,
                                                             style: TextStyle(
                                                               color:
-                                                              Colors.black,
+                                                                  Colors.black,
                                                               fontSize: width *
                                                                   (isMobile
                                                                       ? 0.007
                                                                       : 0.009),
                                                               fontFamily:
-                                                              'Pretendard',
+                                                                  'Pretendard',
                                                               fontWeight:
-                                                              FontWeight
-                                                                  .w500,
+                                                                  FontWeight
+                                                                      .w500,
                                                             ),
                                                           ),
                                                         ),
@@ -1140,28 +1176,28 @@ class _HomePageState extends State<HomePage> {
                                                                 ? 0.04
                                                                 : 0.0447),
                                                         padding:
-                                                        EdgeInsets.fromLTRB(
-                                                            0,
-                                                            height *
-                                                                (isMobile
-                                                                    ? 0.012
-                                                                    : 0.0148),
-                                                            width * 0.0083,
-                                                            0),
+                                                            EdgeInsets.fromLTRB(
+                                                                0,
+                                                                height *
+                                                                    (isMobile
+                                                                        ? 0.012
+                                                                        : 0.0148),
+                                                                width * 0.0083,
+                                                                0),
                                                         child: Text(
                                                           item["date"]!,
                                                           maxLines: 1,
                                                           style: TextStyle(
                                                             color: Color(
-                                                                0xff191919)
+                                                                    0xff191919)
                                                                 .withOpacity(
-                                                                0.4),
+                                                                    0.4),
                                                             fontSize: width *
                                                                 (isMobile
                                                                     ? 0.0075
                                                                     : 0.0093),
                                                             fontWeight:
-                                                            FontWeight.w400,
+                                                                FontWeight.w400,
                                                             letterSpacing: -1,
                                                           ),
                                                         ),
@@ -1220,7 +1256,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   SizedBox(
                                       width:
-                                      width * (isMobile ? 0.003 : 0.004)),
+                                          width * (isMobile ? 0.003 : 0.004)),
                                   // ListView로 3개 아이템을 한 번에 보여줌
                                   Container(
                                     width: width * (isMobile ? 0.25 : 0.3307),
@@ -1237,7 +1273,7 @@ class _HomePageState extends State<HomePage> {
                                           child: GestureDetector(
                                             onTap: () async {
                                               final Uri uri =
-                                              Uri.parse(item["link"]!);
+                                                  Uri.parse(item["link"]!);
                                               if (await canLaunchUrl(uri)) {
                                                 await launchUrl(uri);
                                               } else {
@@ -1250,7 +1286,7 @@ class _HomePageState extends State<HomePage> {
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius:
-                                                BorderRadius.circular(10.0),
+                                                    BorderRadius.circular(10.0),
                                                 boxShadow: [
                                                   BoxShadow(
                                                     color: Colors.black
@@ -1274,10 +1310,10 @@ class _HomePageState extends State<HomePage> {
                                                             : 0.2592),
                                                     child: ClipRRect(
                                                       borderRadius:
-                                                      BorderRadius.vertical(
-                                                          top: Radius
-                                                              .circular(
-                                                              10.0)),
+                                                          BorderRadius.vertical(
+                                                              top: Radius
+                                                                  .circular(
+                                                                      10.0)),
                                                       child: Image.asset(
                                                         item["image"]!,
                                                         fit: BoxFit.cover,
@@ -1292,7 +1328,7 @@ class _HomePageState extends State<HomePage> {
                                                             ? 0.03
                                                             : 0.034),
                                                     padding:
-                                                    EdgeInsets.fromLTRB(
+                                                        EdgeInsets.fromLTRB(
                                                       width *
                                                           (isMobile
                                                               ? 0.003
@@ -1314,32 +1350,32 @@ class _HomePageState extends State<HomePage> {
                                                         .withOpacity(0.2),
                                                     child: Row(
                                                       children: [
-
                                                         Text(
                                                           item["number"]!
-                                                              .padLeft(
-                                                              2, '0'),
+                                                              .padLeft(2, '0'),
                                                           maxLines: 1,
                                                           style: TextStyle(
-                                                              color: Color(0xFF6194F9),
+                                                            color: Color(
+                                                                0xFF6194F9),
                                                             fontSize: width *
                                                                 (isMobile
                                                                     ? 0.006
                                                                     : 0.0072),
                                                             fontFamily:
-                                                            'Pretendard',
+                                                                'Pretendard',
                                                             fontWeight:
-                                                            FontWeight
-                                                                .w500,
+                                                                FontWeight.w500,
                                                           ),
                                                           textAlign:
-                                                          TextAlign.left,
+                                                              TextAlign.left,
                                                         ),
-                                                        SizedBox(width: width * 0.004),
+                                                        SizedBox(
+                                                            width:
+                                                                width * 0.004),
                                                         Text(
                                                           item["title"]!,
                                                           textAlign:
-                                                          TextAlign.center,
+                                                              TextAlign.center,
                                                           style: TextStyle(
                                                             color: Colors.black,
                                                             fontSize: width *
@@ -1347,10 +1383,9 @@ class _HomePageState extends State<HomePage> {
                                                                     ? 0.006
                                                                     : 0.0072),
                                                             fontWeight:
-                                                            FontWeight.w600,
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
-
                                                       ],
                                                     ),
                                                   ),
@@ -1366,12 +1401,12 @@ class _HomePageState extends State<HomePage> {
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color:
-                                        Color(0xff6194f9).withOpacity(0.3)),
+                                            Color(0xff6194f9).withOpacity(0.3)),
                                     child: IconButton(
                                       onPressed: _previousPage,
                                       icon: Icon(Icons.arrow_forward_ios_sharp),
                                       color:
-                                      Color(0xff6194f9), // 아이콘 색상을 흰색으로 변경
+                                          Color(0xff6194f9), // 아이콘 색상을 흰색으로 변경
                                     ),
                                   ),
                                 ],
@@ -1382,7 +1417,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ), //Download 부분
                     Container(
-                      height: height * (isMobile ? 0.5 : 0.7600),
+                      height: height * (isMobile ? 0.7 : 0.9),
+                      color: Colors.white,
                       alignment: Alignment.topLeft,
                       child: Stack(
                         children: [
@@ -1392,9 +1428,10 @@ class _HomePageState extends State<HomePage> {
                                 width: width * (isMobile ? 0.1 : 0.1875),
                               ),
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: height * (isMobile ? 0.08 : 0.13),
+                                    height: height * (isMobile ? 0.09 : 0.20),
                                   ),
                                   Container(
                                     width: width * (isMobile ? 0.1 : 0.125),
@@ -1404,63 +1441,255 @@ class _HomePageState extends State<HomePage> {
                                       style: TextStyle(
                                         color: Color(0xFF191919),
                                         fontSize:
-                                        width * (isMobile ? 0.02 : 0.0291),
+                                            width * (isMobile ? 0.02 : 0.0291),
                                         fontFamily: 'Pretendard',
                                         fontWeight: FontWeight.w700,
                                         letterSpacing: -1,
                                       ),
                                     ),
                                   ),
+                                  SizedBox(height: height * 0.0657),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        width: width * 0.3,
+                                        height: height * 0.4500,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: width * 0.3,
+                                              height: height * 0.0435,
+                                              decoration: ShapeDecoration(
+                                                color: Colors.black,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6)),
+                                                shadows: [
+                                                  BoxShadow(
+                                                    color: Color(0x26000000),
+                                                    blurRadius: 30,
+                                                    offset: Offset(0, 0),
+                                                    spreadRadius: 0,
+                                                  )
+                                                ],
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: width *  0.0089,
+                                                    height:height * 0.0203,
+                                                    child: Image.asset(
+                                                      'assets/direction.png',
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                      width : width * 0.005,
+                                                  ),
+                                                  SelectableText(
+                                                    '경기사무소',
+                                                    style: TextStyle(
+                                                      color: Color(0xFF96b9ff),
+                                                      fontSize: width * 0.0114,
+                                                      fontFamily: 'Pretendard',
+                                                      fontWeight: FontWeight.w500,
+                                                      height: 0.06,
+                                                      letterSpacing: 0.66,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: height * 0.0083,
+                                            ),
+                                            Container(
+                                              width: width *
+                                                  (isMobile ? 0.4 : 0.3),
+                                              height: height *
+                                                  (isMobile ? 0.3 : 0.32),
+                                              child: _iframeWidget1,
+                                            ),
+                                            SizedBox(
+                                              height: height * 0.0083,
+                                            ),
+                                            SelectableText(
+                                              '(18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
+                                              style: TextStyle(
+                                                color: Color(0xFF191919),
+                                                fontSize: width * 0.009,
+                                                fontFamily: 'Pretendard',
+                                                fontWeight: FontWeight.w500,
+                                                letterSpacing: 0.54,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  )
                                 ],
                               ),
                               SizedBox(
-                                width: width * (isMobile ? 0.04 : 0.0578),
+                                width: width * 0.0239,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: height * (isMobile ? 0.08 : 0.13),
+                                    height: height * (isMobile ? 0.09 : 0.20),
                                   ),
                                   Container(
-                                    width: width * (isMobile ? 0.4 : 0.500),
-                                    height: height * (isMobile ? 0.3 : 0.4166),
-                                    child: _iframeWidget,
+                                    width: width * (isMobile ? 0.1 : 0.125),
+                                    height: height * (isMobile ? 0.04 : 0.0630),
+                                    child: Text(
+                                      '',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize:
+                                            width * (isMobile ? 0.02 : 0.0291),
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w700,
+                                        letterSpacing: -1,
+                                      ),
+                                    ),
                                   ),
-                                  SizedBox(
-                                    height: height * (isMobile ? 0.07 : 0.10),
-                                  ),
+                                  SizedBox(height: height * 0.0657),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Container(
-                                        width:
-                                        width * (isMobile ? 0.008 : 0.010),
-                                        height:
-                                        height * (isMobile ? 0.02 : 0.025),
-                                        child: Image.asset(
-                                          'assets/direction.png',
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width:
-                                        width * (isMobile ? 0.005 : 0.0072),
-                                      ),
-                                      SelectableText(
-                                        '경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
-                                        style: TextStyle(
-                                          color: Color(0xFF191919),
-                                          fontSize: width *
-                                              (isMobile ? 0.009 : 0.0114),
-                                          fontFamily: 'Pretendard',
-                                          fontWeight: FontWeight.w500,
-                                          letterSpacing: 0.66,
+                                        width: width * 0.3,
+                                        height: height * 0.4500,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: width * 0.3,
+                                              height: height * 0.0435,
+                                              decoration: ShapeDecoration(
+                                                color: Colors.black,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6)),
+                                                shadows: [
+                                                  BoxShadow(
+                                                    color: Color(0x26000000),
+                                                    blurRadius: 30,
+                                                    offset: Offset(0, 0),
+                                                    spreadRadius: 0,
+                                                  )
+                                                ],
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    width: width *  0.0089,
+                                                    height:height * 0.0203,
+                                                    child: Image.asset(
+                                                      'assets/direction.png',
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width : width * 0.005,
+                                                  ),
+                                                  SelectableText(
+                                                    '경기사무소',
+                                                    style: TextStyle(
+                                                      color: Color(0xFF96b9ff),
+                                                      fontSize: width * 0.0114,
+                                                      fontFamily: 'Pretendard',
+                                                      fontWeight: FontWeight.w500,
+                                                      height: 0.06,
+                                                      letterSpacing: 0.66,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: height * 0.0083,
+                                            ),
+                                            Container(
+                                              width: width *
+                                                  (isMobile ? 0.4 : 0.3),
+                                              height: height *
+                                                  (isMobile ? 0.3 : 0.32),
+                                              child: _iframeWidget2,
+                                            ),
+                                            SizedBox(
+                                              height: height * 0.0083,
+                                            ),
+                                            SelectableText(
+                                              '(34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)',
+                                              style: TextStyle(
+                                                color: Color(0xFF191919),
+                                                fontSize: width * 0.009,
+                                                fontFamily: 'Pretendard',
+                                                fontWeight: FontWeight.w500,
+                                                letterSpacing: 0.54,
+                                              ),
+                                            )
+                                          ],
                                         ),
                                       )
                                     ],
-                                  ),
+                                  )
                                 ],
                               ),
+                              // SizedBox(
+                              //   width: width * (isMobile ? 0.04 : 0.0578),
+                              // ),
+                              // Column(
+                              //   crossAxisAlignment: CrossAxisAlignment.start,
+                              //   children: [
+                              //     SizedBox(
+                              //       height: height * (isMobile ? 0.08 : 0.13),
+                              //     ),
+                              //     Container(
+                              //       width: width * (isMobile ? 0.4 : 0.500),
+                              //       height: height * (isMobile ? 0.3 : 0.4166),
+                              //       child: _iframeWidget1,
+                              //     ),
+                              //     SizedBox(
+                              //       height: height * (isMobile ? 0.07 : 0.10),
+                              //     ),
+                              //     Row(
+                              //       mainAxisAlignment: MainAxisAlignment.start,
+                              //       children: [
+                              //         Container(
+                              //           width:
+                              //               width * (isMobile ? 0.008 : 0.010),
+                              //           height:
+                              //               height * (isMobile ? 0.02 : 0.025),
+                              //           child: Image.asset(
+                              //             'assets/direction.png',
+                              //           ),
+                              //         ),
+                              //         SizedBox(
+                              //           width:
+                              //               width * (isMobile ? 0.005 : 0.0072),
+                              //         ),
+                              //         SelectableText(
+                              //           '경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
+                              //           style: TextStyle(
+                              //             color: Color(0xFF191919),
+                              //             fontSize: width *
+                              //                 (isMobile ? 0.009 : 0.0114),
+                              //             fontFamily: 'Pretendard',
+                              //             fontWeight: FontWeight.w500,
+                              //             letterSpacing: 0.66,
+                              //           ),
+                              //         )
+                              //       ],
+                              //     ),
+                              //   ],
+                              // ),
                               SizedBox(
                                 width: width * (isMobile ? 0.02 : 0.0260),
                               ),
@@ -1524,7 +1753,7 @@ class _HomePageState extends State<HomePage> {
                                       onItemTapped),
                                   SizedBox(
                                       width:
-                                      width * (isMobile ? 0.004 : 0.0020)),
+                                          width * (isMobile ? 0.004 : 0.0020)),
                                   buildTextButton2(
                                       "COMPANY",
                                       1,
@@ -1534,7 +1763,7 @@ class _HomePageState extends State<HomePage> {
                                       onItemTapped),
                                   SizedBox(
                                       width:
-                                      width * (isMobile ? 0.004 : 0.0020)),
+                                          width * (isMobile ? 0.004 : 0.0020)),
                                   buildTextButton2(
                                       "PRODUCTS",
                                       2,
@@ -1544,7 +1773,7 @@ class _HomePageState extends State<HomePage> {
                                       onItemTapped),
                                   SizedBox(
                                       width:
-                                      width * (isMobile ? 0.004 : 0.0020)),
+                                          width * (isMobile ? 0.004 : 0.0020)),
                                   buildTextButton2(
                                       "CONTACT US",
                                       3,
@@ -1554,7 +1783,7 @@ class _HomePageState extends State<HomePage> {
                                       onItemTapped),
                                   SizedBox(
                                       width:
-                                      width * (isMobile ? 0.004 : 0.0020)),
+                                          width * (isMobile ? 0.004 : 0.0020)),
                                   buildTextButton2(
                                       "DOWNLOADS",
                                       4,
@@ -1593,7 +1822,7 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize:
-                                    width * (isMobile ? 0.012 : 0.0093),
+                                        width * (isMobile ? 0.012 : 0.0093),
                                     fontFamily: 'Pretendard',
                                     fontWeight: FontWeight.w500,
                                     letterSpacing: 0.54,
@@ -1628,7 +1857,7 @@ class _HomePageState extends State<HomePage> {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize:
-                                      width * (isMobile ? 0.011 : 0.0093),
+                                          width * (isMobile ? 0.011 : 0.0093),
                                       fontFamily: 'Pretendard',
                                       fontWeight: FontWeight.w500,
                                       letterSpacing: 0.54,
@@ -1891,7 +2120,7 @@ Container buildTextButton2(String label, int index, double buttonFontSize,
       ),
       style: TextButton.styleFrom(
         foregroundColor: Colors.white,
-        overlayColor:Colors.transparent,// 눌렀을 때 생기는 그림자 제거
+        overlayColor: Colors.transparent, // 눌렀을 때 생기는 그림자 제거
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.zero,
         ),

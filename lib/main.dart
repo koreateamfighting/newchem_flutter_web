@@ -222,52 +222,54 @@ class _MyAppContainerState extends State<MyAppContainer> {
                   ),
                 ),
                 SizedBox(width: width * (isMobile ? 0.2 : isTablet ? 0.23 : 0.2600)),
-                Padding(
+                Container(
+                  width: width * 0.28,
+                  alignment: Alignment.center,
                   padding: EdgeInsets.only(top: height * 0.01), // Row 높이를 살짝 내림
                   child: Row(
                     children: [
                       buildTextButton(
                         "HOME",
                         0,
-                        width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
-                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
-                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                        width * (isMobile ? 0.004 : isTablet ? 0.005 : 0.007),
+                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05210),
+                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0375),
                         onItemTapped,
                       ),
                       SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
                       buildTextButton(
                         "COMPANY",
                         1,
-                        width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
-                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
-                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                        width * (isMobile ? 0.004 : isTablet ? 0.005 : 0.007),
+                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05210),
+                        height * (isMobile ? 0.035 : isTablet ? 0.036 :0.0375),
                         onItemTapped,
                       ),
                       SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
                       buildTextButton(
                         "PRODUCTS",
                         2,
-                        width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
-                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
-                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                        width * (isMobile ? 0.004 : isTablet ? 0.005 : 0.007),
+                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05210),
+                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0375),
                         onItemTapped,
                       ),
                       SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
                       buildTextButton(
                         "CONTACT US",
                         3,
-                        width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
-                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
-                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                        width * (isMobile ? 0.004 : isTablet ? 0.005 : 0.007),
+                        width * (isMobile ? 0.055 : isTablet ? 0.06 : 0.053),
+                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0375),
                         onItemTapped,
                       ),
                       SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
                       buildTextButton(
                         "DOWNLOADS",
                         4,
-                        width * (isMobile ? 0.005 : isTablet ? 0.006 : 0.006),
-                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05208),
-                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0370),
+                        width * (isMobile ? 0.004 : isTablet ? 0.005 : 0.007),
+                        width * (isMobile ? 0.055 : isTablet ? 0.06 : 0.05210),
+                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0375),
                         onItemTapped,
                       ),
                     ],
@@ -286,13 +288,13 @@ class _MyAppContainerState extends State<MyAppContainer> {
 }
 
 int selectedIndex = 0; // default는 Home 페이지
-// 전역에서 사용 가능한 `_onItemTapped` 함수 정의
+// 전역에서 사용 가능한 _onItemTapped 함수 정의
 void onItemTapped(int index) {
   selectedIndex = index;
   _router.go(_getPathByIndex(index));
 }
 
-// 전역에서 사용 가능한 `buildTextButton` 함수 정의
+// 전역에서 사용 가능한 buildTextButton 함수 정의
 Container buildTextButton(String label, int index, double buttonFontSize,
     double buttonWidth, double buttonHeight, Function(int) onItemTapped) {
   return Container(

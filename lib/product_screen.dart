@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'main.dart';
-
+import 'package:dotted_border/dotted_border.dart';
 class ProductScreen extends StatefulWidget {
   final int initialTabIndex; // 초기 탭 인덱스를 받을 변수 추가
   final Function(int) onTabChanged;
@@ -26,107 +26,38 @@ class _ProductScreenState extends State<ProductScreen>
 
   final Map<int, bool> _isHovered = {};
 
-  final List<List<String>> squadData = [
-    [
-      'SPECIFICATIONS',
-      'Model V-2',
-      'Model V-5 TA(H)/CIP',
-      'Model V-10 TA(H)/CIP',
-      'Model V-16',
-      'Model V-20'
-    ],
-    [
-      'Rotor Size',
-      '2\"\"\n(5.1 cm)',
-      '5\"\"\n(12.7 cm)',
-      '10\"\"\n(25.4 cm)',
-      '16\"\"\n(40.6 cm)',
-      '20\"\"\n(50.8 cm)'
-    ],
-    [
-      'Throughput',
-      '0 - 0.5 GPM\n(0 - 1.9 LPM)',
-      '0.5 -5 GPM\n(1.9 - 19 LPM)',
-      '1 - 30 GPM\n(3.8 - 110 LPM)',
-      '10 - 90 GPM\n(38 - 340 LPM)',
-      '30 - 200 GPM\n(110 - 750 LPM)'
-    ],
-    [
-      'Footprint\n(Separator Only)',
-      '9\"\"X 9\"\"\n(22.9 cm x 22.9 cm)',
-      '12\"\"X 12\"\"\n(30.5 cm x 30.5 cm)',
-      '24\"\"X 24\"\"\n(61 cm x 61 cm)',
-      '48\"\"X 48\"\"\n(122cm x 122cm)',
-      '60\"\"X 60\"\"\n(152.4cm x 152.4cm)'
-    ],
-    [
-      'Height\n(Includes Motor)',
-      '17\"\"to 19\"\"\n(43 to 48 cm)',
-      '36\"\"to 44\"\"\n(31 to 112 cm)',
-      '60\"\"to 72\"\"\n(152 to 183 cm)',
-      '80\"\"\n(203cm)',
-      '112\"\"\n(284.5cm)'
-    ],
-    [
-      'Fittings (NPT Male)\n Input/Output',
-      '3/8\"\" / 3/8\"\"',
-      '1\"\" / 1\"\"',
-      '2\"\" / 2\"\"',
-      '4\"\" / 4\"\"',
-      '4\"\" / 4\"\"'
-    ],
-    [
-      'Standard Power',
-      'Electric',
-      'Electric',
-      'Electric',
-      'Electric',
-      'Electric'
-    ],
-    [
-      'Power Requirements',
-      '1/8 HP\n(.12 kW)',
-      '2 HP\n(1.5 kW)',
-      '7.5 HP\n(5.5 kW)',
-      '30 HP\n(22 kW)',
-      '60 HP\n(45 kW)'
-    ],
-    [
-      '                  ',
-      '110,220 or 440 VAC',
-      '220 or 440 VAC',
-      '220 or 440 VAC',
-      '220 or 440 VAC',
-      '220 or 440 VAC'
-    ],
-    [
-      '                  ',
-      'Single-Phase or\nThree Phase',
-      'Single-Phase or\nThree Phase',
-      'Single-Phase or\nThree Phase',
-      'Three-Phase',
-      'Three-Phase'
-    ],
-    [
-      'Weight - Approx.\n(In Stainless Steel)',
-      '25 lbs\n(11.4 kg)',
-      '150 lbs\n(70 kg)',
-      '750 lbs\n(340 kg)',
-      '3,000 lbs\n(1,360 kg)',
-      '4500 lbs\n(2,041 kg)'
-    ]
-  ];
+
 
   @override
   void initState() {
+
     super.initState();
+    _selectedTabIndex = widget.initialTabIndex;
+    print("탭 이동 번호 : ${widget.initialTabIndex}");
     // TabController에 초기 인덱스를 설정
     _mainTabController = TabController(
         length: 3, vsync: this, initialIndex: widget.initialTabIndex);
+
+
+    // 메인 탭이 변경될 때 URL 업데이트
+    _mainTabController.addListener(() {
+      if (_mainTabController.indexIsChanging) {
+        widget.onTabChanged(_mainTabController.index);
+      }
+    });
     _heidolphTabController =
         TabController(length: 5, vsync: this); // Heidolph 하위 탭
     _normagTabController = TabController(length: 3, vsync: this); // NORMAG 하위 탭
     _cincTabController = TabController(length: 5, vsync: this);
+  }
+
+  @override
+  void didUpdateWidget(ProductScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // 초기 탭 인덱스가 변경되었을 때 메인 탭을 업데이트
+    if (oldWidget.initialTabIndex != widget.initialTabIndex) {
+      _mainTabController.animateTo(widget.initialTabIndex);
+    }
   }
 
   @override
@@ -540,39 +471,32 @@ class _ProductScreenState extends State<ProductScreen>
                     "name": "Hei-VAP Series",
                     "image": "assets/products/Hei-VAP_Series.png",
                     "content": """
-                  •5“ 터치 디스플레이의 중앙 제어 패널
-                  •G1/G3 사선 글래스웨어의 핸드/모터 리프트 모델
-                  •전체 값에 대한 명확한 디스플레이(베이직 및 어드밴스 모드)
-                  •타이머, 최대 온도 제한, 다국어 메뉴 및 오류 메시지의 텍스트 디스플레이
-                  •회전 및 가열용 별도 노브와 의도하지 않은 설정변경을 방지하는 잠금 기능
-                  •멀리에서도 설정 조건을 표시하는 LED 링 라이트 및 픽토그램
-                  •외부 진공 컨트롤러에서 필요한 진공압 조절을 위한 통합 용매 라이브러리
-                  •USB 및 마이크로 SD 인터페이스
-                  •증기 온도 디스플레이(옵션)
-                  •진공 및 냉각기 컨트롤 포함, 가능한 경우 Hei-VAP Expert Control로 차후
-                  업그레이드"""
+• 5“ 터치 디스플레이의 중앙 제어 패널
+• G1/G3 사선 글래스웨어의 핸드/모터 리프트 모델
+• 전체 값에 대한 명확한 디스플레이(베이직 및 어드밴스 모드)
+• 타이머, 최대 온도 제한, 다국어 메뉴 및 오류 메시지의 텍스트 디스플레이
+• 회전 및 가열용 별도 노브와 의도하지 않은 설정변경을 방지하는 잠금 기능
+• 멀리에서도 설정 조건을 표시하는 LED 링 라이트 및 픽토그램
+• 외부 진공 컨트롤러에서 필요한 진공압 조절을 위한 통합 용매 라이브러리
+• USB 및 마이크로 SD 인터페이스
+• 증기 온도 디스플레이(옵션)
+• 진공 및 냉각기 컨트롤 포함, 가능한 경우 Hei-VAP Expert Control로 차후 업그레이드
+"""
                   },
                   {
                     "brand": "HEIDOLPH",
                     "name": "Hei-VAP Industrial",
                     "image": "assets/products/Hei-VAP_Industrial.png",
                     "content": """
-•고강도 투명 PMMA 도어로 탁월한 사용자 안전 보장
-•김 서림 방지 안전유리 및 금속 프레임 가드 후드가 탁월한 사용자 보호
-기능 제공
-•작동 시 농축용 플라스크에 표시가 됨
-•물과 기타 수조 용액을 모두 사용할 수 있는 일반 가열 수조로, 최고
-180°C까지 온도 설정 가능
-•회수 카세트 및 추가 PMMA 도어 하우징이 글래스웨어 파손 위험으로부터
-보호
-•통합 재충진 용수 시스템, 넘침 방지 기능 및 하단의 배출 밸브가
-스탠다드로 제공
-•옵션인 베이스 카트는 진공 펌프, 글래스웨어, 용매 혹은 부속품을 보관하는
-용도로 분리가 가능한 패널로 사용 가능
-•이 모델에 대해 이용 가능한 GMP에 따른 인증: 설치 검증(IQ) 및 운영
-자격인증(OQ)
-•모든 공정의 설정 조건을 포함하는 조명 디스플레이의 대형 터치 스크린
-제어 패널, 프로그래밍할 수 있는 램프
+• 고강도 투명 PMMA 도어로 탁월한 사용자 안전 보장
+• 김 서림 방지 안전유리 및 금속 프레임 가드 후드가 탁월한 사용자 보호 기능 제공
+• 작동 시 농축용 플라스크에 표시가 됨
+• 물과 기타 수조 용액을 모두 사용할 수 있는 일반 가열 수조로, 최고 180°C까지 온도 설정 가능
+• 회수 카세트 및 추가 PMMA 도어 하우징이 글래스웨어 파손 위험으로부터 보호
+• 통합 재충진 용수 시스템, 넘침 방지 기능 및 하단의 배출 밸브가 스탠다드로 제공
+• 옵션인 베이스 카트는 진공 펌프, 글래스웨어, 용매 혹은 부속품을 보관하는 용도로 분리가 가능한 패널로 사용 가능
+• 이 모델에 대해 이용 가능한 GMP에 따른 인증: 설치 검증(IQ) 및 운영 자격인증(OQ)
+• 모든 공정의 설정 조건을 포함하는 조명 디스플레이의 대형 터치 스크린 제어 패널, 프로그래밍할 수 있는 램프
                     """
                   },
                   {
@@ -580,31 +504,27 @@ class _ProductScreenState extends State<ProductScreen>
                     "name": "Automatic Distillation",
                     "image": "assets/products/Automatic_Distillation.png",
                     "content": """
-탈부착 가능한 7“ 터치스크린 컨트롤 패널을 이용해 회전 플라스크의 센서
-및 시간 제어 충진을 위한 샘플의 설정 조건을 입력할 수 있습니다.
-농축물 냉각(약 1L) 코팅 콜렉터 베셀 및 압축기를 통한 회전 플라스크
-잔여물 배출 시간도 프로그래밍할 수 있습니다.
-또한 자동 세척 모드 및 수동 모드로 작동 가능합니다.
-Hei-VOLUME Distimatic 24/7의 통합 콤프레셔가 설치된 타워는 제공된
-브래킷을 사용해 Hei-VAP Industrial 시리즈 탁상형 / 대용량 농축기의 모든
-부품에 바로 설치할 수 있습니다.
-전용 농축기 시스템과 함께 Hei-VOLUME Distimatic Pro 24/7 자동 모듈은
-모든 범주의 실험에서 효율적인 무인 가동이 가능합니다.
-최고 수준의 안전성과 다양한 실험을 실현하기 위해 제공되는 튜빙 등
-샘플과 접촉하는 모든 부품은 내화학성 재료로 제작됐습니다."""
+• 탈부착 가능한 7“ 터치스크린 컨트롤 패널을 이용해 회전 플라스크의 센서 및 시간 제어 충진을 위한
+  샘플의 설정 조건을 입력할 수 있습니다. 
+• 농축물 냉각(약 1L) 코팅 콜렉터 베셀 및 압축기를 통한 회전 플라스크 잔여물 배출 시간도 프로그래밍할 수 있습니다.
+• 또한 자동 세척 모드 및 수동 모드로 작동 가능합니다.
+• Hei-VOLUME Distimatic 24/7의 통합 콤프레셔가 설치된 타워는 제공된  브래킷을 사용해
+  Hei-VAP Industrial 시리즈 탁상형 / 대용량 농축기의 모든 부품에 바로 설치할 수 있습니다. 
+• 전용 농축기 시스템과 함께 Hei-VOLUME Distimatic Pro 24/7 자동 모듈은  모든 범주의 실험에서
+  효율적인 무인 가동이 가능합니다. 
+• 최고 수준의 안전성과 다양한 실험을 실현하기 위해 제공되는 튜빙 등 샘플과 접촉하는 모든 부품은 
+  내화학성 재료로 제작됐습니다."""
                   },
                   {
                     "brand": "HEIDOLPH",
                     "name": "Hei Chill Peltier (소형 냉각기)",
                     "image": "assets/products/Hei_Chill_Peltier.png",
                     "content": """
-Hei-CHILL Peltier Thermostat은 600와트의 높은 냉각 용량과 거의 두 배에
-달하는 높은 난방 전력을 갖추고 있어 많은 온도 제어 작업에
-적합합니다.온도 조절기는 다양한 인터페이스를 사용하는 Hei-PROCESS 
-솔루션을 통해 프로세스에 통합될 수 있습니다.또한 장치는 재순환
-칠러로서 Hei-VAP Expert Control 또는 Ultimate Control 회전 증발농축기를
-통해 직접 제어하거나 통합 터치 디스플레이를 통해 독립적으로 사용할 수
-있습니다.
+• Hei-CHILL Peltier Thermostat은 600와트의 높은 냉각 용량과 거의 두 배에 달하는 높은 난방 전력을 갖추고 있어
+  많은 온도 제어 작업에 적합합니다.
+• 온도 조절기는 다양한 인터페이스를 사용하는 Hei-PROCESS  솔루션을 통해 프로세스에 통합될 수 있습니다.
+• 또한 장치는 재순환 칠러로서 Hei-VAP Expert Control 또는 Ultimate Control 회전 증발농축기를
+  통해 직접 제어하거나 통합 터치 디스플레이를 통해 독립적으로 사용할 수 있습니다.
 • 지속적인 부하에도 온도 안정성을 위한 6리터 탱크 부피
 • 0.05 ℃ 이하의 정밀한 온도 조절 및 안정성
 • 작동 온도 범위 -10 °C ~ 70 °C
@@ -617,15 +537,13 @@ Hei-CHILL Peltier Thermostat은 600와트의 높은 냉각 용량과 거의 두 
                     "name": "Hei Chill Peltier (대형 냉각기)",
                     "image": "assets/products/Hei_Chill_5000.png",
                     "content": """
-5,000W의 냉각 용량으로 까다로운 냉각 작업에 대해 포괄적인 범위의
-냉각이 가능합니다.
-•상단에 용액 충진부, 후방에 배수 탭
-•150개 세그먼트의 통합 프로그래머, 5개 프로그램으로 분할 가능
-•전자 수위 표시기와 저수위 알람
-•자동 압축 컨트롤을 포함해 디지털식 에너지 절약형 냉각 컨트롤을 위한
-SmartCool 시스템
-•명확히 배치된 제어 요소, 대형 TFT 디스플레이, 멤브레인 키패드
-•USB 인터페이스와 알람 컨택트가 표준 기능으로 통합되어 있음
+• 5,000W의 냉각 용량으로 까다로운 냉각 작업에 대해 포괄적인 범위의 냉각이 가능합니다.
+• 상단에 용액 충진부, 후방에 배수 탭
+• 150개 세그먼트의 통합 프로그래머, 5개 프로그램으로 분할 가능
+• 전자 수위 표시기와 저수위 알람
+• 자동 압축 컨트롤을 포함해 디지털식 에너지 절약형 냉각 컨트롤을 위한 SmartCool 시스템
+• 명확히 배치된 제어 요소, 대형 TFT 디스플레이, 멤브레인 키패드
+• USB 인터페이스와 알람 컨택트가 표준 기능으로 통합되어 있음
                     """
                   },
                 ]),
@@ -635,50 +553,34 @@ SmartCool 시스템
                     "name": "Magnetic Stirrer",
                     "image": "assets/products/Magnetic_stirrer.png",
                     "content": """
-Hei-PLATE Mix ‘n’ series는 자력 교반기에서 가장 많이 사용되는 제품입니다. 
-이를 통해 사용자는 최대 1,400rpm까지 부드럽게 교반하고 최대 350°C의
-온도까지 높은 정밀도로 가열할 수 있습니다. 또한 언제든지 제품을
-사용하고 중지할 수 있는 전원버튼 및 놉에 있는 LED링은 정교하교
-안전하게 사용 할수 있습니다. 다이나믹 로터리놉은 회전 속도에 따라
-설정값을 빠르게 혹은 느리게 조정 할수 있습니다. 잠금 기능은 값이
-우발적으로 변경되는 것을 방지합니다. 바로 이런 부분이 "Research made 
-easy (연구가 쉬워짐)" 을 의미합니다.
-이 자력 교반기는 가장 중요한 안전 기능을 갖추고 있습니다. 가열판과
-제어판 사이의 안전 거리와 50°C 이상의 온도에서 시각적인 잔열 표시기가
-화상을 방지합니다.
-아노다이징 처리된 알루미늄으로 제작된 특허 받은 Kera-Disk® 풋프린트는
-내화학성, 긁힘 방지 기능에 직경이 145mm입니다. 이 유니크한 사이즈
-덕분에 좁은 설치 공간에서 많은 액세서리 및 샘플과 함께 사용하기에
-적합하며 제품의 재질 특성으로 빠른 가열 시간을 보장합니다.
-마그네틱 교반기 Hei-PLATE Mix 'n' Heat Core+는 원하는 온도까지 설정할
-수 있는 디지털 디스플레이를 제공합니다. 오버슈팅이 없는 이 정밀한
-온도는 두 가지 선택 가능한 가열 모드(FAST/PRECISE)와 옵션인 외부 온도
-센서 Pt1000에 의해 제어됩니다."""
+• Hei-PLATE Mix ‘n’ series는 자력 교반기에서 가장 많이 사용되는 제품입니다. 
+  이를 통해 사용자는 최대 1,400rpm까지 부드럽게 교반하고 최대 350°C의  온도까지 높은 정밀도로 가열할 수 있습니다. 
+  또한 언제든지 제품을  사용하고 중지할 수 있는  전원버튼 및 놉에 있는 LED링은 정교하고 안전하게 사용 할수 있습니다.
+  다이나믹 로터리놉은 회전 속도에 따라 설정값을 빠르게 혹은 느리게 조정 할수 있습니다. 잠금 기능은 값이 우발적으로 변경되는 것을 방지합니다.
+  바로 이런 부분이 "Research madeeasy (연구가 쉬워짐)" 을 의미합니다.
+• 자력 교반기는 가장 중요한 안전 기능을 갖추고 있습니다. 가열판과  제어판 사이의 안전 거리와 50°C 이상의 온도에서 시각적인 잔열 표시기가 화상을 방지합니다.
+• 아노다이징 처리된 알루미늄으로 제작된 특허 받은 Kera-Disk® 풋프린트는 내화학성,  긁힘 방지 기능에 직경이 145mm입니다.
+  이 유니크한 사이즈 덕분에 좁은 설치 공간에서 많은 액세서리 및 샘플과 함께 사용하기에 적합하며 제품의 재질 특성으로 빠른 가열 시간을 보장합니다.
+• 마그네틱 교반기 Hei-PLATE Mix 'n' Heat Core+는 원하는 온도까지 설정할 수 있는디지털 디스플레이를 제공합니다. 오버슈팅이 없는 이 정밀한 온도는 
+  두 가지 선택 가능한 가열 모드(FAST/PRECISE)와 옵션인 외부 온도 센서 Pt1000에 의해 제어됩니다."""
                   },
                   {
                     "brand": "HEIDOLPH",
-                    "name": "오버헤드 교반기",
+                    "name": "Overhead Stirrer",
                     "image": "assets/products/Overhead_stirrer.png",
                     "content": """
-Hei-TORQUE 제품군 장치는 Heidolph 고성능 교반기입니다.
-Hei-TORQUE Ultimate 200 실험실 교반기는 점도는 최고 100,000mPas, 
-부피는 최대 50리터(H2O)까지 강력한 교반에 적합합니다. 넓은 속도
-범위(10~2,000rpm)와 200Ncm에 달하는 최대 토크를 자랑합니다.
-뿐만 아니라, Hei-TORQUE Ultimate 200은 무엇보다도 프로그래밍, 공정
-모니터링(타이머 기능, 토크 트렌드 밸류 디스플레이 포함)을 비롯해
-애플리케이션에 실시간으로 실험 상황을 모니터링하며 사용할수 있는
-장비입니다. 여기에는 USB와 RS232의 2개의 인터페이스가 장착되어
-있어서, 외부장치나 PC와 연결하여 프로그램화 컨트롤러(PLC) 또는
-LabManager 등과 같은 자동화 시스템으로 연결하여 사용 할수 있습니다. 
-PC를 통한 최대 4개 장치의 원격 조정용 무료 Hei-Control 소프트웨어를
-포함합니다.
-실험실 교반기 Hei-TORQUE Ultimate 200은 최신 엔진 기술 덕분에 모든
-교반 작업을 최소한의 소음으로 수행합니다. 안전과 관련된 시작/정지 터치
-기능은 의도하지 않은 작동의 위험을 최소화해줍니다.
-흄 후드 내, 또는 원자로 상부구조용 드라이브로 사용하기에 적합한 HeiTORQUE
-Ultimate 200에는 지름 10.5mm의 퀵 액션 척(안전 링이 포함된 퀵
-척)이 있어서, 다양한 임펠라와 결합해 최상의 교반 결과를 도출할 수
-있습니다."""
+• Hei-TORQUE 제품군 장치는 Heidolph 고성능 교반기입니다.
+• Hei-TORQUE Ultimate 200 실험실 교반기는 점도는 최고 100,000mPas,부피는 최대 50리터(H2O)까지
+  강력한 교반에 적합합니다. 넓은 속도 범위(10~2,000rpm)와 200Ncm에 달하는 최대 토크를 자랑합니다.
+  뿐만 아니라, Hei-TORQUE Ultimate 200은 프로그래밍, 공정모니터링(타이머 기능, 토크 트렌드 밸류 디스플레이 포함)을 비롯해
+  애플리케이션에 실시간으로 실험 상황을 모니터링하며 사용할수 있는 장비입니다.
+  여기에는 USB와 RS232의 2개의 인터페이스가 장착되어 있어서, 외부장치나 PC와 연결하여 프로그램화 컨트롤러(PLC)
+  또는 LabManager 등과 같은 자동화 시스템으로 연결하여 사용 할수 있습니다. 
+  PC를 통한 최대 4개 장치의 원격 조정용 무료 Hei-Control 소프트웨어를 포함합니다.
+• 실험실 교반기 Hei-TORQUE Ultimate 200은 최신 엔진 기술 덕분에 모든 교반 작업을 최소한의 소음으로 수행합니다. 
+• 안전과 관련된 시작/정지 터치 기능은 의도하지 않은 작동의 위험을 최소화해줍니다.
+• 흄 후드 내, 또는 원자로 상부구조용 드라이브로 사용하기에 적합한 HeiTORQUE Ultimate 200에는 지름 10.5mm의 
+  퀵 액션 척(안전 링이 포함된 퀵척)이 있어서, 다양한 임펠라와 결합해 최상의 교반 결과를 도출할 수 있습니다."""
                   },
                 ]),
                 _buildProductList([
@@ -687,15 +589,12 @@ Ultimate 200에는 지름 10.5mm의 퀵 액션 척(안전 링이 포함된 퀵
                     "name": "Hei-Process Cloud Core",
                     "image": "assets/products/Hei-Process_Cloud_Core.png",
                     "content": """
-네트워크화되고 자동화된 실험실 환경을 마련하는 것은 결코 쉬운 일이
-아닙니다. 수동 작업 흐름을 완전히 자동화된 프로세스로 전환하는 것은
-서로 다른 장치와 소프트웨어 간의 호환성 문제로 인해 종종 장애물에
-부딪힙니다. 제한된 솔루션은 수동 개입을 필요로 하며, 작업 흐름 효율성을
-방해합니다.
+네트워크화되고 자동화된 실험실 환경을 마련하는 것은 결코 쉬운 일이 아닙니다.
+수동 작업 흐름을 완전히 자동화된 프로세스로 전환하는 것은 서로 다른 장치와 소프트웨어 간의 호환성 문제로 인해 종종 장애물에
+부딪힙니다. 제한된 솔루션은 수동 개입을 필요로 하며, 작업 흐름 효율성을 방해합니다.
 
-이러한 문제를 인식하고 지원하고자 합니다. Hei-PROCESS는 개별 실험실
-장치를 원활하게 통합하고 원격으로 제어하거나 복잡한 프로세스를 완전히
-자동화하는 등 고객의 요구에 맞는 맞춤형 솔루션을 제공합니다."""
+이러한 문제를 인식하고 지원하고자 합니다. Hei-PROCESS는 개별 실험실 장치를 원활하게 통합하고
+원격으로 제어하거나 복잡한 프로세스를 완전히 자동화하는 등 고객의 요구에 맞는 맞춤형 솔루션을 제공합니다."""
                   },
                 ]),
                 _buildProductList([
@@ -704,38 +603,31 @@ Ultimate 200에는 지름 10.5mm의 퀵 액션 척(안전 링이 포함된 퀵
                     "name": "Platform shakers",
                     "image": "assets/products/Platform_shakers.png",
                     "content": """
-Hei-SHAKE 시리즈의 플랫폼 셰이커를 사용하면 다양한 유형의 이동, 하중
-무게 및 흔들림 및 혼합을 위한 광범위한 액세서리를 통해 가능한 수많은
-응용 프로그램을 얻을 수 있습니다.
-올바른 액세서리와 함께 최고 요구 사항을 충족하는 신뢰할 수 있는 플랫폼
-셰이커를 가질 수 있으며, 강력한 디자인과 직관적인 작동 덕분에 실험실의
-일상적인 요구 사항을 충족합니다."""
+Hei-SHAKE 시리즈의 플랫폼 셰이커를 사용하면 다양한 유형의 이동, 하중 무게 및 흔들림 및 혼합을 위한
+광범위한 액세서리를 통해 가능한 수많은 응용 프로그램을 얻을 수 있습니다.
+올바른 액세서리와 함께 최고 요구 사항을 충족하는 신뢰할 수 있는 플랫폼 셰이커를 가질 수 있으며,
+강력한 디자인과 직관적인 작동 덕분에 실험실의 일상적인 요구 사항을 충족합니다."""
                   },
                   {
                     "brand": "HEIDOLPH",
                     "name": "Vortexer",
                     "image": "assets/products/Vortexer.png",
                     "content": """
-Vortexer는 모든 실험실에서 핵심적인 역할을 합니다. 사용 편의성과 실험실
-연구원으로서 얻을 수 있는 빠른 결과에 중점을 둡니다. 고체를 용해시키기
-위한 것이든, 세포 펠렛을 신선한 배지에 용해시키기 위한 것이든, 
-시험관에서 개별 샘플을 단순히 혼합하기 위한 것이든, 이 도구는 항상
-실험실 벤치의 한 지점을 찾습니다.
-Heidolph Instruments GmbH & Co.KG에는 세 개의 다른 Voltexer가 있으므로, 
-매일 사용할 수 있는 것이 있습니다. 게다가, 단일 Voltexer는 다양한
-액세서리로 확장될 수 있어서, 다른 샘플들이 더 쉽고 빠르게 처리될 수
-있습니다. 직접 보세요!"""
+Vortexer는 모든 실험실에서 핵심적인 역할을 합니다. 사용 편의성과 실험실 연구원으로서 얻을 수 있는 
+빠른 결과에 중점을 둡니다. 고체를 용해시키기 위한 것이든, 세포 펠렛을 신선한 배지에 용해시키기 위한 것이든, 
+시험관에서 개별 샘플을 단순히 혼합하기 위한 것이든, 이 도구는 항상 실험실 벤치의 한 지점을 찾습니다.
+
+Heidolph Instruments GmbH & Co.KG에는 세 개의 다른 Voltexer가 있으므로, 매일 사용할 수 있는 것이 있습니다.
+게다가, 단일 Voltexer는 다양한 액세서리로 확장될 수 있어서, 다른 샘플들이 더 쉽고 빠르게 처리될 수 있습니다."""
                   },
                   {
                     "brand": "HEIDOLPH",
                     "name": "오버헤드 쉐이커",
                     "image": "assets/products/Overhead_shakers.png",
                     "content": """
-콤팩트한 오버헤드 셰이커는 다양한 용도에 적합합니다. 특히 페인트 및
-바니시 기술에서 이 도구는 색상 안료를 적절하게 분배하여 원하는 고른
-결과를 얻기 위한 중요한 전제 조건을 제공합니다. 또한 대용량 모델(Reax 
-20)에는 모두 별도의 비상 스위치가 장착되어 있어 무거운 하중과
-고회전에도 절대적인 안전성이 보장됩니다."""
+콤팩트한 오버헤드 셰이커는 다양한 용도에 적합합니다. 특히 페인트 및 바니시 기술에서
+ 이 도구는 색상 안료를 적절하게 분배하여 원하는 고른 결과를 얻기 위한 중요한 전제 조건을 제공합니다.
+  또한 대용량 모델(Reax20)에는 모두 별도의 비상 스위치가 장착되어 있어 무거운 하중과 고회전에도 절대적인 안전성이 보장됩니다."""
                   },
                 ]),
                 _buildProductList([
@@ -744,18 +636,18 @@ Heidolph Instruments GmbH & Co.KG에는 세 개의 다른 Voltexer가 있으므�
                     "name": "Liquid handling",
                     "image": "assets/products/Liquid_handling.png",
                     "content": """
-정확한 투여는 제약, 화장품 및 식품 부문에서 특히나 중요합니다 종합적인
-공정 여건은 민감한 샘플의 안전한 운반에 전제 조건입니다. 이는 오차 범위
-±0.5%의 제어 정확성과 정밀한 속도 조절(5~120rpm)로 보장됩니다.
-게다가 옵션인 풋 스위치로 폐쇄된 배기 후드에서 펌프가 작동할 수
-있습니다. 속도, 회전 방향 및 온오프 기능 등의 매개 변수를 아날로그 또는
-디지털 인터페이스를 통해 외부적으로 제어할 수 있습니다.
+정확한 투여는 제약, 화장품 및 식품 부문에서 특히나 중요합니다.
+종합적인 공정 여건은 민감한 샘플의 안전한 운반에 전제 조건입니다.
+이는 오차 범위 ±0.5%의 제어 정확성과 정밀한 속도 조절(5~120rpm)로 보장됩니다.
+게다가 옵션인 풋 스위치로 폐쇄된 배기 후드에서 펌프가 작동할 수 있습니다.
+속도, 회전 방향 및 온오프 기능 등의 매개 변수를 아날로그 또는 디지털 인터페이스를 통해
+외부적으로 제어할 수 있습니다.
+
 이 모델에서는, 싱글 채널 또는 멀티 채널 펌프 헤드를 선택할 수 있습니다. 
-유량은 펌프 헤드에 따라 달라집니다.싱글 채널 헤드는 분당 0.38~813 
-ml이고, 멀티 채널 헤드는 분당 0.005~364 ml입니다. 공정 중점에 따라 다음
-매개 변수를 장치에서 설정할 수 있습니다. 속도, 튜빙 지름, 유량 디스플레이, 
-계량 부피, 투여 간격 및 쉬는 시간. 펌프는 최적의 투여 결과를 위해
-조정됩니다."""
+유량은 펌프 헤드에 따라 달라집니다.싱글 채널 헤드는 분당 0.38~813ml이고,
+멀티 채널 헤드는 분당 0.005~364 ml입니다. 공정 중점에 따라 다음 매개 변수를 장치에서 설정할 수 있습니다.
+속도, 튜빙 지름, 유량 디스플레이,계량 부피, 투여 간격 및 쉬는 시간. 
+펌프는 최적의 투여 결과를 위해 조정됩니다."""
                   },
                 ]),
               ],
@@ -1059,466 +951,466 @@ Advantages
                       Container(
                         width: width * 0.63,
                         height: height * 0.5,
-
                         child: Row(
                           children: [
                             Container(
-                                height: height * 0.5,
+                              height: height * 0.5,
                               child: Image.asset("assets/how_to_work.png",
                                   fit: BoxFit.contain),
                             ),
-                            
                             SizedBox(
                               width: width * 0.025,
                             ),
                             Container(
-                              height : height * 0.5,
-
-                                child:  Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-
-                                    Container(
-                                      width: width * 0.0580,
-                                      height: height * 0.0277,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: height * 0.01661),
-                                      decoration: ShapeDecoration(
-                                        color: Color(0xFF6194F9),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(59.81),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          SelectableText.rich(
-                                            TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: '01',
-                                                  style: TextStyle(
-                                                    color: Colors.white
-                                                        .withOpacity(0.5),
-                                                    fontSize: width * 0.008,
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w600,
-                                                    height: 0.15,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: ' 작동원리',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: width * 0.008,
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w600,
-                                                    height: 0.15,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
+                              height: height * 0.5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: width * 0.0580,
+                                    height: height * 0.0277,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: height * 0.01661),
+                                    decoration: ShapeDecoration(
+                                      color: Color(0xFF6194F9),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(59.81),
                                       ),
                                     ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        SizedBox(
-                                          width: width * 0.01,
-                                        ),
-                                        Transform.translate(
-                                          offset: Offset(0, -height * 0.0018),
-                                          child: Container(
-                                            width: width * 0.356,
-                                            decoration: ShapeDecoration(
-                                              shape: RoundedRectangleBorder(
-                                                side: BorderSide(
-                                                  width: 1,
-                                                  strokeAlign:
-                                                  BorderSide.strokeAlignCenter,
-                                                  color: Color(0xFF6194F9),
+                                        SelectableText.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: '01',
+                                                style: TextStyle(
+                                                  color: Colors.white
+                                                      .withOpacity(0.5),
+                                                  fontSize: width * 0.008,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 0.15,
                                                 ),
+                                              ),
+                                              TextSpan(
+                                                text: ' 작동원리',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: width * 0.008,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 0.15,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.01,
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(0, -height * 0.0018),
+                                        child: Container(
+                                          width: width * 0.356,
+                                          decoration: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                width: 1,
+                                                strokeAlign: BorderSide
+                                                    .strokeAlignCenter,
+                                                color: Color(0xFF6194F9),
                                               ),
                                             ),
                                           ),
-                                        )
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0060,
+                                  ),
+                                  SelectableText(
+                                    '회전하는 로터 내에서 발생하는 원심력을 이용하여 서로 다른 밀도의 두 액체를 분리합니다.',
+                                    style: TextStyle(
+                                      color: Color(0xFF414141),
+                                      fontSize: width * 0.0104,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                      height: height * 0.0018,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0150,
+                                  ),
+                                  Container(
+                                    width: width * 0.0591,
+                                    height: height * 0.0277,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: height * 0.01661),
+                                    decoration: ShapeDecoration(
+                                      color: Color(0xFF6194F9),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(59.81),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SelectableText.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: '02',
+                                                style: TextStyle(
+                                                  color: Colors.white
+                                                      .withOpacity(0.5),
+                                                  fontSize: width * 0.008,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 0.15,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: ' 입력방식',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: width * 0.008,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 0.15,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: height * 0.0060,
-                                    ),
-                                    SelectableText(
-                                      '회전하는 로터 내에서 발생하는 원심력을 이용하여 서로 다른 밀도의 두 액체를 분리합니다.',
-                                      style: TextStyle(
-                                        color: Color(0xFF414141),
-                                        fontSize: width * 0.0104,
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w500,
-                                        height: height * 0.0018,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.01,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: height * 0.0150,
-                                    ),
-                                    Container(
-                                      width: width * 0.0591,
-                                      height: height * 0.0277,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: height * 0.01661),
-                                      decoration: ShapeDecoration(
-                                        color: Color(0xFF6194F9),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(59.81),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          SelectableText.rich(
-                                            TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: '02',
-                                                  style: TextStyle(
-                                                    color: Colors.white
-                                                        .withOpacity(0.5),
-                                                    fontSize: width * 0.008,
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w600,
-                                                    height: 0.15,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: ' 입력방식',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: width * 0.008,
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w600,
-                                                    height: 0.15,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: width * 0.01,
-                                        ),
-                                        Transform.translate(
-                                          offset: Offset(0, -height * 0.0018),
-                                          child: Container(
-                                            width: width * 0.356,
-                                            decoration: ShapeDecoration(
-                                              shape: RoundedRectangleBorder(
-                                                side: BorderSide(
-                                                  width: 1,
-                                                  strokeAlign:
-                                                  BorderSide.strokeAlignCenter,
-                                                  color: Color(0xFF6194F9),
-                                                ),
+                                      Transform.translate(
+                                        offset: Offset(0, -height * 0.0018),
+                                        child: Container(
+                                          width: width * 0.356,
+                                          decoration: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                width: 1,
+                                                strokeAlign: BorderSide
+                                                    .strokeAlignCenter,
+                                                color: Color(0xFF6194F9),
                                               ),
                                             ),
                                           ),
-                                        )
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0060,
+                                  ),
+                                  SelectableText(
+                                    '혼합된 액체가 양쪽 입구로 들어오거나, 각각의 액체가 독립적으로 유입됩니다.',
+                                    style: TextStyle(
+                                      color: Color(0xFF414141),
+                                      fontSize: width * 0.0104,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                      height: height * 0.0018,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0150,
+                                  ),
+                                  Container(
+                                    width: width * 0.0455,
+                                    height: height * 0.0277,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: height * 0.01661),
+                                    decoration: ShapeDecoration(
+                                      color: Color(0xFF6194F9),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(59.81),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SelectableText.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: '03',
+                                                style: TextStyle(
+                                                  color: Colors.white
+                                                      .withOpacity(0.5),
+                                                  fontSize: width * 0.008,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 0.15,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: ' 혼합',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: width * 0.008,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 0.15,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: height * 0.0060,
-                                    ),
-                                    SelectableText(
-                                      '혼합된 액체가 양쪽 입구로 들어오거나, 각각의 액체가 독립적으로 유입됩니다.',
-                                      style: TextStyle(
-                                        color: Color(0xFF414141),
-                                        fontSize: width * 0.0104,
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w500,
-                                        height: height * 0.0018,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.01,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: height * 0.0150,
-                                    ),
-                                    Container(
-                                      width: width * 0.0455,
-                                      height: height * 0.0277,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: height * 0.01661),
-                                      decoration: ShapeDecoration(
-                                        color: Color(0xFF6194F9),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(59.81),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          SelectableText.rich(
-                                            TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: '03',
-                                                  style: TextStyle(
-                                                    color: Colors.white
-                                                        .withOpacity(0.5),
-                                                    fontSize: width * 0.008,
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w600,
-                                                    height: 0.15,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: ' 혼합',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: width * 0.008,
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w600,
-                                                    height: 0.15,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: width * 0.01,
-                                        ),
-                                        Transform.translate(
-                                          offset: Offset(0, -height * 0.0018),
-                                          child: Container(
-                                            width: width * 0.356,
-                                            decoration: ShapeDecoration(
-                                              shape: RoundedRectangleBorder(
-                                                side: BorderSide(
-                                                  width: 1,
-                                                  strokeAlign:
-                                                  BorderSide.strokeAlignCenter,
-                                                  color: Color(0xFF6194F9),
-                                                ),
+                                      Transform.translate(
+                                        offset: Offset(0, -height * 0.0018),
+                                        child: Container(
+                                          width: width * 0.356,
+                                          decoration: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                width: 1,
+                                                strokeAlign: BorderSide
+                                                    .strokeAlignCenter,
+                                                color: Color(0xFF6194F9),
                                               ),
                                             ),
                                           ),
-                                        )
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0060,
+                                  ),
+                                  SelectableText(
+                                    '로터와 하우징 사이에서 액체가 혼합되고(초록색), 로터 하단을 통해 유입됩니다.',
+                                    style: TextStyle(
+                                      color: Color(0xFF414141),
+                                      fontSize: width * 0.0104,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                      height: height * 0.0018,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0150,
+                                  ),
+                                  Container(
+                                    width: width * 0.0594,
+                                    height: height * 0.0277,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: height * 0.01661),
+                                    decoration: ShapeDecoration(
+                                      color: Color(0xFF6194F9),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(59.81),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SelectableText.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: '04',
+                                                style: TextStyle(
+                                                  color: Colors.white
+                                                      .withOpacity(0.5),
+                                                  fontSize: width * 0.008,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 0.15,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: ' 분리과정',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: width * 0.008,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 0.15,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: height * 0.0060,
-                                    ),
-                                    SelectableText(
-                                      '로터와 하우징 사이에서 액체가 혼합되고(초록색), 로터 하단을 통해 유입됩니다.',
-                                      style: TextStyle(
-                                        color: Color(0xFF414141),
-                                        fontSize: width * 0.0104,
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w500,
-                                        height: height * 0.0018,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.01,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: height * 0.0150,
-                                    ),
-                                    Container(
-                                      width: width * 0.0594,
-                                      height: height * 0.0277,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: height * 0.01661),
-                                      decoration: ShapeDecoration(
-                                        color: Color(0xFF6194F9),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(59.81),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          SelectableText.rich(
-                                            TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: '04',
-                                                  style: TextStyle(
-                                                    color: Colors.white
-                                                        .withOpacity(0.5),
-                                                    fontSize: width * 0.008,
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w600,
-                                                    height: 0.15,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: ' 분리과정',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: width * 0.008,
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w600,
-                                                    height: 0.15,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: width * 0.01,
-                                        ),
-                                        Transform.translate(
-                                          offset: Offset(0, -height * 0.0018),
-                                          child: Container(
-                                            width: width * 0.356,
-                                            decoration: ShapeDecoration(
-                                              shape: RoundedRectangleBorder(
-                                                side: BorderSide(
-                                                  width: 1,
-                                                  strokeAlign:
-                                                  BorderSide.strokeAlignCenter,
-                                                  color: Color(0xFF6194F9),
-                                                ),
+                                      Transform.translate(
+                                        offset: Offset(0, -height * 0.0018),
+                                        child: Container(
+                                          width: width * 0.356,
+                                          decoration: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                width: 1,
+                                                strokeAlign: BorderSide
+                                                    .strokeAlignCenter,
+                                                color: Color(0xFF6194F9),
                                               ),
                                             ),
                                           ),
-                                        )
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0060,
+                                  ),
+                                  SelectableText(
+                                    '밀도가 높은 액체(파란색): 로터 바깥쪽으로 밀려나가 높은 단계의 출구로 배출됩니다.\n밀도가 낮은 액체(노란색): 로터 중심으로 이동해 낮은 단계의 출구로 배출됩니다.',
+                                    style: TextStyle(
+                                      color: Color(0xFF414141),
+                                      fontSize: width * 0.0104,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                      height: height * 0.0010,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0150,
+                                  ),
+                                  Container(
+                                    width: width * 0.0455,
+                                    height: height * 0.0277,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: height * 0.01661),
+                                    decoration: ShapeDecoration(
+                                      color: Color(0xFF6194F9),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(59.81),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SelectableText.rich(
+                                          TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: '05',
+                                                style: TextStyle(
+                                                  color: Colors.white
+                                                      .withOpacity(0.5),
+                                                  fontSize: width * 0.008,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 0.15,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: ' 수집',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: width * 0.008,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 0.15,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: height * 0.0060,
-                                    ),
-                                    SelectableText(
-                                      '밀도가 높은 액체(파란색): 로터 바깥쪽으로 밀려나가 높은 단계의 출구로 배출됩니다.\n밀도가 낮은 액체(노란색): 로터 중심으로 이동해 낮은 단계의 출구로 배출됩니다.',
-                                      style: TextStyle(
-                                        color: Color(0xFF414141),
-                                        fontSize: width * 0.0104,
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w500,
-                                        height: height * 0.0010,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: width * 0.01,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: height * 0.0150,
-                                    ),
-                                    Container(
-                                      width: width * 0.0455,
-                                      height: height * 0.0277,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: height * 0.01661),
-                                      decoration: ShapeDecoration(
-                                        color: Color(0xFF6194F9),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(59.81),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          SelectableText.rich(
-                                            TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text: '05',
-                                                  style: TextStyle(
-                                                    color: Colors.white
-                                                        .withOpacity(0.5),
-                                                    fontSize: width * 0.008,
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w600,
-                                                    height: 0.15,
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: ' 수집',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: width * 0.008,
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w600,
-                                                    height: 0.15,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: width * 0.01,
-                                        ),
-                                        Transform.translate(
-                                          offset: Offset(0, -height * 0.0018),
-                                          child: Container(
-                                            width: width * 0.356,
-                                            decoration: ShapeDecoration(
-                                              shape: RoundedRectangleBorder(
-                                                side: BorderSide(
-                                                  width: 1,
-                                                  strokeAlign:
-                                                  BorderSide.strokeAlignCenter,
-                                                  color: Color(0xFF6194F9),
-                                                ),
+                                      Transform.translate(
+                                        offset: Offset(0, -height * 0.0018),
+                                        child: Container(
+                                          width: width * 0.356,
+                                          decoration: ShapeDecoration(
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(
+                                                width: 1,
+                                                strokeAlign: BorderSide
+                                                    .strokeAlignCenter,
+                                                color: Color(0xFF6194F9),
                                               ),
                                             ),
                                           ),
-                                        )
-                                      ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.0074,
+                                  ),
+                                  SelectableText(
+                                    '각각의 액체는 다른 수집 링에 모여 분리된 출구로 배출됩니다.',
+                                    style: TextStyle(
+                                      color: Color(0xFF414141),
+                                      fontSize: width * 0.0104,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                      height: height * 0.0018,
                                     ),
-                                    SizedBox(
-                                      height: height * 0.0074,
-                                    ),
-                                    SelectableText(
-                                      '각각의 액체는 다른 수집 링에 모여 분리된 출구로 배출됩니다.',
-                                      style: TextStyle(
-                                        color: Color(0xFF414141),
-                                        fontSize: width * 0.0104,
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w500,
-                                        height: height * 0.0018,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
+                              ),
                             )
-
                           ],
                         ),
                       )
@@ -1528,7 +1420,6 @@ Advantages
                 Container(
                   height: height * 1.301,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
                         height: height * 0.0435,
@@ -1546,7 +1437,7 @@ Advantages
                         height: height * 0.0240,
                       ),
                       Text(
-                        'CINC lndustry 특징',
+                        'CINC lndustry 작동원리',
                         style: TextStyle(
                           color: Color(0xFF191919),
                           fontSize: width * 0.02083,
@@ -1555,341 +1446,727 @@ Advantages
                         ),
                       ),
                       SizedBox(
-                        height: height * 0.0824,
+                        height: height * 0.07870,
                       ),
                       Container(
-                        height: height * 0.28796,
+                        width: width * 0.63,
+                        height: height * 0.5888,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            SizedBox(
+                              width: width * 0.02,
+                            ),
                             Container(
-                                width: width * 0.1489,
-                                height: height * 0.2870,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x33000000),
-                                      blurRadius: 14,
-                                      offset: Offset(1, 2),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: height * 0.0564,
+                              height: height * 0.5888,
+                              color: Colors.white,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Why Choose CINC?',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Color(0xFF191919),
+                                      fontSize: width * 0.015,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w700,
                                     ),
-                                    Container(
-                                      width: width * 0.065,
-                                      height: height * 0.1166,
-                                      child: Image.asset('assets/cha01.png',
-                                          fit: BoxFit.contain),
-                                    ),
-                                    SizedBox(height: height * 0.0388),
-                                    SizedBox(
-                                      width: width * 0.1276,
-                                      child: SelectableText(
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  Container(
+                                      width: width * 0.376,
+                                      height: height * 0.003,
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFF6194F9))),
+                                  SizedBox(height: height * 0.0296),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '01',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
                                         '분당 0.5~200gallons (1.9~757L)의 유량 처리 가능',
-                                        textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: Color(0xFF414141),
                                           fontSize: width * 0.009,
                                           fontFamily: 'Pretendard',
                                           fontWeight: FontWeight.w500,
                                         ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            SizedBox(
-                              width: width * 0.0098,
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '02',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
+                                        '용매, 세척액 등을 투입 할 수 있는 2개의 입구 설계',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '03',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
+                                        '200~1,000g의 원심력만으로도 효율적인 분리 및 추출',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '04',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
+                                        '전단에 민감한 유체를 위한 저혼잡 및 직접 투입 옵션 제공',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '05',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
+                                        '중량 차이를 처리할 수 있는 조절 가능한 중상위어와 가변 속도 모터, 펌프식 및 중력식 모두 대응',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '06',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
+                                        '투입 비율의 변화에 자동으로 적응, 별도의 조정 불필요',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '07',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
+                                        '다양한 유량과 유령 중단을 자동으로 제어',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '08',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
+                                        '냉동 온도부터 끓는 온도까지 다양한 투입 온도 처리 가능',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '09',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
+                                        '내구성 높은 스테인리스 스틸 구조, 부식 방지 합금도 선택 가능',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '10',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
+                                        '유지보수가 적고 신뢰성이 높은 제자리 세척(CIP) 로터 시스템',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '11',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
+                                        '하나의 움직이는 부품만 있는 간단한 직접 구동 방식으로 안정성 강화',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.01),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: width * 0.015,
+                                          height: height * 0.0277,
+                                          decoration: ShapeDecoration(
+                                            color: Color(0xFF191919),
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(3)),
+                                          ),
+                                          child: Text(
+                                            '12',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width * 0.0083,
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+
+                                            ),
+                                          )),
+                                      SizedBox(width: width * 0.009),
+                                      SelectableText(
+                                        '조용한 작동과 유연한 구성을 위한 직접 구동 패키지',
+                                        style: TextStyle(
+                                          color: Color(0xFF414141),
+                                          fontSize: width * 0.009,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: height * 0.0037),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SizedBox(width: width * 0.024),
+                                      DottedBorder(
+                                        color: Color(0x7F6194F9), // 점선 색상
+                                        strokeWidth: 1, // 선 두께
+                                        dashPattern: [6, 3], // 점선 패턴 (길이, 간격)
+                                        borderType: BorderType.RRect, // 둥근 사각형 테두리
+                                        radius: Radius.circular(8), // 둥근 모서리 반경 (선택 사항)
+                                        padding: EdgeInsets.all(0), // 패딩 (선택 사항)
+                                        child: Container(
+                                          width: width * 0.3530,
+                                          // 기타 자식 위젯 속성 추가 가능
+                                        ),
+                                      )
+
+                                    ],
+                                  ),
+
+                                ],
+                              ),
                             ),
                             Container(
-                                width: width * 0.1489,
-                                height: height * 0.2870,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x33000000),
-                                      blurRadius: 14,
-                                      offset: Offset(1, 2),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: height * 0.0564,
-                                    ),
-                                    Container(
-                                      width: width * 0.065,
-                                      height: height * 0.1166,
-                                      child: Image.asset('assets/cha02.png',
-                                          fit: BoxFit.contain),
-                                    ),
-                                    SizedBox(height: height * 0.0388),
-                                    SizedBox(
-                                      width: width * 0.1276,
-                                      child: SelectableText(
-                                        '200~1,000g의 원심력만으로도\n효율적인 분리 및 추출',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Color(0xFF414141),
-                                          fontSize: width * 0.009,
-                                          fontFamily: 'Pretendard',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            SizedBox(
-                              width: width * 0.0098,
+                              width: width * 0.1947,
+                              height: height * 0.5888,
+                              child: Image.asset(
+                                "assets/products/Cinc_Industry_Product.png",
+                                fit: BoxFit.fill,
+                              ),
                             ),
-                            Container(
-                                width: width * 0.1489,
-                                height: height * 0.2870,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x33000000),
-                                      blurRadius: 14,
-                                      offset: Offset(1, 2),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: height * 0.0564,
-                                    ),
-                                    Container(
-                                      width: width * 0.065,
-                                      height: height * 0.1166,
-                                      child: Image.asset('assets/cha03.png',
-                                          fit: BoxFit.contain),
-                                    ),
-                                    SizedBox(height: height * 0.0388),
-                                    SizedBox(
-                                      width: width * 0.1276,
-                                      child: SelectableText(
-                                        '전단에 민감한 유체를 위한\n저혼잡 및 직접 두입 옵션 제공',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Color(0xFF414141),
-                                          fontSize: width * 0.009,
-                                          fontFamily: 'Pretendard',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
                           ],
                         ),
-                      ),
-                      SizedBox(height: height * 0.0240),
-                      Container(
-                        height: height * 0.28796,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                width: width * 0.1489,
-                                height: height * 0.2870,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x33000000),
-                                      blurRadius: 14,
-                                      offset: Offset(1, 2),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: height * 0.0564,
-                                    ),
-                                    Container(
-                                      width: width * 0.065,
-                                      height: height * 0.1166,
-                                      child: Image.asset('assets/cha04.png',
-                                          fit: BoxFit.contain),
-                                    ),
-                                    SizedBox(height: height * 0.0388),
-                                    SizedBox(
-                                      width: width * 0.1276,
-                                      child: SelectableText(
-                                        '중량 차이를 처리할 수 있는 조절\n가능한 중상위어와 가변 속도 모터',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Color(0xFF414141),
-                                          fontSize: width * 0.009,
-                                          fontFamily: 'Pretendard',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            SizedBox(
-                              width: width * 0.0098,
-                            ),
-                            Container(
-                                width: width * 0.1489,
-                                height: height * 0.2870,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x33000000),
-                                      blurRadius: 14,
-                                      offset: Offset(1, 2),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: height * 0.0564,
-                                    ),
-                                    Container(
-                                      width: width * 0.065,
-                                      height: height * 0.1166,
-                                      child: Image.asset('assets/cha05.png',
-                                          fit: BoxFit.contain),
-                                    ),
-                                    SizedBox(height: height * 0.0388),
-                                    SizedBox(
-                                      width: width * 0.1276,
-                                      child: SelectableText(
-                                        '냉동 온도부터 끓는 온도까지\n다양한 투입 온도 처리 가능',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Color(0xFF414141),
-                                          fontSize: width * 0.009,
-                                          fontFamily: 'Pretendard',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            SizedBox(
-                              width: width * 0.0098,
-                            ),
-                            Container(
-                                width: width * 0.1489,
-                                height: height * 0.2870,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x33000000),
-                                      blurRadius: 14,
-                                      offset: Offset(1, 2),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: height * 0.0564,
-                                    ),
-                                    Container(
-                                      width: width * 0.065,
-                                      height: height * 0.1166,
-                                      child: Image.asset('assets/cha06.png',
-                                          fit: BoxFit.contain),
-                                    ),
-                                    SizedBox(height: height * 0.0388),
-                                    SizedBox(
-                                      width: width * 0.1276,
-                                      child: SelectableText(
-                                        '내구성 높은 스테인리스 스틸\n구조, 부식 방지 합금도 선택 가능',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Color(0xFF414141),
-                                          fontSize: width * 0.009,
-                                          fontFamily: 'Pretendard',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                            SizedBox(
-                              width: width * 0.0098,
-                            ),
-                            Container(
-                                width: width * 0.1489,
-                                height: height * 0.2870,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  shadows: [
-                                    BoxShadow(
-                                      color: Color(0x33000000),
-                                      blurRadius: 14,
-                                      offset: Offset(1, 2),
-                                      spreadRadius: 0,
-                                    )
-                                  ],
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: height * 0.0564,
-                                    ),
-                                    Container(
-                                      width: width * 0.065,
-                                      height: height * 0.1166,
-                                      child: Image.asset('assets/cha07.png',
-                                          fit: BoxFit.contain),
-                                    ),
-                                    SizedBox(height: height * 0.0388),
-                                    SizedBox(
-                                      width: width * 0.1276,
-                                      child: SelectableText(
-                                        '유지보수가 적고 신뢰성이 높은\n제자리 세척(CIP) 로터 시스템',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Color(0xFF414141),
-                                          fontSize: width * 0.009,
-                                          fontFamily: 'Pretendard',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                          ],
-                        ),
-                      ),
+                      )
                     ],
                   ),
                 ),
@@ -2355,7 +2632,6 @@ Advantages
                                       ),
                                     ],
                                   ),
-
                                 ],
                               ),
                             ),
@@ -2397,7 +2673,7 @@ Advantages
                                       ),
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           SizedBox(
                                             height: height * 0.0092,
@@ -2456,7 +2732,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -2505,7 +2781,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -2554,7 +2830,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -2591,13 +2867,6 @@ Advantages
                                       ),
                                     ],
                                   ),
-
-
-
-
-
-
-
                                 ],
                               ),
                             ),
@@ -2639,7 +2908,7 @@ Advantages
                                       ),
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           SizedBox(
                                             height: height * 0.0092,
@@ -2698,7 +2967,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -2747,7 +3016,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -2796,7 +3065,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -2845,7 +3114,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -2882,7 +3151,6 @@ Advantages
                                       ),
                                     ],
                                   ),
-
                                 ],
                               ),
                             ),
@@ -2924,7 +3192,7 @@ Advantages
                                       ),
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           SizedBox(
                                             height: height * 0.0092,
@@ -2983,7 +3251,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3020,8 +3288,6 @@ Advantages
                                       ),
                                     ],
                                   ),
-
-
                                 ],
                               ),
                             ),
@@ -3069,7 +3335,7 @@ Advantages
                                       ),
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           SizedBox(
                                             height: height * 0.0092,
@@ -3128,7 +3394,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3177,7 +3443,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3226,7 +3492,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3275,7 +3541,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3312,9 +3578,6 @@ Advantages
                                       ),
                                     ],
                                   ),
-
-
-
                                 ],
                               ),
                             ),
@@ -3356,7 +3619,7 @@ Advantages
                                       ),
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           SizedBox(
                                             height: height * 0.0092,
@@ -3415,7 +3678,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3464,7 +3727,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3501,8 +3764,6 @@ Advantages
                                       ),
                                     ],
                                   ),
-
-
                                 ],
                               ),
                             ),
@@ -3544,7 +3805,7 @@ Advantages
                                       ),
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           SizedBox(
                                             height: height * 0.0092,
@@ -3603,7 +3864,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3652,7 +3913,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3701,7 +3962,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3738,8 +3999,6 @@ Advantages
                                       ),
                                     ],
                                   ),
-
-
                                 ],
                               ),
                             ),
@@ -3781,7 +4040,7 @@ Advantages
                                       ),
                                       child: Column(
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           SizedBox(
                                             height: height * 0.0092,
@@ -3840,7 +4099,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3889,7 +4148,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3938,7 +4197,7 @@ Advantages
                                           side: BorderSide(
                                             width: 0.5,
                                             strokeAlign:
-                                            BorderSide.strokeAlignCenter,
+                                                BorderSide.strokeAlignCenter,
                                             color: Color(0xFF191919),
                                           ),
                                         ),
@@ -3975,8 +4234,6 @@ Advantages
                                       ),
                                     ],
                                   ),
-
-
                                 ],
                               ),
                             ),
@@ -4019,48 +4276,14 @@ Advantages
                         height: height * 0.07870,
                       ),
                       Container(
-                          width : width * 0.625,
-                          height : height * 0.81574,
-                          child : Image.asset(
-                          'assets/table.png',
-                          fit: BoxFit.contain
-                      )
-                      )
-
+                          width: width * 0.625,
+                          height: height * 0.81574,
+                          child: Image.asset('assets/table.png',
+                              fit: BoxFit.contain))
                     ],
                   ),
                 ),
 
-
-                // Container(
-                //   height: isMobile ? 500 : height * 0.5800,
-                //   padding: EdgeInsets.fromLTRB(isMobile ? 16 : width * 0.097, 0,
-                //       isMobile ? 16 : width * 0.097, 0),
-                //   child: Center(
-                //       child: Table(
-                //     border: TableBorder.all(), // 표에 테두리 추가
-                //     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                //     children: List.generate(11, (rowIndex) {
-                //       return TableRow(
-                //         children: List.generate(6, (colIndex) {
-                //           return Padding(
-                //             padding: const EdgeInsets.all(8.0),
-                //             child: Text(
-                //               squadData[rowIndex][colIndex],
-                //               style: TextStyle(
-                //                 fontSize: isMobile ? 8 : width * 0.005,
-                //                 // 각 행에 따라 폰트 크기 변경
-                //                 fontWeight: FontWeight.bold,
-                //                 color: Colors.black, // 컬럼 인덱스에 따른 색상 지정
-                //               ),
-                //               textAlign: TextAlign.center,
-                //             ),
-                //           );
-                //         }),
-                //       );
-                //     }),
-                //   )),
-                // ),
               ],
             ),
           ),
@@ -4259,7 +4482,7 @@ Advantages
                 height: height * 0.4851,
                 decoration: _isHovered[index] == true
                     ? BoxDecoration(
-                        color: Colors.brown, // 배경색
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(8), // 테두리 둥글기
                         boxShadow: [
                           BoxShadow(
@@ -4368,7 +4591,7 @@ Advantages
                 ), // 모서리 둥글게
               ),
               content: Container(
-                height: isMobile ? 400 : height * 0.55555,
+                height: isMobile ? 400 : height * 0.85,
                 width: isMobile ? width * 0.8 : width * 0.4,
                 decoration: BoxDecoration(
                   color: Colors.white, // 배경 색상
@@ -4381,10 +4604,13 @@ Advantages
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Spacer(),
+                        SizedBox(
+                          width: width * 0.035,
+                        ),
                         SelectableText(
                           name,
                           style: TextStyle(
-                              fontSize: isMobile ? 16 : width * 0.0125,
+                              fontSize: isMobile ? 16 : width * 0.015,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Pretendard'),
                         ),
@@ -4393,7 +4619,10 @@ Advantages
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          icon: Icon(Icons.close,size: width * 0.025,),
+                          icon: Icon(
+                            Icons.close,
+                            size: width * 0.025,
+                          ),
                         ),
                       ],
                     ),
@@ -4417,28 +4646,25 @@ Advantages
                       child: Image.asset(
                         image,
                         fit: BoxFit.contain,
-                        height: isMobile ? 150 : width * 0.1302,
-                        width: isMobile ? 150 : height * 0.2314,
+                        height: isMobile ? 150 : width * 0.20,
+                        width: isMobile ? 150 : height * 0.30,
                       ),
                     ),
-                    SizedBox(height: height * 0.0148),
+                    SizedBox(height: height * 0.05),
                     // 내용 섹션
-                    Expanded(
-                        child: SingleChildScrollView(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: height * 0.0074),
-                        child: SelectableText(
-                          content,
-                          style: TextStyle(
-                            fontSize: isMobile ? 12 : height * 0.0148,
-                            height: height * 0.00138, // 줄 간격 추가
-                            color: Colors.black87,
-                          ),
-                          textAlign: TextAlign.left,
+                    Container(
+                      child: SelectableText(
+                        content,
+                        style: TextStyle(
+                          fontSize: isMobile ? 12 : height * 0.0120,
+                          height: height * 0.00142, // 줄 간격 추가
+                          fontFamily: 'Pretendard',
+                          color: Colors.black87,
                         ),
+                        textAlign: TextAlign.left,
                       ),
-                    )),
+                    ),
+
                     SizedBox(height: height * 0.0148),
                     // 하단 버튼 (필요하다면 추가 가능)
                   ],
@@ -4475,7 +4701,7 @@ Advantages
         ),
         style: TextButton.styleFrom(
           foregroundColor: Colors.white,
-          overlayColor:Colors.transparent,// 눌렀을 때 생기는 그림자 제거
+          overlayColor: Colors.transparent, // 눌렀을 때 생기는 그림자 제거
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.zero, // 직사각형으로 설정
           ),

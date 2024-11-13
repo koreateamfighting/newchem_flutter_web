@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:html' as html; // Web용 dart:html 패키지 사용
-import 'dart:ui' as ui;
+import 'dart:ui_web' as ui;
 import 'main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,8 +18,17 @@ class _CompanyPageState extends State<CompanyPage> {
   int _selectedTabIndex = 0;
   String url =
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d669.6223690480622!2d127.01586977089258!3d37.02699966322705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3d001631c641%3A0x2cd353d15ed8488b!2z6rOg642V7KeA7Iud6rO17J6R7IaM7JWE7J207YOA7JuMIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1717727526433!5m2!1sko!2skr" width="400" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
-  final Widget _iframeWidget = HtmlElementView(
-    viewType: 'iframeElement',
+
+  String url2 =
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3214.0718188284864!2d127.40560918528085!3d36.33480920020751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35654939a7b233b1%3A0x1a9c09f4d30f558f!2z64yA7KCE6rSR7Jet7IucIOykkeq1rCDrqqnrj5nroZwgNDI!5e0!3m2!1sko!2skr!4v1731478790160!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
+
+  final Widget _iframeWidget1 = HtmlElementView(
+    viewType: 'iframeElement1',
+    key: UniqueKey(),
+  );
+
+  final Widget _iframeWidget2 = HtmlElementView(
+    viewType: 'iframeElement2',
     key: UniqueKey(),
   );
 
@@ -34,18 +43,39 @@ class _CompanyPageState extends State<CompanyPage> {
     final width = size.width;
     final height = size.height;
     final isM = width < 600;
-    final html.IFrameElement _iFrameElement = html.IFrameElement();
+    final html.IFrameElement _iFrameElement1 = html.IFrameElement();
+    final html.IFrameElement _iFrameElement2 = html.IFrameElement();
 
-    _iFrameElement.style.height = '120%';
-    _iFrameElement.style.width = isM ? '100' : '60%';
-    _iFrameElement.src = '${url}';
-    _iFrameElement.style.border = 'none';
+    _iFrameElement1.style.height = '100%';
+    _iFrameElement1.style.width = isM ? '100' : '100%';
+    _iFrameElement1.src = '${url}';
+    _iFrameElement1.style.border = 'none';
 
+    _iFrameElement2.style.height = '100%';
+    _iFrameElement2.style.width = isM ? '100' : '100%';
+    _iFrameElement2.src = '${url2}';
+    _iFrameElement2.style.border = 'none';
 // ignore: undefined_prefixed_name
     ui.platformViewRegistry.registerViewFactory(
-      'iframeElement',
-      (int viewId) => _iFrameElement,
+      'iframeElement1',
+      (int viewId) {
+        final element = html.IFrameElement();
+        element.src = url;
+        element.style.border = 'none';
+        return element;
+      },
     );
+
+    ui.platformViewRegistry.registerViewFactory(
+      'iframeElement2',
+      (int viewId) {
+        final element = html.IFrameElement();
+        element.src = url2;
+        element.style.border = 'none';
+        return element;
+      },
+    );
+
     return MaterialApp(
       home: LayoutBuilder(builder: (context, constraints) {
         // width와 height 모두를 고려한 반응형 조건 설정
@@ -57,7 +87,11 @@ class _CompanyPageState extends State<CompanyPage> {
           backgroundColor: Colors.white,
           body: SingleChildScrollView(
               child: Container(
-            height: _selectedTabIndex == 0 ? height * 1.958 :_selectedTabIndex == 1? height * 2.446 : height * 2.476,
+            height: _selectedTabIndex == 0
+                ? height * 1.958
+                : _selectedTabIndex == 1
+                    ? height * 2.446
+                    : height * 5,
             color: Colors.white70,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,23 +181,23 @@ class _CompanyPageState extends State<CompanyPage> {
                               SizedBox(
                                 width: width * 0.0020,
                               ),
-                              buildTextButton2("COMPANY", 1, width * 0.00729,
+                              buildTextButton2(
+                                  "COMPANY", 1, width * 0.00729, onItemTapped),
+                              SizedBox(
+                                width: width * 0.0020,
+                              ),
+                              buildTextButton2(
+                                  "PRODUCTS", 2, width * 0.00729, onItemTapped),
+                              SizedBox(
+                                width: width * 0.0020,
+                              ),
+                              buildTextButton2("CONTACT US", 3, width * 0.00729,
                                   onItemTapped),
                               SizedBox(
                                 width: width * 0.0020,
                               ),
-                              buildTextButton2("PRODUCTS", 2, width * 0.00729,
+                              buildTextButton2("DOWNLOADS", 4, width * 0.00729,
                                   onItemTapped),
-                              SizedBox(
-                                width: width * 0.0020,
-                              ),
-                              buildTextButton2("CONTACT US", 3,
-                                  width * 0.00729, onItemTapped),
-                              SizedBox(
-                                width: width * 0.0020,
-                              ),
-                              buildTextButton2("DOWNLOADS", 4,
-                                  width * 0.00729, onItemTapped),
                             ],
                           ),
                         ],
@@ -402,7 +436,8 @@ class _CompanyPageState extends State<CompanyPage> {
       final isTablet = width >= 600 && width < 1024 && height < 1200;
       final isDesktop = width >= 1024 && height >= 1200;
       return Padding(
-        padding:  EdgeInsets.fromLTRB(width * 0.0083, height * 0.0148, width * 0.0083, height * 0.0148),
+        padding: EdgeInsets.fromLTRB(
+            width * 0.0083, height * 0.0148, width * 0.0083, height * 0.0148),
         child: SingleChildScrollView(
             child: Container(
           width: width,
@@ -491,7 +526,7 @@ class _CompanyPageState extends State<CompanyPage> {
                       ),
                     ),
                     SizedBox(
-                      width: width *0.00729,
+                      width: width * 0.00729,
                     ),
                     SelectableText(
                       '김천만',
@@ -596,11 +631,12 @@ class _CompanyPageState extends State<CompanyPage> {
       final isTablet = width >= 600 && width < 1024 && height < 1200;
       final isDesktop = width >= 1024 && height >= 1200;
       return Padding(
-        padding:  EdgeInsets.fromLTRB(width * 0.0083, height * 0.0148, width * 0.0083, height * 0.0148),
+        padding: EdgeInsets.fromLTRB(
+            width * 0.0083, height * 0.0148, width * 0.0083, height * 0.0148),
         child: SingleChildScrollView(
             child: Container(
           width: width,
-          height: height * 1.1,
+          height: height * 2.2,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -626,46 +662,201 @@ class _CompanyPageState extends State<CompanyPage> {
                 ),
               ),
               SizedBox(height: height * 0.0843),
+
+
               Container(
                 width: width * 0.4817,
                 height: height * 0.0712,
-                decoration: ShapeDecoration(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6)),
-                  shadows: [
-                    BoxShadow(
-                      color: Color(0x26000000),
-                      blurRadius: 30,
-                      offset: Offset(0, 0),
-                      spreadRadius: 0,
-                    )
-                  ],
-                ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: width * 0.010,
-                      height: height * 0.025,
-                      child: Image.asset(
-                        'assets/direction.png',
+                      width: width * 0.1088,
+                      height: height * 0.0712,
+                      decoration: ShapeDecoration(
+                        color: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6)),
+                        shadows: [
+                          BoxShadow(
+                            color: Color(0x26000000),
+                            blurRadius: 30,
+                            offset: Offset(0, 0),
+                            spreadRadius: 0,
+                          )
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: width * 0.010,
+                            height: height * 0.025,
+                            child: Image.asset(
+                              'assets/direction.png',
+                            ),
+                          ),
+                          SizedBox(
+                            width: width *0.0052,
+                          ),
+                          SelectableText(
+                            '경기사무소',
+                            style: TextStyle(
+                              color: Color(0xFF96b9ff),
+                              fontSize: width * 0.0114,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w500,
+                              height: 0.06,
+                              letterSpacing: 0.66,
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      width: width * 0.011,
-                    ),
-                    SelectableText(
-                      '경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
-                      style: TextStyle(
-                        color: Color(0xFF191919),
-                        fontSize: width * 0.0114,
-                        fontFamily: 'Pretendard',
-                        fontWeight: FontWeight.w500,
-                        height: 0.06,
-                        letterSpacing: 0.66,
+                    SizedBox(width: width * 0.0083),
+                    Container(
+                      width: width * 0.3645,
+                      height: height * 0.0712,
+                      decoration: ShapeDecoration(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6)),
+                        shadows: [
+                          BoxShadow(
+                            color: Color(0x26000000),
+                            blurRadius: 30,
+                            offset: Offset(0, 0),
+                            spreadRadius: 0,
+                          )
+                        ],
                       ),
-                    )
+                      child: Transform.translate(
+                        offset: Offset(0, height * 0.0324),
+                        child: SelectableText(
+                          '(18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xFF191919),
+                            fontSize: width * 0.0114,
+                            fontFamily: 'Pretendard',
+                            fontWeight: FontWeight.w500,
+                            height: 0.06,
+                            letterSpacing: 0.66,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              SizedBox(
+                height: height * 0.0296,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: width * 0.25,
+                  ),
+                  Container(
+                    width: width * 0.4825,
+                    height: height * 0.45,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      // optional: 배경색을 설정하려면 color 속성 추가
+                      color: Colors.white,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: _iframeWidget1,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: height * 0.0296,
+              ),
+              Container(
+                width: width * 0.4817,
+                height: height * 0.0712,
+                child: Row(
+                  children: [
+                    Container(
+                      width: width * 0.1088,
+                      height: height * 0.0712,
+                      decoration: ShapeDecoration(
+                        color: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6)),
+                        shadows: [
+                          BoxShadow(
+                            color: Color(0x26000000),
+                            blurRadius: 30,
+                            offset: Offset(0, 0),
+                            spreadRadius: 0,
+                          )
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: width * 0.010,
+                            height: height * 0.025,
+                            child: Image.asset(
+                              'assets/direction.png',
+                            ),
+                          ),
+                          SizedBox(
+                            width: width *0.0052,
+                          ),
+                          SelectableText(
+                            '대전사무소',
+                            style: TextStyle(
+                              color: Color(0xFF96b9ff),
+                              fontSize: width * 0.0114,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w500,
+                              height: 0.06,
+                              letterSpacing: 0.66,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: width * 0.0083),
+                    Container(
+                      width: width * 0.3645,
+                      height: height * 0.0712,
+                      decoration: ShapeDecoration(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6)),
+                        shadows: [
+                          BoxShadow(
+                            color: Color(0x26000000),
+                            blurRadius: 30,
+                            offset: Offset(0, 0),
+                            spreadRadius: 0,
+                          )
+                        ],
+                      ),
+                      child: Transform.translate(
+                        offset: Offset(0, height * 0.0324),
+                        child: SelectableText(
+                          '(34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Color(0xFF191919),
+                            fontSize: width * 0.0114,
+                            fontFamily: 'Pretendard',
+                            fontWeight: FontWeight.w500,
+                            height: 0.06,
+                            letterSpacing: 0.66,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -675,17 +866,24 @@ class _CompanyPageState extends State<CompanyPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(width: width * 0.25,),
-                  Container(
-                    width: width * 0.8000,
-                    height: height * 0.45,
-                    child: _iframeWidget,
+                  SizedBox(
+                    width: width * 0.25,
                   ),
-
+                  Container(
+                    width: width * 0.4825,
+                    height: height * 0.45,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      // optional: 배경색을 설정하려면 color 속성 추가
+                      color: Colors.white,
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: _iframeWidget2,
+                    ),
+                  ),
                 ],
-              )
-
-
+              ),
             ],
           ),
         )),
@@ -717,7 +915,7 @@ class _CompanyPageState extends State<CompanyPage> {
         ),
         style: TextButton.styleFrom(
           foregroundColor: Colors.white,
-          overlayColor:Colors.transparent,// 눌렀을 때 생기는 그림자 제거
+          overlayColor: Colors.transparent, // 눌렀을 때 생기는 그림자 제거
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.zero, // 직사각형으로 설정
           ),
