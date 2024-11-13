@@ -57,7 +57,8 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/company/:tabIndex', // Company 페이지의 탭별 경로
       pageBuilder: (context, state) {
-        final tabIndex = int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
+        final tabIndex =
+            int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
         return CustomTransitionPage(
           key: state.pageKey,
           child: MyAppContainer(
@@ -80,7 +81,8 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/products/:tabIndex', // Products 페이지 경로 및 탭별 설정
       pageBuilder: (context, state) {
-        final tabIndex = int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
+        final tabIndex =
+            int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
         return CustomTransitionPage(
           key: state.pageKey,
           child: MyAppContainer(
@@ -190,92 +192,223 @@ class _MyAppContainerState extends State<MyAppContainer> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height * (isMobile ? 0.1 : isTablet ? 0.08 : 0.07)),
+        preferredSize: Size.fromHeight(height *
+            (isMobile
+                ? 0.1
+                : isTablet
+                    ? 0.08
+                    : 0.07)),
         child: AppBar(
           backgroundColor: Colors.white,
-          elevation: 0, // 그림자 제거
+          elevation: 0,
+          // 그림자 제거
           shadowColor: Colors.transparent,
           surfaceTintColor: Colors.transparent,
           title: Container(
             padding: EdgeInsets.fromLTRB(
               0,
-              height * (isMobile ? 0.018 : isTablet ? 0.015 : 0.0148),
+              height *
+                  (isMobile
+                      ? 0.018
+                      : isTablet
+                          ? 0.015
+                          : 0.0148),
               0,
               0,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(width: width * (isMobile ? 0.15 : isTablet ? 0.18 : 0.1770)),
+                SizedBox(
+                    width: width *
+                        (isMobile
+                            ? 0.15
+                            : isTablet
+                                ? 0.18
+                                : 0.1770)),
                 Container(
-                  width: width * (isMobile ? 0.1 : isTablet ? 0.09 : 0.0858),
-                  height: height * (isMobile ? 0.05 : isTablet ? 0.047 : 0.0453),
+                  width: width *
+                      (isMobile
+                          ? 0.1
+                          : isTablet
+                              ? 0.09
+                              : 0.0858),
+                  height: height *
+                      (isMobile
+                          ? 0.05
+                          : isTablet
+                              ? 0.047
+                              : 0.0453),
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: IconButton(
                       icon: Image.asset('assets/logo.png'),
                       onPressed: () => onItemTapped(0), // 수정된 부분
                       style: ButtonStyle(
-                        overlayColor: MaterialStateProperty.all(Colors.transparent), // 눌렀을 때 음영 효과 제거
+                        overlayColor: MaterialStateProperty.all(
+                            Colors.transparent), // 눌렀을 때 음영 효과 제거
                       ),
                     ),
                   ),
                 ),
-                SizedBox(width: width * (isMobile ? 0.2 : isTablet ? 0.23 : 0.2600)),
+                SizedBox(
+                    width: width *
+                        (isMobile
+                            ? 0.2
+                            : isTablet
+                                ? 0.23
+                                : 0.2200)),
                 Container(
-                  width: width * 0.28,
-                  alignment: Alignment.center,
+                  width: width * 0.33,
                   padding: EdgeInsets.only(top: height * 0.01), // Row 높이를 살짝 내림
                   child: Row(
                     children: [
                       buildTextButton(
                         "HOME",
                         0,
-                        width * (isMobile ? 0.004 : isTablet ? 0.005 : 0.007),
-                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05210),
-                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0375),
+                        width *
+                            (isMobile
+                                ? 0.004
+                                : isTablet
+                                    ? 0.005
+                                    : 0.00713),
+                        width *
+                            (isMobile
+                                ? 0.045
+                                : isTablet
+                                    ? 0.05
+                                    : 0.05210),
+                        height *
+                            (isMobile
+                                ? 0.035
+                                : isTablet
+                                    ? 0.036
+                                    : 0.0375),
                         onItemTapped,
                       ),
-                      SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                      SizedBox(
+                          width: width *
+                              (isMobile
+                                  ? 0.003
+                                  : isTablet
+                                      ? 0.0035
+                                      : 0.012)),
                       buildTextButton(
                         "COMPANY",
                         1,
-                        width * (isMobile ? 0.004 : isTablet ? 0.005 : 0.007),
-                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05210),
-                        height * (isMobile ? 0.035 : isTablet ? 0.036 :0.0375),
+                        width *
+                            (isMobile
+                                ? 0.004
+                                : isTablet
+                                    ? 0.005
+                                    : 0.00713),
+                        width *
+                            (isMobile
+                                ? 0.045
+                                : isTablet
+                                    ? 0.05
+                                    : 0.05210),
+                        height *
+                            (isMobile
+                                ? 0.035
+                                : isTablet
+                                    ? 0.036
+                                    : 0.0375),
                         onItemTapped,
                       ),
-                      SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                      SizedBox(
+                          width: width *
+                              (isMobile
+                                  ? 0.003
+                                  : isTablet
+                                      ? 0.0035
+                                      : 0.012)),
                       buildTextButton(
                         "PRODUCTS",
                         2,
-                        width * (isMobile ? 0.004 : isTablet ? 0.005 : 0.007),
-                        width * (isMobile ? 0.045 : isTablet ? 0.05 : 0.05210),
-                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0375),
+                        width *
+                            (isMobile
+                                ? 0.004
+                                : isTablet
+                                    ? 0.005
+                                    : 0.00713),
+                        width *
+                            (isMobile
+                                ? 0.045
+                                : isTablet
+                                    ? 0.05
+                                    : 0.05210),
+                        height *
+                            (isMobile
+                                ? 0.035
+                                : isTablet
+                                    ? 0.036
+                                    : 0.0375),
                         onItemTapped,
                       ),
-                      SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                      SizedBox(
+                          width: width *
+                              (isMobile
+                                  ? 0.003
+                                  : isTablet
+                                      ? 0.0035
+                                      : 0.004)),
                       buildTextButton(
                         "CONTACT US",
                         3,
-                        width * (isMobile ? 0.004 : isTablet ? 0.005 : 0.007),
-                        width * (isMobile ? 0.055 : isTablet ? 0.06 : 0.053),
-                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0375),
+                        width *
+                            (isMobile
+                                ? 0.004
+                                : isTablet
+                                    ? 0.005
+                                    : 0.00713),
+                        width *
+                            (isMobile
+                                ? 0.055
+                                : isTablet
+                                    ? 0.06
+                                    : 0.080),
+                        height *
+                            (isMobile
+                                ? 0.035
+                                : isTablet
+                                    ? 0.036
+                                    : 0.0375),
                         onItemTapped,
                       ),
-                      SizedBox(width: width * (isMobile ? 0.003 : isTablet ? 0.0035 : 0.004)),
+                      SizedBox(
+                          width: width *
+                              (isMobile
+                                  ? 0.000
+                                  : isTablet
+                                      ? 0.000
+                                      : 0.000)),
                       buildTextButton(
                         "DOWNLOADS",
                         4,
-                        width * (isMobile ? 0.004 : isTablet ? 0.005 : 0.007),
-                        width * (isMobile ? 0.055 : isTablet ? 0.06 : 0.05210),
-                        height * (isMobile ? 0.035 : isTablet ? 0.036 : 0.0375),
+                        width *
+                            (isMobile
+                                ? 0.004
+                                : isTablet
+                                    ? 0.005
+                                    : 0.00713),
+                        width *
+                            (isMobile
+                                ? 0.055
+                                : isTablet
+                                    ? 0.06
+                                    : 0.064),
+                        height *
+                            (isMobile
+                                ? 0.035
+                                : isTablet
+                                    ? 0.036
+                                    : 0.0375),
                         onItemTapped,
                       ),
                     ],
                   ),
                 ),
-
               ],
             ),
           ),
@@ -310,13 +443,12 @@ Container buildTextButton(String label, int index, double buttonFontSize,
           fontFamily: 'Pretendard',
           fontWeight: FontWeight.w600,
           fontSize: buttonFontSize,
-          letterSpacing: -0.2,
           color: selectedIndex == index ? Color(0xff6194f9) : Color(0xff191919),
         ),
       ),
       style: TextButton.styleFrom(
         foregroundColor: Color(0xff191919),
-        overlayColor:Colors.transparent,// 눌렀을 때 생기는 그림자 제거
+        overlayColor: Colors.transparent, // 눌렀을 때 생기는 그림자 제거
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.zero, // 직사각형으로 설정
         ),

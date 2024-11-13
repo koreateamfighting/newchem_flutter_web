@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
       'image': 'assets/sliderbackground01.png',
       'name': 'Rotary Evaporator',
       'logo': 'assets/heidolph_logo.png',
-      'logoname' : 'HEIDOLPH',
+      'logoname': 'HEIDOLPH',
       'route': '0',
       'description':
           'Heidolph는 혁신적이고 글로벌한 기업으로서, 프리미엄 실험실 장비 생산의 선두주자입니다.\n저희 뉴켐은 Heidolph 전 제품을 대전지역에 독점 공급하고 있습니다.',
@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
       'image': 'assets/sliderbackground02.png',
       'name': 'Stirring',
       'logo': 'assets/heidolph_logo.png',
-      'logoname' : 'HEIDOLPH',
+      'logoname': 'HEIDOLPH',
       'route': '0',
       'description':
           'Heidolph는 혁신적이고 글로벌한 기업으로서, 프리미엄 실험실 장비 생산의 선두주자입니다.\n저희 뉴켐은 Heidolph 전 제품을 대전지역에 독점 공급하고 있습니다.',
@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
       'image': 'assets/sliderbackground04.png',
       'name': 'Glass Reaction System',
       'logo': 'assets/normag_logo.png',
-      'logoname' : 'NORMAG',
+      'logoname': 'NORMAG',
       'route': '1',
       'description':
           '독일 NORMAG는 화학 및 제약 산업의 실험실부터 생산용 scale까지\n유리 반응기 및 부품을 제조/판매하는 회사입니다.',
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
       'image': 'assets/sliderbackground05.png',
       'name': 'Continuous Cetrifuse Extractor',
       'logo': 'assets/CINCIndustry_logo.png',
-      'logoname' : 'CINC Inc.',
+      'logoname': 'CINC Inc.',
       'route': '2',
       'description':
           '미국 CINC는 액체-액체 원심분리기를 설계,제조 및 공급하는 기업으로,전 세계의 석유,화학,광업,\n제약,식품,향료,인쇄 및 환경 산업 분야의 연구를 수행하는 고객들의 신뢰를 받고 있습니다.',
@@ -255,7 +255,7 @@ class _HomePageState extends State<HomePage> {
                         ? 6
                         : isTablet
                             ? 5
-                            : 4.6887),
+                            : 4.85572),
                 color: Colors.white,
                 child: Column(
                   children: [
@@ -358,16 +358,23 @@ class _HomePageState extends State<HomePage> {
                                                     onTap: () {
                                                       int tabIndex;
                                                       // item['logoname'] 값에 따라 탭 인덱스를 설정
-                                                      if (item['logoname'] == 'HEIDOLPH') {
+                                                      if (item['logoname'] ==
+                                                          'HEIDOLPH') {
                                                         tabIndex = 0;
-                                                      } else if (item['logoname'] == 'NORMAG') {
+                                                      } else if (item[
+                                                              'logoname'] ==
+                                                          'NORMAG') {
                                                         tabIndex = 1;
-                                                      } else if (item['logoname'] == 'CINC Inc.') {
+                                                      } else if (item[
+                                                              'logoname'] ==
+                                                          'CINC Inc.') {
                                                         tabIndex = 2;
                                                       } else {
-                                                        tabIndex = 0; // 기본값으로 설정할 인덱스 (필요시)
+                                                        tabIndex =
+                                                            0; // 기본값으로 설정할 인덱스 (필요시)
                                                       }
-                                                      widget.onProductNavigate(tabIndex);
+                                                      widget.onProductNavigate(
+                                                          tabIndex);
                                                     },
                                                     child: MouseRegion(
                                                       onEnter: (_) => setState(
@@ -469,7 +476,7 @@ class _HomePageState extends State<HomePage> {
                                                                     width: width *
                                                                         0.001,
                                                                     color: Colors
-                                                                        .white),
+                                                                        .transparent),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
@@ -694,7 +701,8 @@ class _HomePageState extends State<HomePage> {
                           )
                         ],
                       ),
-                    ), //carusel slider 부분
+                    ),
+                    //carusel slider 부분
                     Container(
                         color: Colors.white,
                         height: height *
@@ -836,114 +844,201 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                           ],
-                        )), //contact us 부분
+                        )),
+                    //contact us 부분
                     Container(
-                      height: height * (isMobile ? 0.45 : 0.5787),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/main-background00.png"),
-                          fit: BoxFit.cover,
+                        height: height * (isMobile ? 0.45 : 0.612),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/main-background00.png"),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(width: width * (isMobile ? 0.1 : 0.1875)),
-                          Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                    height:
-                                        height * (isMobile ? 0.15 : 0.2129)),
-                                Text(
-                                  'Welcome',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    color: Color(0xFF191919),
-                                    fontSize:
-                                        width * (isMobile ? 0.025 : 0.02916),
-                                    fontFamily: 'Pretendard',
-                                    fontWeight: FontWeight.w700,
+                        child: Center(
+                          child: Column(
+                            children: [
+                              SizedBox(height: height* 0.0777,),
+                              Text(
+                                'NEWCHEM',
+                                style: TextStyle(
+                                  color: Color(0xFF6194F9),
+                                  fontSize: width * 0.01041,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              SizedBox(height: height* 0.0055,),
+                                          Text(
+                                            'Welcome',
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              color: Color(0xFF191919),
+                                              fontSize:
+                                                  width * (isMobile ? 0.025 : 0.02916),
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                              SizedBox(height: height* 0.06111,),
+                              Text(
+                                '(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지\n합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,\n고객이 신뢰할 수 있는 회사로 자리 매김해 왔습니다.\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF191919),
+                                  fontSize: width * 0.01041,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w400,
+                                  height: height * 0.0017,
+                                ),
+                              ),
+                              SizedBox(height: height * 0.0416,),
+                              Container(
+                                width: width * 0.08645,
+                                height: height * 0.0388,
+                                decoration: ShapeDecoration(
+                                  color: Colors.white.withOpacity(0),
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(width: 1, color: Color(0xFF6194F9)),
+                                    borderRadius: BorderRadius.circular(70),
                                   ),
                                 ),
-                                SizedBox(
-                                    height:
-                                        height * (isMobile ? 0.005 : 0.007)),
-                                Container(
-                                  width: width * (isMobile ? 0.25 : 0.2906),
-                                  height: height * (isMobile ? 0.004 : 0.006),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      begin: Alignment(1.00, 0.00),
-                                      end: Alignment(-1, 0),
-                                      colors: [
-                                        Color(0xFF6194F9),
-                                        Color(0xFF82ACFF)
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                    height:
-                                        height * (isMobile ? 0.05 : 0.0833)),
-                                InkWell(
-                                  onTap: () {
-                                    widget.onNavigate(1);
-                                  },
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
                                         'more view',
                                         style: TextStyle(
                                           color: Color(0xFF6194F9),
-                                          fontSize: width *
-                                              (isMobile ? 0.01 : 0.0112),
+                                          fontSize: width * 0.01041,
                                           fontFamily: 'Pretendard',
                                           fontWeight: FontWeight.w400,
-                                          height: height *
-                                              (isMobile ? 0.00005 : 0.00006),
                                         ),
                                       ),
-                                      Icon(
-                                        Icons.arrow_right,
-                                        color: Color(0xFF6194F9),
-                                      ),
+                                      SizedBox(width: width * 0.0052,),
+                                      Container(
+                                        width: width * 0.0049,
+                                         height: height * 0.0069,
+                                        child: Image.asset(
+                                          'assets/arrow_right.png',
+                                          fit: BoxFit.contain,
+                                        ),
+                                      )
+
                                     ],
                                   ),
-                                )
-                              ],
-                            ),
+                              )
+
+                            ],
                           ),
-                          SizedBox(width: width * (isMobile ? 0.025 : 0.03177)),
-                          Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                    height:
-                                        height * (isMobile ? 0.15 : 0.1851)),
-                                SelectableText(
-                                  '(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지\n합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,\n고객이 신뢰할 수 있는 회사로 자리 매김해 왔습니다.\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
-                                  style: TextStyle(
-                                    color: Color(0xFF191919),
-                                    fontSize:
-                                        width * (isMobile ? 0.008 : 0.0104),
-                                    fontFamily: 'Pretendard',
-                                    fontWeight: FontWeight.w400,
-                                    height:
-                                        height * (isMobile ? 0.0015 : 0.00155),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ), //인사말 부분
+                        )),
+                    //인사말 부분
+                    // Container(
+                    //   height: height * (isMobile ? 0.45 : 0.612),
+                    //   decoration: BoxDecoration(
+                    //     image: DecorationImage(
+                    //       image: AssetImage("assets/main-background00.png"),
+                    //       fit: BoxFit.cover,
+                    //     ),
+                    //   ),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     children: [
+                    //       SizedBox(width: width * (isMobile ? 0.1 : 0.1875)),
+                    //       Container(
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.start,
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           children: [
+                    //             SizedBox(
+                    //                 height:
+                    //                     height * (isMobile ? 0.15 : 0.2129)),
+                    //             Text(
+                    //               'Welcome',
+                    //               textAlign: TextAlign.left,
+                    //               style: TextStyle(
+                    //                 color: Color(0xFF191919),
+                    //                 fontSize:
+                    //                     width * (isMobile ? 0.025 : 0.02916),
+                    //                 fontFamily: 'Pretendard',
+                    //                 fontWeight: FontWeight.w700,
+                    //               ),
+                    //             ),
+                    //             SizedBox(
+                    //                 height:
+                    //                     height * (isMobile ? 0.005 : 0.007)),
+                    //             Container(
+                    //               width: width * (isMobile ? 0.25 : 0.2906),
+                    //               height: height * (isMobile ? 0.004 : 0.006),
+                    //               decoration: BoxDecoration(
+                    //                 gradient: LinearGradient(
+                    //                   begin: Alignment(1.00, 0.00),
+                    //                   end: Alignment(-1, 0),
+                    //                   colors: [
+                    //                     Color(0xFF6194F9),
+                    //                     Color(0xFF82ACFF)
+                    //                   ],
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             SizedBox(
+                    //                 height:
+                    //                     height * (isMobile ? 0.05 : 0.0833)),
+                    //             InkWell(
+                    //               onTap: () {
+                    //                 widget.onNavigate(1);
+                    //               },
+                    //               child: Row(
+                    //                 mainAxisAlignment: MainAxisAlignment.start,
+                    //                 children: [
+                    //                   Text(
+                    //                     'more view',
+                    //                     style: TextStyle(
+                    //                       color: Color(0xFF6194F9),
+                    //                       fontSize: width *
+                    //                           (isMobile ? 0.01 : 0.0112),
+                    //                       fontFamily: 'Pretendard',
+                    //                       fontWeight: FontWeight.w400,
+                    //                       height: height *
+                    //                           (isMobile ? 0.00005 : 0.00006),
+                    //                     ),
+                    //                   ),
+                    //                   Icon(
+                    //                     Icons.arrow_right,
+                    //                     color: Color(0xFF6194F9),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //             )
+                    //           ],
+                    //         ),
+                    //       ),
+                    //       SizedBox(width: width * (isMobile ? 0.025 : 0.03177)),
+                    //       Container(
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.start,
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           children: [
+                    //             SizedBox(
+                    //                 height:
+                    //                     height * (isMobile ? 0.15 : 0.1851)),
+                    //             SelectableText(
+                    //               '(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지\n합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,\n고객이 신뢰할 수 있는 회사로 자리 매김해 왔습니다.\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
+                    //               style: TextStyle(
+                    //                 color: Color(0xFF191919),
+                    //                 fontSize:
+                    //                     width * (isMobile ? 0.008 : 0.0104),
+                    //                 fontFamily: 'Pretendard',
+                    //                 fontWeight: FontWeight.w400,
+                    //                 height:
+                    //                     height * (isMobile ? 0.0015 : 0.00155),
+                    //               ),
+                    //             )
+                    //           ],
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ), //인사말 부분
                     Container(
                       height: height * (isMobile ? 0.5 : 0.6300),
                       color: Colors.white,
@@ -1415,7 +1510,8 @@ class _HomePageState extends State<HomePage> {
                           )
                         ],
                       ),
-                    ), //Download 부분
+                    ),
+                    //Download 부분
                     Container(
                       height: height * (isMobile ? 0.7 : 0.9),
                       color: Colors.white,
@@ -1480,14 +1576,14 @@ class _HomePageState extends State<HomePage> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    width: width *  0.0089,
-                                                    height:height * 0.0203,
+                                                    width: width * 0.0089,
+                                                    height: height * 0.0203,
                                                     child: Image.asset(
                                                       'assets/direction.png',
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                      width : width * 0.005,
+                                                    width: width * 0.005,
                                                   ),
                                                   SelectableText(
                                                     '경기사무소',
@@ -1495,7 +1591,8 @@ class _HomePageState extends State<HomePage> {
                                                       color: Color(0xFF96b9ff),
                                                       fontSize: width * 0.0114,
                                                       fontFamily: 'Pretendard',
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                       height: 0.06,
                                                       letterSpacing: 0.66,
                                                     ),
@@ -1586,17 +1683,17 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                               child: Row(
                                                 mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    width: width *  0.0089,
-                                                    height:height * 0.0203,
+                                                    width: width * 0.0089,
+                                                    height: height * 0.0203,
                                                     child: Image.asset(
                                                       'assets/direction.png',
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    width : width * 0.005,
+                                                    width: width * 0.005,
                                                   ),
                                                   SelectableText(
                                                     '경기사무소',
@@ -1604,7 +1701,8 @@ class _HomePageState extends State<HomePage> {
                                                       color: Color(0xFF96b9ff),
                                                       fontSize: width * 0.0114,
                                                       fontFamily: 'Pretendard',
-                                                      fontWeight: FontWeight.w500,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                       height: 0.06,
                                                       letterSpacing: 0.66,
                                                     ),
@@ -1716,7 +1814,8 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                    ), // Direction 부분
+                    ),
+                    // Direction 부분
                     Container(
                       height: height * (isMobile ? 0.2 : 0.3657),
                       decoration: BoxDecoration(
@@ -1725,7 +1824,8 @@ class _HomePageState extends State<HomePage> {
                           fit: BoxFit.fill,
                         ),
                       ),
-                    ), //그라디언트 백그라운드
+                    ),
+                    //그라디언트 백그라운드
                     Container(
                       height: height * (isMobile ? 0.6 : 0.4500),
                       color: Colors.black,
@@ -1889,7 +1989,8 @@ class _HomePageState extends State<HomePage> {
                           )
                         ],
                       ),
-                    ), // 회사 주소, 연락처
+                    ),
+                    // 회사 주소, 연락처
                   ],
                 )),
           ),

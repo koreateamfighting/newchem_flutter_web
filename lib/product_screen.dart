@@ -110,12 +110,11 @@ class _ProductScreenState extends State<ProductScreen>
                               fontSize: width * 0.028,
                               fontFamily: 'Pretendard',
                               fontWeight: FontWeight.w600,
+                              height: 0,
                               letterSpacing: 2.16,
                             ),
                           ),
-                          SizedBox(
-                            height: height * 0.123,
-                          ),
+                          Spacer(),
                           Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
