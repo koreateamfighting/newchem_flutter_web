@@ -449,24 +449,24 @@ class _CompanyPageState extends State<CompanyPage> {
                       ),
                       TextSpan(
                         text:
-                            '실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한            모든 솔루션을 제공하는 회사',
+                            '실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지 합성 실험에 필요한\n모든 솔루션을 제공하는 회사',
                         style: TextStyle(
                           color: Color(0xFF191919),
                           fontSize: width * 0.0104,
                           fontFamily: 'Pretendard',
                           fontWeight: FontWeight.w500,
-                          height: height * 0.0018,
+                          height: height * 0.0015,
                         ),
                       ),
                       TextSpan(
                         text:
-                            '입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며, 고객이 신뢰할 수 있는            회사로 자리 매김해 왔습니다. 앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
+                            '입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며, 고객이 신뢰할 수 있는\n회사로 자리 매김해 왔습니다. 앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
                         style: TextStyle(
                           color: Color(0xFF5C5C5C),
                           fontSize: width * 0.0104,
                           fontFamily: 'Pretendard',
                           fontWeight: FontWeight.w400,
-                          height: height * 0.0018,
+                          height: height * 0.0015,
                         ),
                       ),
                     ],

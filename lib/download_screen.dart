@@ -92,10 +92,10 @@ class _DownloadScreenState extends State<DownloadScreen> {
                       width: width * 0.625,
                       child: Table(
                         columnWidths: {
-                          0: FixedColumnWidth(width * 0.1),
-                          1: FlexColumnWidth(width * 2.0),
-                          2: FixedColumnWidth(width * 0.03),
-                          3: FixedColumnWidth(width * 0.167),
+                          0: FixedColumnWidth(width * 0.05),
+                          1: FlexColumnWidth(width * 2.2),
+                          2: FixedColumnWidth(width * 0.07),
+                          3: FixedColumnWidth(width * 0.140),
                         },
                         children: [
                           TableRow(
@@ -111,22 +111,27 @@ class _DownloadScreenState extends State<DownloadScreen> {
                                   "작성 날짜", width * 0.009, height * 0.0370),
                             ],
                           ),
-                          ...downloadData.map((item) {
+                          ...downloadData.asMap().entries.map((entry) {
+                            int index = entry.key;
+                            var item = entry.value;
+
+                            // 두 번째 행에만 초록색 배경을 적용
+                            Color rowColor = index == 1 ? Color(0xFFC9D2E5).withOpacity(0.2) : Colors.transparent;
+
                             return TableRow(
+                              decoration: BoxDecoration(color: rowColor),
                               children: [
-                                _buildTableCell(item["number"]!, width * 0.0041,
-                                    height * 0.0074),
+                                _buildTableCell(item["number"]!, width * 0.0041, height * 0.0074),
                                 _buildLinkCell(
-                                    item["title"]!,
-                                    item["link"]!,
-                                    width * 0.009,
-                                    width * 0.0041,
-                                    height * 0.0074,
-                                    height * 0.0500),
-                                _buildTableCell(item["author"]!, width * 0.0041,
-                                    height * 0.0074),
-                                _buildTableCell(item["date"]!, width * 0.0041,
-                                    height * 0.0074),
+                                  item["title"]!,
+                                  item["link"]!,
+                                  width * 0.009,
+                                  width * 0.0041,
+                                  height * 0.0074,
+                                  height * 0.0500,
+                                ),
+                                _buildTableCell(item["author"]!, width * 0.0041, height * 0.0074),
+                                _buildTableCell(item["date"]!, width * 0.0041, height * 0.0074),
                               ],
                             );
                           }).toList(),
@@ -357,11 +362,19 @@ class _DownloadScreenState extends State<DownloadScreen> {
 
   // 테이블 셀 빌더
   Widget _buildTableCell(String content, double cellWidth, double cellHeight) {
-    return Padding(
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
+    return Container(
       padding:
           EdgeInsets.fromLTRB(cellWidth, cellHeight, cellWidth, cellHeight),
       child: Text(
         content,
+        style: TextStyle(
+          fontSize: width * 0.009,
+          fontFamily: 'Pretendard',
+          fontWeight: FontWeight.w400,
+        ),
         textAlign: TextAlign.center,
       ),
     );
@@ -426,7 +439,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
         ),
         style: TextButton.styleFrom(
           foregroundColor: Colors.white,
-          overlayColor:Colors.transparent,// 눌렀을 때 생기는 그림자 제거
+          overlayColor: Colors.transparent, // 눌렀을 때 생기는 그림자 제거
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.zero, // 직사각형으로 설정
           ),
@@ -434,6 +447,4 @@ class _DownloadScreenState extends State<DownloadScreen> {
       ),
     );
   }
-
-
 }

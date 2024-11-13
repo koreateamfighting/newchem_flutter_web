@@ -4259,7 +4259,7 @@ Advantages
                 height: height * 0.4851,
                 decoration: _isHovered[index] == true
                     ? BoxDecoration(
-                        color: Colors.white, // 배경색
+                        color: Colors.brown, // 배경색
                         borderRadius: BorderRadius.circular(8), // 테두리 둥글기
                         boxShadow: [
                           BoxShadow(
@@ -4293,6 +4293,9 @@ Advantages
                           },
                           child: Column(
                             children: [
+                              SizedBox(
+                                height: height * 0.0400,
+                              ),
                               Image.asset(
                                 imagePath,
                                 fit: BoxFit.contain,
@@ -4300,7 +4303,7 @@ Advantages
                                 height: height * 0.3120,
                               ),
                               SizedBox(
-                                height: height * 0.0444,
+                                height: height * 0.0400,
                               ),
                               Container(
                                 width: width * 0.0494,
@@ -4315,7 +4318,7 @@ Advantages
                                 ),
                               ),
                               SizedBox(
-                                height: height * 0.0110,
+                                height: height * 0.0050,
                               ),
                               Container(
                                 height: height * 0.0500,
