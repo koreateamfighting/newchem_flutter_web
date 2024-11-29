@@ -252,12 +252,14 @@ class _HomePageState extends State<HomePage> {
                 width: width,
                 height: height *
                     (isMobile
-                        ? 6
+                        ? 4
                         : isTablet
                             ? 5
                             : 4.85572),
                 color: Colors.white,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       padding: EdgeInsets.zero,

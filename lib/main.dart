@@ -6,6 +6,7 @@ import 'home_screen.dart';
 import 'product_screen.dart';
 import 'contact_screen.dart';
 import 'download_screen.dart';
+
 import 'popup.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:html' as html; // Web용 dart:html 패키지 사용
@@ -162,20 +163,9 @@ class MyAppContainer extends StatefulWidget {
 }
 
 class _MyAppContainerState extends State<MyAppContainer> {
-  late double deviceWidth;
-  late double deviceHeight;
-
   @override
   void initState() {
     super.initState();
-
-    // Flutter Web에서 초기 앱 실행 시 device width와 height를 가져옴
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final size = MediaQuery.of(context).size;
-      deviceWidth = size.width;
-      deviceHeight = size.height;
-      print('Device Width: $deviceWidth, Device Height: $deviceHeight');
-    });
   }
 
   @override
@@ -191,13 +181,11 @@ class _MyAppContainerState extends State<MyAppContainer> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height *
-            (isMobile
-                ? 0.1
-                : isTablet
-                    ? 0.08
-                    : 0.07)),
+        preferredSize: Size.fromHeight(
+          isMobile ? height * 0.05 : height * 0.07,
+        ),
         child: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
@@ -207,40 +195,19 @@ class _MyAppContainerState extends State<MyAppContainer> {
           title: Container(
             padding: EdgeInsets.fromLTRB(
               0,
-              height *
-                  (isMobile
-                      ? 0.018
-                      : isTablet
-                          ? 0.015
-                          : 0.0148),
+              height * (0.0148),
               0,
               0,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
-                    width: width *
-                        (isMobile
-                            ? 0.15
-                            : isTablet
-                                ? 0.18
-                                : 0.1770)),
+                SizedBox(width: isMobile ? width * 0.05 : width * 0.1770),
                 Container(
-                  width: width *
-                      (isMobile
-                          ? 0.1
-                          : isTablet
-                              ? 0.09
-                              : 0.0858),
-                  height: height *
-                      (isMobile
-                          ? 0.05
-                          : isTablet
-                              ? 0.047
-                              : 0.0453),
+                  width: width * 0.0858,
+                  height: height * 0.0453,
                   child: FittedBox(
-                    fit: BoxFit.fitWidth,
+                    fit: BoxFit.fill,
                     child: IconButton(
                       icon: Image.asset('assets/logo.png'),
                       onPressed: () => onItemTapped(0), // 수정된 부분
@@ -251,170 +218,127 @@ class _MyAppContainerState extends State<MyAppContainer> {
                     ),
                   ),
                 ),
-                SizedBox(
-                    width: width *
-                        (isMobile
-                            ? 0.2
-                            : isTablet
-                                ? 0.23
-                                : 0.2200)),
-                Container(
-                  width: width * 0.33,
-                  padding: EdgeInsets.only(top: height * 0.01), // Row 높이를 살짝 내림
-                  child: Row(
-                    children: [
-                      buildTextButton(
-                        "HOME",
-                        0,
-                        width *
-                            (isMobile
-                                ? 0.004
-                                : isTablet
-                                    ? 0.005
-                                    : 0.00713),
-                        width *
-                            (isMobile
-                                ? 0.045
-                                : isTablet
-                                    ? 0.05
-                                    : 0.05210),
-                        height *
-                            (isMobile
-                                ? 0.035
-                                : isTablet
-                                    ? 0.036
-                                    : 0.0375),
-                        onItemTapped,
+                SizedBox(width: isMobile ? width * 0.08 : width * 0.2200),
+                isMobile
+                    ? Container(
+                        // width: width * 0.7,
+                        padding:
+                            EdgeInsets.only(top: height * 0), // Row 높이를 살짝 내림
+                        child: Row(
+                          children: [
+                            buildTextButton(
+                              "HOME",
+                              0,
+                              width * 0.01,
+                              0,
+                              width * 0.1,
+                              height * 0.0375,
+                              onItemTapped,
+                            ),
+                            SizedBox(width: width * 0.012),
+                            buildTextButton(
+                              "COMPANY",
+                              1,
+                              width * 0.01,
+                              height * 0.002,
+                              width * 0.14,
+                              height * 0.0375,
+                              onItemTapped,
+                            ),
+                            SizedBox(width: width * 0.012),
+                            buildTextButton(
+                              "PRODUCTS",
+                              2,
+                              width * 0.01,
+                              0,
+                              width * 0.14,
+                              height * 0.0375,
+                              onItemTapped,
+                            ),
+                            SizedBox(width: width * 0.01),
+                            buildTextButton(
+                              "CONTACT US",
+                              3,
+                              width * 0.01,
+                              0,
+                              width * 0.14,
+                              height * 0.0375,
+                              onItemTapped,
+                            ),
+                            buildTextButton(
+                              "DOWNLOADS",
+                              4,
+                              width * 0.01,
+                              0,
+                              width * 0.14,
+                              height * 0.0375,
+                              onItemTapped,
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container(
+                        width: width * 0.33,
+                        padding: EdgeInsets.only(
+                            top: height * 0.01), // Row 높이를 살짝 내림
+                        child: Row(
+                          children: [
+                            buildTextButton(
+                              "HOME",
+                              0,
+                              width * 0.00713,
+                              0,
+                              width * 0.05210,
+                              height * 0.0375,
+                              onItemTapped,
+                            ),
+                            SizedBox(width: width * 0.012),
+                            buildTextButton(
+                              "COMPANY",
+                              1,
+                              width * 0.00713,
+                              0,
+                              width * 0.05210,
+                              height * 0.0375,
+                              onItemTapped,
+                            ),
+                            SizedBox(width: width * 0.012),
+                            buildTextButton(
+                              "PRODUCTS",
+                              2,
+                              width * 0.00713,
+                              0,
+                              width * 0.05210,
+                              height * 0.0375,
+                              onItemTapped,
+                            ),
+                            SizedBox(width: width * 0.004),
+                            buildTextButton(
+                              "CONTACT US",
+                              3,
+                              width * 0.00713,
+                              0,
+                              width * 0.058,
+                              height * 0.0375,
+                              onItemTapped,
+                            ),
+                            buildTextButton(
+                              "DOWNLOADS",
+                              4,
+                              width * 0.00713,
+                              0,
+                              width * 0.080,
+                              height * 0.0375,
+                              onItemTapped,
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(
-                          width: width *
-                              (isMobile
-                                  ? 0.003
-                                  : isTablet
-                                      ? 0.0035
-                                      : 0.012)),
-                      buildTextButton(
-                        "COMPANY",
-                        1,
-                        width *
-                            (isMobile
-                                ? 0.004
-                                : isTablet
-                                    ? 0.005
-                                    : 0.00713),
-                        width *
-                            (isMobile
-                                ? 0.045
-                                : isTablet
-                                    ? 0.05
-                                    : 0.05210),
-                        height *
-                            (isMobile
-                                ? 0.035
-                                : isTablet
-                                    ? 0.036
-                                    : 0.0375),
-                        onItemTapped,
-                      ),
-                      SizedBox(
-                          width: width *
-                              (isMobile
-                                  ? 0.003
-                                  : isTablet
-                                      ? 0.0035
-                                      : 0.012)),
-                      buildTextButton(
-                        "PRODUCTS",
-                        2,
-                        width *
-                            (isMobile
-                                ? 0.004
-                                : isTablet
-                                    ? 0.005
-                                    : 0.00713),
-                        width *
-                            (isMobile
-                                ? 0.045
-                                : isTablet
-                                    ? 0.05
-                                    : 0.05210),
-                        height *
-                            (isMobile
-                                ? 0.035
-                                : isTablet
-                                    ? 0.036
-                                    : 0.0375),
-                        onItemTapped,
-                      ),
-                      SizedBox(
-                          width: width *
-                              (isMobile
-                                  ? 0.003
-                                  : isTablet
-                                      ? 0.0035
-                                      : 0.004)),
-                      buildTextButton(
-                        "CONTACT US",
-                        3,
-                        width *
-                            (isMobile
-                                ? 0.004
-                                : isTablet
-                                    ? 0.005
-                                    : 0.00713),
-                        width *
-                            (isMobile
-                                ? 0.055
-                                : isTablet
-                                    ? 0.06
-                                    : 0.080),
-                        height *
-                            (isMobile
-                                ? 0.035
-                                : isTablet
-                                    ? 0.036
-                                    : 0.0375),
-                        onItemTapped,
-                      ),
-                      SizedBox(
-                          width: width *
-                              (isMobile
-                                  ? 0.000
-                                  : isTablet
-                                      ? 0.000
-                                      : 0.000)),
-                      buildTextButton(
-                        "DOWNLOADS",
-                        4,
-                        width *
-                            (isMobile
-                                ? 0.004
-                                : isTablet
-                                    ? 0.005
-                                    : 0.00713),
-                        width *
-                            (isMobile
-                                ? 0.055
-                                : isTablet
-                                    ? 0.06
-                                    : 0.064),
-                        height *
-                            (isMobile
-                                ? 0.035
-                                : isTablet
-                                    ? 0.036
-                                    : 0.0375),
-                        onItemTapped,
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),
         ),
       ),
-      backgroundColor: Colors.white,
       body: widget.child, // 현재 페이지의 내용을 표시
     );
   }
@@ -428,7 +352,7 @@ void onItemTapped(int index) {
 }
 
 // 전역에서 사용 가능한 buildTextButton 함수 정의
-Container buildTextButton(String label, int index, double buttonFontSize,
+Container buildTextButton(String label, int index, double buttonFontSize,double buttonFontHeight,
     double buttonWidth, double buttonHeight, Function(int) onItemTapped) {
   return Container(
     width: buttonWidth,
@@ -444,6 +368,7 @@ Container buildTextButton(String label, int index, double buttonFontSize,
           fontWeight: FontWeight.w600,
           fontSize: buttonFontSize,
           color: selectedIndex == index ? Color(0xff6194f9) : Color(0xff191919),
+          height: buttonFontHeight
         ),
       ),
       style: TextButton.styleFrom(
