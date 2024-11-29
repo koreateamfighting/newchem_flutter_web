@@ -203,7 +203,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
                               SizedBox(width: width * 0.1875),
                               Container(
                                 width: width * 0.3156,
-                                height: height * 0.0462,
+                                height: height * 0.0470,
                                 child: Text(
                                   '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
                                   style: TextStyle(

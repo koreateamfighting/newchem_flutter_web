@@ -223,7 +223,7 @@ class _CompanyPageState extends State<CompanyPage> {
                           ),
                           Container(
                             width: width * 0.3156,
-                            height: height * 0.0462,
+                            height: height * 0.0470,
                             child: Text(
                               '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
                               style: TextStyle(
@@ -495,7 +495,7 @@ class _CompanyPageState extends State<CompanyPage> {
                       ),
                       TextSpan(
                         text:
-                            '입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며, 고객이 신뢰할 수 있는\n회사로 자리 매김해 왔습니다. 앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
+                            '입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며, 고객이 신뢰할 수 있는\n회사로 자리매김해 왔습니다. 앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
                         style: TextStyle(
                           color: Color(0xFF5C5C5C),
                           fontSize: width * 0.0104,

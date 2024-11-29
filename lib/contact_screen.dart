@@ -24,9 +24,9 @@ class _ContactScreenState extends State<ContactScreen> {
   bool _agree = false;
 
   // EmailJS API 정보 (이곳에 EmailJS에서 받은 정보 입력)
-  final String serviceId = 'service_x0mf4q7';
-  final String templateId = 'template_17ndb0d';
-  final String userId = 'Yv6T8xyIhoMANZBCW';
+  final String serviceId = 'service_oe5e5f1';
+  final String templateId = 'template_c89dfx6';
+  final String userId = '7f380iYy4BdLodvzb';
 
   Future<void> _sendEmail() async {
     if (!_formKey.currentState!.validate() || !_agree) {
@@ -205,7 +205,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                   width: width * 0.015,
                                 ),
                                 newTextField(
-                                    '이메일을 입력해주세요.', '이름', _emailController),
+                                    '이메일을 입력해주세요.', '이메일', _emailController),
                               ],
                             ),
                             SizedBox(
@@ -225,7 +225,7 @@ class _ContactScreenState extends State<ContactScreen> {
                               height: height * 0.011,
                             ),
                             newTextField3(
-                                '문의사항 내용을 입력해주세요.', '내용', _titleController),
+                                '문의사항 내용을 입력해주세요.', '내용', _contentController),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
@@ -407,7 +407,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                       ),
                                       Container(
                                         width: width * 0.3156,
-                                        height: height * 0.0462,
+                                        height: height * 0.0470,
                                         child: Text(
                                           '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
                                           style: TextStyle(

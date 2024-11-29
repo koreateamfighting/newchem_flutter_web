@@ -588,7 +588,7 @@ class _HomePageState extends State<HomePage> {
                                     autoPlayAnimationDuration:
                                         Duration(milliseconds: 1000),
                                     // 전환 속도 조절
-                                    enlargeCenterPage: true,
+                                    enlargeCenterPage: false,
                                     viewportFraction: 1,
                                     scrollPhysics: BouncingScrollPhysics(),
                                     // 부드러운 스크롤 적용
@@ -857,7 +857,7 @@ class _HomePageState extends State<HomePage> {
                         child: Center(
                           child: Column(
                             children: [
-                              SizedBox(height: height* 0.0777,),
+                              Spacer(),
                               Text(
                                 'NEWCHEM',
                                 style: TextStyle(
@@ -881,7 +881,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                               SizedBox(height: height* 0.06111,),
                               Text(
-                                '(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지\n합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,\n고객이 신뢰할 수 있는 회사로 자리 매김해 왔습니다.\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
+                                '(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지\n합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,\n고객이 신뢰할 수 있는 회사로 자리매김해 왔습니다.\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF191919),
@@ -892,16 +892,20 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               SizedBox(height: height * 0.0416,),
-                              Container(
-                                width: width * 0.08645,
-                                height: height * 0.0388,
-                                decoration: ShapeDecoration(
-                                  color: Colors.white.withOpacity(0),
-                                  shape: RoundedRectangleBorder(
-                                    side: BorderSide(width: 1, color: Color(0xFF6194F9)),
-                                    borderRadius: BorderRadius.circular(70),
+                              InkWell(
+                                onTap: (){
+                                  widget.onNavigate(1);
+                                },
+                                child:Container(
+                                  width: width * 0.08645,
+                                  height: height * 0.0388,
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white.withOpacity(0),
+                                    shape: RoundedRectangleBorder(
+                                      side: BorderSide(width: 1, color: Color(0xFF6194F9)),
+                                      borderRadius: BorderRadius.circular(70),
+                                    ),
                                   ),
-                                ),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -917,7 +921,7 @@ class _HomePageState extends State<HomePage> {
                                       SizedBox(width: width * 0.0052,),
                                       Container(
                                         width: width * 0.0049,
-                                         height: height * 0.0069,
+                                        height: height * 0.0069,
                                         child: Image.asset(
                                           'assets/arrow_right.png',
                                           fit: BoxFit.contain,
@@ -926,7 +930,10 @@ class _HomePageState extends State<HomePage> {
 
                                     ],
                                   ),
-                              )
+                                ),
+                              ),
+
+                              Spacer(),
 
                             ],
                           ),
@@ -1696,7 +1703,7 @@ class _HomePageState extends State<HomePage> {
                                                     width: width * 0.005,
                                                   ),
                                                   SelectableText(
-                                                    '경기사무소',
+                                                    '대전사무소',
                                                     style: TextStyle(
                                                       color: Color(0xFF96b9ff),
                                                       fontSize: width * 0.0114,
@@ -1935,36 +1942,89 @@ class _HomePageState extends State<HomePage> {
                             height: height * (isMobile ? 0.03 : 0.04351),
                           ),
                           Container(
-                            height: height * (isMobile ? 0.07 : 0.0680),
+                            height: height * 0.0680,
                             child: Row(
                               children: [
-                                SizedBox(
-                                    width: width * (isMobile ? 0.1 : 0.1875)),
+                                SizedBox(width: width * 0.1875),
                                 Transform.translate(
-                                  offset: Offset(
-                                      0, -height * (isMobile ? 0.01 : 0.01388)),
-                                  child: Icon(Icons.phone,
-                                      color: Colors.white,
-                                      size: isMobile ? 14 : 18),
+                                  offset: Offset(0, -height * 0.01388),
+                                  child: Icon(
+                                    Icons.phone,
+                                    color: Colors.white,
+                                    size: 18,
+                                  ),
                                 ),
-                                SizedBox(
-                                    width: width * (isMobile ? 0.02 : 0.0041)),
+                                SizedBox(width: width * 0.0041),
                                 Container(
-                                  width: width * (isMobile ? 0.15 : 0.0807),
-                                  height: height * (isMobile ? 0.05 : 0.0462),
+                                  width: width * 0.0807,
+                                  height: height * 0.0462,
                                   child: SelectableText(
                                     '070-8098-7424',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize:
-                                          width * (isMobile ? 0.011 : 0.0093),
+                                      fontSize: width * 0.0093,
                                       fontFamily: 'Pretendard',
                                       fontWeight: FontWeight.w500,
                                       letterSpacing: 0.54,
                                     ),
                                   ),
                                 ),
-                                // Remaining icons and text in a similar pattern...
+                                SizedBox(width: width * 0.0083),
+                                Transform.translate(
+                                  offset: Offset(0, -height * 0.0111),
+                                  child: Icon(
+                                    Icons.print,
+                                    color: Colors.white,
+                                    size: 18,
+                                  ),
+                                ),
+                                SizedBox(width: width * 0.0041),
+                                Container(
+                                  width: width * 0.08333,
+                                  height: height * 0.0462,
+                                  child: SelectableText(
+                                    '042-367-7427',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: width * 0.009,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 0.54,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: width * 0.004),
+                                Transform.translate(
+                                  offset: Offset(0, -height * 0.0111),
+                                  child: Icon(
+                                    Icons.local_post_office,
+                                    color: Colors.white,
+                                    size: 18,
+                                  ),
+                                ),
+                                SizedBox(width: width * 0.004),
+                                Container(
+                                  width: width * 0.1458,
+                                  height: height * 0.0462,
+                                  child: SelectableText(
+                                    'cmkim@new-chem.co.kr',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: width * 0.0093,
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 0.54,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: width * 0.125),
+                                Transform.translate(
+                                  offset: Offset(0, -height * 0.0111),
+                                  child: Container(
+                                    width: width * 0.1468,
+                                    child: Image.asset('assets/logo-white.png'),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
