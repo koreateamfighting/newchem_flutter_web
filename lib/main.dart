@@ -203,21 +203,31 @@ class _MyAppContainerState extends State<MyAppContainer> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(width: isMobile ? width * 0.05 : width * 0.1770),
-                Container(
-                  width: width * 0.0858,
-                  height: height * 0.0453,
-                  child: FittedBox(
-                    fit: BoxFit.fill,
-                    child: IconButton(
-                      icon: Image.asset('assets/logo.png'),
-                      onPressed: () => onItemTapped(0), // 수정된 부분
-                      style: ButtonStyle(
-                        overlayColor: MaterialStateProperty.all(
-                            Colors.transparent), // 눌렀을 때 음영 효과 제거
-                      ),
-                    ),
+                isMobile?
+                GestureDetector(
+                  onTap: (){
+                    onItemTapped(0);
+                  },
+
+                  child: Container(
+                    width: width * 0.0750,
+                    height: height * 0.0300,
+                    child:  Image.asset('assets/logo.png',fit: BoxFit.fill,),
+                  ),
+                ):
+                GestureDetector(
+                  onTap: (){
+                    onItemTapped(0);
+                  },
+
+                  child: Container(
+                    padding: EdgeInsets.only(top : height * 0.01),
+                    width: width * 0.0858,
+                    height: height * 0.0453,
+                    child:  Image.asset('assets/logo.png',fit: BoxFit.fitHeight,),
                   ),
                 ),
+
                 SizedBox(width: isMobile ? width * 0.08 : width * 0.2200),
                 isMobile
                     ? Container(

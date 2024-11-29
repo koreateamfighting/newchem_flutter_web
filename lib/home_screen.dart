@@ -265,8 +265,9 @@ class _HomePageState extends State<HomePage> {
                       padding: EdgeInsets.zero,
                       width: width,
                       child: Column(
-                        mainAxisSize: MainAxisSize.min, // Column의 높이를 자식 크기에 맞춤
 
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Stack(
                             children: [
@@ -274,7 +275,7 @@ class _HomePageState extends State<HomePage> {
                                 width: width,
                                 height: height *
                                     (isMobile
-                                        ? 0.9
+                                        ? 0.6
                                         : isTablet
                                             ? 1.0
                                             : 1.111),
