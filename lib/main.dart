@@ -3,9 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'company_screen.dart';
 import 'home_screen.dart';
+import 'm_home_screen.dart';
 import 'product_screen.dart';
 import 'contact_screen.dart';
 import 'download_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'popup.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,32 +34,60 @@ final GoRouter _router = GoRouter(
   routes: [
     GoRoute(
       path: '/', // 홈 페이지 경로
-      pageBuilder: (context, state) => CustomTransitionPage(
-        key: state.pageKey,
-        child: MyAppContainer(
-          child: HomePage(
-            onNavigate: (int index) {
-              _router.go(_getPathByIndex(index)); // 페이지 전환
-            },
-            onProductNavigate: (int tabIndex) {
-              _router.go('/products/$tabIndex'); // Product 탭 전환
-            },
-            onCompanyNavigate: (int tabIndex) {
-              _router.go('/company/$tabIndex'); // Company 탭 전환
-            },
+      pageBuilder: (context, state) {
+        // MediaQuery를 사용해 isMobile 계산
+        final size = MediaQuery.of(context).size;
+        final isMobile = size.width < 600;
+
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: MyAppContainer(
+            child: isMobile
+                ? MHomePage( // 모바일 전용 페이지
+              onNavigate: (int index) {
+                _router.go(_getPathByIndex(index));
+              },
+              onProductNavigate: (int tabIndex) {
+                _router.go('/products/$tabIndex');
+              },
+              onCompanyNavigate: (int tabIndex) {
+                _router.go('/company/$tabIndex');
+              },
+            )
+                : HomePage( // 기존 데스크톱 페이지
+              onNavigate: (int index) {
+                _router.go(_getPathByIndex(index));
+              },
+              onProductNavigate: (int tabIndex) {
+                _router.go('/products/$tabIndex');
+              },
+              onCompanyNavigate: (int tabIndex) {
+                _router.go('/company/$tabIndex');
+              },
+            ),
           ),
-        ),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+        );
+      },
     ),
+
     GoRoute(
       path: '/company/:tabIndex', // Company 페이지의 탭별 경로
       pageBuilder: (context, state) {
+        final size = MediaQuery.of(context).size;
+        final width = size.width;
+        final height = size.height;
+
+        // 모바일, 태블릿, 데스크톱 기준으로 각기 다른 비율 설정
+        final isMobile = width < 600;
+        final isTablet = width >= 600 && width < 1024;
+        final isDesktop = width >= 1024;
+
         final tabIndex =
             int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
         return CustomTransitionPage(
@@ -82,6 +112,15 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/products/:tabIndex', // Products 페이지 경로 및 탭별 설정
       pageBuilder: (context, state) {
+        final size = MediaQuery.of(context).size;
+        final width = size.width;
+        final height = size.height;
+
+        // 모바일, 태블릿, 데스크톱 기준으로 각기 다른 비율 설정
+        final isMobile = width < 600;
+        final isTablet = width >= 600 && width < 1024;
+        final isDesktop = width >= 1024;
+
         final tabIndex =
             int.tryParse(state.pathParameters['tabIndex'] ?? '0') ?? 0;
         return CustomTransitionPage(
@@ -105,30 +144,50 @@ final GoRouter _router = GoRouter(
     ),
     GoRoute(
       path: '/contact', // Contact 페이지 경로
-      pageBuilder: (context, state) => CustomTransitionPage(
-        key: state.pageKey,
-        child: MyAppContainer(child: ContactScreen()),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
+      pageBuilder: (context, state) {
+        final size = MediaQuery.of(context).size;
+        final isMobile = size.width < 600; // 모바일 기준 조건 설정
+
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: MyAppContainer(
+            child: isMobile
+                ? ContactScreen() // 모바일 전용 ContactScreen
+                : ContactScreen(),      // 데스크톱 ContactScreen
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+        );
+      },
     ),
+
     GoRoute(
       path: '/downloads', // Downloads 페이지 경로
-      pageBuilder: (context, state) => CustomTransitionPage(
-        key: state.pageKey,
-        child: MyAppContainer(child: DownloadScreen()),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
+      pageBuilder: (context, state) {
+        final size = MediaQuery.of(context).size;
+        final isMobile = size.width < 600; // 모바일 기준 조건 설정
+
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: MyAppContainer(
+            child: isMobile
+                ? DownloadScreen() // 모바일 전용 DownloadScreen
+                : DownloadScreen(),      // 데스크톱 DownloadScreen
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+        );
+      },
     ),
+
   ],
 );
 
@@ -161,6 +220,7 @@ class MyAppContainer extends StatefulWidget {
   @override
   _MyAppContainerState createState() => _MyAppContainerState();
 }
+
 
 class _MyAppContainerState extends State<MyAppContainer> {
   @override
@@ -212,7 +272,7 @@ class _MyAppContainerState extends State<MyAppContainer> {
                   child: Container(
                     width: width * 0.0750,
                     height: height * 0.0300,
-                    child:  Image.asset('assets/logo.png',fit: BoxFit.fill,),
+                    child:  Image.asset('assets/logo.png',fit: BoxFit.contain,),
                   ),
                 ):
                 GestureDetector(
@@ -224,7 +284,7 @@ class _MyAppContainerState extends State<MyAppContainer> {
                     padding: EdgeInsets.only(top : height * 0.01),
                     width: width * 0.0858,
                     height: height * 0.0453,
-                    child:  Image.asset('assets/logo.png',fit: BoxFit.fitHeight,),
+                    child:  Image.asset('assets/logo.png',fit: BoxFit.contain,),
                   ),
                 ),
 

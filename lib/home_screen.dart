@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'popup.dart';
 import 'dart:html' as html;
 import 'package:newchem_flutter_website/main.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
   final Function(int) onNavigate;
@@ -205,7 +206,7 @@ class _HomePageState extends State<HomePage> {
     final width = size.width;
     final height = size.height;
 
-    final isMobile = width < 600 && height < 800;
+    final isMobile = width < 600 && height < 916;
     final isTablet = width >= 600 && width < 1024 && height < 1200;
     final isDesktop = width >= 1024 && height >= 1200;
 
@@ -242,1824 +243,2054 @@ class _HomePageState extends State<HomePage> {
       },
     );
 //내 컴퓨터 환경 2560 * 1440
-    return MaterialApp(
-      home: LayoutBuilder(builder: (context, constraints) {
-        return Scaffold(
-          backgroundColor: Color(0xffd4e2f5).withOpacity(0.9),
-          body: SingleChildScrollView(
-            controller: _scrollController,
-            child: Container(
-                width: width,
-                height: height *
-                    (isMobile
-                        ? 4
-                        : isTablet
-                            ? 5
-                            : 4.85572),
-                color: Colors.white,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.zero,
-                      width: width,
-                      child: Column(
+    return ScreenUtilInit(
+      designSize: Size(1920, 1080),
+      child:  MaterialApp(
+        home: LayoutBuilder(builder: (context, constraints) {
+          return Scaffold(
+            backgroundColor: Color(0xffd4e2f5).withOpacity(0.9),
+            body: SingleChildScrollView(
+              controller: _scrollController,
+              child: Container(
+                  width: width,
+                  height: height *
+                      (isMobile
+                          ? 1.895
+                          : isTablet
+                          ? 5
+                          : 4.85572),
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      isMobile
+                          ?
+                      Container(
+                        padding: EdgeInsets.zero,
+                        width: width,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Stack(
+                              children: [
+                                Container(
+                                  width: width,
+                                  child: CarouselSlider(
+                                    carouselController: _controller,
+                                    items: slideImages.map((item) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          widget.onProductNavigate(
+                                              int.parse(item['route']!));
+                                        },
+                                        child: Container(
+                                          width: width,
+                                          height: height * 1.5,
+                                          child: Stack(
+                                            children: [
+                                              Image.asset(item['image']!,
+                                                  fit: BoxFit.fill,
+                                                  width: width,
+                                                  height: height * 1.5),
+                                              Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .center,
+                                                mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .center,
+                                                children: [
+                                                  SizedBox(
+                                                      height:
+                                                      height * 0.02),
+                                                  Text(
+                                                    item['name']!,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize:
+                                                      width * 0.02,
+                                                      fontFamily:
+                                                      'Pretendard',
+                                                      fontWeight:
+                                                      FontWeight.w600,
+                                                    ),
+                                                  ),
 
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              Container(
-                                width: width,
-                                height: height *
-                                    (isMobile
-                                        ? 0.6
-                                        : isTablet
-                                            ? 1.0
-                                            : 1.111),
-                                child: CarouselSlider(
-                                  carouselController: _controller,
-                                  items: slideImages.map((item) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        widget.onProductNavigate(
-                                            int.parse(item['route']!));
-                                      },
-                                      child: Container(
-                                        width: width,
-                                        child: Stack(
-                                          children: [
-                                            Image.asset(
-                                              item['image']!,
-                                              fit: BoxFit.contain,
-                                              width: width,
-                                              height: height *
-                                                  (isMobile
-                                                      ? 0.9
-                                                      : isTablet
-                                                          ? 1.0
-                                                          : 1.111),
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                SizedBox(
-                                                    height: height *
-                                                        (isMobile
-                                                            ? 0.15
-                                                            : isTablet
-                                                                ? 0.2
-                                                                : 0.2129)),
-                                                Text(
-                                                  item['name']!,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: width *
-                                                        (isMobile
-                                                            ? 0.05
-                                                            : isTablet
-                                                                ? 0.025
-                                                                : 0.0281),
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w600,
+                                                  SelectableText(
+                                                    item['description']!,
+                                                    textAlign:
+                                                    TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize:
+                                                      width * 0.01,
+                                                      fontFamily:
+                                                      'Pretendard',
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                      letterSpacing: 0.6,
+                                                    ),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                    height: height *
-                                                        (isMobile
-                                                            ? 0.02
-                                                            : 0.022)),
-                                                SelectableText(
-                                                  item['description']!,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: width *
-                                                        (isMobile
-                                                            ? 0.03
-                                                            : 0.0101),
-                                                    fontFamily: 'Pretendard',
-                                                    fontWeight: FontWeight.w500,
-                                                    letterSpacing: 0.6,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                    height: height *
-                                                        (isMobile
-                                                            ? 0.05
-                                                            : 0.05)),
-                                                Container(
-                                                  width: width *
-                                                      (isMobile ? 0.2 : 0.0968),
-                                                  height: height *
-                                                      (isMobile ? 0.04 : 0.05),
-                                                  color: Colors.transparent,
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      int tabIndex;
-                                                      // item['logoname'] 값에 따라 탭 인덱스를 설정
-                                                      if (item['logoname'] ==
-                                                          'HEIDOLPH') {
-                                                        tabIndex = 0;
-                                                      } else if (item[
-                                                              'logoname'] ==
-                                                          'NORMAG') {
-                                                        tabIndex = 1;
-                                                      } else if (item[
-                                                              'logoname'] ==
-                                                          'CINC Inc.') {
-                                                        tabIndex = 2;
-                                                      } else {
-                                                        tabIndex =
-                                                            0; // 기본값으로 설정할 인덱스 (필요시)
-                                                      }
-                                                      widget.onProductNavigate(
-                                                          tabIndex);
-                                                    },
-                                                    child: MouseRegion(
-                                                      onEnter: (_) => setState(
-                                                          () =>
-                                                              isHovered = true),
-                                                      onExit: (_) => setState(
-                                                          () => isHovered =
-                                                              false),
-                                                      child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          border: Border.all(
+                                                  SizedBox(
+                                                      height:
+                                                      height * 0.01),
+                                                  Container(
+                                                    width: width * 0.15,
+                                                    height: height * 0.015,
+                                                    color:
+                                                    Colors.transparent,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        int tabIndex;
+                                                        // item['logoname'] 값에 따라 탭 인덱스를 설정
+                                                        if (item[
+                                                        'logoname'] ==
+                                                            'HEIDOLPH') {
+                                                          tabIndex = 0;
+                                                        } else if (item[
+                                                        'logoname'] ==
+                                                            'NORMAG') {
+                                                          tabIndex = 1;
+                                                        } else if (item[
+                                                        'logoname'] ==
+                                                            'CINC Inc.') {
+                                                          tabIndex = 2;
+                                                        } else {
+                                                          tabIndex =
+                                                          0; // 기본값으로 설정할 인덱스 (필요시)
+                                                        }
+                                                        widget
+                                                            .onProductNavigate(
+                                                            tabIndex);
+                                                      },
+                                                      child: MouseRegion(
+                                                        onEnter: (_) =>
+                                                            setState(() =>
+                                                            isHovered =
+                                                            true),
+                                                        onExit: (_) =>
+                                                            setState(() =>
+                                                            isHovered =
+                                                            false),
+                                                        child: Container(
+                                                          alignment:
+                                                          Alignment
+                                                              .center,
+                                                          decoration:
+                                                          BoxDecoration(
+                                                            border: Border.all(
+                                                                color: isHovered
+                                                                    ? Color(
+                                                                    0xff5695F0)
+                                                                    : Colors
+                                                                    .white,
+                                                                width: width *
+                                                                    0.001),
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                61),
+                                                          ),
+                                                          child: Text(
+                                                            item[
+                                                            'logoname']!,
+                                                            style:
+                                                            TextStyle(
                                                               color: isHovered
                                                                   ? Color(
-                                                                      0xff5695F0)
+                                                                  0xff5695F0)
                                                                   : Colors
-                                                                      .white,
-                                                              width: width *
-                                                                  0.001),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(61),
-                                                        ),
-                                                        child: Text(
-                                                          item['logoname']!,
-                                                          style: TextStyle(
-                                                            color: isHovered
-                                                                ? Color(
-                                                                    0xff5695F0)
-                                                                : Colors.white,
-                                                            fontSize: width *
-                                                                (isMobile
-                                                                    ? 0.025
-                                                                    : 0.0125),
-                                                            fontFamily:
-                                                                'Pretendard',
-                                                            fontWeight:
-                                                                FontWeight.w600,
+                                                                  .white,
+                                                              fontSize:
+                                                              width *
+                                                                  0.012,
+                                                              fontFamily:
+                                                              'Pretendard',
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w600,
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                    height: height *
-                                                        (isMobile
-                                                            ? 0.03
-                                                            : 0.042)),
-                                                // 추가된 productImages와 productName을 위한 Row
+                                                  SizedBox(
+                                                      height:
+                                                      height * 0.01),
+                                                  // 추가된 productImages와 productName을 위한 Row
 
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    ...List.generate(
-                                                      item['productImages']
-                                                          .length,
-                                                      (index) {
-                                                        String productImage =
-                                                            item['productImages']
-                                                                [index];
-                                                        String productName =
-                                                            item['productName']
-                                                                [index];
-                                                        return Padding(
-                                                          padding: EdgeInsets.symmetric(
-                                                              horizontal: height *
-                                                                  (isMobile
-                                                                      ? 0.005
-                                                                      : 0.0074)),
-                                                          child: Container(
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                    children: [
+                                                      ...List.generate(
+                                                        item['productImages']
+                                                            .length,
+                                                            (index) {
+                                                          String
+                                                          productImage =
+                                                          item['productImages']
+                                                          [index];
+                                                          String
+                                                          productName =
+                                                          item['productName']
+                                                          [index];
+                                                          return Container(
                                                             width: item['productImages']
-                                                                        .length ==
-                                                                    1
+                                                                .length ==
+                                                                1
                                                                 ? width *
-                                                                    (isMobile
-                                                                        ? 0.35
-                                                                        : 0.415)
+                                                                0.35
                                                                 : width *
-                                                                    (isMobile
-                                                                        ? 0.22
-                                                                        : 0.2479),
+                                                                0.22,
                                                             height: height *
-                                                                (isMobile
-                                                                    ? 0.3
-                                                                    : 0.4407),
+                                                                0.1,
                                                             decoration:
-                                                                ShapeDecoration(
+                                                            ShapeDecoration(
                                                               color: Colors
                                                                   .white
                                                                   .withOpacity(
-                                                                      0.65),
+                                                                  0.65),
                                                               shape:
-                                                                  RoundedRectangleBorder(
+                                                              RoundedRectangleBorder(
                                                                 side: BorderSide(
                                                                     width: width *
                                                                         0.001,
                                                                     color: Colors
                                                                         .transparent),
                                                                 borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8),
+                                                                BorderRadius
+                                                                    .circular(8),
                                                               ),
                                                             ),
                                                             child: Column(
                                                               children: [
                                                                 SizedBox(
-                                                                    height: height *
-                                                                        (isMobile
-                                                                            ? 0.02
-                                                                            : 0.0303)),
+                                                                    height: width < 1600? height * 0.002:height *
+                                                                        0.01),
                                                                 Image.asset(
-                                                                  item['logo'],
-                                                                  width: width *
-                                                                      (isMobile
-                                                                          ? 0.02
-                                                                          : 0.036),
-                                                                  height: height *
-                                                                      (isMobile
-                                                                          ? 0.01
-                                                                          : 0.0129),
+                                                                  item[
+                                                                  'logo'],
+                                                                  width: width < 1600? width * 0.015:width *
+                                                                      0.02,
                                                                   fit: BoxFit
-                                                                      .fill,
+                                                                      .contain,
                                                                 ),
                                                                 Text(
                                                                   productName,
                                                                   style:
-                                                                      TextStyle(
+                                                                  TextStyle(
                                                                     color: Colors
                                                                         .black,
-                                                                    fontSize: width *
-                                                                        (isMobile
-                                                                            ? 0.012
-                                                                            : 0.015),
+                                                                    fontSize:
+                                                                    width *
+                                                                        0.006,
                                                                     fontFamily:
-                                                                        'Pretendard',
+                                                                    'Pretendard',
                                                                     fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                    height: height *
-                                                                        (isMobile
-                                                                            ? 0.0015
-                                                                            : 0.0011),
+                                                                    FontWeight.w500,
                                                                   ),
                                                                 ),
                                                                 SizedBox(
-                                                                    height: height *
-                                                                        (isMobile
-                                                                            ? 0.01
-                                                                            : 0.0148)),
+                                                                  height:width < 1600? height * 0.004: height *
+                                                                      0.015,
+                                                                ),
+
                                                                 Image.asset(
                                                                   productImage,
                                                                   width: width *
-                                                                      (isMobile
-                                                                          ? 0.15
-                                                                          : 0.2),
-                                                                  height: height *
-                                                                      (isMobile
-                                                                          ? 0.2
-                                                                          : 0.2879),
-                                                                  fit: BoxFit
-                                                                      .contain,
+                                                                      0.15,
+                                                                  height: width < 1600?
+                                                                  height * 0.01:height *
+                                                                      0.05,
+                                                                  fit: width < 1600? BoxFit.contain:BoxFit
+                                                                      .fitHeight,
                                                                 ),
-                                                                SizedBox(
-                                                                    height: height *
-                                                                        (isMobile
-                                                                            ? 0.005
-                                                                            : 0.00690)),
-                                                                Text(
-                                                                  'NewChem',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Color(
-                                                                            0xFF729DF6)
-                                                                        .withOpacity(
-                                                                            0.7),
-                                                                    fontSize: width *
-                                                                        (isMobile
-                                                                            ? 0.008
-                                                                            : 0.009),
-                                                                    fontFamily:
-                                                                        'Pretendard',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                                )
                                                               ],
                                                             ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  options: CarouselOptions(
-                                    autoPlay: true,
-                                    autoPlayInterval: Duration(seconds: 8),
-                                    // 자동 재생 시간 조절
-                                    autoPlayAnimationDuration:
-                                        Duration(milliseconds: 1000),
-                                    // 전환 속도 조절
-                                    enlargeCenterPage: false,
-                                    viewportFraction: 1,
-                                    scrollPhysics: BouncingScrollPhysics(),
-                                    // 부드러운 스크롤 적용
-                                    onPageChanged: (index, reason) {
-                                      setState(() {
-                                        _current = index;
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                          height: height *
-                                              (isMobile ? 0.15 : 0.2352)),
-                                      ...slideImages
-                                          .asMap()
-                                          .entries
-                                          .map((entry) {
-                                        return Column(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                _controller
-                                                    .animateToPage(entry.key);
-                                              },
-                                              child: Container(
-                                                width: width *
-                                                    (isMobile ? 0.012 : 0.0166),
-                                                height: height *
-                                                    (isMobile ? 0.02 : 0.0296),
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: 4.0),
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: _current == entry.key
-                                                      ? Colors.transparent
-                                                      : Colors.transparent,
-                                                  border: Border.all(
-                                                    color: _current == entry.key
-                                                        ? Colors.white
-                                                        : Colors.transparent,
-                                                    width: _current == entry.key
-                                                        ? 1
-                                                        : 0, // 선택된 항목에만 테두리를 주기
-                                                  ),
-                                                ),
-                                                child: Center(
-                                                  child: Container(
-                                                    width: width *
-                                                        (isMobile
-                                                            ? 0.004
-                                                            : 0.0052),
-                                                    height: height *
-                                                        (isMobile
-                                                            ? 0.006
-                                                            : 0.0092),
-                                                    decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                                height: height *
-                                                    (isMobile
-                                                        ? 0.02
-                                                        : 0.02549)),
-
-                                            // 원 사이의 간격 설정
-                                          ],
-                                        );
-                                      }).toList(),
-                                      SizedBox(
-                                          height: height *
-                                              (isMobile ? 0.25 : 0.3450)),
-                                      Transform(
-                                        transform: Matrix4.identity()
-                                          ..translate(10, 12)
-                                          ..rotateZ(-1.57),
-                                        child: Text(
-                                          'Scroll',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: width *
-                                                (isMobile ? 0.007 : 0.0083),
-                                            fontFamily: 'Pretendard',
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height: height *
-                                              (isMobile ? 0.004 : 0.0050)),
-                                      Image.asset('assets/arrow_down.png'),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                      width:
-                                          width * (isMobile ? 0.015 : 0.02239)),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    //carusel slider 부분
-                    Container(
-                        color: Colors.white,
-                        height: height *
-                            (isMobile
-                                ? 0.6
-                                : isTablet
-                                    ? 0.7
-                                    : 0.7870),
-                        child: Stack(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Spacer(),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      width: width * (isMobile ? 0.6 : 0.7125),
-                                      height:
-                                          height * (isMobile ? 0.2 : 0.3129),
-                                      child: Image.asset(
-                                        'assets/bg-gradation00.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Spacer(),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Spacer(),
-                                Column(
-                                  children: [
-                                    SizedBox(
-                                        height:
-                                            height * (isMobile ? 0.1 : 0.1388)),
-                                    Text(
-                                      'Contacts Us',
-                                      style: TextStyle(
-                                        color: Color(0xFF191919),
-                                        fontSize: width *
-                                            (isMobile
-                                                ? 0.022
-                                                : isTablet
-                                                    ? 0.025
-                                                    : 0.0291),
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w700,
-                                        height: height *
-                                            (isMobile ? 0.0015 : 0.0010),
-                                      ),
-                                    ),
-                                    Text(
-                                      '전문가에게 맡겨주세요 ',
-                                      style: TextStyle(
-                                        color: Color(0xFF191919),
-                                        fontSize:
-                                            width * (isMobile ? 0.012 : 0.0145),
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                        height: height *
-                                            (isMobile ? 0.03 : 0.0444)),
-                                    SelectableText(
-                                      '문의 및 상담 내용을 작성해서 접수하시면',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Color(0xFF191919),
-                                        fontSize:
-                                            width * (isMobile ? 0.008 : 0.0104),
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w400,
-                                        height: height *
-                                            (isMobile ? 0.0012 : 0.0010),
-                                      ),
-                                    ),
-                                    SelectableText(
-                                      '전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Color(0xFF191919),
-                                        fontSize:
-                                            width * (isMobile ? 0.008 : 0.0104),
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    // 진행 단계 표시 Row 추가
-                                    SizedBox(height: height * 0.1600),
-                                    Container(
-                                      width: width * 0.625,
-                                      height: height * 0.07592,
-                                      child: Image.asset(
-                                        'assets/progressbar.png',
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                    SizedBox(height: height * 0.0900),
-                                    Container(
-                                      width: width * (isMobile ? 0.15 : 0.1682),
-                                      height:
-                                          height * (isMobile ? 0.04 : 0.0574),
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            widget.onNavigate(3);
-                                          });
-                                        },
-                                        child: Text(
-                                          '문의하기',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: width *
-                                                (isMobile ? 0.01 : 0.0125),
-                                            fontFamily: 'Pretendard',
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xff5695F0),
-                                          foregroundColor: Colors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Spacer(),
-                              ],
-                            ),
-                          ],
-                        )),
-                    //contact us 부분
-                    Container(
-                        height: height * (isMobile ? 0.45 : 0.612),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/main-background00.png"),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        child: Center(
-                          child: Column(
-                            children: [
-                              Spacer(),
-                              Text(
-                                'NEWCHEM',
-                                style: TextStyle(
-                                  color: Color(0xFF6194F9),
-                                  fontSize: width * 0.01041,
-                                  fontFamily: 'Pretendard',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              SizedBox(height: height* 0.0055,),
-                                          Text(
-                                            'Welcome',
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              color: Color(0xFF191919),
-                                              fontSize:
-                                                  width * (isMobile ? 0.025 : 0.02916),
-                                              fontFamily: 'Pretendard',
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                              SizedBox(height: height* 0.06111,),
-                              Text(
-                                '(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지\n합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,\n고객이 신뢰할 수 있는 회사로 자리매김해 왔습니다.\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Color(0xFF191919),
-                                  fontSize: width * 0.01041,
-                                  fontFamily: 'Pretendard',
-                                  fontWeight: FontWeight.w400,
-                                  height: height * 0.0017,
-                                ),
-                              ),
-                              SizedBox(height: height * 0.0416,),
-                              InkWell(
-                                onTap: (){
-                                  widget.onNavigate(1);
-                                },
-                                child:Container(
-                                  width: width * 0.08645,
-                                  height: height * 0.0388,
-                                  decoration: ShapeDecoration(
-                                    color: Colors.white.withOpacity(0),
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(width: 1, color: Color(0xFF6194F9)),
-                                      borderRadius: BorderRadius.circular(70),
-                                    ),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'more view',
-                                        style: TextStyle(
-                                          color: Color(0xFF6194F9),
-                                          fontSize: width * 0.01041,
-                                          fontFamily: 'Pretendard',
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                      SizedBox(width: width * 0.0052,),
-                                      Container(
-                                        width: width * 0.0049,
-                                        height: height * 0.0069,
-                                        child: Image.asset(
-                                          'assets/arrow_right.png',
-                                          fit: BoxFit.contain,
-                                        ),
-                                      )
-
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-                              Spacer(),
-
-                            ],
-                          ),
-                        )),
-                    //인사말 부분
-                    // Container(
-                    //   height: height * (isMobile ? 0.45 : 0.612),
-                    //   decoration: BoxDecoration(
-                    //     image: DecorationImage(
-                    //       image: AssetImage("assets/main-background00.png"),
-                    //       fit: BoxFit.cover,
-                    //     ),
-                    //   ),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     children: [
-                    //       SizedBox(width: width * (isMobile ? 0.1 : 0.1875)),
-                    //       Container(
-                    //         child: Column(
-                    //           mainAxisAlignment: MainAxisAlignment.start,
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             SizedBox(
-                    //                 height:
-                    //                     height * (isMobile ? 0.15 : 0.2129)),
-                    //             Text(
-                    //               'Welcome',
-                    //               textAlign: TextAlign.left,
-                    //               style: TextStyle(
-                    //                 color: Color(0xFF191919),
-                    //                 fontSize:
-                    //                     width * (isMobile ? 0.025 : 0.02916),
-                    //                 fontFamily: 'Pretendard',
-                    //                 fontWeight: FontWeight.w700,
-                    //               ),
-                    //             ),
-                    //             SizedBox(
-                    //                 height:
-                    //                     height * (isMobile ? 0.005 : 0.007)),
-                    //             Container(
-                    //               width: width * (isMobile ? 0.25 : 0.2906),
-                    //               height: height * (isMobile ? 0.004 : 0.006),
-                    //               decoration: BoxDecoration(
-                    //                 gradient: LinearGradient(
-                    //                   begin: Alignment(1.00, 0.00),
-                    //                   end: Alignment(-1, 0),
-                    //                   colors: [
-                    //                     Color(0xFF6194F9),
-                    //                     Color(0xFF82ACFF)
-                    //                   ],
-                    //                 ),
-                    //               ),
-                    //             ),
-                    //             SizedBox(
-                    //                 height:
-                    //                     height * (isMobile ? 0.05 : 0.0833)),
-                    //             InkWell(
-                    //               onTap: () {
-                    //                 widget.onNavigate(1);
-                    //               },
-                    //               child: Row(
-                    //                 mainAxisAlignment: MainAxisAlignment.start,
-                    //                 children: [
-                    //                   Text(
-                    //                     'more view',
-                    //                     style: TextStyle(
-                    //                       color: Color(0xFF6194F9),
-                    //                       fontSize: width *
-                    //                           (isMobile ? 0.01 : 0.0112),
-                    //                       fontFamily: 'Pretendard',
-                    //                       fontWeight: FontWeight.w400,
-                    //                       height: height *
-                    //                           (isMobile ? 0.00005 : 0.00006),
-                    //                     ),
-                    //                   ),
-                    //                   Icon(
-                    //                     Icons.arrow_right,
-                    //                     color: Color(0xFF6194F9),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //             )
-                    //           ],
-                    //         ),
-                    //       ),
-                    //       SizedBox(width: width * (isMobile ? 0.025 : 0.03177)),
-                    //       Container(
-                    //         child: Column(
-                    //           mainAxisAlignment: MainAxisAlignment.start,
-                    //           crossAxisAlignment: CrossAxisAlignment.start,
-                    //           children: [
-                    //             SizedBox(
-                    //                 height:
-                    //                     height * (isMobile ? 0.15 : 0.1851)),
-                    //             SelectableText(
-                    //               '(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지\n합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,\n고객이 신뢰할 수 있는 회사로 자리 매김해 왔습니다.\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
-                    //               style: TextStyle(
-                    //                 color: Color(0xFF191919),
-                    //                 fontSize:
-                    //                     width * (isMobile ? 0.008 : 0.0104),
-                    //                 fontFamily: 'Pretendard',
-                    //                 fontWeight: FontWeight.w400,
-                    //                 height:
-                    //                     height * (isMobile ? 0.0015 : 0.00155),
-                    //               ),
-                    //             )
-                    //           ],
-                    //         ),
-                    //       )
-                    //     ],
-                    //   ),
-                    // ), //인사말 부분
-                    Container(
-                      height: height * (isMobile ? 0.5 : 0.6300),
-                      color: Colors.white,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: width * (isMobile ? 0.1 : 0.1820),
-                          ),
-                          Container(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: height * (isMobile ? 0.15 : 0.1900),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Downloads',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        color: Color(0xFF191919),
-                                        fontSize: width *
-                                            (isMobile ? 0.025 : 0.02916),
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: width * (isMobile ? 0.03 : 0.0442),
-                                    ),
-                                    Transform.translate(
-                                      offset: Offset(0,
-                                          height * (isMobile ? 0.007 : 0.009)),
-                                      child: InkWell(
-                                        onTap: () {
-                                          widget.onNavigate(4);
-                                        },
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'more view',
-                                              style: TextStyle(
-                                                color: Color(0xFF6194F9),
-                                                fontSize: width *
-                                                    (isMobile
-                                                        ? 0.009
-                                                        : 0.01119),
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w400,
-                                                height: height *
-                                                    (isMobile
-                                                        ? 0.00005
-                                                        : 0.00006),
-                                              ),
-                                            ),
-                                            Icon(
-                                              Icons.arrow_right,
-                                              color: Color(0xFF6194F9),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: height * (isMobile ? 0.005 : 0.0074),
-                                ),
-                                Container(
-                                  width: width * (isMobile ? 0.2 : 0.26145),
-                                  height: height * (isMobile ? 0.002 : 0.00277),
-                                  decoration:
-                                      BoxDecoration(color: Color(0xFF6194F9)),
-                                ),
-                                SizedBox(
-                                  height: height * (isMobile ? 0.004 : 0.0055),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.zero,
-                                  width: width * (isMobile ? 0.22 : 0.2614),
-                                  child: Column(
-                                    children: [
-                                      ...downloadData
-                                          .asMap()
-                                          .entries
-                                          .map((entry) {
-                                        int index = entry.key;
-                                        var item = entry.value;
-
-                                        return Column(
-                                          children: [
-                                            Container(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  0,
-                                                  height *
-                                                      (isMobile
-                                                          ? 0.005
-                                                          : 0.0074),
-                                                  0,
-                                                  0),
-                                              child: Table(
-                                                columnWidths: {
-                                                  0: FixedColumnWidth(width *
-                                                      (isMobile
-                                                          ? 0.015
-                                                          : 0.01978)),
-                                                  1: FixedColumnWidth(width *
-                                                      (isMobile
-                                                          ? 0.16
-                                                          : 0.19790)),
-                                                  2: FixedColumnWidth(width *
-                                                      (isMobile
-                                                          ? 0.04
-                                                          : 0.053)),
-                                                },
-                                                children: [
-                                                  TableRow(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                vertical: 12.0),
-                                                        child: Container(
-                                                          width: width *
-                                                              (isMobile
-                                                                  ? 0.015
-                                                                  : 0.01979),
-                                                          height: height *
-                                                              (isMobile
-                                                                  ? 0.025
-                                                                  : 0.0351),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0xFF6394F9),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        6),
-                                                          ),
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                            vertical: width *
-                                                                (isMobile
-                                                                    ? 0.002
-                                                                    : 0.003),
-                                                            horizontal: height *
-                                                                (isMobile
-                                                                    ? 0.004
-                                                                    : 0.0055),
-                                                          ),
-                                                          child: Text(
-                                                            item["number"]!
-                                                                .padLeft(
-                                                                    2, '0'),
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: width *
-                                                                  (isMobile
-                                                                      ? 0.008
-                                                                      : 0.01041),
-                                                              fontFamily:
-                                                                  'Pretendard',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
-                                                            textAlign:
-                                                                TextAlign.left,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.fromLTRB(
-                                                                width *
-                                                                    (isMobile
-                                                                        ? 0.006
-                                                                        : 0.0083),
-                                                                height *
-                                                                    (isMobile
-                                                                        ? 0.012
-                                                                        : 0.0148),
-                                                                0,
-                                                                height *
-                                                                    0.0148),
-                                                        child: GestureDetector(
-                                                          onTap: () async {
-                                                            final Uri uri =
-                                                                Uri.parse(item[
-                                                                    "link"]!);
-                                                            if (await canLaunchUrl(
-                                                                uri)) {
-                                                              await launchUrl(
-                                                                  uri);
-                                                            } else {
-                                                              throw 'Could not launch ${item["link"]}';
-                                                            }
-                                                          },
-                                                          child: Text(
-                                                            item["title"]!,
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize: width *
-                                                                  (isMobile
-                                                                      ? 0.007
-                                                                      : 0.009),
-                                                              fontFamily:
-                                                                  'Pretendard',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width: width *
-                                                            (isMobile
-                                                                ? 0.04
-                                                                : 0.0447),
-                                                        padding:
-                                                            EdgeInsets.fromLTRB(
-                                                                0,
-                                                                height *
-                                                                    (isMobile
-                                                                        ? 0.012
-                                                                        : 0.0148),
-                                                                width * 0.0083,
-                                                                0),
-                                                        child: Text(
-                                                          item["date"]!,
-                                                          maxLines: 1,
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                    0xff191919)
-                                                                .withOpacity(
-                                                                    0.4),
-                                                            fontSize: width *
-                                                                (isMobile
-                                                                    ? 0.0075
-                                                                    : 0.0093),
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            letterSpacing: -1,
-                                                          ),
-                                                        ),
+                                                          );
+                                                        },
                                                       ),
                                                     ],
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                            if (index < downloadData.length - 1)
-                                              Column(children: [
-                                                SizedBox(
-                                                    height: height *
-                                                        (isMobile
-                                                            ? 0.01
-                                                            : 0.0148)),
-                                                Divider(
-                                                    color: Color(0xff191919)
-                                                        .withOpacity(0.2),
-                                                    thickness: 1,
-                                                    height: 1),
-                                              ])
-                                          ],
-                                        );
-                                      }).toList(),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: height * (isMobile ? 0.06 : 0.0833),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            width: width * (isMobile ? 0.01 : 0.0125),
-                          ),
-                          Container(
-                            color: Colors.white,
-                            child: Column(children: [
-                              SizedBox(
-                                height: height * (isMobile ? 0.18 : 0.2222),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Color(0xFFD9D9D9)),
-                                    child: IconButton(
-                                      onPressed: null,
-                                      icon: Icon(Icons.arrow_back_ios_sharp),
-                                      color: Color(0xff6194f9),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      width:
-                                          width * (isMobile ? 0.003 : 0.004)),
-                                  // ListView로 3개 아이템을 한 번에 보여줌
-                                  Container(
-                                    width: width * (isMobile ? 0.25 : 0.3307),
-                                    height: height * (isMobile ? 0.22 : 0.2935),
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: downloadData.length,
-                                      itemBuilder: (context, index) {
-                                        final item = downloadData[index];
-                                        return Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: width *
-                                                  (isMobile ? 0.002 : 0.0025)),
-                                          child: GestureDetector(
-                                            onTap: () async {
-                                              final Uri uri =
-                                                  Uri.parse(item["link"]!);
-                                              if (await canLaunchUrl(uri)) {
-                                                await launchUrl(uri);
-                                              } else {
-                                                throw 'Could not launch ${item["link"]}';
-                                              }
-                                            },
-                                            child: Container(
-                                              width: width *
-                                                  (isMobile ? 0.08 : 0.1036),
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.2),
-                                                    blurRadius: 6,
-                                                    offset: Offset(
-                                                        0,
-                                                        height *
-                                                            (isMobile
-                                                                ? 0.002
-                                                                : 0.0027)),
-                                                  ),
-                                                ],
-                                              ),
-                                              child: Column(
-                                                children: [
-                                                  SizedBox(
-                                                    height: height *
-                                                        (isMobile
-                                                            ? 0.22
-                                                            : 0.2592),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.vertical(
-                                                              top: Radius
-                                                                  .circular(
-                                                                      10.0)),
-                                                      child: Image.asset(
-                                                        item["image"]!,
-                                                        fit: BoxFit.cover,
-                                                        width: double.infinity,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width: double.infinity,
-                                                    height: height *
-                                                        (isMobile
-                                                            ? 0.03
-                                                            : 0.034),
-                                                    padding:
-                                                        EdgeInsets.fromLTRB(
-                                                      width *
-                                                          (isMobile
-                                                              ? 0.003
-                                                              : 0.0041),
-                                                      height *
-                                                          (isMobile
-                                                              ? 0.005
-                                                              : 0.0074),
-                                                      width *
-                                                          (isMobile
-                                                              ? 0.003
-                                                              : 0.0041),
-                                                      height *
-                                                          (isMobile
-                                                              ? 0.004
-                                                              : 0.0054),
-                                                    ),
-                                                    color: Color(0xFF6394F9)
-                                                        .withOpacity(0.2),
-                                                    child: Row(
-                                                      children: [
-                                                        Text(
-                                                          item["number"]!
-                                                              .padLeft(2, '0'),
-                                                          maxLines: 1,
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFF6194F9),
-                                                            fontSize: width *
-                                                                (isMobile
-                                                                    ? 0.006
-                                                                    : 0.0072),
-                                                            fontFamily:
-                                                                'Pretendard',
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.left,
-                                                        ),
-                                                        SizedBox(
-                                                            width:
-                                                                width * 0.004),
-                                                        Text(
-                                                          item["title"]!,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: width *
-                                                                (isMobile
-                                                                    ? 0.006
-                                                                    : 0.0072),
-                                                            fontWeight:
-                                                                FontWeight.w600,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                            ],
                                           ),
-                                        );
+                                        ),
+                                      );
+                                    }).toList(),
+                                    options: CarouselOptions(
+                                      autoPlay: true,
+                                      autoPlayInterval:
+                                      Duration(seconds: 8),
+                                      // 자동 재생 시간 조절
+                                      autoPlayAnimationDuration:
+                                      Duration(milliseconds: 1000),
+                                      // 전환 속도 조절
+                                      enlargeCenterPage: false,
+                                      viewportFraction: 1,
+                                      scrollPhysics:
+                                      BouncingScrollPhysics(),
+                                      // 부드러운 스크롤 적용
+                                      onPageChanged: (index, reason) {
+                                        setState(() {
+                                          _current = index;
+                                        });
                                       },
                                     ),
                                   ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color:
-                                            Color(0xff6194f9).withOpacity(0.3)),
-                                    child: IconButton(
-                                      onPressed: _previousPage,
-                                      icon: Icon(Icons.arrow_forward_ios_sharp),
-                                      color:
-                                          Color(0xff6194f9), // 아이콘 색상을 흰색으로 변경
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ]),
-                          )
-                        ],
-                      ),
-                    ),
-                    //Download 부분
-                    Container(
-                      height: height * (isMobile ? 0.7 : 0.9),
-                      color: Colors.white,
-                      alignment: Alignment.topLeft,
-                      child: Stack(
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: width * (isMobile ? 0.1 : 0.1875),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: height * (isMobile ? 0.09 : 0.20),
-                                  ),
-                                  Container(
-                                    width: width * (isMobile ? 0.1 : 0.125),
-                                    height: height * (isMobile ? 0.04 : 0.0630),
-                                    child: Text(
-                                      'Direction',
-                                      style: TextStyle(
-                                        color: Color(0xFF191919),
-                                        fontSize:
-                                            width * (isMobile ? 0.02 : 0.0291),
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w700,
-                                        letterSpacing: -1,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: height * 0.0657),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width: width * 0.3,
-                                        height: height * 0.4500,
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              width: width * 0.3,
-                                              height: height * 0.0435,
-                                              decoration: ShapeDecoration(
-                                                color: Colors.black,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            6)),
-                                                shadows: [
-                                                  BoxShadow(
-                                                    color: Color(0x26000000),
-                                                    blurRadius: 30,
-                                                    offset: Offset(0, 0),
-                                                    spreadRadius: 0,
-                                                  )
-                                                ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: height * 0.12),
+                                        ...slideImages
+                                            .asMap()
+                                            .entries
+                                            .map((entry) {
+                                          return Column(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  _controller.animateToPage(
+                                                      entry.key);
+                                                },
+                                                child: Container(
+                                                  width: width * 0.012,
+                                                  height: height * 0.02,
+                                                  margin:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 4.0),
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: _current ==
+                                                        entry.key
+                                                        ? Colors.transparent
+                                                        : Colors
+                                                        .transparent,
+                                                    border: Border.all(
+                                                      color: _current ==
+                                                          entry.key
+                                                          ? Colors.white
+                                                          : Colors
+                                                          .transparent,
+                                                      width: _current ==
+                                                          entry.key
+                                                          ? 1
+                                                          : 0, // 선택된 항목에만 테두리를 주기
+                                                    ),
+                                                  ),
+                                                  child: Center(
+                                                    child: Container(
+                                                      width: width * 0.004,
+                                                      height:
+                                                      height * 0.006,
+                                                      decoration:
+                                                      BoxDecoration(
+                                                          shape: BoxShape
+                                                              .circle,
+                                                          color: Colors
+                                                              .white),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                              SizedBox(
+                                                  height: isMobile? 0 : height * 0.005),
+
+                                              // 원 사이의 간격 설정
+                                            ],
+                                          );
+                                        }).toList(),
+                                        SizedBox(height: isMobile? 0 : height * 0.25),
+                                        Visibility(
+                                          child: Transform(
+                                            transform: Matrix4.identity()
+                                              ..translate(10, 12)
+                                              ..rotateZ(-1.57),
+                                            child: Text(
+                                              'Scroll',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: width * 0.007,
+                                                fontFamily: 'Pretendard',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                          visible: !isMobile,
+                                        ),
+                                        SizedBox(height: height * 0.004),
+                                        Visibility(
+                                          child: Image.asset(
+                                              'assets/arrow_down.png'),
+                                          visible: !isMobile,
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(width: width * 0.015),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                          : Container(
+                        padding: EdgeInsets.zero,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Stack(
+                              children: [
+                                Container(
+                                  width: width,
+                                  child: CarouselSlider(
+                                    carouselController: _controller,
+                                    items: slideImages.map((item) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          widget.onProductNavigate(
+                                              int.parse(item['route']!));
+                                        },
+                                        child: Container(
+                                          width: width,
+                                          child: Stack(
+                                            children: [
+                                              Image.asset(
+                                                item['image']!,
+                                                fit: BoxFit.contain,
+                                                width: width,
+                                                height: height * 1.111,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment
+                                                    .center,
                                                 children: [
-                                                  Container(
-                                                    width: width * 0.0089,
-                                                    height: height * 0.0203,
-                                                    child: Image.asset(
-                                                      'assets/direction.png',
+                                                  SizedBox(
+                                                      height:
+                                                      width < 1600? height * 0.07.h:height * 0.2129.h),
+                                                  Text(
+                                                    item['name']!,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize:
+                                                      width * 0.0281,
+                                                      fontFamily:
+                                                      'Pretendard',
+                                                      fontWeight:
+                                                      FontWeight.w600,
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    width: width * 0.005,
-                                                  ),
+                                                      height:
+                                                      width < 1600? height * 0.0008.h:height * 0.022.h),
                                                   SelectableText(
-                                                    '경기사무소',
+                                                    item['description']!,
+                                                    textAlign:
+                                                    TextAlign.center,
                                                     style: TextStyle(
-                                                      color: Color(0xFF96b9ff),
-                                                      fontSize: width * 0.0114,
-                                                      fontFamily: 'Pretendard',
+                                                      color: Colors.white,
+                                                      fontSize:
+                                                      width * 0.0101,
+                                                      fontFamily:
+                                                      'Pretendard',
                                                       fontWeight:
-                                                          FontWeight.w500,
-                                                      height: 0.06,
-                                                      letterSpacing: 0.66,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: height * 0.0083,
-                                            ),
-                                            Container(
-                                              width: width *
-                                                  (isMobile ? 0.4 : 0.3),
-                                              height: height *
-                                                  (isMobile ? 0.3 : 0.32),
-                                              child: _iframeWidget1,
-                                            ),
-                                            SizedBox(
-                                              height: height * 0.0083,
-                                            ),
-                                            SelectableText(
-                                              '(18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
-                                              style: TextStyle(
-                                                color: Color(0xFF191919),
-                                                fontSize: width * 0.009,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w500,
-                                                letterSpacing: 0.54,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                width: width * 0.0239,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: height * (isMobile ? 0.09 : 0.20),
-                                  ),
-                                  Container(
-                                    width: width * (isMobile ? 0.1 : 0.125),
-                                    height: height * (isMobile ? 0.04 : 0.0630),
-                                    child: Text(
-                                      '',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize:
-                                            width * (isMobile ? 0.02 : 0.0291),
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w700,
-                                        letterSpacing: -1,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: height * 0.0657),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        width: width * 0.3,
-                                        height: height * 0.4500,
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              width: width * 0.3,
-                                              height: height * 0.0435,
-                                              decoration: ShapeDecoration(
-                                                color: Colors.black,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            6)),
-                                                shadows: [
-                                                  BoxShadow(
-                                                    color: Color(0x26000000),
-                                                    blurRadius: 30,
-                                                    offset: Offset(0, 0),
-                                                    spreadRadius: 0,
-                                                  )
-                                                ],
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: width * 0.0089,
-                                                    height: height * 0.0203,
-                                                    child: Image.asset(
-                                                      'assets/direction.png',
+                                                      FontWeight.w500,
+                                                      letterSpacing: 0.6,
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    width: width * 0.005,
-                                                  ),
-                                                  SelectableText(
-                                                    '대전사무소',
-                                                    style: TextStyle(
-                                                      color: Color(0xFF96b9ff),
-                                                      fontSize: width * 0.0114,
-                                                      fontFamily: 'Pretendard',
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      height: 0.06,
-                                                      letterSpacing: 0.66,
+                                                      height:
+                                                      width < 1600? height * 0.02 :height * 0.05),
+                                                  Container(
+                                                    width: width * 0.0968,
+                                                    height: width < 1600? height * 0.03:height * 0.05,
+                                                    color:
+                                                    Colors.transparent,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        int tabIndex;
+                                                        // item['logoname'] 값에 따라 탭 인덱스를 설정
+                                                        if (item[
+                                                        'logoname'] ==
+                                                            'HEIDOLPH') {
+                                                          tabIndex = 0;
+                                                        } else if (item[
+                                                        'logoname'] ==
+                                                            'NORMAG') {
+                                                          tabIndex = 1;
+                                                        } else if (item[
+                                                        'logoname'] ==
+                                                            'CINC Inc.') {
+                                                          tabIndex = 2;
+                                                        } else {
+                                                          tabIndex =
+                                                          0; // 기본값으로 설정할 인덱스 (필요시)
+                                                        }
+                                                        widget
+                                                            .onProductNavigate(
+                                                            tabIndex);
+                                                      },
+                                                      child: MouseRegion(
+                                                        onEnter: (_) =>
+                                                            setState(() =>
+                                                            isHovered =
+                                                            true),
+                                                        onExit: (_) =>
+                                                            setState(() =>
+                                                            isHovered =
+                                                            false),
+                                                        child: Container(
+                                                          alignment:
+                                                          Alignment
+                                                              .center,
+                                                          decoration:
+                                                          BoxDecoration(
+                                                            border: Border.all(
+                                                                color: isHovered
+                                                                    ? Color(
+                                                                    0xff5695F0)
+                                                                    : Colors
+                                                                    .white,
+                                                                width: width *
+                                                                    0.001),
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                61),
+                                                          ),
+                                                          child: Text(
+                                                            item[
+                                                            'logoname']!,
+                                                            style:
+                                                            TextStyle(
+                                                              color: isHovered
+                                                                  ? Color(
+                                                                  0xff5695F0)
+                                                                  : Colors
+                                                                  .white,
+                                                              fontSize:
+                                                              width *
+                                                                  0.0125,
+                                                              fontFamily:
+                                                              'Pretendard',
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w600,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ),
-                                                  )
+                                                  ),
+                                                  SizedBox(
+                                                      height:
+                                                      width < 1600?  height * 0.02: height * 0.042),
+                                                  // 추가된 productImages와 productName을 위한 Row
+
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .center,
+                                                    children: [
+                                                      ...List.generate(
+                                                        item['productImages']
+                                                            .length,
+                                                            (index) {
+                                                          String
+                                                          productImage =
+                                                          item['productImages']
+                                                          [index];
+                                                          String
+                                                          productName =
+                                                          item['productName']
+                                                          [index];
+                                                          return Padding(
+                                                            padding: EdgeInsets.symmetric(
+                                                                horizontal: height *
+                                                                    (isMobile
+                                                                        ? 0.005
+                                                                        : 0.0074)),
+                                                            child:
+                                                            Container(
+                                                              width: item['productImages']
+                                                                  .length ==
+                                                                  1
+                                                                  ? width *
+                                                                  (isMobile
+                                                                      ? 0.35
+                                                                      : 0.415)
+                                                                  : width *
+                                                                  (isMobile
+                                                                      ? 0.22
+                                                                      : 0.2479),
+                                                              height: height *
+                                                                  (width < 1600? 0.26: 0.4407),
+                                                              decoration:
+                                                              ShapeDecoration(
+                                                                color: Colors
+                                                                    .white
+                                                                    .withOpacity(
+                                                                    0.65),
+                                                                shape:
+                                                                RoundedRectangleBorder(
+                                                                  side: BorderSide(
+                                                                      width: width *
+                                                                          0.001,
+                                                                      color:
+                                                                      Colors.transparent),
+                                                                  borderRadius:
+                                                                  BorderRadius.circular(
+                                                                      8),
+                                                                ),
+                                                              ),
+                                                              child: Column(
+                                                                children: [
+                                                                  SizedBox(
+                                                                      height:
+                                                                      height * (isMobile ? 0.02 : 0.0303)),
+                                                                  Image
+                                                                      .asset(
+                                                                    item[
+                                                                    'logo'],
+                                                                    width: width *
+                                                                        (isMobile
+                                                                            ? 0.02
+                                                                            : 0.036),
+                                                                    height: height *
+                                                                        (isMobile
+                                                                            ? 0.01
+                                                                            : 0.0129),
+                                                                    fit: BoxFit
+                                                                        .fill,
+                                                                  ),
+                                                                  Text(
+                                                                    productName,
+                                                                    style:
+                                                                    TextStyle(
+                                                                      color:
+                                                                      Colors.black,
+                                                                      fontSize:
+                                                                      width * (isMobile ? 0.012 : 0.015),
+                                                                      fontFamily:
+                                                                      'Pretendard',
+                                                                      fontWeight:
+                                                                      FontWeight.w500,
+                                                                      height:
+                                                                      height * (isMobile ? 0.0015 : 0.0011),
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(
+                                                                      height:
+                                                                      height * (isMobile ? 0.01 : 0.0148)),
+                                                                  Image
+                                                                      .asset(
+                                                                    productImage,
+                                                                    width: width *
+                                                                        (isMobile
+                                                                            ? 0.15
+                                                                            : 0.2),
+                                                                    height: height *
+                                                                        (width < 1600? 0.1
+                                                                            : 0.2879),
+                                                                    fit: BoxFit
+                                                                        .contain,
+                                                                  ),
+                                                                  SizedBox(
+                                                                      height:width < 1600?
+                                                                      height *  0.002: height *  0.00690),
+                                                                  Text(
+                                                                    'NewChem',
+                                                                    style:
+                                                                    TextStyle(
+                                                                      color:
+                                                                      Color(0xFF729DF6).withOpacity(0.7),
+                                                                      fontSize:
+                                                                      width * (isMobile ? 0.008 : 0.009),
+                                                                      fontFamily:
+                                                                      'Pretendard',
+                                                                      fontWeight:
+                                                                      FontWeight.w500,
+                                                                    ),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ],
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: height * 0.0083,
-                                            ),
-                                            Container(
-                                              width: width *
-                                                  (isMobile ? 0.4 : 0.3),
-                                              height: height *
-                                                  (isMobile ? 0.3 : 0.32),
-                                              child: _iframeWidget2,
-                                            ),
-                                            SizedBox(
-                                              height: height * 0.0083,
-                                            ),
-                                            SelectableText(
-                                              '(34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)',
-                                              style: TextStyle(
-                                                color: Color(0xFF191919),
-                                                fontSize: width * 0.009,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w500,
-                                                letterSpacing: 0.54,
-                                              ),
-                                            )
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              // SizedBox(
-                              //   width: width * (isMobile ? 0.04 : 0.0578),
-                              // ),
-                              // Column(
-                              //   crossAxisAlignment: CrossAxisAlignment.start,
-                              //   children: [
-                              //     SizedBox(
-                              //       height: height * (isMobile ? 0.08 : 0.13),
-                              //     ),
-                              //     Container(
-                              //       width: width * (isMobile ? 0.4 : 0.500),
-                              //       height: height * (isMobile ? 0.3 : 0.4166),
-                              //       child: _iframeWidget1,
-                              //     ),
-                              //     SizedBox(
-                              //       height: height * (isMobile ? 0.07 : 0.10),
-                              //     ),
-                              //     Row(
-                              //       mainAxisAlignment: MainAxisAlignment.start,
-                              //       children: [
-                              //         Container(
-                              //           width:
-                              //               width * (isMobile ? 0.008 : 0.010),
-                              //           height:
-                              //               height * (isMobile ? 0.02 : 0.025),
-                              //           child: Image.asset(
-                              //             'assets/direction.png',
-                              //           ),
-                              //         ),
-                              //         SizedBox(
-                              //           width:
-                              //               width * (isMobile ? 0.005 : 0.0072),
-                              //         ),
-                              //         SelectableText(
-                              //           '경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
-                              //           style: TextStyle(
-                              //             color: Color(0xFF191919),
-                              //             fontSize: width *
-                              //                 (isMobile ? 0.009 : 0.0114),
-                              //             fontFamily: 'Pretendard',
-                              //             fontWeight: FontWeight.w500,
-                              //             letterSpacing: 0.66,
-                              //           ),
-                              //         )
-                              //       ],
-                              //     ),
-                              //   ],
-                              // ),
-                              SizedBox(
-                                width: width * (isMobile ? 0.02 : 0.0260),
-                              ),
-                            ],
-                          ),
-                          // 우측 하단 고정 버튼
-                          Positioned(
-                            bottom: height * (isMobile ? 0.08 : 0.1296),
-                            right: width * (isMobile ? 0.02 : 0.0333),
-                            child: InkWell(
-                              onTap: () {
-                                _scrollController.animateTo(
-                                  0,
-                                  duration: Duration(seconds: 1),
-                                  curve: Curves.easeInOut,
-                                );
-                              },
-                              child: Image.asset(
-                                'assets/scroll_up.png',
-                                width: width * (isMobile ? 0.02 : 0.0328),
-                                height: height * (isMobile ? 0.04 : 0.05833),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Direction 부분
-                    Container(
-                      height: height * (isMobile ? 0.2 : 0.3657),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/gradient_background.png"),
-                          fit: BoxFit.fill,
+                                      );
+                                    }).toList(),
+                                    options: CarouselOptions(
+                                      autoPlay: true,
+                                      autoPlayInterval:
+                                      Duration(seconds: 8),
+                                      // 자동 재생 시간 조절
+                                      autoPlayAnimationDuration:
+                                      Duration(milliseconds: 1000),
+                                      // 전환 속도 조절
+                                      enlargeCenterPage: false,
+                                      viewportFraction: 1,
+                                      scrollPhysics:
+                                      BouncingScrollPhysics(),
+                                      // 부드러운 스크롤 적용
+                                      onPageChanged: (index, reason) {
+                                        setState(() {
+                                          _current = index;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Column(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                            height: height *
+                                                (isMobile ? 0.15 : 0.2352)),
+                                        ...slideImages
+                                            .asMap()
+                                            .entries
+                                            .map((entry) {
+                                          return Column(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  _controller.animateToPage(
+                                                      entry.key);
+                                                },
+                                                child: Container(
+                                                  width: width *
+                                                      (isMobile
+                                                          ? 0.012
+                                                          : 0.0166),
+                                                  height: height *
+                                                      (isMobile
+                                                          ? 0.02
+                                                          : 0.0296),
+                                                  margin:
+                                                  EdgeInsets.symmetric(
+                                                      horizontal: 4.0),
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: _current ==
+                                                        entry.key
+                                                        ? Colors.transparent
+                                                        : Colors
+                                                        .transparent,
+                                                    border: Border.all(
+                                                      color: _current ==
+                                                          entry.key
+                                                          ? Colors.white
+                                                          : Colors
+                                                          .transparent,
+                                                      width: _current ==
+                                                          entry.key
+                                                          ? 1
+                                                          : 0, // 선택된 항목에만 테두리를 주기
+                                                    ),
+                                                  ),
+                                                  child: Center(
+                                                    child: Container(
+                                                      width: width *
+                                                          (isMobile
+                                                              ? 0.004
+                                                              : 0.0052),
+                                                      height: height *
+                                                          (isMobile
+                                                              ? 0.006
+                                                              : 0.0092),
+                                                      decoration:
+                                                      BoxDecoration(
+                                                          shape: BoxShape
+                                                              .circle,
+                                                          color: Colors
+                                                              .white),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  height: height *
+                                                      (isMobile
+                                                          ? 0.02
+                                                          : 0.02549)),
+
+                                              // 원 사이의 간격 설정
+                                            ],
+                                          );
+                                        }).toList(),
+                                        SizedBox(
+                                            height: height *
+                                                (isMobile ? 0.25 : 0.3450)),
+                                        Transform(
+                                          transform: Matrix4.identity()
+                                            ..translate(10, 12)
+                                            ..rotateZ(-1.57),
+                                          child: Text(
+                                            'Scroll',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width *
+                                                  (isMobile
+                                                      ? 0.007
+                                                      : 0.0083),
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            height: height *
+                                                (isMobile
+                                                    ? 0.004
+                                                    : 0.0050)),
+                                        Image.asset(
+                                            'assets/arrow_down.png'),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                        width: width *
+                                            (isMobile ? 0.015 : 0.02239)),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                    ),
-                    //그라디언트 백그라운드
-                    Container(
-                      height: height * (isMobile ? 0.6 : 0.4500),
-                      color: Colors.black,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: height * (isMobile ? 0.04 : 0.0666),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
+                      //carusel slider 부분
+                      Container(
+                          color: Colors.white,
+                          height: height * (isMobile ? 0.15 : 0.7870),
+                          child: Stack(
                             children: [
-                              SizedBox(
-                                width: width * (isMobile ? 0.1 : 0.1703),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Spacer(),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        width: width * (isMobile ? 0.6 : 0.7125),
+                                        height:
+                                        height * (isMobile ? 0.2 : 0.3129),
+                                        child: Image.asset(
+                                          'assets/bg-gradation00.png',
+                                          fit: BoxFit.contain,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Spacer(),
+                                ],
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  buildTextButton2(
-                                      "HOME",
-                                      0,
-                                      width * (isMobile ? 0.012 : 0.00729),
-                                      width * (isMobile ? 0.1 : 0.0598),
-                                      height * (isMobile ? 0.06 : 0.0425),
-                                      onItemTapped),
-                                  SizedBox(
-                                      width:
-                                          width * (isMobile ? 0.004 : 0.0020)),
-                                  buildTextButton2(
-                                      "COMPANY",
-                                      1,
-                                      width * (isMobile ? 0.012 : 0.00729),
-                                      width * (isMobile ? 0.1 : 0.0598),
-                                      height * (isMobile ? 0.06 : 0.0425),
-                                      onItemTapped),
-                                  SizedBox(
-                                      width:
-                                          width * (isMobile ? 0.004 : 0.0020)),
-                                  buildTextButton2(
-                                      "PRODUCTS",
-                                      2,
-                                      width * (isMobile ? 0.012 : 0.00729),
-                                      width * (isMobile ? 0.1 : 0.0598),
-                                      height * (isMobile ? 0.06 : 0.0425),
-                                      onItemTapped),
-                                  SizedBox(
-                                      width:
-                                          width * (isMobile ? 0.004 : 0.0020)),
-                                  buildTextButton2(
-                                      "CONTACT US",
-                                      3,
-                                      width * (isMobile ? 0.012 : 0.00729),
-                                      width * (isMobile ? 0.1 : 0.0598),
-                                      height * (isMobile ? 0.06 : 0.0425),
-                                      onItemTapped),
-                                  SizedBox(
-                                      width:
-                                          width * (isMobile ? 0.004 : 0.0020)),
-                                  buildTextButton2(
-                                      "DOWNLOADS",
-                                      4,
-                                      width * (isMobile ? 0.012 : 0.00729),
-                                      width * (isMobile ? 0.1 : 0.0598),
-                                      height * (isMobile ? 0.06 : 0.0425),
-                                      onItemTapped),
+                                  Spacer(),
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                          height:
+                                          height * (isMobile ? 0 : 0.1388)),
+                                      Text(
+                                        'Contacts Us',
+                                        style: TextStyle(
+                                          color: Color(0xFF191919),
+                                          fontSize: width *
+                                              (isMobile
+                                                  ? 0.022
+                                                  : isTablet
+                                                  ? 0.025
+                                                  : 0.0291),
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w700,
+                                          height: height *
+                                              (isMobile ? 0.0015 : 0.0010),
+                                        ),
+                                      ),
+                                      Text(
+                                        '전문가에게 맡겨주세요 ',
+                                        style: TextStyle(
+                                          color: Color(0xFF191919),
+                                          fontSize:
+                                          width * (isMobile ? 0.012 : 0.0145),
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: height *
+                                              (isMobile ? 0.01 : 0.0444)),
+                                      SelectableText(
+                                        '문의 및 상담 내용을 작성해서 접수하시면',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Color(0xFF191919),
+                                          fontSize:
+                                          width * (isMobile ? 0.008 : 0.0104),
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w400,
+                                          height: height *
+                                              (isMobile ? 0.0012 : 0.0010),
+                                        ),
+                                      ),
+                                      SelectableText(
+                                        '전문가들이 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Color(0xFF191919),
+                                          fontSize:
+                                          width * (isMobile ? 0.008 : 0.0104),
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                      // 진행 단계 표시 Row 추가
+                                      SizedBox(height:isMobile? height * 0.02 : height * 0.1600),
+                                      Visibility(child: Container(
+                                        width:  width * 0.625,
+                                        height:  height * 0.07592,
+                                        child: Image.asset(
+                                          'assets/progressbar.png',
+                                          fit: BoxFit.contain,
+                                        ),
+                                      ),visible: !isMobile,),
+
+                                      SizedBox(height: isMobile? height * 0.04:height * 0.0900),
+                                      Container(
+                                        width: width * (isMobile ? 0.16 : 0.1682),
+                                        height:
+                                        height * (isMobile ? 0.02 : 0.0574),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              widget.onNavigate(3);
+                                            });
+                                          },
+                                          child: Text(
+                                            '문의하기',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: width *
+                                                  (isMobile ? 0.010 : 0.0125),
+                                              fontFamily: 'Pretendard',
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Color(0xff5695F0),
+                                            foregroundColor: Colors.white,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Spacer(),
                                 ],
                               ),
                             ],
-                          ),
-                          SizedBox(
-                            height: height * (isMobile ? 0.02 : 0.025),
-                          ),
-                          Container(
-                            width: width * (isMobile ? 0.9 : 0.625),
-                            child: Divider(
-                              color: Colors.white,
+                          )),
+                      //contact us 부분
+                      Container(
+                          height: height * (isMobile ? 0.19 : 0.612),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/main-background00.png"),
+                              fit: BoxFit.cover,
                             ),
                           ),
-                          SizedBox(
-                            height: height * (isMobile ? 0.03 : 0.0416),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width * (isMobile ? 0.12 : 0.1875),
-                              ),
-                              Container(
-                                width: width * (isMobile ? 0.7 : 0.3156),
-                                height: height * (isMobile ? 0.05 : 0.0462),
-                                child: SelectableText(
-                                  '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Spacer(),
+                                Text(
+                                  'NEWCHEM',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Color(0xFF6194F9),
+                                    fontSize: width * 0.01041,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: isMobile? height * 0.0022:height * 0.0055,
+                                ),
+                                Text(
+                                  'Welcome',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Color(0xFF191919),
                                     fontSize:
-                                        width * (isMobile ? 0.012 : 0.0093),
+                                    width * (isMobile ? 0.025 : 0.02916),
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: isMobile? height * 0.02:height * 0.06111,
+                                ),
+                                Text(
+                                  '(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지\n합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,\n고객이 신뢰할 수 있는 회사로 자리매김해 왔습니다.\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF191919),
+                                    fontSize: width * 0.01041,
+                                    fontFamily: 'Pretendard',
+                                    fontWeight: FontWeight.w400,
+                                    height: height * 0.0017,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: isMobile? height * 0.02:height * 0.0416,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    widget.onNavigate(1);
+                                  },
+                                  child: Container(
+                                    // width: width * (isMobile ? 0.16 : 0.1682),
+                                    // height:
+                                    // height * (isMobile ? 0.02 : 0.0574),
+                                    width: isMobile? width * 0.16 : width * 0.08645,
+                                    height: isMobile? height * 0.02 :height * 0.0388,
+                                    decoration: ShapeDecoration(
+                                      color: Colors.white.withOpacity(0),
+                                      shape: RoundedRectangleBorder(
+                                        side: BorderSide(
+                                            width: 1, color: Color(0xFF6194F9)),
+                                        borderRadius: BorderRadius.circular(70),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'more view',
+                                          style: TextStyle(
+                                            color: Color(0xFF6194F9),
+                                            fontSize: width * 0.01041,
+                                            fontFamily: 'Pretendard',
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: width * 0.0052,
+                                        ),
+                                        Container(
+                                          width: width * 0.0049,
+                                          height: height * 0.0069,
+                                          child: Image.asset(
+                                            'assets/arrow_right.png',
+                                            fit: BoxFit.contain,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                          )),
+                      Container(
+                        height: height * (isMobile ? 0.35 : 0.6300),
+                        color: Colors.white,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: width * (isMobile ? 0.1 : 0.1820),
+                            ),
+                            Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: height * (isMobile ? 0.005 : 0.1900),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Downloads',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                          color: Color(0xFF191919),
+                                          fontSize: width *
+                                              (isMobile ? 0.025 : 0.02916),
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: width * (isMobile ? 0.03 : 0.0442),
+                                      ),
+                                      Transform.translate(
+                                        offset: Offset(0,
+                                            height * (isMobile ? 0.007 : 0.009)),
+                                        child: InkWell(
+                                          onTap: () {
+                                            widget.onNavigate(4);
+                                          },
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'more view',
+                                                style: TextStyle(
+                                                  color: Color(0xFF6194F9),
+                                                  fontSize: width *
+                                                      (isMobile
+                                                          ? 0.009
+                                                          : 0.01119),
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w400,
+                                                  height: height *
+                                                      (isMobile
+                                                          ? 0.00005
+                                                          : 0.00006),
+                                                ),
+                                              ),
+                                              Icon(
+                                                Icons.arrow_right,
+                                                color: Color(0xFF6194F9),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: height * (isMobile ? 0.005 : 0.0074),
+                                  ),
+                                  Container(
+                                    width: width * (isMobile ? 0.2 : 0.26145),
+                                    height: height * (isMobile ? 0.002 : 0.00277),
+                                    decoration:
+                                    BoxDecoration(color: Color(0xFF6194F9)),
+                                  ),
+                                  SizedBox(
+                                    height: height * (isMobile ? 0.004 : 0.0055),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.zero,
+                                    width: width * (isMobile ? 0.22 : 0.2614),
+                                    child: Column(
+                                      children: [
+                                        ...downloadData
+                                            .asMap()
+                                            .entries
+                                            .map((entry) {
+                                          int index = entry.key;
+                                          var item = entry.value;
+
+                                          return Column(
+                                            children: [
+                                              Container(
+                                                padding: EdgeInsets.fromLTRB(
+                                                    0,
+                                                    height *
+                                                        (isMobile
+                                                            ? 0.005
+                                                            : 0.0074),
+                                                    0,
+                                                    0),
+                                                child: Table(
+                                                  columnWidths: {
+                                                    0: FixedColumnWidth(width *
+                                                        (isMobile
+                                                            ? 0.015
+                                                            : 0.01978)),
+                                                    1: FixedColumnWidth(width *
+                                                        (isMobile
+                                                            ? 0.16
+                                                            : 0.19790)),
+                                                    2: FixedColumnWidth(width *
+                                                        (isMobile
+                                                            ? 0.04
+                                                            : 0.053)),
+                                                  },
+                                                  children: [
+                                                    TableRow(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets
+                                                              .symmetric(
+                                                              vertical: 12.0),
+                                                          child: Container(
+                                                            width: width *
+                                                                (isMobile
+                                                                    ? 0.015
+                                                                    : 0.01979),
+                                                            height: height *
+                                                                (isMobile
+                                                                    ? 0.025
+                                                                    : 0.0351),
+                                                            decoration:
+                                                            BoxDecoration(
+                                                              color: Color(
+                                                                  0xFF6394F9),
+                                                              borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                  6),
+                                                            ),
+                                                            padding: EdgeInsets
+                                                                .symmetric(
+                                                              vertical: width *
+                                                                  (isMobile
+                                                                      ? 0.002
+                                                                      : 0.003),
+                                                              horizontal: height *
+                                                                  (isMobile
+                                                                      ? 0.004
+                                                                      : 0.0055),
+                                                            ),
+                                                            child: Text(
+                                                              item["number"]!
+                                                                  .padLeft(
+                                                                  2, '0'),
+                                                              maxLines: 1,
+                                                              style: TextStyle(
+                                                                color:
+                                                                Colors.white,
+                                                                fontSize: width *
+                                                                    (isMobile
+                                                                        ? 0.008
+                                                                        : 0.01041),
+                                                                fontFamily:
+                                                                'Pretendard',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w500,
+                                                              ),
+                                                              textAlign:
+                                                              TextAlign.left,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                          EdgeInsets.fromLTRB(
+                                                              width *
+                                                                  (isMobile
+                                                                      ? 0.006
+                                                                      : 0.0083),
+                                                              height *
+                                                                  (isMobile
+                                                                      ? 0.012
+                                                                      : 0.0148),
+                                                              0,
+                                                              height *
+                                                                  0.0148),
+                                                          child: GestureDetector(
+                                                            onTap: () async {
+                                                              final Uri uri =
+                                                              Uri.parse(item[
+                                                              "link"]!);
+                                                              if (await canLaunchUrl(
+                                                                  uri)) {
+                                                                await launchUrl(
+                                                                    uri);
+                                                              } else {
+                                                                throw 'Could not launch ${item["link"]}';
+                                                              }
+                                                            },
+                                                            child: Text(
+                                                              item["title"]!,
+                                                              style: TextStyle(
+                                                                color:
+                                                                Colors.black,
+                                                                fontSize: width *
+                                                                    (isMobile
+                                                                        ? 0.007
+                                                                        : 0.009),
+                                                                fontFamily:
+                                                                'Pretendard',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w500,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: width *
+                                                              (isMobile
+                                                                  ? 0.04
+                                                                  : 0.0447),
+                                                          padding:
+                                                          EdgeInsets.fromLTRB(
+                                                              0,
+                                                              height *
+                                                                  (isMobile
+                                                                      ? 0.012
+                                                                      : 0.0148),
+                                                              width * 0.0083,
+                                                              0),
+                                                          child: Text(
+                                                            item["date"]!,
+                                                            maxLines: 1,
+                                                            style: TextStyle(
+                                                              color: Color(
+                                                                  0xff191919)
+                                                                  .withOpacity(
+                                                                  0.4),
+                                                              fontSize: width *
+                                                                  (isMobile
+                                                                      ? 0.0075
+                                                                      : 0.0093),
+                                                              fontWeight:
+                                                              FontWeight.w400,
+                                                              letterSpacing: -1,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              if (index < downloadData.length - 1)
+                                                Column(children: [
+                                                  SizedBox(
+                                                      height: height *
+                                                          (isMobile
+                                                              ? 0.01
+                                                              : 0.0148)),
+                                                  Divider(
+                                                      color: Color(0xff191919)
+                                                          .withOpacity(0.2),
+                                                      thickness: 1,
+                                                      height: 1),
+                                                ])
+                                            ],
+                                          );
+                                        }).toList(),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * (isMobile ? 0.06 : 0.0833),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: width * (isMobile ? 0.04 : 0.0125),
+                            ),
+                            Container(
+                              color: Colors.white,
+                              child: Column(children: [
+                                SizedBox(
+                                  height: height * (isMobile ? 0.02 : 0.2222),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Color(0xFFD9D9D9)),
+                                      child: IconButton(
+                                        onPressed: null,
+                                        icon: Icon(Icons.arrow_back_ios_sharp),
+                                        color: Color(0xff6194f9),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        width:
+                                        width * (isMobile ? 0 : 0.004)),
+                                    // ListView로 3개 아이템을 한 번에 보여줌
+                                    Container(
+                                      width: width * (isMobile ? 0.38 : 0.3307),
+                                      height: height * (isMobile ? 0.15 : 0.2935),
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: downloadData.length,
+                                        itemBuilder: (context, index) {
+                                          final item = downloadData[index];
+                                          return Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: width *
+                                                    (isMobile ? 0.002 : 0.0025)),
+                                            child: GestureDetector(
+                                              onTap: () async {
+                                                final Uri uri =
+                                                Uri.parse(item["link"]!);
+                                                if (await canLaunchUrl(uri)) {
+                                                  await launchUrl(uri);
+                                                } else {
+                                                  throw 'Could not launch ${item["link"]}';
+                                                }
+                                              },
+                                              child: Container(
+                                                width: width *
+                                                    (isMobile ? 0.11 : 0.1036),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.2),
+                                                      blurRadius: 6,
+                                                      offset: Offset(
+                                                          0,
+                                                          height *
+                                                              (isMobile
+                                                                  ? 0.002
+                                                                  : 0.0027)),
+                                                    ),
+                                                  ],
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      height: height *
+                                                          (isMobile
+                                                              ? 0.20
+                                                              : 0.2592),
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.vertical(
+                                                            top: Radius
+                                                                .circular(
+                                                                10.0)),
+                                                        child: Image.asset(
+                                                          item["image"]!,
+                                                          fit: BoxFit.cover,
+                                                          width: double.infinity,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: double.infinity,
+                                                      height: height *
+                                                          (isMobile
+                                                              ? 0.015
+                                                              : 0.034),
+                                                      padding:
+                                                      EdgeInsets.fromLTRB(
+                                                        width *
+                                                            (isMobile
+                                                                ? 0.003
+                                                                : 0.0041),
+                                                        height *
+                                                            (isMobile
+                                                                ? 0.005
+                                                                : 0.0074),
+                                                        width *
+                                                            (isMobile
+                                                                ? 0.003
+                                                                : 0.0041),
+                                                        height *
+                                                            (isMobile
+                                                                ? 0.004
+                                                                : 0.0054),
+                                                      ),
+                                                      color: Color(0xFF6394F9)
+                                                          .withOpacity(0.2),
+                                                      child: Row(
+                                                        children: [
+                                                          Text(
+                                                            item["number"]!
+                                                                .padLeft(2, '0'),
+                                                            maxLines: 1,
+                                                            style: TextStyle(
+                                                              color: Color(
+                                                                  0xFF6194F9),
+                                                              fontSize: width *
+                                                                  (isMobile
+                                                                      ? 0.006
+                                                                      : 0.0072),
+                                                              fontFamily:
+                                                              'Pretendard',
+                                                              fontWeight:
+                                                              FontWeight.w500,
+                                                            ),
+                                                            textAlign:
+                                                            TextAlign.left,
+                                                          ),
+                                                          SizedBox(
+                                                              width:
+                                                              width * 0.004),
+                                                          Text(
+                                                            item["title"]!,
+                                                            textAlign:
+                                                            TextAlign.center,
+                                                            style: TextStyle(
+                                                              color: Colors.black,
+                                                              fontSize: width *
+                                                                  (isMobile
+                                                                      ? 0.006
+                                                                      : 0.0072),
+                                                              fontWeight:
+                                                              FontWeight.w600,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+
+                                    Container(
+
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color:
+                                          Color(0xff6194f9).withOpacity(0.3)),
+                                      child: IconButton(
+                                        onPressed: _previousPage,
+                                        icon: Icon(Icons.arrow_forward_ios_sharp),
+                                        color:
+                                        Color(0xff6194f9), // 아이콘 색상을 흰색으로 변경
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ]),
+                            )
+                          ],
+                        ),
+                      ),
+                      //Download 부분
+                      Container(
+                        height: height * (isMobile ? 0.5 : 0.9),
+                        color: Colors.white,
+                        alignment: Alignment.topLeft,
+                        child: Stack(
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: width * (isMobile ? 0.1 : 0.1875),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: height * (isMobile ? 0.09 : 0.20),
+                                    ),
+                                    Container(
+                                      width: width * (isMobile ? 0.1 : 0.125),
+                                      height: height * (isMobile ? 0.04 : 0.0630),
+                                      child: Text(
+                                        'Direction',
+                                        style: TextStyle(
+                                          color: Color(0xFF191919),
+                                          fontSize:
+                                          width * (isMobile ? 0.02 : 0.0291),
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w700,
+                                          letterSpacing: -1,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: isMobile? height * 0.005 :height * 0.0657),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: width * 0.3,
+                                          height: height * 0.4500,
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                width: width * 0.3,
+                                                height: height * 0.0435,
+                                                decoration: ShapeDecoration(
+                                                  color: Colors.black,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          6)),
+                                                  shadows: [
+                                                    BoxShadow(
+                                                      color: Color(0x26000000),
+                                                      blurRadius: 30,
+                                                      offset: Offset(0, 0),
+                                                      spreadRadius: 0,
+                                                    )
+                                                  ],
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width: width * 0.0089,
+                                                      height: height * 0.0203,
+                                                      child: Image.asset(
+                                                        'assets/direction.png',
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: width * 0.005,
+                                                    ),
+                                                    SelectableText(
+                                                      '경기사무소',
+                                                      style: TextStyle(
+                                                        color: Color(0xFF96b9ff),
+                                                        fontSize: width * 0.0114,
+                                                        fontFamily: 'Pretendard',
+                                                        fontWeight:
+                                                        FontWeight.w500,
+                                                        height: 0.06,
+                                                        letterSpacing: 0.66,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: height * 0.0083,
+                                              ),
+                                              Container(
+                                                width: width *
+                                                    (isMobile ? 0.4 : 0.3),
+                                                height: height *
+                                                    (isMobile ? 0.3 : 0.32),
+                                                child: _iframeWidget1,
+                                              ),
+                                              SizedBox(
+                                                height: height * 0.0083,
+                                              ),
+                                              SelectableText(
+                                                '(18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
+                                                style: TextStyle(
+                                                  color: Color(0xFF191919),
+                                                  fontSize: width * 0.009,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w500,
+                                                  letterSpacing: 0.54,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: width * 0.0239,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: height * (isMobile ? 0.09 : 0.20),
+                                    ),
+                                    Container(
+                                      width: width * (isMobile ? 0.1 : 0.125),
+                                      height: height * (isMobile ? 0.04 : 0.0630),
+                                      child: Text(
+                                        '',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize:
+                                          width * (isMobile ? 0.02 : 0.0291),
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w700,
+                                          letterSpacing: -1,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(height: isMobile? height * 0.005 :height * 0.0657),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          width: width * 0.3,
+                                          height: height * 0.4500,
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                width: width * 0.3,
+                                                height: height * 0.0435,
+                                                decoration: ShapeDecoration(
+                                                  color: Colors.black,
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          6)),
+                                                  shadows: [
+                                                    BoxShadow(
+                                                      color: Color(0x26000000),
+                                                      blurRadius: 30,
+                                                      offset: Offset(0, 0),
+                                                      spreadRadius: 0,
+                                                    )
+                                                  ],
+                                                ),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width: width * 0.0089,
+                                                      height: height * 0.0203,
+                                                      child: Image.asset(
+                                                        'assets/direction.png',
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: width * 0.005,
+                                                    ),
+                                                    SelectableText(
+                                                      '대전사무소',
+                                                      style: TextStyle(
+                                                        color: Color(0xFF96b9ff),
+                                                        fontSize: width * 0.0114,
+                                                        fontFamily: 'Pretendard',
+                                                        fontWeight:
+                                                        FontWeight.w500,
+                                                        height: 0.06,
+                                                        letterSpacing: 0.66,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: height * 0.0083,
+                                              ),
+                                              Container(
+                                                width: width *
+                                                    (isMobile ? 0.4 : 0.3),
+                                                height: height *
+                                                    (isMobile ? 0.3 : 0.32),
+                                                child: _iframeWidget2,
+                                              ),
+                                              SizedBox(
+                                                height: height * 0.0083,
+                                              ),
+                                              SelectableText(
+                                                '(34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)',
+                                                style: TextStyle(
+                                                  color: Color(0xFF191919),
+                                                  fontSize: width * 0.009,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight: FontWeight.w500,
+                                                  letterSpacing: 0.54,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+
+                                SizedBox(
+                                  width: width * (isMobile ? 0.02 : 0.0260),
+                                ),
+                              ],
+                            ),
+                            // 우측 하단 고정 버튼
+                            Positioned(
+                              bottom: height * (isMobile ? 0.08 : 0.1296),
+                              right: width * (isMobile ? 0.02 : 0.0333),
+                              child: InkWell(
+                                onTap: () {
+                                  _scrollController.animateTo(
+                                    0,
+                                    duration: Duration(seconds: 1),
+                                    curve: Curves.easeInOut,
+                                  );
+                                },
+                                child: Image.asset(
+                                  'assets/scroll_up.png',
+                                  width: width * (isMobile ? 0.02 : 0.0328),
+                                  height: height * (isMobile ? 0.04 : 0.05833),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Direction 부분
+                      Container(
+                        height: height * (isMobile ? 0.2 : 0.3657),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage("assets/gradient_background.png"),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      //그라디언트 백그라운드
+                      Container(
+                        height: height * (isMobile ? 0.25 : 0.4500),
+                        color: Colors.black,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: height * (isMobile ? 0.01 : 0.0666),
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: width * (isMobile ? 0.1 : 0.1703),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    buildTextButton2(
+                                        "HOME",
+                                        0,
+                                        width * (isMobile ? 0.012 : 0.00729),
+                                        width * (isMobile ? 0.14 : 0.0598),
+                                        height * (isMobile ? 0.04 : 0.0425),
+                                        onItemTapped),
+                                    SizedBox(
+                                        width:
+                                        width * (isMobile ? 0.004 : 0.0020)),
+                                    buildTextButton2(
+                                        "COMPANY",
+                                        1,
+                                        width * (isMobile ? 0.012 : 0.00729),
+                                        width * (isMobile ? 0.14 : 0.0598),
+                                        height * (isMobile ? 0.04 : 0.0425),
+                                        onItemTapped),
+                                    SizedBox(
+                                        width:
+                                        width * (isMobile ? 0.004 : 0.0020)),
+                                    buildTextButton2(
+                                        "PRODUCTS",
+                                        2,
+                                        width * (isMobile ? 0.012 : 0.00729),
+                                        width * (isMobile ? 0.14 : 0.0598),
+                                        height * (isMobile ? 0.04 : 0.0425),
+                                        onItemTapped),
+                                    SizedBox(
+                                        width:
+                                        width * (isMobile ? 0.004 : 0.0020)),
+                                    buildTextButton2(
+                                        "CONTACT US",
+                                        3,
+                                        width * (isMobile ? 0.012 : 0.00729),
+                                        width * (isMobile ? 0.14 : 0.0598),
+                                        height * (isMobile ? 0.04 : 0.0425),
+                                        onItemTapped),
+                                    SizedBox(
+                                        width:
+                                        width * (isMobile ? 0.004 : 0.0020)),
+                                    buildTextButton2(
+                                        "DOWNLOADS",
+                                        4,
+                                        width * (isMobile ? 0.012 : 0.00729),
+                                        width * (isMobile ? 0.14 : 0.0598),
+                                        height * (isMobile ? 0.04: 0.0425),
+                                        onItemTapped),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: height * (isMobile ? 0.005 : 0.025),
+                            ),
+                            Container(
+                              width: width * (isMobile ? 0.9 : 0.625),
+                              child: Divider(
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(
+                              height: height * (isMobile ? 0.005 : 0.0416),
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: width * (isMobile ? 0.12 : 0.1875),
+                                ),
+                                Container(
+                                  width: width * (isMobile ? 0.7 : 0.3156),
+                                  height: height * (isMobile ? 0.05 : 0.0472),
+                                  child: SelectableText(
+                                    '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                      width * (isMobile ? 0.012 : 0.0093),
+                                      fontFamily: 'Pretendard',
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 0.54,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: height * (isMobile ? 0 : 0.042),
+                            ),
+                            Container(
+                              height: height * 0.0680,
+                              child: Row(
+                                children: [
+                                  SizedBox(width: isMobile? width * 0.12:width * 0.18),
+                                  Transform.translate(
+                                    offset: Offset(0, -height * 0.01388),
+                                    child: Icon(
+                                      Icons.phone,
+                                      color: Colors.white,
+                                      size: isMobile? 8:18,
+                                    ),
+                                  ),
+                                  SizedBox(width: width * 0.0041),
+                                  Container(
+                                    width: isMobile? width * 0.095:width * 0.0807,
+                                    height: height * 0.0462,
+                                    child: SelectableText(
+                                      '070-8098-7424',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: width * 0.0093,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 0.54,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: width * 0.0083),
+                                  Transform.translate(
+                                    offset: Offset(0, -height * 0.0111),
+                                    child: Icon(
+                                      Icons.print,
+                                      color: Colors.white,
+                                      size: isMobile? 8:18,
+                                    ),
+                                  ),
+                                  SizedBox(width: width * 0.0041),
+                                  Container(
+                                    width: isMobile? width * 0.095:width * 0.08333,
+                                    height: height * 0.0462,
+                                    child: SelectableText(
+                                      '042-367-7427',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: width * 0.009,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 0.54,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: width * 0.004),
+                                  Transform.translate(
+                                    offset: Offset(0, -height * 0.0111),
+                                    child: Icon(
+                                      Icons.local_post_office,
+                                      color: Colors.white,
+                                      size: isMobile? 8:18,
+                                    ),
+                                  ),
+                                  SizedBox(width: width * 0.004),
+                                  Container(
+                                    width:isMobile? width * 0.15: width * 0.1458,
+                                    height: height * 0.0462,
+                                    child: SelectableText(
+                                      'cmkim@new-chem.co.kr',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: width * 0.0093,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w500,
+                                        letterSpacing: 0.54,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: width * 0.125),
+                                  Transform.translate(
+                                    offset: Offset(0, -height * 0.0111),
+                                    child: Container(
+                                      width: width * 0.1468,
+                                      child: Image.asset('assets/logo-white.png'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: height * (isMobile ? 0 : 0.04351),
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                    width: width * (isMobile ? 0.12 : 0.1979)),
+                                Text(
+                                  'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.3),
+                                    fontSize: width * (isMobile ? 0.011 : 0.0093),
                                     fontFamily: 'Pretendard',
                                     fontWeight: FontWeight.w500,
                                     letterSpacing: 0.54,
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: height * (isMobile ? 0.03 : 0.04351),
-                          ),
-                          Container(
-                            height: height * 0.0680,
-                            child: Row(
-                              children: [
-                                SizedBox(width: width * 0.1875),
-                                Transform.translate(
-                                  offset: Offset(0, -height * 0.01388),
-                                  child: Icon(
-                                    Icons.phone,
-                                    color: Colors.white,
-                                    size: 18,
-                                  ),
-                                ),
-                                SizedBox(width: width * 0.0041),
-                                Container(
-                                  width: width * 0.0807,
-                                  height: height * 0.0462,
-                                  child: SelectableText(
-                                    '070-8098-7424',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: width * 0.0093,
-                                      fontFamily: 'Pretendard',
-                                      fontWeight: FontWeight.w500,
-                                      letterSpacing: 0.54,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: width * 0.0083),
-                                Transform.translate(
-                                  offset: Offset(0, -height * 0.0111),
-                                  child: Icon(
-                                    Icons.print,
-                                    color: Colors.white,
-                                    size: 18,
-                                  ),
-                                ),
-                                SizedBox(width: width * 0.0041),
-                                Container(
-                                  width: width * 0.08333,
-                                  height: height * 0.0462,
-                                  child: SelectableText(
-                                    '042-367-7427',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: width * 0.009,
-                                      fontFamily: 'Pretendard',
-                                      fontWeight: FontWeight.w500,
-                                      letterSpacing: 0.54,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: width * 0.004),
-                                Transform.translate(
-                                  offset: Offset(0, -height * 0.0111),
-                                  child: Icon(
-                                    Icons.local_post_office,
-                                    color: Colors.white,
-                                    size: 18,
-                                  ),
-                                ),
-                                SizedBox(width: width * 0.004),
-                                Container(
-                                  width: width * 0.1458,
-                                  height: height * 0.0462,
-                                  child: SelectableText(
-                                    'cmkim@new-chem.co.kr',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: width * 0.0093,
-                                      fontFamily: 'Pretendard',
-                                      fontWeight: FontWeight.w500,
-                                      letterSpacing: 0.54,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: width * 0.125),
-                                Transform.translate(
-                                  offset: Offset(0, -height * 0.0111),
-                                  child: Container(
-                                    width: width * 0.1468,
-                                    child: Image.asset('assets/logo-white.png'),
-                                  ),
-                                ),
                               ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: height * (isMobile ? 0.03 : 0.04351),
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                  width: width * (isMobile ? 0.15 : 0.1979)),
-                              Text(
-                                'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
-                                style: TextStyle(
-                                  color: Colors.white.withOpacity(0.3),
-                                  fontSize: width * (isMobile ? 0.011 : 0.0093),
-                                  fontFamily: 'Pretendard',
-                                  fontWeight: FontWeight.w500,
-                                  letterSpacing: 0.54,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    // 회사 주소, 연락처
-                  ],
-                )),
-          ),
-        );
-      }),
-    );
+                      // 회사 주소, 연락처
+                    ],
+                  )),
+            ),
+          );
+        }),
+      ),
+    )
+   ;
   }
 
 // Widget for brand buttons
@@ -2070,7 +2301,7 @@ class _HomePageState extends State<HomePage> {
         final size = MediaQuery.of(context).size;
         final width = size.width;
         final height = size.height;
-        final isMobile = width < 600 && height < 800;
+        final isMobile = width < 600 && height < 916;
 
         return Padding(
           padding: EdgeInsets.symmetric(
@@ -2105,8 +2336,7 @@ class _HomePageState extends State<HomePage> {
       final size = MediaQuery.of(context).size;
       final width = size.width;
       final height = size.height;
-      final isMobile = width < 600 && height < 800;
-
+      final isMobile = width < 600 && height < 916;
       return Column(
         children: [
           Container(
@@ -2161,7 +2391,7 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
     final width = size.width;
     final height = size.height;
-    final isMobile = width < 600 && height < 800;
+    final isMobile = width < 600 && height < 916;
 
     return Padding(
       padding: EdgeInsets.fromLTRB(
@@ -2227,7 +2457,7 @@ class _HomePageState extends State<HomePage> {
         final size = MediaQuery.of(context).size;
         final width = size.width;
         final height = size.height;
-        final isMobile = width < 600 && height < 800;
+        final isMobile = width < 600 && height < 916;
 
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),

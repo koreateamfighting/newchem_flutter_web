@@ -88,7 +88,7 @@ class _ContactScreenState extends State<ContactScreen> {
     return MaterialApp(
       home: LayoutBuilder(builder: (context, constraints) {
         // width와 height 모두를 고려한 반응형 조건 설정
-        final isMobile = width < 600 && height < 800;
+        final isMobile = width < 600 && height < 916;
         final isTablet = width >= 600 && width < 1024 && height < 1200;
         final isDesktop = width >= 1024 && height >= 1200;
 
@@ -409,7 +409,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                         width: width * 0.3156,
                                         height: height * 0.0470,
                                         child: Text(
-                                          '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 501호',
+                                          '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: width * 0.0093,
