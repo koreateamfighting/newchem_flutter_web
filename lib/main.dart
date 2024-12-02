@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:newchem_flutter_website/m_company_screen.dart';
 import 'company_screen.dart';
 import 'home_screen.dart';
 import 'm_home_screen.dart';
@@ -95,7 +96,12 @@ final GoRouter _router = GoRouter(
         return CustomTransitionPage(
           key: state.pageKey,
           child: MyAppContainer(
-            child: CompanyPage(
+            child: isMobile? MCompanyPage(
+              selectedTabIndex: tabIndex,
+              onTabChanged: (int newTabIndex) {
+                context.go('/company/$newTabIndex'); // 탭 변경 시 URL 업데이트
+              },
+            ):CompanyPage(
               selectedTabIndex: tabIndex,
               onTabChanged: (int newTabIndex) {
                 context.go('/company/$newTabIndex'); // 탭 변경 시 URL 업데이트
