@@ -356,31 +356,43 @@ class _ContactScreenState extends State<ContactScreen> {
                                         width: width * 0.1703,
                                       ),
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          buildTextButton2("HOME", 0,
-                                              width * 0.00729, onItemTapped),
-                                          SizedBox(
-                                            width: width * 0.0020,
-                                          ),
-                                          buildTextButton2("COMPANY", 1,
-                                              width * 0.00729, onItemTapped),
-                                          SizedBox(
-                                            width: width * 0.0020,
-                                          ),
-                                          buildTextButton2("PRODUCTS", 2,
-                                              width * 0.00729, onItemTapped),
-                                          SizedBox(
-                                            width: width * 0.0020,
-                                          ),
-                                          buildTextButton2("CONTACT US", 3,
-                                              width * 0.00729, onItemTapped),
-                                          SizedBox(
-                                            width: width * 0.0020,
-                                          ),
-                                          buildTextButton2("DOWNLOADS", 4,
-                                              width * 0.00729, onItemTapped),
+                                          buildTextButton2(
+                                              "HOME",
+                                              0,
+                                              width * (isMobile ? 0.012 : 0.00729),
+                                              width * (isMobile ? 0.14 : 0.065),
+                                              height * (isMobile ? 0.04 : 0.0425),
+                                              onItemTapped),
+                                          buildTextButton2(
+                                              "COMPANY",
+                                              1,
+                                              width * (isMobile ? 0.012 : 0.00729),
+                                              width * (isMobile ? 0.14 : 0.065),
+                                              height * (isMobile ? 0.04 : 0.0425),
+                                              onItemTapped),
+                                          buildTextButton2(
+                                              "PRODUCTS",
+                                              2,
+                                              width * (isMobile ? 0.012 : 0.00729),
+                                              width * (isMobile ? 0.14 : 0.065),
+                                              height * (isMobile ? 0.04 : 0.0425),
+                                              onItemTapped),
+                                          buildTextButton2(
+                                              "CONTACT US",
+                                              3,
+                                              width * (isMobile ? 0.012 : 0.00729),
+                                              width * (isMobile ? 0.14 : 0.065),
+                                              height * (isMobile ? 0.04 : 0.0425),
+                                              onItemTapped),
+                                          buildTextButton2(
+                                              "DOWNLOADS",
+                                              4,
+                                              width * (isMobile ? 0.012 : 0.00729),
+                                              width * (isMobile ? 0.14 : 0.065),
+                                              height * (isMobile ? 0.04 : 0.0425),
+                                              onItemTapped),
                                         ],
                                       ),
                                     ],
@@ -882,15 +894,12 @@ class _ContactScreenState extends State<ContactScreen> {
     );
   }
 
-  // 전역에서 사용 가능한 `buildTextButton` 함수 정의
+// 전역에서 사용 가능한 `buildTextButton` 함수 정의
   Container buildTextButton2(String label, int index, double buttonFontSize,
-      Function(int) onItemTapped) {
-    final size = MediaQuery.of(context).size;
-    final width = size.width;
-    final height = size.height;
+      double buttonWidth, double buttonHeight, Function(int) onItemTapped) {
     return Container(
-      width: width * 0.0598,
-      height: height * 0.0425,
+      width: buttonWidth,
+      height: buttonHeight,
       child: TextButton(
         onPressed: () => onItemTapped(index),
         child: Text(
@@ -906,9 +915,9 @@ class _ContactScreenState extends State<ContactScreen> {
         ),
         style: TextButton.styleFrom(
           foregroundColor: Colors.white,
-          overlayColor:Colors.transparent,// 눌렀을 때 생기는 그림자 제거
+          overlayColor: Colors.transparent, // 눌렀을 때 생기는 그림자 제거
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero, // 직사각형으로 설정
+            borderRadius: BorderRadius.zero,
           ),
         ),
       ),

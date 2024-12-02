@@ -279,203 +279,202 @@ class _MHomePageState extends State<MHomePage> {
                                               int.parse(item['route']!));
                                         },
                                         child: Container(
-                                          width: width,
+                                          width: double.infinity,
                                           height: 1200.h,
-                                          child: Stack(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: AssetImage(item['image']!), // 이미지 설정
+                                              fit: BoxFit.cover, // 이미지 크기 조정
+                                            ),
+                                          ),
+
+                                          child:   Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                             children: [
-                                              Image.asset(item['image']!,
-                                                  fit: BoxFit.fill,
-                                                  width: width,
-                                                  height: 1200.h),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  SizedBox(height: 120.h),
-                                                  Text(
-                                                    item['name']!,
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 24.sp,
-                                                      fontFamily: 'Pretendard',
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 40.h),
-                                                  SelectableText(
-                                                    item['description']!,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 8.sp,
-                                                      fontFamily: 'Pretendard',
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      letterSpacing: 0.6,
-                                                    ),
-                                                  ),
-                                                  SizedBox(height: 40.h),
-                                                  Container(
-                                                    width: 120.w,
-                                                    height: 30.h,
-                                                    color: Colors.transparent,
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        int tabIndex;
-                                                        // item['logoname'] 값에 따라 탭 인덱스를 설정
-                                                        if (item['logoname'] ==
-                                                            'HEIDOLPH') {
-                                                          tabIndex = 0;
-                                                        } else if (item[
-                                                                'logoname'] ==
-                                                            'NORMAG') {
-                                                          tabIndex = 1;
-                                                        } else if (item[
-                                                                'logoname'] ==
-                                                            'CINC Inc.') {
-                                                          tabIndex = 2;
-                                                        } else {
-                                                          tabIndex =
-                                                              0; // 기본값으로 설정할 인덱스 (필요시)
-                                                        }
-                                                        widget
-                                                            .onProductNavigate(
-                                                                tabIndex);
-                                                      },
-                                                      child: MouseRegion(
-                                                        onEnter: (_) =>
-                                                            setState(() =>
-                                                                isHovered =
-                                                                    true),
-                                                        onExit: (_) => setState(
+                                              SizedBox(height: 120.h),
+                                              Text(
+                                                item['name']!,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 24.sp,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight:
+                                                  FontWeight.w600,
+                                                ),
+                                              ),
+                                              SizedBox(height: 40.h),
+                                              SelectableText(
+                                                item['description']!,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 8.sp,
+                                                  fontFamily: 'Pretendard',
+                                                  fontWeight:
+                                                  FontWeight.w500,
+                                                  letterSpacing: 0.6,
+                                                ),
+                                              ),
+                                              SizedBox(height: 40.h),
+                                              Container(
+                                                width: 120.w,
+                                                height: 30.h,
+                                                color: Colors.transparent,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    int tabIndex;
+                                                    // item['logoname'] 값에 따라 탭 인덱스를 설정
+                                                    if (item['logoname'] ==
+                                                        'HEIDOLPH') {
+                                                      tabIndex = 0;
+                                                    } else if (item[
+                                                    'logoname'] ==
+                                                        'NORMAG') {
+                                                      tabIndex = 1;
+                                                    } else if (item[
+                                                    'logoname'] ==
+                                                        'CINC Inc.') {
+                                                      tabIndex = 2;
+                                                    } else {
+                                                      tabIndex =
+                                                      0; // 기본값으로 설정할 인덱스 (필요시)
+                                                    }
+                                                    widget
+                                                        .onProductNavigate(
+                                                        tabIndex);
+                                                  },
+                                                  child: MouseRegion(
+                                                    onEnter: (_) =>
+                                                        setState(() =>
+                                                        isHovered =
+                                                        true),
+                                                    onExit: (_) => setState(
                                                             () => isHovered =
-                                                                false),
-                                                        child: Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            border: Border.all(
-                                                                color: isHovered
-                                                                    ? Color(
-                                                                        0xff5695F0)
-                                                                    : Colors
-                                                                        .white,
-                                                                width: width *
-                                                                    0.001),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        61),
-                                                          ),
-                                                          child: Text(
-                                                            item['logoname']!,
-                                                            style: TextStyle(
-                                                              color: isHovered
-                                                                  ? Color(
-                                                                      0xff5695F0)
-                                                                  : Colors
-                                                                      .white,
-                                                              fontSize: 12.sp,
-                                                              fontFamily:
-                                                                  'Pretendard',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                            ),
-                                                          ),
+                                                        false),
+                                                    child: Container(
+                                                      alignment:
+                                                      Alignment.center,
+                                                      decoration:
+                                                      BoxDecoration(
+                                                        border: Border.all(
+                                                            color: isHovered
+                                                                ? Color(
+                                                                0xff5695F0)
+                                                                : Colors
+                                                                .white,
+                                                            width: width *
+                                                                0.001),
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            61),
+                                                      ),
+                                                      child: Text(
+                                                        item['logoname']!,
+                                                        style: TextStyle(
+                                                          color: isHovered
+                                                              ? Color(
+                                                              0xff5695F0)
+                                                              : Colors
+                                                              .white,
+                                                          fontSize: 12.sp,
+                                                          fontFamily:
+                                                          'Pretendard',
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .w600,
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                  SizedBox(height: 150.h),
-                                                  // 추가된 productImages와 productName을 위한 Row
+                                                ),
+                                              ),
+                                              SizedBox(height: 150.h),
+                                              // 추가된 productImages와 productName을 위한 Row
 
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      ...List.generate(
-                                                        item['productImages']
-                                                            .length,
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceAround,
+                                                children: [
+                                                  ...List.generate(
+                                                    item['productImages']
+                                                        .length,
                                                         (index) {
-                                                          String productImage =
-                                                              item['productImages']
-                                                                  [index];
-                                                          String productName =
-                                                              item['productName']
-                                                                  [index];
-                                                          return Container(
-                                                            width: item['productImages']
-                                                                        .length ==
-                                                                    1
-                                                                ? 150.w
-                                                                : 120.w,
-                                                            height: 160.h,
-                                                            decoration:
-                                                                ShapeDecoration(
-                                                              color: Colors
-                                                                  .white
-                                                                  .withOpacity(
-                                                                      0.65),
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                side: BorderSide(
-                                                                    width: width *
-                                                                        0.001,
-                                                                    color: Colors
-                                                                        .transparent),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8),
+                                                      String productImage =
+                                                      item['productImages']
+                                                      [index];
+                                                      String productName =
+                                                      item['productName']
+                                                      [index];
+                                                      return Container(
+                                                        width: item['productImages']
+                                                            .length ==
+                                                            1
+                                                            ? 150.w
+                                                            : 120.w,
+                                                        height: 160.h,
+                                                        decoration:
+                                                        ShapeDecoration(
+                                                          color: Colors
+                                                              .white
+                                                              .withOpacity(
+                                                              0.65),
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            side: BorderSide(
+                                                                width: width *
+                                                                    0.001,
+                                                                color: Colors
+                                                                    .transparent),
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                8),
+                                                          ),
+                                                        ),
+                                                        child: Column(
+                                                          children: [
+                                                            SizedBox(
+                                                                height:
+                                                                12.h),
+                                                            Image.asset(
+                                                              item['logo'],
+                                                              width: 40.w,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                            Text(
+                                                              productName,
+                                                              style:
+                                                              TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize:
+                                                                8.sp,
+                                                                fontFamily:
+                                                                'Pretendard',
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w500,
                                                               ),
                                                             ),
-                                                            child: Column(
-                                                              children: [
-                                                                SizedBox(
-                                                                    height:
-                                                                        12.h),
-                                                                Image.asset(
-                                                                  item['logo'],
-                                                                  width: 40.w,
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                ),
-                                                                Text(
-                                                                  productName,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontSize:
-                                                                        8.sp,
-                                                                    fontFamily:
-                                                                        'Pretendard',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                    height:
-                                                                        15.h),
-                                                                Image.asset(
-                                                                    productImage,
-                                                                    width: 120,
-                                                                    height: 60,
-                                                                    fit: BoxFit
-                                                                        .contain),
-                                                              ],
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
+                                                            SizedBox(
+                                                                height:
+                                                                15.h),
+                                                            Image.asset(
+                                                                productImage,
+                                                                width: 120,
+                                                                height: 60,
+                                                                fit: BoxFit
+                                                                    .contain),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
                                                   ),
                                                 ],
                                               ),
@@ -1514,7 +1513,7 @@ class _MHomePageState extends State<MHomePage> {
                               height: height * (isMobile ? 0 : 0.042),
                             ),
                             Container(
-                              height: height * 0.0680,
+                              height: isMobile? height * 0.0600:height * 0.0680,
                               child: Row(
                                 children: [
                                   SizedBox(
@@ -1522,11 +1521,11 @@ class _MHomePageState extends State<MHomePage> {
                                           ? width * 0.12
                                           : width * 0.18),
                                   Transform.translate(
-                                    offset: Offset(0, -height * 0.01388),
+                                    offset: Offset(0, isMobile? -height * 0.02 :-height * 0.01388),
                                     child: Icon(
                                       Icons.phone,
                                       color: Colors.white,
-                                      size: isMobile ? 8 : 18,
+                                      size: isMobile ? 6 : 18,
                                     ),
                                   ),
                                   SizedBox(width: width * 0.0041),
@@ -1548,7 +1547,7 @@ class _MHomePageState extends State<MHomePage> {
                                   ),
                                   SizedBox(width: width * 0.0083),
                                   Transform.translate(
-                                    offset: Offset(0, -height * 0.0111),
+                                    offset: Offset(0,isMobile? -height * 0.02  :-height * 0.0111),
                                     child: Icon(
                                       Icons.print,
                                       color: Colors.white,
@@ -1574,7 +1573,7 @@ class _MHomePageState extends State<MHomePage> {
                                   ),
                                   SizedBox(width: width * 0.004),
                                   Transform.translate(
-                                    offset: Offset(0, -height * 0.0111),
+                                    offset: Offset(0,isMobile? -height * 0.02  :-height * 0.0111),
                                     child: Icon(
                                       Icons.local_post_office,
                                       color: Colors.white,
@@ -1600,7 +1599,7 @@ class _MHomePageState extends State<MHomePage> {
                                   ),
                                   SizedBox(width: width * 0.125),
                                   Transform.translate(
-                                    offset: Offset(0, -height * 0.0111),
+                                    offset: Offset(0, isMobile? -height * 0.02  :-height * 0.0111),
                                     child: Container(
                                       width: width * 0.1468,
                                       child:

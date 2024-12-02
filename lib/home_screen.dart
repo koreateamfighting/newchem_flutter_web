@@ -245,7 +245,7 @@ class _HomePageState extends State<HomePage> {
 //내 컴퓨터 환경 2560 * 1440
     return ScreenUtilInit(
       designSize: Size(1920, 1080),
-      child:  MaterialApp(
+      child: MaterialApp(
         home: LayoutBuilder(builder: (context, constraints) {
           return Scaffold(
             backgroundColor: Color(0xffd4e2f5).withOpacity(0.9),
@@ -257,831 +257,874 @@ class _HomePageState extends State<HomePage> {
                       (isMobile
                           ? 1.895
                           : isTablet
-                          ? 5
-                          : 4.85572),
+                              ? 5
+                              : 4.85572),
                   color: Colors.white,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       isMobile
-                          ?
-                      Container(
-                        padding: EdgeInsets.zero,
-                        width: width,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                Container(
-                                  width: width,
-                                  child: CarouselSlider(
-                                    carouselController: _controller,
-                                    items: slideImages.map((item) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          widget.onProductNavigate(
-                                              int.parse(item['route']!));
-                                        },
-                                        child: Container(
-                                          width: width,
-                                          height: height * 1.5,
-                                          child: Stack(
-                                            children: [
-                                              Image.asset(item['image']!,
-                                                  fit: BoxFit.fill,
-                                                  width: width,
-                                                  height: height * 1.5),
-                                              Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .center,
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .center,
-                                                children: [
-                                                  SizedBox(
-                                                      height:
-                                                      height * 0.02),
-                                                  Text(
-                                                    item['name']!,
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize:
-                                                      width * 0.02,
-                                                      fontFamily:
-                                                      'Pretendard',
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                    ),
-                                                  ),
-
-                                                  SelectableText(
-                                                    item['description']!,
-                                                    textAlign:
-                                                    TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize:
-                                                      width * 0.01,
-                                                      fontFamily:
-                                                      'Pretendard',
-                                                      fontWeight:
-                                                      FontWeight.w500,
-                                                      letterSpacing: 0.6,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                      height:
-                                                      height * 0.01),
-                                                  Container(
-                                                    width: width * 0.15,
-                                                    height: height * 0.015,
-                                                    color:
-                                                    Colors.transparent,
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        int tabIndex;
-                                                        // item['logoname'] 값에 따라 탭 인덱스를 설정
-                                                        if (item[
-                                                        'logoname'] ==
-                                                            'HEIDOLPH') {
-                                                          tabIndex = 0;
-                                                        } else if (item[
-                                                        'logoname'] ==
-                                                            'NORMAG') {
-                                                          tabIndex = 1;
-                                                        } else if (item[
-                                                        'logoname'] ==
-                                                            'CINC Inc.') {
-                                                          tabIndex = 2;
-                                                        } else {
-                                                          tabIndex =
-                                                          0; // 기본값으로 설정할 인덱스 (필요시)
-                                                        }
-                                                        widget
-                                                            .onProductNavigate(
-                                                            tabIndex);
-                                                      },
-                                                      child: MouseRegion(
-                                                        onEnter: (_) =>
-                                                            setState(() =>
-                                                            isHovered =
-                                                            true),
-                                                        onExit: (_) =>
-                                                            setState(() =>
-                                                            isHovered =
-                                                            false),
-                                                        child: Container(
-                                                          alignment:
-                                                          Alignment
-                                                              .center,
-                                                          decoration:
-                                                          BoxDecoration(
-                                                            border: Border.all(
-                                                                color: isHovered
-                                                                    ? Color(
-                                                                    0xff5695F0)
-                                                                    : Colors
-                                                                    .white,
-                                                                width: width *
-                                                                    0.001),
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                61),
-                                                          ),
-                                                          child: Text(
-                                                            item[
-                                                            'logoname']!,
-                                                            style:
-                                                            TextStyle(
-                                                              color: isHovered
-                                                                  ? Color(
-                                                                  0xff5695F0)
-                                                                  : Colors
-                                                                  .white,
-                                                              fontSize:
-                                                              width *
-                                                                  0.012,
-                                                              fontFamily:
-                                                              'Pretendard',
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w600,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                      height:
-                                                      height * 0.01),
-                                                  // 추가된 productImages와 productName을 위한 Row
-
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                    children: [
-                                                      ...List.generate(
-                                                        item['productImages']
-                                                            .length,
-                                                            (index) {
-                                                          String
-                                                          productImage =
-                                                          item['productImages']
-                                                          [index];
-                                                          String
-                                                          productName =
-                                                          item['productName']
-                                                          [index];
-                                                          return Container(
-                                                            width: item['productImages']
-                                                                .length ==
-                                                                1
-                                                                ? width *
-                                                                0.35
-                                                                : width *
-                                                                0.22,
-                                                            height: height *
-                                                                0.1,
-                                                            decoration:
-                                                            ShapeDecoration(
-                                                              color: Colors
-                                                                  .white
-                                                                  .withOpacity(
-                                                                  0.65),
-                                                              shape:
-                                                              RoundedRectangleBorder(
-                                                                side: BorderSide(
-                                                                    width: width *
-                                                                        0.001,
-                                                                    color: Colors
-                                                                        .transparent),
-                                                                borderRadius:
-                                                                BorderRadius
-                                                                    .circular(8),
-                                                              ),
-                                                            ),
-                                                            child: Column(
-                                                              children: [
-                                                                SizedBox(
-                                                                    height: width < 1600? height * 0.002:height *
-                                                                        0.01),
-                                                                Image.asset(
-                                                                  item[
-                                                                  'logo'],
-                                                                  width: width < 1600? width * 0.015:width *
-                                                                      0.02,
-                                                                  fit: BoxFit
-                                                                      .contain,
-                                                                ),
-                                                                Text(
-                                                                  productName,
-                                                                  style:
-                                                                  TextStyle(
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontSize:
-                                                                    width *
-                                                                        0.006,
-                                                                    fontFamily:
-                                                                    'Pretendard',
-                                                                    fontWeight:
-                                                                    FontWeight.w500,
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                  height:width < 1600? height * 0.004: height *
-                                                                      0.015,
-                                                                ),
-
-                                                                Image.asset(
-                                                                  productImage,
-                                                                  width: width *
-                                                                      0.15,
-                                                                  height: width < 1600?
-                                                                  height * 0.01:height *
-                                                                      0.05,
-                                                                  fit: width < 1600? BoxFit.contain:BoxFit
-                                                                      .fitHeight,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                                    options: CarouselOptions(
-                                      autoPlay: true,
-                                      autoPlayInterval:
-                                      Duration(seconds: 8),
-                                      // 자동 재생 시간 조절
-                                      autoPlayAnimationDuration:
-                                      Duration(milliseconds: 1000),
-                                      // 전환 속도 조절
-                                      enlargeCenterPage: false,
-                                      viewportFraction: 1,
-                                      scrollPhysics:
-                                      BouncingScrollPhysics(),
-                                      // 부드러운 스크롤 적용
-                                      onPageChanged: (index, reason) {
-                                        setState(() {
-                                          _current = index;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                      children: [
-                                        SizedBox(height: height * 0.12),
-                                        ...slideImages
-                                            .asMap()
-                                            .entries
-                                            .map((entry) {
-                                          return Column(
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  _controller.animateToPage(
-                                                      entry.key);
-                                                },
-                                                child: Container(
-                                                  width: width * 0.012,
-                                                  height: height * 0.02,
-                                                  margin:
-                                                  EdgeInsets.symmetric(
-                                                      horizontal: 4.0),
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: _current ==
-                                                        entry.key
-                                                        ? Colors.transparent
-                                                        : Colors
-                                                        .transparent,
-                                                    border: Border.all(
-                                                      color: _current ==
-                                                          entry.key
-                                                          ? Colors.white
-                                                          : Colors
-                                                          .transparent,
-                                                      width: _current ==
-                                                          entry.key
-                                                          ? 1
-                                                          : 0, // 선택된 항목에만 테두리를 주기
-                                                    ),
-                                                  ),
-                                                  child: Center(
-                                                    child: Container(
-                                                      width: width * 0.004,
-                                                      height:
-                                                      height * 0.006,
-                                                      decoration:
-                                                      BoxDecoration(
-                                                          shape: BoxShape
-                                                              .circle,
-                                                          color: Colors
-                                                              .white),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                  height: isMobile? 0 : height * 0.005),
-
-                                              // 원 사이의 간격 설정
-                                            ],
-                                          );
-                                        }).toList(),
-                                        SizedBox(height: isMobile? 0 : height * 0.25),
-                                        Visibility(
-                                          child: Transform(
-                                            transform: Matrix4.identity()
-                                              ..translate(10, 12)
-                                              ..rotateZ(-1.57),
-                                            child: Text(
-                                              'Scroll',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: width * 0.007,
-                                                fontFamily: 'Pretendard',
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                          visible: !isMobile,
-                                        ),
-                                        SizedBox(height: height * 0.004),
-                                        Visibility(
-                                          child: Image.asset(
-                                              'assets/arrow_down.png'),
-                                          visible: !isMobile,
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(width: width * 0.015),
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                          : Container(
-                        padding: EdgeInsets.zero,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                Container(
-                                  width: width,
-                                  child: CarouselSlider(
-                                    carouselController: _controller,
-                                    items: slideImages.map((item) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          widget.onProductNavigate(
-                                              int.parse(item['route']!));
-                                        },
-                                        child: Container(
-                                          width: width,
-                                          child: Stack(
-                                            children: [
-                                              Image.asset(
-                                                item['image']!,
-                                                fit: BoxFit.contain,
+                          ? Container(
+                              padding: EdgeInsets.zero,
+                              width: width,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Stack(
+                                    children: [
+                                      Container(
+                                        width: width,
+                                        child: CarouselSlider(
+                                          carouselController: _controller,
+                                          items: slideImages.map((item) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                widget.onProductNavigate(
+                                                    int.parse(item['route']!));
+                                              },
+                                              child: Container(
                                                 width: width,
-                                                height: height * 1.111,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment
-                                                    .center,
-                                                children: [
-                                                  SizedBox(
-                                                      height:
-                                                      width < 1600? height * 0.07.h:height * 0.2129.h),
-                                                  Text(
-                                                    item['name']!,
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize:
-                                                      width * 0.0281,
-                                                      fontFamily:
-                                                      'Pretendard',
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                      height:
-                                                      width < 1600? height * 0.0008.h:height * 0.022.h),
-                                                  SelectableText(
-                                                    item['description']!,
-                                                    textAlign:
-                                                    TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize:
-                                                      width * 0.0101,
-                                                      fontFamily:
-                                                      'Pretendard',
-                                                      fontWeight:
-                                                      FontWeight.w500,
-                                                      letterSpacing: 0.6,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                      height:
-                                                      width < 1600? height * 0.02 :height * 0.05),
-                                                  Container(
-                                                    width: width * 0.0968,
-                                                    height: width < 1600? height * 0.03:height * 0.05,
-                                                    color:
-                                                    Colors.transparent,
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        int tabIndex;
-                                                        // item['logoname'] 값에 따라 탭 인덱스를 설정
-                                                        if (item[
-                                                        'logoname'] ==
-                                                            'HEIDOLPH') {
-                                                          tabIndex = 0;
-                                                        } else if (item[
-                                                        'logoname'] ==
-                                                            'NORMAG') {
-                                                          tabIndex = 1;
-                                                        } else if (item[
-                                                        'logoname'] ==
-                                                            'CINC Inc.') {
-                                                          tabIndex = 2;
-                                                        } else {
-                                                          tabIndex =
-                                                          0; // 기본값으로 설정할 인덱스 (필요시)
-                                                        }
-                                                        widget
-                                                            .onProductNavigate(
-                                                            tabIndex);
-                                                      },
-                                                      child: MouseRegion(
-                                                        onEnter: (_) =>
-                                                            setState(() =>
-                                                            isHovered =
-                                                            true),
-                                                        onExit: (_) =>
-                                                            setState(() =>
-                                                            isHovered =
-                                                            false),
-                                                        child: Container(
-                                                          alignment:
-                                                          Alignment
+                                                height: height * 1.5,
+                                                child: Stack(
+                                                  children: [
+                                                    Image.asset(item['image']!,
+                                                        fit: BoxFit.fill,
+                                                        width: width,
+                                                        height: height * 1.5),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
                                                               .center,
-                                                          decoration:
-                                                          BoxDecoration(
-                                                            border: Border.all(
-                                                                color: isHovered
-                                                                    ? Color(
-                                                                    0xff5695F0)
-                                                                    : Colors
-                                                                    .white,
-                                                                width: width *
-                                                                    0.001),
-                                                            borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                61),
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        SizedBox(
+                                                            height:
+                                                                height * 0.02),
+                                                        Text(
+                                                          item['name']!,
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize:
+                                                                width * 0.02,
+                                                            fontFamily:
+                                                                'Pretendard',
+                                                            fontWeight:
+                                                                FontWeight.w600,
                                                           ),
-                                                          child: Text(
-                                                            item[
-                                                            'logoname']!,
-                                                            style:
-                                                            TextStyle(
-                                                              color: isHovered
-                                                                  ? Color(
-                                                                  0xff5695F0)
-                                                                  : Colors
-                                                                  .white,
-                                                              fontSize:
-                                                              width *
-                                                                  0.0125,
-                                                              fontFamily:
-                                                              'Pretendard',
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w600,
+                                                        ),
+
+                                                        SelectableText(
+                                                          item['description']!,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize:
+                                                                width * 0.01,
+                                                            fontFamily:
+                                                                'Pretendard',
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            letterSpacing: 0.6,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                            height:
+                                                                height * 0.01),
+                                                        Container(
+                                                          width: width * 0.15,
+                                                          height:
+                                                              height * 0.015,
+                                                          color: Colors
+                                                              .transparent,
+                                                          child: InkWell(
+                                                            onTap: () {
+                                                              int tabIndex;
+                                                              // item['logoname'] 값에 따라 탭 인덱스를 설정
+                                                              if (item[
+                                                                      'logoname'] ==
+                                                                  'HEIDOLPH') {
+                                                                tabIndex = 0;
+                                                              } else if (item[
+                                                                      'logoname'] ==
+                                                                  'NORMAG') {
+                                                                tabIndex = 1;
+                                                              } else if (item[
+                                                                      'logoname'] ==
+                                                                  'CINC Inc.') {
+                                                                tabIndex = 2;
+                                                              } else {
+                                                                tabIndex =
+                                                                    0; // 기본값으로 설정할 인덱스 (필요시)
+                                                              }
+                                                              widget
+                                                                  .onProductNavigate(
+                                                                      tabIndex);
+                                                            },
+                                                            child: MouseRegion(
+                                                              onEnter: (_) =>
+                                                                  setState(() =>
+                                                                      isHovered =
+                                                                          true),
+                                                              onExit: (_) =>
+                                                                  setState(() =>
+                                                                      isHovered =
+                                                                          false),
+                                                              child: Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: isHovered
+                                                                          ? Color(
+                                                                              0xff5695F0)
+                                                                          : Colors
+                                                                              .white,
+                                                                      width: width *
+                                                                          0.001),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              61),
+                                                                ),
+                                                                child: Text(
+                                                                  item[
+                                                                      'logoname']!,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: isHovered
+                                                                        ? Color(
+                                                                            0xff5695F0)
+                                                                        : Colors
+                                                                            .white,
+                                                                    fontSize:
+                                                                        width *
+                                                                            0.012,
+                                                                    fontFamily:
+                                                                        'Pretendard',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                  ),
+                                                                ),
+                                                              ),
                                                             ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                            height:
+                                                                height * 0.01),
+                                                        // 추가된 productImages와 productName을 위한 Row
+
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            ...List.generate(
+                                                              item['productImages']
+                                                                  .length,
+                                                              (index) {
+                                                                String
+                                                                    productImage =
+                                                                    item['productImages']
+                                                                        [index];
+                                                                String
+                                                                    productName =
+                                                                    item['productName']
+                                                                        [index];
+                                                                return Container(
+                                                                  width: item['productImages']
+                                                                              .length ==
+                                                                          1
+                                                                      ? width *
+                                                                          0.35
+                                                                      : width *
+                                                                          0.22,
+                                                                  height:
+                                                                      height *
+                                                                          0.1,
+                                                                  decoration:
+                                                                      ShapeDecoration(
+                                                                    color: Colors
+                                                                        .white
+                                                                        .withOpacity(
+                                                                            0.65),
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      side: BorderSide(
+                                                                          width: width *
+                                                                              0.001,
+                                                                          color:
+                                                                              Colors.transparent),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8),
+                                                                    ),
+                                                                  ),
+                                                                  child: Column(
+                                                                    children: [
+                                                                      SizedBox(
+                                                                          height: width < 1600
+                                                                              ? height * 0.002
+                                                                              : height * 0.01),
+                                                                      Image
+                                                                          .asset(
+                                                                        item[
+                                                                            'logo'],
+                                                                        width: width < 1600
+                                                                            ? width *
+                                                                                0.015
+                                                                            : width *
+                                                                                0.02,
+                                                                        fit: BoxFit
+                                                                            .contain,
+                                                                      ),
+                                                                      Text(
+                                                                        productName,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              Colors.black,
+                                                                          fontSize:
+                                                                              width * 0.006,
+                                                                          fontFamily:
+                                                                              'Pretendard',
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                      ),
+                                                                      SizedBox(
+                                                                        height: width < 1600
+                                                                            ? height *
+                                                                                0.004
+                                                                            : height *
+                                                                                0.015,
+                                                                      ),
+                                                                      Image
+                                                                          .asset(
+                                                                        productImage,
+                                                                        width: width *
+                                                                            0.15,
+                                                                        height: width < 1600
+                                                                            ? height *
+                                                                                0.01
+                                                                            : height *
+                                                                                0.05,
+                                                                        fit: width <
+                                                                                1600
+                                                                            ? BoxFit.contain
+                                                                            : BoxFit.fitHeight,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }).toList(),
+                                          options: CarouselOptions(
+                                            autoPlay: true,
+                                            autoPlayInterval:
+                                                Duration(seconds: 8),
+                                            // 자동 재생 시간 조절
+                                            autoPlayAnimationDuration:
+                                                Duration(milliseconds: 1000),
+                                            // 전환 속도 조절
+                                            enlargeCenterPage: false,
+                                            viewportFraction: 1,
+                                            scrollPhysics:
+                                                BouncingScrollPhysics(),
+                                            // 부드러운 스크롤 적용
+                                            onPageChanged: (index, reason) {
+                                              setState(() {
+                                                _current = index;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              SizedBox(height: height * 0.12),
+                                              ...slideImages
+                                                  .asMap()
+                                                  .entries
+                                                  .map((entry) {
+                                                return Column(
+                                                  children: [
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        _controller
+                                                            .animateToPage(
+                                                                entry.key);
+                                                      },
+                                                      child: Container(
+                                                        width: width * 0.012,
+                                                        height: height * 0.02,
+                                                        margin: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal:
+                                                                    4.0),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: _current ==
+                                                                  entry.key
+                                                              ? Colors
+                                                                  .transparent
+                                                              : Colors
+                                                                  .transparent,
+                                                          border: Border.all(
+                                                            color: _current ==
+                                                                    entry.key
+                                                                ? Colors.white
+                                                                : Colors
+                                                                    .transparent,
+                                                            width: _current ==
+                                                                    entry.key
+                                                                ? 1
+                                                                : 0, // 선택된 항목에만 테두리를 주기
+                                                          ),
+                                                        ),
+                                                        child: Center(
+                                                          child: Container(
+                                                            width:
+                                                                width * 0.004,
+                                                            height:
+                                                                height * 0.006,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                    color: Colors
+                                                                        .white),
                                                           ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                      height:
-                                                      width < 1600?  height * 0.02: height * 0.042),
-                                                  // 추가된 productImages와 productName을 위한 Row
+                                                    SizedBox(
+                                                        height: isMobile
+                                                            ? 0
+                                                            : height * 0.005),
 
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
-                                                    children: [
-                                                      ...List.generate(
-                                                        item['productImages']
-                                                            .length,
-                                                            (index) {
-                                                          String
-                                                          productImage =
-                                                          item['productImages']
-                                                          [index];
-                                                          String
-                                                          productName =
-                                                          item['productName']
-                                                          [index];
-                                                          return Padding(
-                                                            padding: EdgeInsets.symmetric(
-                                                                horizontal: height *
-                                                                    (isMobile
-                                                                        ? 0.005
-                                                                        : 0.0074)),
-                                                            child:
-                                                            Container(
-                                                              width: item['productImages']
-                                                                  .length ==
-                                                                  1
-                                                                  ? width *
-                                                                  (isMobile
-                                                                      ? 0.35
-                                                                      : 0.415)
-                                                                  : width *
-                                                                  (isMobile
-                                                                      ? 0.22
-                                                                      : 0.2479),
-                                                              height: height *
-                                                                  (width < 1600? 0.26: 0.4407),
-                                                              decoration:
-                                                              ShapeDecoration(
-                                                                color: Colors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                    0.65),
-                                                                shape:
-                                                                RoundedRectangleBorder(
-                                                                  side: BorderSide(
-                                                                      width: width *
-                                                                          0.001,
-                                                                      color:
-                                                                      Colors.transparent),
-                                                                  borderRadius:
-                                                                  BorderRadius.circular(
-                                                                      8),
-                                                                ),
-                                                              ),
-                                                              child: Column(
-                                                                children: [
-                                                                  SizedBox(
-                                                                      height:
-                                                                      height * (isMobile ? 0.02 : 0.0303)),
-                                                                  Image
-                                                                      .asset(
-                                                                    item[
-                                                                    'logo'],
-                                                                    width: width *
-                                                                        (isMobile
-                                                                            ? 0.02
-                                                                            : 0.036),
-                                                                    height: height *
-                                                                        (isMobile
-                                                                            ? 0.01
-                                                                            : 0.0129),
-                                                                    fit: BoxFit
-                                                                        .fill,
-                                                                  ),
-                                                                  Text(
-                                                                    productName,
-                                                                    style:
-                                                                    TextStyle(
-                                                                      color:
-                                                                      Colors.black,
-                                                                      fontSize:
-                                                                      width * (isMobile ? 0.012 : 0.015),
-                                                                      fontFamily:
-                                                                      'Pretendard',
-                                                                      fontWeight:
-                                                                      FontWeight.w500,
-                                                                      height:
-                                                                      height * (isMobile ? 0.0015 : 0.0011),
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                      height:
-                                                                      height * (isMobile ? 0.01 : 0.0148)),
-                                                                  Image
-                                                                      .asset(
-                                                                    productImage,
-                                                                    width: width *
-                                                                        (isMobile
-                                                                            ? 0.15
-                                                                            : 0.2),
-                                                                    height: height *
-                                                                        (width < 1600? 0.1
-                                                                            : 0.2879),
-                                                                    fit: BoxFit
-                                                                        .contain,
-                                                                  ),
-                                                                  SizedBox(
-                                                                      height:width < 1600?
-                                                                      height *  0.002: height *  0.00690),
-                                                                  Text(
-                                                                    'NewChem',
-                                                                    style:
-                                                                    TextStyle(
-                                                                      color:
-                                                                      Color(0xFF729DF6).withOpacity(0.7),
-                                                                      fontSize:
-                                                                      width * (isMobile ? 0.008 : 0.009),
-                                                                      fontFamily:
-                                                                      'Pretendard',
-                                                                      fontWeight:
-                                                                      FontWeight.w500,
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    ],
+                                                    // 원 사이의 간격 설정
+                                                  ],
+                                                );
+                                              }).toList(),
+                                              SizedBox(
+                                                  height: isMobile
+                                                      ? 0
+                                                      : height * 0.25),
+                                              Visibility(
+                                                child: Transform(
+                                                  transform: Matrix4.identity()
+                                                    ..translate(10, 12)
+                                                    ..rotateZ(-1.57),
+                                                  child: Text(
+                                                    'Scroll',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: width * 0.007,
+                                                      fontFamily: 'Pretendard',
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
                                                   ),
-                                                ],
+                                                ),
+                                                visible: !isMobile,
                                               ),
+                                              SizedBox(height: height * 0.004),
+                                              Visibility(
+                                                child: Image.asset(
+                                                    'assets/arrow_down.png'),
+                                                visible: !isMobile,
+                                              )
                                             ],
                                           ),
+                                          SizedBox(width: width * 0.015),
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container(
+                              padding: EdgeInsets.zero,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Stack(
+                                    children: [
+                                      Container(
+                                        width: width,
+                                        child: CarouselSlider(
+                                          carouselController: _controller,
+                                          items: slideImages.map((item) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                widget.onProductNavigate(
+                                                    int.parse(item['route']!));
+                                              },
+                                              child: Container(
+                                                width: width,
+                                                child: Stack(
+                                                  children: [
+                                                    Image.asset(
+                                                      item['image']!,
+                                                      fit: BoxFit.contain,
+                                                      width: width,
+                                                      height: height * 1.111,
+                                                    ),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        SizedBox(
+                                                            height: width < 1600
+                                                                ? height *
+                                                                    0.07.h
+                                                                : height *
+                                                                    0.2129.h),
+                                                        Text(
+                                                          item['name']!,
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize:
+                                                                width * 0.0281,
+                                                            fontFamily:
+                                                                'Pretendard',
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                            height: width < 1600
+                                                                ? height *
+                                                                    0.0008.h
+                                                                : height *
+                                                                    0.022.h),
+                                                        SelectableText(
+                                                          item['description']!,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize:
+                                                                width * 0.0101,
+                                                            fontFamily:
+                                                                'Pretendard',
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            letterSpacing: 0.6,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                            height: width < 1600
+                                                                ? height * 0.02
+                                                                : height *
+                                                                    0.05),
+                                                        Container(
+                                                          width: width * 0.0968,
+                                                          height: width < 1600
+                                                              ? height * 0.03
+                                                              : height * 0.05,
+                                                          color: Colors
+                                                              .transparent,
+                                                          child: InkWell(
+                                                            onTap: () {
+                                                              int tabIndex;
+                                                              // item['logoname'] 값에 따라 탭 인덱스를 설정
+                                                              if (item[
+                                                                      'logoname'] ==
+                                                                  'HEIDOLPH') {
+                                                                tabIndex = 0;
+                                                              } else if (item[
+                                                                      'logoname'] ==
+                                                                  'NORMAG') {
+                                                                tabIndex = 1;
+                                                              } else if (item[
+                                                                      'logoname'] ==
+                                                                  'CINC Inc.') {
+                                                                tabIndex = 2;
+                                                              } else {
+                                                                tabIndex =
+                                                                    0; // 기본값으로 설정할 인덱스 (필요시)
+                                                              }
+                                                              widget
+                                                                  .onProductNavigate(
+                                                                      tabIndex);
+                                                            },
+                                                            child: MouseRegion(
+                                                              onEnter: (_) =>
+                                                                  setState(() =>
+                                                                      isHovered =
+                                                                          true),
+                                                              onExit: (_) =>
+                                                                  setState(() =>
+                                                                      isHovered =
+                                                                          false),
+                                                              child: Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  border: Border.all(
+                                                                      color: isHovered
+                                                                          ? Color(
+                                                                              0xff5695F0)
+                                                                          : Colors
+                                                                              .white,
+                                                                      width: width *
+                                                                          0.001),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              61),
+                                                                ),
+                                                                child: Text(
+                                                                  item[
+                                                                      'logoname']!,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: isHovered
+                                                                        ? Color(
+                                                                            0xff5695F0)
+                                                                        : Colors
+                                                                            .white,
+                                                                    fontSize:
+                                                                        width *
+                                                                            0.0125,
+                                                                    fontFamily:
+                                                                        'Pretendard',
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                            height: width < 1600
+                                                                ? height * 0.02
+                                                                : height *
+                                                                    0.042),
+                                                        // 추가된 productImages와 productName을 위한 Row
+
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            ...List.generate(
+                                                              item['productImages']
+                                                                  .length,
+                                                              (index) {
+                                                                String
+                                                                    productImage =
+                                                                    item['productImages']
+                                                                        [index];
+                                                                String
+                                                                    productName =
+                                                                    item['productName']
+                                                                        [index];
+                                                                return Padding(
+                                                                  padding: EdgeInsets.symmetric(
+                                                                      horizontal: height *
+                                                                          (isMobile
+                                                                              ? 0.005
+                                                                              : 0.0074)),
+                                                                  child:
+                                                                      Container(
+                                                                    width: item['productImages'].length ==
+                                                                            1
+                                                                        ? width *
+                                                                            (isMobile
+                                                                                ? 0.35
+                                                                                : 0.415)
+                                                                        : width *
+                                                                            (isMobile
+                                                                                ? 0.22
+                                                                                : 0.2479),
+                                                                    height: height *
+                                                                        (width <
+                                                                                1600
+                                                                            ? 0.26
+                                                                            : 0.4407),
+                                                                    decoration:
+                                                                        ShapeDecoration(
+                                                                      color: Colors
+                                                                          .white
+                                                                          .withOpacity(
+                                                                              0.65),
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        side: BorderSide(
+                                                                            width: width *
+                                                                                0.001,
+                                                                            color:
+                                                                                Colors.transparent),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(8),
+                                                                      ),
+                                                                    ),
+                                                                    child:
+                                                                        Column(
+                                                                      children: [
+                                                                        SizedBox(
+                                                                            height:
+                                                                                height * (isMobile ? 0.02 : 0.0303)),
+                                                                        Image
+                                                                            .asset(
+                                                                          item[
+                                                                              'logo'],
+                                                                          width:
+                                                                              width * (isMobile ? 0.02 : 0.036),
+                                                                          height:
+                                                                              height * (isMobile ? 0.01 : 0.0129),
+                                                                          fit: BoxFit
+                                                                              .fill,
+                                                                        ),
+                                                                        Text(
+                                                                          productName,
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Colors.black,
+                                                                            fontSize:
+                                                                                width * (isMobile ? 0.012 : 0.015),
+                                                                            fontFamily:
+                                                                                'Pretendard',
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                            height:
+                                                                                height * (isMobile ? 0.0015 : 0.0011),
+                                                                          ),
+                                                                        ),
+                                                                        SizedBox(
+                                                                            height:
+                                                                                height * (isMobile ? 0.01 : 0.0148)),
+                                                                        Image
+                                                                            .asset(
+                                                                          productImage,
+                                                                          width:
+                                                                              width * (isMobile ? 0.15 : 0.2),
+                                                                          height:
+                                                                              height * (width < 1600 ? 0.1 : 0.2879),
+                                                                          fit: BoxFit
+                                                                              .contain,
+                                                                        ),
+                                                                        SizedBox(
+                                                                            height: width < 1600
+                                                                                ? height * 0.002
+                                                                                : height * 0.00690),
+                                                                        Text(
+                                                                          'NewChem',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            color:
+                                                                                Color(0xFF729DF6).withOpacity(0.7),
+                                                                            fontSize:
+                                                                                width * (isMobile ? 0.008 : 0.009),
+                                                                            fontFamily:
+                                                                                'Pretendard',
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }).toList(),
+                                          options: CarouselOptions(
+                                            autoPlay: true,
+                                            autoPlayInterval:
+                                                Duration(seconds: 8),
+                                            // 자동 재생 시간 조절
+                                            autoPlayAnimationDuration:
+                                                Duration(milliseconds: 1000),
+                                            // 전환 속도 조절
+                                            enlargeCenterPage: false,
+                                            viewportFraction: 1,
+                                            scrollPhysics:
+                                                BouncingScrollPhysics(),
+                                            // 부드러운 스크롤 적용
+                                            onPageChanged: (index, reason) {
+                                              setState(() {
+                                                _current = index;
+                                              });
+                                            },
+                                          ),
                                         ),
-                                      );
-                                    }).toList(),
-                                    options: CarouselOptions(
-                                      autoPlay: true,
-                                      autoPlayInterval:
-                                      Duration(seconds: 8),
-                                      // 자동 재생 시간 조절
-                                      autoPlayAnimationDuration:
-                                      Duration(milliseconds: 1000),
-                                      // 전환 속도 조절
-                                      enlargeCenterPage: false,
-                                      viewportFraction: 1,
-                                      scrollPhysics:
-                                      BouncingScrollPhysics(),
-                                      // 부드러운 스크롤 적용
-                                      onPageChanged: (index, reason) {
-                                        setState(() {
-                                          _current = index;
-                                        });
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                            height: height *
-                                                (isMobile ? 0.15 : 0.2352)),
-                                        ...slideImages
-                                            .asMap()
-                                            .entries
-                                            .map((entry) {
-                                          return Column(
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  _controller.animateToPage(
-                                                      entry.key);
-                                                },
-                                                child: Container(
-                                                  width: width *
-                                                      (isMobile
-                                                          ? 0.012
-                                                          : 0.0166),
+                                              SizedBox(
                                                   height: height *
                                                       (isMobile
-                                                          ? 0.02
-                                                          : 0.0296),
-                                                  margin:
-                                                  EdgeInsets.symmetric(
-                                                      horizontal: 4.0),
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: _current ==
-                                                        entry.key
-                                                        ? Colors.transparent
-                                                        : Colors
-                                                        .transparent,
-                                                    border: Border.all(
-                                                      color: _current ==
-                                                          entry.key
-                                                          ? Colors.white
-                                                          : Colors
-                                                          .transparent,
-                                                      width: _current ==
-                                                          entry.key
-                                                          ? 1
-                                                          : 0, // 선택된 항목에만 테두리를 주기
+                                                          ? 0.15
+                                                          : 0.2352)),
+                                              ...slideImages
+                                                  .asMap()
+                                                  .entries
+                                                  .map((entry) {
+                                                return Column(
+                                                  children: [
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        _controller
+                                                            .animateToPage(
+                                                                entry.key);
+                                                      },
+                                                      child: Container(
+                                                        width: width *
+                                                            (isMobile
+                                                                ? 0.012
+                                                                : 0.0166),
+                                                        height: height *
+                                                            (isMobile
+                                                                ? 0.02
+                                                                : 0.0296),
+                                                        margin: EdgeInsets
+                                                            .symmetric(
+                                                                horizontal:
+                                                                    4.0),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color: _current ==
+                                                                  entry.key
+                                                              ? Colors
+                                                                  .transparent
+                                                              : Colors
+                                                                  .transparent,
+                                                          border: Border.all(
+                                                            color: _current ==
+                                                                    entry.key
+                                                                ? Colors.white
+                                                                : Colors
+                                                                    .transparent,
+                                                            width: _current ==
+                                                                    entry.key
+                                                                ? 1
+                                                                : 0, // 선택된 항목에만 테두리를 주기
+                                                          ),
+                                                        ),
+                                                        child: Center(
+                                                          child: Container(
+                                                            width: width *
+                                                                (isMobile
+                                                                    ? 0.004
+                                                                    : 0.0052),
+                                                            height: height *
+                                                                (isMobile
+                                                                    ? 0.006
+                                                                    : 0.0092),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                                    shape: BoxShape
+                                                                        .circle,
+                                                                    color: Colors
+                                                                        .white),
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                  child: Center(
-                                                    child: Container(
-                                                      width: width *
-                                                          (isMobile
-                                                              ? 0.004
-                                                              : 0.0052),
-                                                      height: height *
-                                                          (isMobile
-                                                              ? 0.006
-                                                              : 0.0092),
-                                                      decoration:
-                                                      BoxDecoration(
-                                                          shape: BoxShape
-                                                              .circle,
-                                                          color: Colors
-                                                              .white),
-                                                    ),
+                                                    SizedBox(
+                                                        height: height *
+                                                            (isMobile
+                                                                ? 0.02
+                                                                : 0.02549)),
+
+                                                    // 원 사이의 간격 설정
+                                                  ],
+                                                );
+                                              }).toList(),
+                                              SizedBox(
+                                                  height: height *
+                                                      (isMobile
+                                                          ? 0.25
+                                                          : 0.3450)),
+                                              Transform(
+                                                transform: Matrix4.identity()
+                                                  ..translate(10, 12)
+                                                  ..rotateZ(-1.57),
+                                                child: Text(
+                                                  'Scroll',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: width *
+                                                        (isMobile
+                                                            ? 0.007
+                                                            : 0.0083),
+                                                    fontFamily: 'Pretendard',
+                                                    fontWeight: FontWeight.w500,
                                                   ),
                                                 ),
                                               ),
                                               SizedBox(
                                                   height: height *
                                                       (isMobile
-                                                          ? 0.02
-                                                          : 0.02549)),
-
-                                              // 원 사이의 간격 설정
+                                                          ? 0.004
+                                                          : 0.0050)),
+                                              Image.asset(
+                                                  'assets/arrow_down.png'),
                                             ],
-                                          );
-                                        }).toList(),
-                                        SizedBox(
-                                            height: height *
-                                                (isMobile ? 0.25 : 0.3450)),
-                                        Transform(
-                                          transform: Matrix4.identity()
-                                            ..translate(10, 12)
-                                            ..rotateZ(-1.57),
-                                          child: Text(
-                                            'Scroll',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: width *
-                                                  (isMobile
-                                                      ? 0.007
-                                                      : 0.0083),
-                                              fontFamily: 'Pretendard',
-                                              fontWeight: FontWeight.w500,
-                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                            height: height *
-                                                (isMobile
-                                                    ? 0.004
-                                                    : 0.0050)),
-                                        Image.asset(
-                                            'assets/arrow_down.png'),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                        width: width *
-                                            (isMobile ? 0.015 : 0.02239)),
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+                                          SizedBox(
+                                              width: width *
+                                                  (isMobile ? 0.015 : 0.02239)),
+                                        ],
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
                       //carusel slider 부분
                       Container(
                           color: Colors.white,
@@ -1093,13 +1136,15 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   Spacer(),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Container(
-                                        width: width * (isMobile ? 0.6 : 0.7125),
+                                        width:
+                                            width * (isMobile ? 0.6 : 0.7125),
                                         height:
-                                        height * (isMobile ? 0.2 : 0.3129),
+                                            height * (isMobile ? 0.2 : 0.3129),
                                         child: Image.asset(
                                           'assets/bg-gradation00.png',
                                           fit: BoxFit.contain,
@@ -1118,7 +1163,7 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       SizedBox(
                                           height:
-                                          height * (isMobile ? 0 : 0.1388)),
+                                              height * (isMobile ? 0 : 0.1388)),
                                       Text(
                                         'Contacts Us',
                                         style: TextStyle(
@@ -1127,8 +1172,8 @@ class _HomePageState extends State<HomePage> {
                                               (isMobile
                                                   ? 0.022
                                                   : isTablet
-                                                  ? 0.025
-                                                  : 0.0291),
+                                                      ? 0.025
+                                                      : 0.0291),
                                           fontFamily: 'Pretendard',
                                           fontWeight: FontWeight.w700,
                                           height: height *
@@ -1139,8 +1184,8 @@ class _HomePageState extends State<HomePage> {
                                         '전문가에게 맡겨주세요 ',
                                         style: TextStyle(
                                           color: Color(0xFF191919),
-                                          fontSize:
-                                          width * (isMobile ? 0.012 : 0.0145),
+                                          fontSize: width *
+                                              (isMobile ? 0.012 : 0.0145),
                                           fontFamily: 'Pretendard',
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -1153,8 +1198,8 @@ class _HomePageState extends State<HomePage> {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: Color(0xFF191919),
-                                          fontSize:
-                                          width * (isMobile ? 0.008 : 0.0104),
+                                          fontSize: width *
+                                              (isMobile ? 0.008 : 0.0104),
                                           fontFamily: 'Pretendard',
                                           fontWeight: FontWeight.w400,
                                           height: height *
@@ -1166,28 +1211,38 @@ class _HomePageState extends State<HomePage> {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: Color(0xFF191919),
-                                          fontSize:
-                                          width * (isMobile ? 0.008 : 0.0104),
+                                          fontSize: width *
+                                              (isMobile ? 0.008 : 0.0104),
                                           fontFamily: 'Pretendard',
                                           fontWeight: FontWeight.w400,
                                         ),
                                       ),
                                       // 진행 단계 표시 Row 추가
-                                      SizedBox(height:isMobile? height * 0.02 : height * 0.1600),
-                                      Visibility(child: Container(
-                                        width:  width * 0.625,
-                                        height:  height * 0.07592,
-                                        child: Image.asset(
-                                          'assets/progressbar.png',
-                                          fit: BoxFit.contain,
+                                      SizedBox(
+                                          height: isMobile
+                                              ? height * 0.02
+                                              : height * 0.1600),
+                                      Visibility(
+                                        child: Container(
+                                          width: width * 0.625,
+                                          height: height * 0.07592,
+                                          child: Image.asset(
+                                            'assets/progressbar.png',
+                                            fit: BoxFit.contain,
+                                          ),
                                         ),
-                                      ),visible: !isMobile,),
+                                        visible: !isMobile,
+                                      ),
 
-                                      SizedBox(height: isMobile? height * 0.04:height * 0.0900),
+                                      SizedBox(
+                                          height: isMobile
+                                              ? height * 0.04
+                                              : height * 0.0900),
                                       Container(
-                                        width: width * (isMobile ? 0.16 : 0.1682),
+                                        width:
+                                            width * (isMobile ? 0.16 : 0.1682),
                                         height:
-                                        height * (isMobile ? 0.02 : 0.0574),
+                                            height * (isMobile ? 0.02 : 0.0574),
                                         child: ElevatedButton(
                                           onPressed: () {
                                             setState(() {
@@ -1209,7 +1264,7 @@ class _HomePageState extends State<HomePage> {
                                             foregroundColor: Colors.white,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(8),
+                                                  BorderRadius.circular(8),
                                             ),
                                           ),
                                         ),
@@ -1244,7 +1299,9 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: isMobile? height * 0.0022:height * 0.0055,
+                                  height: isMobile
+                                      ? height * 0.0022
+                                      : height * 0.0055,
                                 ),
                                 Text(
                                   'Welcome',
@@ -1252,13 +1309,15 @@ class _HomePageState extends State<HomePage> {
                                   style: TextStyle(
                                     color: Color(0xFF191919),
                                     fontSize:
-                                    width * (isMobile ? 0.025 : 0.02916),
+                                        width * (isMobile ? 0.025 : 0.02916),
                                     fontFamily: 'Pretendard',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 SizedBox(
-                                  height: isMobile? height * 0.02:height * 0.06111,
+                                  height: isMobile
+                                      ? height * 0.02
+                                      : height * 0.06111,
                                 ),
                                 Text(
                                   '(주) 뉴켐은 실험실에서 사용하는 기초장비부터 반응 및 자동화 시스템까지\n합성 실험에 필요한 모든 솔루션을 제공하는 회사입니다.\n지난 20년간 화학 및 의약 연구 분야에서 수많은 제품과 시스템을 공급하며,\n고객이 신뢰할 수 있는 회사로 자리매김해 왔습니다.\n앞으로도 지속적인 성원 부탁드립니다.\n저희 뉴켐은 언제나 고객과 함께 하겠습니다.',
@@ -1272,7 +1331,9 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: isMobile? height * 0.02:height * 0.0416,
+                                  height: isMobile
+                                      ? height * 0.02
+                                      : height * 0.0416,
                                 ),
                                 InkWell(
                                   onTap: () {
@@ -1282,8 +1343,12 @@ class _HomePageState extends State<HomePage> {
                                     // width: width * (isMobile ? 0.16 : 0.1682),
                                     // height:
                                     // height * (isMobile ? 0.02 : 0.0574),
-                                    width: isMobile? width * 0.16 : width * 0.08645,
-                                    height: isMobile? height * 0.02 :height * 0.0388,
+                                    width: isMobile
+                                        ? width * 0.16
+                                        : width * 0.08645,
+                                    height: isMobile
+                                        ? height * 0.02
+                                        : height * 0.0388,
                                     decoration: ShapeDecoration(
                                       color: Colors.white.withOpacity(0),
                                       shape: RoundedRectangleBorder(
@@ -1293,7 +1358,8 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'more view',
@@ -1338,7 +1404,8 @@ class _HomePageState extends State<HomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: height * (isMobile ? 0.005 : 0.1900),
+                                    height:
+                                        height * (isMobile ? 0.005 : 0.1900),
                                   ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -1355,18 +1422,21 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: width * (isMobile ? 0.03 : 0.0442),
+                                        width:
+                                            width * (isMobile ? 0.03 : 0.0442),
                                       ),
                                       Transform.translate(
-                                        offset: Offset(0,
-                                            height * (isMobile ? 0.007 : 0.009)),
+                                        offset: Offset(
+                                            0,
+                                            height *
+                                                (isMobile ? 0.007 : 0.009)),
                                         child: InkWell(
                                           onTap: () {
                                             widget.onNavigate(4);
                                           },
                                           child: Row(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                                MainAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'more view',
@@ -1395,16 +1465,19 @@ class _HomePageState extends State<HomePage> {
                                     ],
                                   ),
                                   SizedBox(
-                                    height: height * (isMobile ? 0.005 : 0.0074),
+                                    height:
+                                        height * (isMobile ? 0.005 : 0.0074),
                                   ),
                                   Container(
                                     width: width * (isMobile ? 0.2 : 0.26145),
-                                    height: height * (isMobile ? 0.002 : 0.00277),
+                                    height:
+                                        height * (isMobile ? 0.002 : 0.00277),
                                     decoration:
-                                    BoxDecoration(color: Color(0xFF6194F9)),
+                                        BoxDecoration(color: Color(0xFF6194F9)),
                                   ),
                                   SizedBox(
-                                    height: height * (isMobile ? 0.004 : 0.0055),
+                                    height:
+                                        height * (isMobile ? 0.004 : 0.0055),
                                   ),
                                   Container(
                                     padding: EdgeInsets.zero,
@@ -1449,9 +1522,10 @@ class _HomePageState extends State<HomePage> {
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                          const EdgeInsets
-                                                              .symmetric(
-                                                              vertical: 12.0),
+                                                              const EdgeInsets
+                                                                  .symmetric(
+                                                                  vertical:
+                                                                      12.0),
                                                           child: Container(
                                                             width: width *
                                                                 (isMobile
@@ -1462,13 +1536,13 @@ class _HomePageState extends State<HomePage> {
                                                                     ? 0.025
                                                                     : 0.0351),
                                                             decoration:
-                                                            BoxDecoration(
+                                                                BoxDecoration(
                                                               color: Color(
                                                                   0xFF6394F9),
                                                               borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                  6),
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          6),
                                                             ),
                                                             padding: EdgeInsets
                                                                 .symmetric(
@@ -1484,29 +1558,29 @@ class _HomePageState extends State<HomePage> {
                                                             child: Text(
                                                               item["number"]!
                                                                   .padLeft(
-                                                                  2, '0'),
+                                                                      2, '0'),
                                                               maxLines: 1,
                                                               style: TextStyle(
-                                                                color:
-                                                                Colors.white,
+                                                                color: Colors
+                                                                    .white,
                                                                 fontSize: width *
                                                                     (isMobile
                                                                         ? 0.008
                                                                         : 0.01041),
                                                                 fontFamily:
-                                                                'Pretendard',
+                                                                    'Pretendard',
                                                                 fontWeight:
-                                                                FontWeight
-                                                                    .w500,
+                                                                    FontWeight
+                                                                        .w500,
                                                               ),
                                                               textAlign:
-                                                              TextAlign.left,
+                                                                  TextAlign
+                                                                      .left,
                                                             ),
                                                           ),
                                                         ),
                                                         Padding(
-                                                          padding:
-                                                          EdgeInsets.fromLTRB(
+                                                          padding: EdgeInsets.fromLTRB(
                                                               width *
                                                                   (isMobile
                                                                       ? 0.006
@@ -1516,13 +1590,13 @@ class _HomePageState extends State<HomePage> {
                                                                       ? 0.012
                                                                       : 0.0148),
                                                               0,
-                                                              height *
-                                                                  0.0148),
-                                                          child: GestureDetector(
+                                                              height * 0.0148),
+                                                          child:
+                                                              GestureDetector(
                                                             onTap: () async {
                                                               final Uri uri =
-                                                              Uri.parse(item[
-                                                              "link"]!);
+                                                                  Uri.parse(item[
+                                                                      "link"]!);
                                                               if (await canLaunchUrl(
                                                                   uri)) {
                                                                 await launchUrl(
@@ -1534,17 +1608,17 @@ class _HomePageState extends State<HomePage> {
                                                             child: Text(
                                                               item["title"]!,
                                                               style: TextStyle(
-                                                                color:
-                                                                Colors.black,
+                                                                color: Colors
+                                                                    .black,
                                                                 fontSize: width *
                                                                     (isMobile
                                                                         ? 0.007
                                                                         : 0.009),
                                                                 fontFamily:
-                                                                'Pretendard',
+                                                                    'Pretendard',
                                                                 fontWeight:
-                                                                FontWeight
-                                                                    .w500,
+                                                                    FontWeight
+                                                                        .w500,
                                                               ),
                                                             ),
                                                           ),
@@ -1554,29 +1628,31 @@ class _HomePageState extends State<HomePage> {
                                                               (isMobile
                                                                   ? 0.04
                                                                   : 0.0447),
-                                                          padding:
-                                                          EdgeInsets.fromLTRB(
-                                                              0,
-                                                              height *
-                                                                  (isMobile
-                                                                      ? 0.012
-                                                                      : 0.0148),
-                                                              width * 0.0083,
-                                                              0),
+                                                          padding: EdgeInsets
+                                                              .fromLTRB(
+                                                                  0,
+                                                                  height *
+                                                                      (isMobile
+                                                                          ? 0.012
+                                                                          : 0.0148),
+                                                                  width *
+                                                                      0.0083,
+                                                                  0),
                                                           child: Text(
                                                             item["date"]!,
                                                             maxLines: 1,
                                                             style: TextStyle(
                                                               color: Color(
-                                                                  0xff191919)
+                                                                      0xff191919)
                                                                   .withOpacity(
-                                                                  0.4),
+                                                                      0.4),
                                                               fontSize: width *
                                                                   (isMobile
                                                                       ? 0.0075
                                                                       : 0.0093),
                                                               fontWeight:
-                                                              FontWeight.w400,
+                                                                  FontWeight
+                                                                      .w400,
                                                               letterSpacing: -1,
                                                             ),
                                                           ),
@@ -1586,7 +1662,8 @@ class _HomePageState extends State<HomePage> {
                                                   ],
                                                 ),
                                               ),
-                                              if (index < downloadData.length - 1)
+                                              if (index <
+                                                  downloadData.length - 1)
                                                 Column(children: [
                                                   SizedBox(
                                                       height: height *
@@ -1634,12 +1711,12 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     SizedBox(
-                                        width:
-                                        width * (isMobile ? 0 : 0.004)),
+                                        width: width * (isMobile ? 0 : 0.004)),
                                     // ListView로 3개 아이템을 한 번에 보여줌
                                     Container(
                                       width: width * (isMobile ? 0.38 : 0.3307),
-                                      height: height * (isMobile ? 0.15 : 0.2935),
+                                      height:
+                                          height * (isMobile ? 0.15 : 0.2935),
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         itemCount: downloadData.length,
@@ -1648,11 +1725,13 @@ class _HomePageState extends State<HomePage> {
                                           return Padding(
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: width *
-                                                    (isMobile ? 0.002 : 0.0025)),
+                                                    (isMobile
+                                                        ? 0.002
+                                                        : 0.0025)),
                                             child: GestureDetector(
                                               onTap: () async {
                                                 final Uri uri =
-                                                Uri.parse(item["link"]!);
+                                                    Uri.parse(item["link"]!);
                                                 if (await canLaunchUrl(uri)) {
                                                   await launchUrl(uri);
                                                 } else {
@@ -1665,7 +1744,8 @@ class _HomePageState extends State<HomePage> {
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius:
-                                                  BorderRadius.circular(10.0),
+                                                      BorderRadius.circular(
+                                                          10.0),
                                                   boxShadow: [
                                                     BoxShadow(
                                                       color: Colors.black
@@ -1689,14 +1769,15 @@ class _HomePageState extends State<HomePage> {
                                                               : 0.2592),
                                                       child: ClipRRect(
                                                         borderRadius:
-                                                        BorderRadius.vertical(
-                                                            top: Radius
-                                                                .circular(
-                                                                10.0)),
+                                                            BorderRadius.vertical(
+                                                                top: Radius
+                                                                    .circular(
+                                                                        10.0)),
                                                         child: Image.asset(
                                                           item["image"]!,
                                                           fit: BoxFit.cover,
-                                                          width: double.infinity,
+                                                          width:
+                                                              double.infinity,
                                                         ),
                                                       ),
                                                     ),
@@ -1707,7 +1788,7 @@ class _HomePageState extends State<HomePage> {
                                                               ? 0.015
                                                               : 0.034),
                                                       padding:
-                                                      EdgeInsets.fromLTRB(
+                                                          EdgeInsets.fromLTRB(
                                                         width *
                                                             (isMobile
                                                                 ? 0.003
@@ -1731,7 +1812,8 @@ class _HomePageState extends State<HomePage> {
                                                         children: [
                                                           Text(
                                                             item["number"]!
-                                                                .padLeft(2, '0'),
+                                                                .padLeft(
+                                                                    2, '0'),
                                                             maxLines: 1,
                                                             style: TextStyle(
                                                               color: Color(
@@ -1741,28 +1823,31 @@ class _HomePageState extends State<HomePage> {
                                                                       ? 0.006
                                                                       : 0.0072),
                                                               fontFamily:
-                                                              'Pretendard',
+                                                                  'Pretendard',
                                                               fontWeight:
-                                                              FontWeight.w500,
+                                                                  FontWeight
+                                                                      .w500,
                                                             ),
                                                             textAlign:
-                                                            TextAlign.left,
+                                                                TextAlign.left,
                                                           ),
                                                           SizedBox(
-                                                              width:
-                                                              width * 0.004),
+                                                              width: width *
+                                                                  0.004),
                                                           Text(
                                                             item["title"]!,
-                                                            textAlign:
-                                                            TextAlign.center,
+                                                            textAlign: TextAlign
+                                                                .center,
                                                             style: TextStyle(
-                                                              color: Colors.black,
+                                                              color:
+                                                                  Colors.black,
                                                               fontSize: width *
                                                                   (isMobile
                                                                       ? 0.006
                                                                       : 0.0072),
                                                               fontWeight:
-                                                              FontWeight.w600,
+                                                                  FontWeight
+                                                                      .w600,
                                                             ),
                                                           ),
                                                         ],
@@ -1778,16 +1863,16 @@ class _HomePageState extends State<HomePage> {
                                     ),
 
                                     Container(
-
                                       decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color:
-                                          Color(0xff6194f9).withOpacity(0.3)),
+                                          color: Color(0xff6194f9)
+                                              .withOpacity(0.3)),
                                       child: IconButton(
                                         onPressed: _previousPage,
-                                        icon: Icon(Icons.arrow_forward_ios_sharp),
-                                        color:
-                                        Color(0xff6194f9), // 아이콘 색상을 흰색으로 변경
+                                        icon:
+                                            Icon(Icons.arrow_forward_ios_sharp),
+                                        color: Color(
+                                            0xff6194f9), // 아이콘 색상을 흰색으로 변경
                                       ),
                                     ),
                                   ],
@@ -1817,22 +1902,27 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     Container(
                                       width: width * (isMobile ? 0.1 : 0.125),
-                                      height: height * (isMobile ? 0.04 : 0.0630),
+                                      height:
+                                          height * (isMobile ? 0.04 : 0.0630),
                                       child: Text(
                                         'Direction',
                                         style: TextStyle(
                                           color: Color(0xFF191919),
-                                          fontSize:
-                                          width * (isMobile ? 0.02 : 0.0291),
+                                          fontSize: width *
+                                              (isMobile ? 0.02 : 0.0291),
                                           fontFamily: 'Pretendard',
                                           fontWeight: FontWeight.w700,
                                           letterSpacing: -1,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: isMobile? height * 0.005 :height * 0.0657),
+                                    SizedBox(
+                                        height: isMobile
+                                            ? height * 0.005
+                                            : height * 0.0657),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Container(
                                           width: width * 0.3,
@@ -1846,8 +1936,8 @@ class _HomePageState extends State<HomePage> {
                                                   color: Colors.black,
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
-                                                      BorderRadius.circular(
-                                                          6)),
+                                                          BorderRadius.circular(
+                                                              6)),
                                                   shadows: [
                                                     BoxShadow(
                                                       color: Color(0x26000000),
@@ -1859,7 +1949,7 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
                                                       width: width * 0.0089,
@@ -1874,11 +1964,14 @@ class _HomePageState extends State<HomePage> {
                                                     SelectableText(
                                                       '경기사무소',
                                                       style: TextStyle(
-                                                        color: Color(0xFF96b9ff),
-                                                        fontSize: width * 0.0114,
-                                                        fontFamily: 'Pretendard',
+                                                        color:
+                                                            Color(0xFF96b9ff),
+                                                        fontSize:
+                                                            width * 0.0114,
+                                                        fontFamily:
+                                                            'Pretendard',
                                                         fontWeight:
-                                                        FontWeight.w500,
+                                                            FontWeight.w500,
                                                         height: 0.06,
                                                         letterSpacing: 0.66,
                                                       ),
@@ -1927,22 +2020,27 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     Container(
                                       width: width * (isMobile ? 0.1 : 0.125),
-                                      height: height * (isMobile ? 0.04 : 0.0630),
+                                      height:
+                                          height * (isMobile ? 0.04 : 0.0630),
                                       child: Text(
                                         '',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize:
-                                          width * (isMobile ? 0.02 : 0.0291),
+                                          fontSize: width *
+                                              (isMobile ? 0.02 : 0.0291),
                                           fontFamily: 'Pretendard',
                                           fontWeight: FontWeight.w700,
                                           letterSpacing: -1,
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: isMobile? height * 0.005 :height * 0.0657),
+                                    SizedBox(
+                                        height: isMobile
+                                            ? height * 0.005
+                                            : height * 0.0657),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       children: [
                                         Container(
                                           width: width * 0.3,
@@ -1956,8 +2054,8 @@ class _HomePageState extends State<HomePage> {
                                                   color: Colors.black,
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
-                                                      BorderRadius.circular(
-                                                          6)),
+                                                          BorderRadius.circular(
+                                                              6)),
                                                   shadows: [
                                                     BoxShadow(
                                                       color: Color(0x26000000),
@@ -1969,7 +2067,7 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
                                                       width: width * 0.0089,
@@ -1984,11 +2082,14 @@ class _HomePageState extends State<HomePage> {
                                                     SelectableText(
                                                       '대전사무소',
                                                       style: TextStyle(
-                                                        color: Color(0xFF96b9ff),
-                                                        fontSize: width * 0.0114,
-                                                        fontFamily: 'Pretendard',
+                                                        color:
+                                                            Color(0xFF96b9ff),
+                                                        fontSize:
+                                                            width * 0.0114,
+                                                        fontFamily:
+                                                            'Pretendard',
                                                         fontWeight:
-                                                        FontWeight.w500,
+                                                            FontWeight.w500,
                                                         height: 0.06,
                                                         letterSpacing: 0.66,
                                                       ),
@@ -2026,7 +2127,6 @@ class _HomePageState extends State<HomePage> {
                                     )
                                   ],
                                 ),
-
                                 SizedBox(
                                   width: width * (isMobile ? 0.02 : 0.0260),
                                 ),
@@ -2087,48 +2187,36 @@ class _HomePageState extends State<HomePage> {
                                         "HOME",
                                         0,
                                         width * (isMobile ? 0.012 : 0.00729),
-                                        width * (isMobile ? 0.14 : 0.0598),
+                                        width * (isMobile ? 0.14 : 0.065),
                                         height * (isMobile ? 0.04 : 0.0425),
                                         onItemTapped),
-                                    SizedBox(
-                                        width:
-                                        width * (isMobile ? 0.004 : 0.0020)),
                                     buildTextButton2(
                                         "COMPANY",
                                         1,
                                         width * (isMobile ? 0.012 : 0.00729),
-                                        width * (isMobile ? 0.14 : 0.0598),
+                                        width * (isMobile ? 0.14 : 0.065),
                                         height * (isMobile ? 0.04 : 0.0425),
                                         onItemTapped),
-                                    SizedBox(
-                                        width:
-                                        width * (isMobile ? 0.004 : 0.0020)),
                                     buildTextButton2(
                                         "PRODUCTS",
                                         2,
                                         width * (isMobile ? 0.012 : 0.00729),
-                                        width * (isMobile ? 0.14 : 0.0598),
+                                        width * (isMobile ? 0.14 : 0.065),
                                         height * (isMobile ? 0.04 : 0.0425),
                                         onItemTapped),
-                                    SizedBox(
-                                        width:
-                                        width * (isMobile ? 0.004 : 0.0020)),
                                     buildTextButton2(
                                         "CONTACT US",
                                         3,
                                         width * (isMobile ? 0.012 : 0.00729),
-                                        width * (isMobile ? 0.14 : 0.0598),
+                                        width * (isMobile ? 0.14 : 0.065),
                                         height * (isMobile ? 0.04 : 0.0425),
                                         onItemTapped),
-                                    SizedBox(
-                                        width:
-                                        width * (isMobile ? 0.004 : 0.0020)),
                                     buildTextButton2(
                                         "DOWNLOADS",
                                         4,
                                         width * (isMobile ? 0.012 : 0.00729),
-                                        width * (isMobile ? 0.14 : 0.0598),
-                                        height * (isMobile ? 0.04: 0.0425),
+                                        width * (isMobile ? 0.14 : 0.065),
+                                        height * (isMobile ? 0.04 : 0.0425),
                                         onItemTapped),
                                   ],
                                 ),
@@ -2161,7 +2249,7 @@ class _HomePageState extends State<HomePage> {
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize:
-                                      width * (isMobile ? 0.012 : 0.0093),
+                                          width * (isMobile ? 0.012 : 0.0093),
                                       fontFamily: 'Pretendard',
                                       fontWeight: FontWeight.w500,
                                       letterSpacing: 0.54,
@@ -2177,18 +2265,23 @@ class _HomePageState extends State<HomePage> {
                               height: height * 0.0680,
                               child: Row(
                                 children: [
-                                  SizedBox(width: isMobile? width * 0.12:width * 0.18),
+                                  SizedBox(
+                                      width: isMobile
+                                          ? width * 0.12
+                                          : width * 0.18),
                                   Transform.translate(
                                     offset: Offset(0, -height * 0.01388),
                                     child: Icon(
                                       Icons.phone,
                                       color: Colors.white,
-                                      size: isMobile? 8:18,
+                                      size: isMobile ? 8 : 18,
                                     ),
                                   ),
                                   SizedBox(width: width * 0.0041),
                                   Container(
-                                    width: isMobile? width * 0.095:width * 0.0807,
+                                    width: isMobile
+                                        ? width * 0.095
+                                        : width * 0.0807,
                                     height: height * 0.0462,
                                     child: SelectableText(
                                       '070-8098-7424',
@@ -2207,12 +2300,14 @@ class _HomePageState extends State<HomePage> {
                                     child: Icon(
                                       Icons.print,
                                       color: Colors.white,
-                                      size: isMobile? 8:18,
+                                      size: isMobile ? 8 : 18,
                                     ),
                                   ),
                                   SizedBox(width: width * 0.0041),
                                   Container(
-                                    width: isMobile? width * 0.095:width * 0.08333,
+                                    width: isMobile
+                                        ? width * 0.095
+                                        : width * 0.08333,
                                     height: height * 0.0462,
                                     child: SelectableText(
                                       '042-367-7427',
@@ -2231,12 +2326,14 @@ class _HomePageState extends State<HomePage> {
                                     child: Icon(
                                       Icons.local_post_office,
                                       color: Colors.white,
-                                      size: isMobile? 8:18,
+                                      size: isMobile ? 8 : 18,
                                     ),
                                   ),
                                   SizedBox(width: width * 0.004),
                                   Container(
-                                    width:isMobile? width * 0.15: width * 0.1458,
+                                    width: isMobile
+                                        ? width * 0.15
+                                        : width * 0.1458,
                                     height: height * 0.0462,
                                     child: SelectableText(
                                       'cmkim@new-chem.co.kr',
@@ -2254,7 +2351,8 @@ class _HomePageState extends State<HomePage> {
                                     offset: Offset(0, -height * 0.0111),
                                     child: Container(
                                       width: width * 0.1468,
-                                      child: Image.asset('assets/logo-white.png'),
+                                      child:
+                                          Image.asset('assets/logo-white.png'),
                                     ),
                                   ),
                                 ],
@@ -2271,7 +2369,8 @@ class _HomePageState extends State<HomePage> {
                                   'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
                                   style: TextStyle(
                                     color: Colors.white.withOpacity(0.3),
-                                    fontSize: width * (isMobile ? 0.011 : 0.0093),
+                                    fontSize:
+                                        width * (isMobile ? 0.011 : 0.0093),
                                     fontFamily: 'Pretendard',
                                     fontWeight: FontWeight.w500,
                                     letterSpacing: 0.54,
@@ -2289,12 +2388,11 @@ class _HomePageState extends State<HomePage> {
           );
         }),
       ),
-    )
-   ;
+    );
   }
 
 // Widget for brand buttons
-  Widget buildBrandButton(
+  BrandButton(
       String brandName, String imagePath, double width, double height) {
     return LayoutBuilder(
       builder: (context, constraints) {

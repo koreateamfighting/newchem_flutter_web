@@ -6,7 +6,9 @@ import 'home_screen.dart';
 import 'm_home_screen.dart';
 import 'product_screen.dart';
 import 'contact_screen.dart';
+import 'm_contact_screen.dart';
 import 'download_screen.dart';
+import 'm_download_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'popup.dart';
@@ -152,7 +154,7 @@ final GoRouter _router = GoRouter(
           key: state.pageKey,
           child: MyAppContainer(
             child: isMobile
-                ? ContactScreen() // 모바일 전용 ContactScreen
+                ? MContactScreen() // 모바일 전용 ContactScreen
                 : ContactScreen(),      // 데스크톱 ContactScreen
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -175,7 +177,7 @@ final GoRouter _router = GoRouter(
           key: state.pageKey,
           child: MyAppContainer(
             child: isMobile
-                ? DownloadScreen() // 모바일 전용 DownloadScreen
+                ? MDownloadScreen() // 모바일 전용 DownloadScreen
                 : DownloadScreen(),      // 데스크톱 DownloadScreen
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -348,7 +350,7 @@ class _MyAppContainerState extends State<MyAppContainer> {
                         ),
                       )
                     : Container(
-                        width: width * 0.33,
+                        width: width * 0.4,
                         padding: EdgeInsets.only(
                             top: height * 0.01), // Row 높이를 살짝 내림
                         child: Row(
@@ -358,37 +360,37 @@ class _MyAppContainerState extends State<MyAppContainer> {
                               0,
                               width * 0.00713,
                               0,
-                              width * 0.05210,
+                              width * 0.06,
                               height * 0.0375,
                               onItemTapped,
                             ),
-                            SizedBox(width: width * 0.012),
+
                             buildTextButton(
                               "COMPANY",
                               1,
                               width * 0.00713,
                               0,
-                              width * 0.05210,
+                              width * 0.060,
                               height * 0.0375,
                               onItemTapped,
                             ),
-                            SizedBox(width: width * 0.012),
+
                             buildTextButton(
                               "PRODUCTS",
                               2,
                               width * 0.00713,
                               0,
-                              width * 0.05210,
+                              width * 0.068,
                               height * 0.0375,
                               onItemTapped,
                             ),
-                            SizedBox(width: width * 0.004),
+
                             buildTextButton(
                               "CONTACT US",
                               3,
                               width * 0.00713,
                               0,
-                              width * 0.058,
+                              width * 0.068,
                               height * 0.0375,
                               onItemTapped,
                             ),
@@ -397,7 +399,7 @@ class _MyAppContainerState extends State<MyAppContainer> {
                               4,
                               width * 0.00713,
                               0,
-                              width * 0.080,
+                              width * 0.068,
                               height * 0.0375,
                               onItemTapped,
                             ),

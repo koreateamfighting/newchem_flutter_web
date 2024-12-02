@@ -81,6 +81,10 @@ flutter:
   # Assets section to include all the images in assets directory
   assets:
     - assets/  # This will include all images in the assets directory
+    - assets/sliderbackground01.png
+    - assets/sliderbackground02.png
+    - assets/sliderbackground04.png
+    - assets/sliderbackground05.png
     - assets/products/
   # To add assets to your application, add an assets section, like this:
   # assets:

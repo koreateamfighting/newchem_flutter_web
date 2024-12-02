@@ -38,12 +38,13 @@ class _DownloadScreenState extends State<DownloadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final width = size.width;
-    final height = size.height;
+
 
     return MaterialApp(
       home: LayoutBuilder(builder: (context, constraints) {
+        final size = MediaQuery.of(context).size;
+        final width = size.width;
+        final height = size.height;
         final isMobile = width < 600 && height < 916;
         final isTablet = width >= 600 && width < 1024 && height < 1200;
         final isDesktop = width >= 1024 && height >= 1200;
@@ -166,19 +167,40 @@ class _DownloadScreenState extends State<DownloadScreen> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   buildTextButton2(
-                                      "HOME", 0, width * 0.00729, onItemTapped),
-                                  SizedBox(width: width * 0.0020),
-                                  buildTextButton2("COMPANY", 1,
-                                      width * 0.00729, onItemTapped),
-                                  SizedBox(width: width * 0.0020),
-                                  buildTextButton2("PRODUCTS", 2,
-                                      width * 0.00729, onItemTapped),
-                                  SizedBox(width: width * 0.0020),
-                                  buildTextButton2("CONTACT US", 3,
-                                      width * 0.00729, onItemTapped),
-                                  SizedBox(width: width * 0.0020),
-                                  buildTextButton2("DOWNLOADS", 4,
-                                      width * 0.00729, onItemTapped),
+                                      "HOME",
+                                      0,
+                                      width * (isMobile ? 0.012 : 0.00729),
+                                      width * (isMobile ? 0.14 : 0.065),
+                                      height * (isMobile ? 0.04 : 0.0425),
+                                      onItemTapped),
+                                  buildTextButton2(
+                                      "COMPANY",
+                                      1,
+                                      width * (isMobile ? 0.012 : 0.00729),
+                                      width * (isMobile ? 0.14 : 0.065),
+                                      height * (isMobile ? 0.04 : 0.0425),
+                                      onItemTapped),
+                                  buildTextButton2(
+                                      "PRODUCTS",
+                                      2,
+                                      width * (isMobile ? 0.012 : 0.00729),
+                                      width * (isMobile ? 0.14 : 0.065),
+                                      height * (isMobile ? 0.04 : 0.0425),
+                                      onItemTapped),
+                                  buildTextButton2(
+                                      "CONTACT US",
+                                      3,
+                                      width * (isMobile ? 0.012 : 0.00729),
+                                      width * (isMobile ? 0.14 : 0.065),
+                                      height * (isMobile ? 0.04 : 0.0425),
+                                      onItemTapped),
+                                  buildTextButton2(
+                                      "DOWNLOADS",
+                                      4,
+                                      width * (isMobile ? 0.012 : 0.00729),
+                                      width * (isMobile ? 0.14 : 0.065),
+                                      height * (isMobile ? 0.04 : 0.0425),
+                                      onItemTapped),
                                 ],
                               ),
                             ],
@@ -414,15 +436,12 @@ class _DownloadScreenState extends State<DownloadScreen> {
     );
   }
 
-  // 전역에서 사용 가능한 `buildTextButton` 함수 정의
+// 전역에서 사용 가능한 `buildTextButton` 함수 정의
   Container buildTextButton2(String label, int index, double buttonFontSize,
-      Function(int) onItemTapped) {
-    final size = MediaQuery.of(context).size;
-    final width = size.width;
-    final height = size.height;
+      double buttonWidth, double buttonHeight, Function(int) onItemTapped) {
     return Container(
-      width: width * 0.0598,
-      height: height * 0.0425,
+      width: buttonWidth,
+      height: buttonHeight,
       child: TextButton(
         onPressed: () => onItemTapped(index),
         child: Text(
@@ -440,7 +459,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
           foregroundColor: Colors.white,
           overlayColor: Colors.transparent, // 눌렀을 때 생기는 그림자 제거
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero, // 직사각형으로 설정
+            borderRadius: BorderRadius.zero,
           ),
         ),
       ),
