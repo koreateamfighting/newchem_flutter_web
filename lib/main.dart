@@ -5,6 +5,7 @@ import 'package:newchem_flutter_website/m_company_screen.dart';
 import 'company_screen.dart';
 import 'home_screen.dart';
 import 'm_home_screen.dart';
+import 'm_product_screen.dart';
 import 'product_screen.dart';
 import 'contact_screen.dart';
 import 'm_contact_screen.dart';
@@ -134,12 +135,17 @@ final GoRouter _router = GoRouter(
         return CustomTransitionPage(
           key: state.pageKey,
           child: MyAppContainer(
-            child: ProductScreen(
+            child: isMobile? MProductScreen(
               initialTabIndex: tabIndex,
               onTabChanged: (int newTabIndex) {
                 context.go('/products/$newTabIndex'); // 탭 변경 시 URL 업데이트
               },
-            ),
+            ):ProductScreen(
+            initialTabIndex: tabIndex,
+            onTabChanged: (int newTabIndex) {
+              context.go('/products/$newTabIndex'); // 탭 변경 시 URL 업데이트
+            },
+          ),
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
@@ -195,6 +201,11 @@ final GoRouter _router = GoRouter(
         );
       },
     ),
+    GoRoute(
+      path: '/popup',
+      builder: (context, state) => PopupScreen(),
+    ),
+
 
   ],
 );

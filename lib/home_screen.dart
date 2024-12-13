@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fwfh_webview/fwfh_webview.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:html' as html; // Web용 dart:html 패키지 사å용
 import 'dart:ui_web' as ui;
 import 'dart:async';
@@ -28,9 +29,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentImageIndex = 0;
+  late html.DivElement? _popupDiv; // 팝업 요소를 추적할 변수
   final CarouselSliderController _controller = CarouselSliderController();
   final ScrollController _scrollController = ScrollController();
   bool isHovered = false;
+  static bool _popupClosed = false; // 팝업이 닫혔는지 여부를 추적하는 플래그
 
   final List<String> _backgroundImages = [
     'assets/main-background2.png',
@@ -158,6 +161,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // 3초마다 이미지 전환
+    // 페이지 로드 시 HTML 팝업 표시 (한 번 닫았으면 표시하지 않음)
+    if (!_popupClosed) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showHtmlPopup();
+      });
+    }
 
     Timer.periodic(Duration(seconds: 8), (timer) {
       setState(() {
@@ -170,8 +179,59 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _popupClosed = true; // 팝업이 닫혔음을 기록
+    // 팝업 제거
+    if (_popupDiv != null) {
+      _popupDiv!.remove();
+      _popupDiv = null; // 참조 해제
+    }
+
     super.dispose();
   }
+  void _showHtmlPopup() {
+    // 새로운 div 요소 생성
+    _popupDiv = html.DivElement()
+      ..style.position = 'fixed'
+      ..style.top = '32%'
+      ..style.left = '80%'
+      ..style.transform = 'translate(-50%, -50%)'
+      ..style.backgroundColor = 'white'
+      ..style.border = '1px solid black'
+      ..style.zIndex = '1000'
+      ..style.width = '600px'
+      ..style.height = "600px"
+      ..style.textAlign = 'center';
+
+    // 이미지 추가
+    final image = html.ImageElement(
+        src: 'https://loadimage-wusgl4pmyq-uc.a.run.app')
+      ..style.width = '100%' // 이미지 크기를 팝업에 맞게 설정
+      ..style.height = '95%' // 비율 유지
+      ..onClick.listen((event) {
+        // 클릭 시 특정 URL로 이동
+        html.window.open(
+          'https://heidolph.activehosted.com/index.php?action=social&chash=35f4a8d465e6e1edc05f3d8ab658c551.83&s=796fee5a1c3947d587d6eac61a4149eb',
+          '_blank',
+        );
+      });
+    _popupDiv!.children.add(image);
+
+    // 닫기 버튼 추가
+    final closeButton = html.ButtonElement()
+      ..text = "닫기"
+      ..style.marginTop = '0px'
+      ..onClick.listen((event) {
+        _popupDiv?.remove(); // 팝업 제거
+        _popupDiv = null; // 참조 해제
+        _popupClosed = true; // 팝업이 닫혔음을 기록
+      });
+    _popupDiv!.children.add(closeButton);
+
+    // HTML body에 팝업 추가
+    html.document.body?.append(_popupDiv!);
+  }
+
+
 
   final PageController _pageController = PageController();
   int _currentIndex = 0;
