@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:html' as html; // Web용 dart:html 패키지 사용
 import 'dart:ui_web' as ui;
 import 'main.dart';
@@ -76,248 +77,223 @@ class _CompanyPageState extends State<CompanyPage> {
       },
     );
 
-    return MaterialApp(
-      home: LayoutBuilder(builder: (context, constraints) {
-        // width와 height 모두를 고려한 반응형 조건 설정
-        final isMobile = width < 600 && height < 916;
-        final isTablet = width >= 600 && width < 1024 && height < 1200;
-        final isDesktop = width >= 1024 && height >= 1200;
+    return ScreenUtilInit(
+      designSize: Size(1920, 1080),
+      child: MaterialApp(
+        home: LayoutBuilder(builder: (context, constraints) {
+          // width와 height 모두를 고려한 반응형 조건 설정
+          final isMobile = width < 600 && height < 916;
+          final isTablet = width >= 600 && width < 1024 && height < 1200;
+          final isDesktop = width >= 1024 && height >= 1200;
 
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-              child: Container(
-            height: _selectedTabIndex == 0
-                ? height * 1.958
-                : _selectedTabIndex == 1
-                    ? height * 2.446
-                    : height * 5,
-            color: Colors.white70,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: width,
-                  height: height * 0.5230,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/company_background.png'),
-                      fit: BoxFit.cover,
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: SingleChildScrollView(
+                child: Container(
+              height: _selectedTabIndex == 0
+                  ? 2114.h
+                  : _selectedTabIndex == 1
+                      ?2641.h
+                      :3865.h,
+
+
+              color: Colors.white70,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: width,
+                    height: height * 0.5230,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/company_background.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: height * 0.260,
+                        ),
+                        Text(
+                          'COMPANY',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: width * 0.028,
+                            fontFamily: 'Pretendard',
+                            fontWeight: FontWeight.w600,
+                            height: 0,
+                            letterSpacing: 2.16,
+                          ),
+                        ),
+                        Spacer(),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: height * 0.060,
+                                width: width * 0.322,
+                                color: Colors.black.withOpacity(0.5),
+                              ),
+                              _buildTabButton("기업 소개", 0),
+                              _buildTabButton("기업 연혁", 1),
+                              _buildTabButton("오시는 길", 2),
+                              Container(
+                                height: height * 0.060,
+                                width: width * 0.328,
+                                color: Colors.black.withOpacity(0.5),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: height * 0.260,
-                      ),
-                      Text(
-                        'COMPANY',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: width * 0.028,
-                          fontFamily: 'Pretendard',
-                          fontWeight: FontWeight.w600,
-                          height: 0,
-                          letterSpacing: 2.16,
+                  _buildTabContent(),
+                  //SizedBox(height: 75,),
+                  Container(
+                    height: height * 0.3722,
+                    child: Image.asset(
+                      'assets/bottom_background.png',
+                      width: width,
+                      height: height * 0.3900,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                  Container(
+                    height: 486.h,
+                    color: Colors.black,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 72.h,
                         ),
-                      ),
-                      Spacer(),
-                      Container(
-                        child: Row(
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              height: height * 0.060,
-                              width: width * 0.322,
-                              color: Colors.black.withOpacity(0.5),
+                            SizedBox(
+                              width: 327.w,
                             ),
-                            _buildTabButton("기업 소개", 0),
-                            _buildTabButton("기업 연혁", 1),
-                            _buildTabButton("오시는 길", 2),
-                            Container(
-                              height: height * 0.060,
-                              width: width * 0.328,
-                              color: Colors.black.withOpacity(0.5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                buildTextButton2(
+                                    "HOME", 0, 14.sp, onItemTapped),
+                                SizedBox(
+                                  width: 4.w,
+                                ),
+                                buildTextButton2("COMPANY", 1, 14.sp,
+                                    onItemTapped),
+                                SizedBox(
+                                  width: 4.w,
+                                ),
+                                buildTextButton2("PRODUCTS", 2,14.sp,
+                                    onItemTapped),
+                                SizedBox(
+                                  width: 4.w,
+                                ),
+                                buildTextButton2("CONTACT US", 3,
+                                    14.sp, onItemTapped),
+                                SizedBox(
+                                  width: 4.w,
+                                ),
+                                buildTextButton2("DOWNLOADS", 4,
+                                    14.sp, onItemTapped),
+                              ],
                             ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                _buildTabContent(),
-                //SizedBox(height: 75,),
-                Container(
-                  height: height * 0.3722,
-                  child: Image.asset(
-                    'assets/bottom_background.png',
-                    width: width,
-                    height: height * 0.3900,
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-                Container(
-                  height: height * 0.4500,
-                  color: Colors.black,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: height * 0.0666,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: width * 0.1703,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              buildTextButton2(
-                                  "HOME", 0, width * 0.00729, onItemTapped),
-                              SizedBox(
-                                width: width * 0.0020,
-                              ),
-                              buildTextButton2(
-                                  "COMPANY", 1, width * 0.00729, onItemTapped),
-                              SizedBox(
-                                width: width * 0.0020,
-                              ),
-                              buildTextButton2(
-                                  "PRODUCTS", 2, width * 0.00729, onItemTapped),
-                              SizedBox(
-                                width: width * 0.0020,
-                              ),
-                              buildTextButton2("CONTACT US", 3, width * 0.00729,
-                                  onItemTapped),
-                              SizedBox(
-                                width: width * 0.0020,
-                              ),
-                              buildTextButton2("DOWNLOADS", 4, width * 0.00729,
-                                  onItemTapped),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: height * 0.025,
-                      ),
-                      Container(
-                        width: width * 0.625,
-                        child: Divider(
-                          color: Colors.white,
+                        SizedBox(
+                          height: 27.h,
                         ),
-                      ),
-                      SizedBox(
-                        height: height * 0.0416,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: width * 0.1875,
+                        Container(
+                          width:1200.w,
+                          child: Divider(
+                            color: Colors.white,
                           ),
-                          Container(
-                            width: width * 0.3156,
-                            height: height * 0.0470,
-                            child: Text(
+                        ),
+                        SizedBox(
+                          height: 45.h,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 360.w,
+                            ),
+                            SelectableText(
                               '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: width * 0.0093,
+                                fontSize:
+                                18.sp,
                                 fontFamily: 'Pretendard',
                                 fontWeight: FontWeight.w500,
                                 letterSpacing: 0.54,
                               ),
                             ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: height * 0.04351,
-                      ),
-                      Container(
-                        height: height * 0.0680,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: width * 0.1875,
-                            ),
-                            Transform.translate(
-                              offset: Offset(0, -height * 0.01388),
-                              child: Icon(
-                                Icons.phone,
-                                color: Colors.white,
-                                size: 18,
+
+                          ],
+                        ),
+                        SizedBox(
+                          height: 45.36.h,
+                        ),
+                        Container(
+                          height: 73.44,
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 345.6.w,
                               ),
-                            ),
-                            SizedBox(
-                              width: width * 0.0041,
-                            ),
-                            Container(
-                              width: width * 0.0807,
-                              height: height * 0.0462,
-                              child: SelectableText(
+                              Icon(
+                                  Icons.phone,
+                                  color: Colors.white,
+                                  size:  18.sp,
+                                ),
+
+                              SizedBox(width: 7.8.w),
+                              SelectableText(
                                 '070-8098-7424',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: width * 0.0093,
+                                  fontSize: 17.8.sp,
                                   fontFamily: 'Pretendard',
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: 0.54,
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: width * 0.0083,
-                            ),
-                            Transform.translate(
-                              offset: Offset(0, -height * 0.0111),
-                              child: Icon(
-                                Icons.print,
-                                color: Colors.white,
-                                size: 18,
-                              ),
-                            ),
-                            SizedBox(
-                              width: width * 0.0041,
-                            ),
-                            Container(
-                              width: width * 0.08333,
-                              height: height * 0.0462,
-                              child: SelectableText(
+                              SizedBox(width: 16.w),
+                               Icon(
+                                  Icons.print,
+                                  color: Colors.white,
+                                  size:18.sp,
+                                ),
+
+                              SizedBox(width: 8.w),
+                              SelectableText(
                                 '042-367-7427',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: width * 0.009,
+                                  fontSize: 17.8.sp,
                                   fontFamily: 'Pretendard',
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: 0.54,
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: width * 0.004,
-                            ),
-                            Transform.translate(
-                              offset: Offset(0, -height * 0.0111),
-                              child: Icon(
-                                Icons.local_post_office,
-                                color: Colors.white,
-                                size: 18,
-                              ),
-                            ),
-                            SizedBox(
-                              width: width * 0.004,
-                            ),
-                            Container(
-                              width: width * 0.1458,
-                              height: height * 0.0462,
-                              child: SelectableText(
+                              SizedBox(width: 8.w),
+                              Icon(
+                                  Icons.local_post_office,
+                                  color: Colors.white,
+                                  size: 18.sp,
+                                ),
+
+                              SizedBox(width: 8.w),
+                              SelectableText(
                                 'cmkim@new-chem.co.kr',
                                 style: TextStyle(
                                   color: Colors.white,
@@ -327,45 +303,47 @@ class _CompanyPageState extends State<CompanyPage> {
                                   letterSpacing: 0.54,
                                 ),
                               ),
-                            ),
-                            SizedBox(width: width * 0.125),
-                            Transform.translate(
-                                offset: Offset(0, -height * 0.0111),
+                              SizedBox(width: 240.w),
+                              Transform.translate(
+                                offset: Offset(0, -12.h),
                                 child: Container(
-                                  width: width * 0.1468,
-                                  child: Image.asset('assets/logo-white.png'),
-                                )),
+                                  width:281.8,
+                                  child:
+                                  Image.asset('assets/logo-white.png'),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 47.h,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 380.w,),
+                            Text(
+                              'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.3),
+                                fontSize:
+                                18.sp,
+                                fontFamily: 'Pretendard',
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0.54,
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: height * 0.04351,
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: width * 0.1979,
-                          ),
-                          Text(
-                            'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.3),
-                              fontSize: width * 0.0093,
-                              fontFamily: 'Pretendard',
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.54,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          )),
-        );
-      }),
+                ],
+              ),
+            )),
+          );
+        }),
+      ),
     );
   }
 
@@ -662,8 +640,6 @@ class _CompanyPageState extends State<CompanyPage> {
                 ),
               ),
               SizedBox(height: height * 0.0843),
-
-
               Container(
                 width: width * 0.4817,
                 height: height * 0.0712,
@@ -696,7 +672,7 @@ class _CompanyPageState extends State<CompanyPage> {
                             ),
                           ),
                           SizedBox(
-                            width: width *0.0052,
+                            width: width * 0.0052,
                           ),
                           SelectableText(
                             '경기사무소',
@@ -748,7 +724,6 @@ class _CompanyPageState extends State<CompanyPage> {
                   ],
                 ),
               ),
-
               SizedBox(
                 height: height * 0.0296,
               ),
@@ -808,7 +783,7 @@ class _CompanyPageState extends State<CompanyPage> {
                             ),
                           ),
                           SizedBox(
-                            width: width *0.0052,
+                            width: width * 0.0052,
                           ),
                           SelectableText(
                             '대전사무소',
@@ -898,8 +873,8 @@ class _CompanyPageState extends State<CompanyPage> {
     final width = size.width;
     final height = size.height;
     return Container(
-      width: width * 0.0598,
-      height: height * 0.0425,
+      width: 114.8.w,
+      height: 46.h,
       child: TextButton(
         onPressed: () => onItemTapped(index),
         child: Text(

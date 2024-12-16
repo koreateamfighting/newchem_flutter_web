@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'terms_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -85,435 +86,406 @@ class _ContactScreenState extends State<ContactScreen> {
     final width = size.width;
     final height = size.height;
 
-    return MaterialApp(
-      home: LayoutBuilder(builder: (context, constraints) {
-        // width와 height 모두를 고려한 반응형 조건 설정
-        final isMobile = width < 600 && height < 916;
-        final isTablet = width >= 600 && width < 1024 && height < 1200;
-        final isDesktop = width >= 1024 && height >= 1200;
+    return ScreenUtilInit(
+      designSize:  Size(1920,1080),
+      child:  MaterialApp(
+        home: LayoutBuilder(builder: (context, constraints) {
+          // width와 height 모두를 고려한 반응형 조건 설정
+          final isMobile = width < 600 && height < 916;
+          final isTablet = width >= 600 && width < 1024 && height < 1200;
+          final isDesktop = width >= 1024 && height >= 1200;
 
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-            child: Container(
-              height: height * 3.165,
-              color: Colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: width,
-                    height: height * 0.5230,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/contact_us_background.png'),
-                        fit: BoxFit.cover,
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: SingleChildScrollView(
+              child: Container(
+                height: 3420.h,
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: width,
+                      height: height * 0.5230,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/contact_us_background.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: height * 0.260,
+                          ),
+                          Text(
+                            'CONTACT US',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: width * 0.028,
+                              fontFamily: 'Pretendard',
+                              fontWeight: FontWeight.w600,
+                              height: 0,
+                              letterSpacing: 2.16,
+                            ),
+                          ),
+                          Spacer(),
+                        ],
                       ),
                     ),
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    SizedBox(height: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          height: height * 0.260,
-                        ),
-                        Text(
-                          'CONTACT US',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: width * 0.028,
-                            fontFamily: 'Pretendard',
-                            fontWeight: FontWeight.w600,
-                            height: 0,
-                            letterSpacing: 2.16,
-                          ),
-                        ),
-                        Spacer(),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          // 중앙 정렬
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          // 세로 중앙 정렬
-                          children: [
-                            SizedBox(
-                              height: height * 0.07200,
-                            ),
-                            Text(
-                              'CONTACT US',
-                              style: TextStyle(
-                                color: Color(0xFF6194F9),
-                                fontSize: 20,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w400,
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            // 중앙 정렬
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            // 세로 중앙 정렬
+                            children: [
+                              SizedBox(
+                                height: height * 0.07200,
                               ),
-                            ),
-                            SizedBox(
-                              height: height * 0.03,
-                            ),
-                            Text(
-                              '안녕하세요, 고객님 뉴켐에게 맡겨주세요!',
-                              style: TextStyle(
-                                color: Color(0xFF191919),
-                                fontSize: width * 0.0208,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w700,
-                                height: 0,
-                              ),
-                            ),
-                            SizedBox(height: height * 0.0175),
-                            Text(
-                              '아래 내용을 작성해서 접수해주시면, 담당자가 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color(0xFF5C5C5C),
-                                fontSize: width * 0.01041,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            SizedBox(height: height * 0.0950),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                newTextField(
-                                    '업체명을 입력해주세요.', '업체명', _companyController),
-                                SizedBox(
-                                  width: width * 0.015,
+                              Text(
+                                'CONTACT US',
+                                style: TextStyle(
+                                  color: Color(0xFF6194F9),
+                                  fontSize: 20,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w400,
                                 ),
-                                newTextField(
-                                    '이름을 입력해주세요.', '이름', _nameController),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.011,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                newTextField(
-                                    '전화번호를 입력해주세요.', '전화번호', _phoneController),
-                                SizedBox(
-                                  width: width * 0.015,
+                              ),
+                              SizedBox(
+                                height: height * 0.03,
+                              ),
+                              Text(
+                                '안녕하세요, 고객님 뉴켐에게 맡겨주세요!',
+                                style: TextStyle(
+                                  color: Color(0xFF191919),
+                                  fontSize: width * 0.0208,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w700,
+                                  height: 0,
                                 ),
-                                newTextField(
-                                    '이메일을 입력해주세요.', '이메일', _emailController),
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.011,
-                            ),
-                            _buildDropdownField(
-                              "지역",
-                              _selectedRegion,
-                              _handleRegionChange,
-                            ),
-                            SizedBox(
-                              height: height * 0.011,
-                            ),
-                            newTextField2(
-                                '문의사항 제목을 입력해주세요.', '제목', _titleController),
-                            SizedBox(
-                              height: height * 0.011,
-                            ),
-                            newTextField3(
-                                '문의사항 내용을 입력해주세요.', '내용', _contentController),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Row(
-                                  children: [
-                                    Checkbox(
-                                        value: _agree,
-                                        onChanged: (value) {
+                              ),
+                              SizedBox(height: height * 0.0175),
+                              Text(
+                                '아래 내용을 작성해서 접수해주시면, 담당자가 24시간 이내에 빠르고 성실하게 답변 드리겠습니다.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Color(0xFF5C5C5C),
+                                  fontSize: width * 0.01041,
+                                  fontFamily: 'Pretendard',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(height: height * 0.0950),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  newTextField(
+                                      '업체명을 입력해주세요.', '업체명', _companyController),
+                                  SizedBox(
+                                    width: width * 0.015,
+                                  ),
+                                  newTextField(
+                                      '이름을 입력해주세요.', '이름', _nameController),
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.011,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  newTextField(
+                                      '전화번호를 입력해주세요.', '전화번호', _phoneController),
+                                  SizedBox(
+                                    width: width * 0.015,
+                                  ),
+                                  newTextField(
+                                      '이메일을 입력해주세요.', '이메일', _emailController),
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.011,
+                              ),
+                              _buildDropdownField(
+                                "지역",
+                                _selectedRegion,
+                                _handleRegionChange,
+                              ),
+                              SizedBox(
+                                height: height * 0.011,
+                              ),
+                              newTextField2(
+                                  '문의사항 제목을 입력해주세요.', '제목', _titleController),
+                              SizedBox(
+                                height: height * 0.011,
+                              ),
+                              newTextField3(
+                                  '문의사항 내용을 입력해주세요.', '내용', _contentController),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Checkbox(
+                                          value: _agree,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              _agree = value ?? false;
+                                            });
+                                          },
+                                          activeColor: Color(0xff6194f9)),
+                                      GestureDetector(
+                                        onTap: () {
                                           setState(() {
-                                            _agree = value ?? false;
+                                            _agree = !_agree;
                                           });
                                         },
-                                        activeColor: Color(0xff6194f9)),
-                                    GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          _agree = !_agree;
-                                        });
-                                      },
-                                      child: Text(
-                                        '개인정보 수집 및 이용목적에 동의합니다.',
-                                        style: TextStyle(
-                                          color: Color(0xFF414141),
-                                          fontSize: 20,
-                                          fontFamily: 'Pretendard',
-                                          fontWeight: FontWeight.w500,
+                                        child: Text(
+                                          '개인정보 수집 및 이용목적에 동의합니다.',
+                                          style: TextStyle(
+                                            color: Color(0xFF414141),
+                                            fontSize: 20,
+                                            fontFamily: 'Pretendard',
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              TermsScreen()), // 약관 보기 화면으로 이동
-                                    );
-                                  },
-                                  child: Text(
-                                    '약관보기',
-                                    style: TextStyle(
-                                      color: Color(0xFF6194F9),
-                                      fontSize: 20,
-                                      fontFamily: 'Pretendard',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: width * 0.187,
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.0833,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  width: width * 0.1682,
-                                  height: height * 0.0574,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color(0xff6194f9),
-                                      foregroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        if (_agree) {
-                                          _sendEmail();
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                                  content: Text(
-                                                      "개인정보 수집 및 이용목적에 동의해주세요.")));
-                                        }
-                                      }
-                                    },
-                                    child: Text(
-                                      '보내기',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: width * 0.0125,
-                                        fontFamily: 'Pretendard',
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: width * 0.187,
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: height * 0.2900,
-                            ),
-                            Container(
-                              height: height * 0.3722,
-                              child: Image.asset(
-                                'assets/bottom_background.png',
-                                width: width,
-                                height: height * 0.3900,
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                            Container(
-                              height: height * 0.4500,
-                              color: Colors.black,
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: height * 0.0666,
-                                  ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: width * 0.1703,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          buildTextButton2(
-                                              "HOME",
-                                              0,
-                                              width * (isMobile ? 0.012 : 0.00729),
-                                              width * (isMobile ? 0.14 : 0.065),
-                                              height * (isMobile ? 0.04 : 0.0425),
-                                              onItemTapped),
-                                          buildTextButton2(
-                                              "COMPANY",
-                                              1,
-                                              width * (isMobile ? 0.012 : 0.00729),
-                                              width * (isMobile ? 0.14 : 0.065),
-                                              height * (isMobile ? 0.04 : 0.0425),
-                                              onItemTapped),
-                                          buildTextButton2(
-                                              "PRODUCTS",
-                                              2,
-                                              width * (isMobile ? 0.012 : 0.00729),
-                                              width * (isMobile ? 0.14 : 0.065),
-                                              height * (isMobile ? 0.04 : 0.0425),
-                                              onItemTapped),
-                                          buildTextButton2(
-                                              "CONTACT US",
-                                              3,
-                                              width * (isMobile ? 0.012 : 0.00729),
-                                              width * (isMobile ? 0.14 : 0.065),
-                                              height * (isMobile ? 0.04 : 0.0425),
-                                              onItemTapped),
-                                          buildTextButton2(
-                                              "DOWNLOADS",
-                                              4,
-                                              width * (isMobile ? 0.012 : 0.00729),
-                                              width * (isMobile ? 0.14 : 0.065),
-                                              height * (isMobile ? 0.04 : 0.0425),
-                                              onItemTapped),
-                                        ],
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: height * 0.025,
-                                  ),
-                                  Container(
-                                    width: width * 0.625,
-                                    child: Divider(
-                                      color: Colors.white,
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TermsScreen()), // 약관 보기 화면으로 이동
+                                      );
+                                    },
+                                    child: Text(
+                                      '약관보기',
+                                      style: TextStyle(
+                                        color: Color(0xFF6194F9),
+                                        fontSize: 20,
+                                        fontFamily: 'Pretendard',
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
-                                    height: height * 0.0416,
-                                  ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: width * 0.1875,
+                                    width: width * 0.187,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.0833,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    width: width * 0.1682,
+                                    height: height * 0.0574,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Color(0xff6194f9),
+                                        foregroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
                                       ),
-                                      Container(
-                                        width: width * 0.3156,
-                                        height: height * 0.0470,
-                                        child: Text(
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          if (_agree) {
+                                            _sendEmail();
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "개인정보 수집 및 이용목적에 동의해주세요.")));
+                                          }
+                                        }
+                                      },
+                                      child: Text(
+                                        '보내기',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: width * 0.0125,
+                                          fontFamily: 'Pretendard',
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.187,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.2900,
+                              ),
+                              Container(
+                                height: height * 0.3722,
+                                child: Image.asset(
+                                  'assets/bottom_background.png',
+                                  width: width,
+                                  height: height * 0.3900,
+                                  fit: BoxFit.fitWidth,
+                                ),
+                              ),
+                              Container(
+                                height: 486.h,
+                                color: Colors.black,
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 72.h,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 327.w,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            buildTextButton2(
+                                                "HOME",
+                                                0,
+                                                14.w,
+                                                124.8.w,
+                                                46.h,
+                                                onItemTapped),
+                                            buildTextButton2(
+                                                "COMPANY",
+                                                1,
+                                                14.w,
+                                                124.8.w,
+                                                46.h,
+                                                onItemTapped),
+                                            buildTextButton2(
+                                                "PRODUCTS",
+                                                2,
+                                                14.w,
+                                                124.8.w,
+                                                46.h,
+                                                onItemTapped),
+                                            buildTextButton2(
+                                                "CONTACT US",
+                                                3,
+                                                14.w,
+                                                124.8.w,
+                                                46.h,
+                                                onItemTapped),
+                                            buildTextButton2(
+                                                "DOWNLOADS",
+                                                4,
+                                                14.w,
+                                                124.8.w,
+                                                46.h,
+                                                onItemTapped),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 27.h,
+                                    ),
+                                    Container(
+                                      width:1200.w,
+                                      child: Divider(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 45.h,
+                                    ),
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 360.w,
+                                        ),
+                                        SelectableText(
                                           '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: width * 0.0093,
+                                            fontSize:
+                                            18.sp,
                                             fontFamily: 'Pretendard',
                                             fontWeight: FontWeight.w500,
                                             letterSpacing: 0.54,
                                           ),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: height * 0.04351,
-                                  ),
-                                  Container(
-                                    height: height * 0.0680,
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: width * 0.1875,
-                                        ),
-                                        Transform.translate(
-                                          offset: Offset(0, -height * 0.01388),
-                                          child: Icon(
+
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 45.36.h,
+                                    ),
+                                    Container(
+                                      height: 73.44,
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 345.6.w,
+                                          ),
+                                          Icon(
                                             Icons.phone,
                                             color: Colors.white,
-                                            size: 18,
+                                            size:  18.sp,
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: width * 0.0041,
-                                        ),
-                                        Container(
-                                          width: width * 0.0807,
-                                          height: height * 0.0462,
-                                          child: SelectableText(
+
+                                          SizedBox(width: 7.8.w),
+                                          SelectableText(
                                             '070-8098-7424',
                                             style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: width * 0.0093,
+                                              fontSize: 17.8.sp,
                                               fontFamily: 'Pretendard',
                                               fontWeight: FontWeight.w500,
                                               letterSpacing: 0.54,
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: width * 0.0083,
-                                        ),
-                                        Transform.translate(
-                                          offset: Offset(0, -height * 0.0111),
-                                          child: Icon(
+                                          SizedBox(width: 16.w),
+                                          Icon(
                                             Icons.print,
                                             color: Colors.white,
-                                            size: 18,
+                                            size:18.sp,
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: width * 0.0041,
-                                        ),
-                                        Container(
-                                          width: width * 0.08333,
-                                          height: height * 0.0462,
-                                          child: SelectableText(
+
+                                          SizedBox(width: 8.w),
+                                          SelectableText(
                                             '042-367-7427',
                                             style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: width * 0.009,
+                                              fontSize: 17.8.sp,
                                               fontFamily: 'Pretendard',
                                               fontWeight: FontWeight.w500,
                                               letterSpacing: 0.54,
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: width * 0.004,
-                                        ),
-                                        Transform.translate(
-                                          offset: Offset(0, -height * 0.0111),
-                                          child: Icon(
+                                          SizedBox(width: 8.w),
+                                          Icon(
                                             Icons.local_post_office,
                                             color: Colors.white,
-                                            size: 18,
+                                            size: 18.sp,
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: width * 0.004,
-                                        ),
-                                        Container(
-                                          width: width * 0.1458,
-                                          height: height * 0.0462,
-                                          child: SelectableText(
+
+                                          SizedBox(width: 8.w),
+                                          SelectableText(
                                             'cmkim@new-chem.co.kr',
                                             style: TextStyle(
                                               color: Colors.white,
@@ -523,53 +495,55 @@ class _ContactScreenState extends State<ContactScreen> {
                                               letterSpacing: 0.54,
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(width: width * 0.125),
-                                        Transform.translate(
-                                            offset: Offset(0, -height * 0.0111),
+                                          SizedBox(width: 240.w),
+                                          Transform.translate(
+                                            offset: Offset(0, -12.h),
                                             child: Container(
-                                              width: width * 0.1468,
-                                              child: Image.asset(
-                                                  'assets/logo-white.png'),
-                                            )),
+                                              width:281.8,
+                                              child:
+                                              Image.asset('assets/logo-white.png'),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 47.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 380.w,),
+                                        Text(
+                                          'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
+                                          style: TextStyle(
+                                            color: Colors.white.withOpacity(0.3),
+                                            fontSize:
+                                            18.sp,
+                                            fontFamily: 'Pretendard',
+                                            fontWeight: FontWeight.w500,
+                                            letterSpacing: 0.54,
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: height * 0.04351,
-                                  ),
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: width * 0.1979,
-                                      ),
-                                      Text(
-                                        'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
-                                        style: TextStyle(
-                                          color: Colors.white.withOpacity(0.3),
-                                          fontSize: width * 0.0093,
-                                          fontFamily: 'Pretendard',
-                                          fontWeight: FontWeight.w500,
-                                          letterSpacing: 0.54,
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-                ],
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      }),
-    );
+          );
+        }),
+      ),
+    )
+   ;
   }
 
   // 텍스트 필드 빌더

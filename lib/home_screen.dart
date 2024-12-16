@@ -202,34 +202,41 @@ class _HomePageState extends State<HomePage> {
       ..style.height = "600px"
       ..style.textAlign = 'center';
 
-    // 이미지 추가
+    // 이미지 요소 생성
     final image = html.ImageElement(
-        src: 'https://loadimage-wusgl4pmyq-uc.a.run.app')
+      src: 'https://loadimage-wusgl4pmyq-uc.a.run.app',
+    )
       ..style.width = '100%' // 이미지 크기를 팝업에 맞게 설정
-      ..style.height = '95%' // 비율 유지
-      ..onClick.listen((event) {
-        // 클릭 시 특정 URL로 이동
-        html.window.open(
-          'https://heidolph.activehosted.com/index.php?action=social&chash=35f4a8d465e6e1edc05f3d8ab658c551.83&s=796fee5a1c3947d587d6eac61a4149eb',
-          '_blank',
-        );
-      });
-    _popupDiv!.children.add(image);
+      ..style.height = '95%'; // 비율 유지
 
-    // 닫기 버튼 추가
-    final closeButton = html.ButtonElement()
-      ..text = "닫기"
-      ..style.marginTop = '0px'
-      ..onClick.listen((event) {
-        _popupDiv?.remove(); // 팝업 제거
-        _popupDiv = null; // 참조 해제
-        _popupClosed = true; // 팝업이 닫혔음을 기록
-      });
-    _popupDiv!.children.add(closeButton);
+    // 이미지 로드 성공 시 처리
+    image.onLoad.listen((event) {
+      // 팝업에 이미지 추가
+      _popupDiv!.children.add(image);
 
-    // HTML body에 팝업 추가
-    html.document.body?.append(_popupDiv!);
+      // 닫기 버튼 추가
+      final closeButton = html.ButtonElement()
+        ..text = "닫기"
+        ..style.marginTop = '0px'
+        ..onClick.listen((event) {
+          _popupDiv?.remove(); // 팝업 제거
+          _popupDiv = null; // 참조 해제
+          _popupClosed = true; // 팝업이 닫혔음을 기록
+        });
+      _popupDiv!.children.add(closeButton);
+
+      // HTML body에 팝업 추가
+      html.document.body?.append(_popupDiv!);
+    });
+
+    // 이미지 로드 실패 시 처리
+    image.onError.listen((event) {
+      print("이미지를 불러오지 못했습니다. 팝업을 표시하지 않습니다.");
+      _popupDiv = null; // 참조 해제
+    });
   }
+
+
 
 
 
@@ -313,12 +320,7 @@ class _HomePageState extends State<HomePage> {
               controller: _scrollController,
               child: Container(
                   width: width,
-                  height: height *
-                      (isMobile
-                          ? 1.895
-                          : isTablet
-                              ? 5
-                              : 4.85572),
+                  height: 5238.h,
                   color: Colors.white,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -1526,18 +1528,18 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   SizedBox(
                                     height:
-                                        height * (isMobile ? 0.005 : 0.0074),
+                                        12.h
                                   ),
                                   Container(
-                                    width: width * (isMobile ? 0.2 : 0.26145),
+                                    width: 502.w,
                                     height:
-                                        height * (isMobile ? 0.002 : 0.00277),
+                                       3.h,
                                     decoration:
                                         BoxDecoration(color: Color(0xFF6194F9)),
                                   ),
                                   SizedBox(
                                     height:
-                                        height * (isMobile ? 0.004 : 0.0055),
+                                        12.h
                                   ),
                                   Container(
                                     padding: EdgeInsets.zero,
@@ -1556,45 +1558,28 @@ class _HomePageState extends State<HomePage> {
                                               Container(
                                                 padding: EdgeInsets.fromLTRB(
                                                     0,
-                                                    height *
-                                                        (isMobile
-                                                            ? 0.005
-                                                            : 0.0074),
+                                                    8.h,
                                                     0,
                                                     0),
                                                 child: Table(
                                                   columnWidths: {
-                                                    0: FixedColumnWidth(width *
-                                                        (isMobile
-                                                            ? 0.015
-                                                            : 0.01978)),
-                                                    1: FixedColumnWidth(width *
-                                                        (isMobile
-                                                            ? 0.16
-                                                            : 0.19790)),
-                                                    2: FixedColumnWidth(width *
-                                                        (isMobile
-                                                            ? 0.04
-                                                            : 0.053)),
+                                                    0: FixedColumnWidth(38.w),
+                                                    1: FixedColumnWidth(380.w),
+                                                    2: FixedColumnWidth(102.w),
                                                   },
                                                   children: [
                                                     TableRow(
                                                       children: [
                                                         Padding(
                                                           padding:
-                                                              const EdgeInsets
+                                                               EdgeInsets
                                                                   .symmetric(
                                                                   vertical:
-                                                                      12.0),
+                                                                      12.h),
                                                           child: Container(
-                                                            width: width *
-                                                                (isMobile
-                                                                    ? 0.015
-                                                                    : 0.01979),
-                                                            height: height *
-                                                                (isMobile
-                                                                    ? 0.025
-                                                                    : 0.0351),
+                                                            width: 38.w,
+                                                            height: 38.h,
+                                                            padding: EdgeInsets.only(top:2.h),
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Color(
@@ -1604,29 +1589,17 @@ class _HomePageState extends State<HomePage> {
                                                                       .circular(
                                                                           6),
                                                             ),
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                              vertical: width *
-                                                                  (isMobile
-                                                                      ? 0.002
-                                                                      : 0.003),
-                                                              horizontal: height *
-                                                                  (isMobile
-                                                                      ? 0.004
-                                                                      : 0.0055),
-                                                            ),
+
                                                             child: Text(
                                                               item["number"]!
                                                                   .padLeft(
                                                                       2, '0'),
                                                               maxLines: 1,
                                                               style: TextStyle(
+
                                                                 color: Colors
                                                                     .white,
-                                                                fontSize: width *
-                                                                    (isMobile
-                                                                        ? 0.008
-                                                                        : 0.01041),
+                                                                fontSize: 20.sp,
                                                                 fontFamily:
                                                                     'Pretendard',
                                                                 fontWeight:
@@ -1635,7 +1608,7 @@ class _HomePageState extends State<HomePage> {
                                                               ),
                                                               textAlign:
                                                                   TextAlign
-                                                                      .left,
+                                                                      .center,
                                                             ),
                                                           ),
                                                         ),
@@ -1944,7 +1917,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       //Download 부분
                       Container(
-                        height: height * (isMobile ? 0.5 : 0.9),
+                        height: 972.h,
                         color: Colors.white,
                         alignment: Alignment.topLeft,
                         child: Stack(
@@ -1952,24 +1925,23 @@ class _HomePageState extends State<HomePage> {
                             Row(
                               children: [
                                 SizedBox(
-                                  width: width * (isMobile ? 0.1 : 0.1875),
+                                  width: 360.w
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
-                                      height: height * (isMobile ? 0.09 : 0.20),
+                                      height: 216.h,
                                     ),
                                     Container(
-                                      width: width * (isMobile ? 0.1 : 0.125),
+                                      width: 240.w,
                                       height:
-                                          height * (isMobile ? 0.04 : 0.0630),
+                                        68.h,
                                       child: Text(
                                         'Direction',
                                         style: TextStyle(
                                           color: Color(0xFF191919),
-                                          fontSize: width *
-                                              (isMobile ? 0.02 : 0.0291),
+                                          fontSize: 56.sp,
                                           fontFamily: 'Pretendard',
                                           fontWeight: FontWeight.w700,
                                           letterSpacing: -1,
@@ -1977,21 +1949,20 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     SizedBox(
-                                        height: isMobile
-                                            ? height * 0.005
-                                            : height * 0.0657),
+                                        height: 70.h,
+                                    ),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
                                         Container(
-                                          width: width * 0.3,
-                                          height: height * 0.4500,
+                                          width: 576.w,
+                                          height: 486.h,
                                           child: Column(
                                             children: [
                                               Container(
-                                                width: width * 0.3,
-                                                height: height * 0.0435,
+                                                width: 576.w,
+                                                height: 47.h,
                                                 decoration: ShapeDecoration(
                                                   color: Colors.black,
                                                   shape: RoundedRectangleBorder(
@@ -2012,14 +1983,14 @@ class _HomePageState extends State<HomePage> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: width * 0.0089,
-                                                      height: height * 0.0203,
+                                                      width: 17.1.w,
+                                                      height:22.h,
                                                       child: Image.asset(
                                                         'assets/direction.png',
                                                       ),
                                                     ),
                                                     SizedBox(
-                                                      width: width * 0.005,
+                                                      width: 9.6.w,
                                                     ),
                                                     SelectableText(
                                                       '경기사무소',
@@ -2027,7 +1998,7 @@ class _HomePageState extends State<HomePage> {
                                                         color:
                                                             Color(0xFF96b9ff),
                                                         fontSize:
-                                                            width * 0.0114,
+                                                           21.8.sp,
                                                         fontFamily:
                                                             'Pretendard',
                                                         fontWeight:
@@ -2040,23 +2011,21 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: height * 0.0083,
+                                                height: 8.9.h,
                                               ),
                                               Container(
-                                                width: width *
-                                                    (isMobile ? 0.4 : 0.3),
-                                                height: height *
-                                                    (isMobile ? 0.3 : 0.32),
+                                                width: 579.w,
+                                                height: 345.6.h,
                                                 child: _iframeWidget1,
                                               ),
                                               SizedBox(
-                                                height: height * 0.0083,
+                                                height: 9.h,
                                               ),
                                               SelectableText(
                                                 '(18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
                                                 style: TextStyle(
                                                   color: Color(0xFF191919),
-                                                  fontSize: width * 0.009,
+                                                  fontSize: 17.28.w,
                                                   fontFamily: 'Pretendard',
                                                   fontWeight: FontWeight.w500,
                                                   letterSpacing: 0.54,
@@ -2070,24 +2039,23 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                                 SizedBox(
-                                  width: width * 0.0239,
+                                  width: 45.8.w,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
-                                      height: height * (isMobile ? 0.09 : 0.20),
+                                      height: 216.h,
                                     ),
                                     Container(
-                                      width: width * (isMobile ? 0.1 : 0.125),
+                                      width: 240.w,
                                       height:
-                                          height * (isMobile ? 0.04 : 0.0630),
+                                          68.0.h,
                                       child: Text(
                                         '',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: width *
-                                              (isMobile ? 0.02 : 0.0291),
+                                          fontSize: 56.sp,
                                           fontFamily: 'Pretendard',
                                           fontWeight: FontWeight.w700,
                                           letterSpacing: -1,
@@ -2095,21 +2063,20 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                     SizedBox(
-                                        height: isMobile
-                                            ? height * 0.005
-                                            : height * 0.0657),
+                                        height:71.h,
+                                    ),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
                                         Container(
-                                          width: width * 0.3,
-                                          height: height * 0.4500,
+                                          width: 576.w,
+                                          height: 486.h,
                                           child: Column(
                                             children: [
                                               Container(
-                                                width: width * 0.3,
-                                                height: height * 0.0435,
+                                                width: 576.w,
+                                                height: 47.h,
                                                 decoration: ShapeDecoration(
                                                   color: Colors.black,
                                                   shape: RoundedRectangleBorder(
@@ -2130,14 +2097,14 @@ class _HomePageState extends State<HomePage> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: width * 0.0089,
-                                                      height: height * 0.0203,
+                                                      width: 17.1.w,
+                                                      height:22.h,
                                                       child: Image.asset(
                                                         'assets/direction.png',
                                                       ),
                                                     ),
                                                     SizedBox(
-                                                      width: width * 0.005,
+                                                      width: 9.6.w,
                                                     ),
                                                     SelectableText(
                                                       '대전사무소',
@@ -2145,7 +2112,7 @@ class _HomePageState extends State<HomePage> {
                                                         color:
                                                             Color(0xFF96b9ff),
                                                         fontSize:
-                                                            width * 0.0114,
+                                                        21.8.sp,
                                                         fontFamily:
                                                             'Pretendard',
                                                         fontWeight:
@@ -2158,23 +2125,22 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: height * 0.0083,
+                                                height: 8.9.h,
                                               ),
                                               Container(
-                                                width: width *
-                                                    (isMobile ? 0.4 : 0.3),
-                                                height: height *
-                                                    (isMobile ? 0.3 : 0.32),
+                                                width: 579.w,
+                                                height: 345.6.h,
                                                 child: _iframeWidget2,
                                               ),
                                               SizedBox(
-                                                height: height * 0.0083,
+                                                height: 9.h,
                                               ),
+
                                               SelectableText(
                                                 '(34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)',
                                                 style: TextStyle(
                                                   color: Color(0xFF191919),
-                                                  fontSize: width * 0.009,
+                                                  fontSize: 17.28.w,
                                                   fontFamily: 'Pretendard',
                                                   fontWeight: FontWeight.w500,
                                                   letterSpacing: 0.54,
@@ -2187,15 +2153,15 @@ class _HomePageState extends State<HomePage> {
                                     )
                                   ],
                                 ),
-                                SizedBox(
-                                  width: width * (isMobile ? 0.02 : 0.0260),
-                                ),
+                                    SizedBox(
+                                      width: 45.8.w,
+                                    ),
                               ],
                             ),
                             // 우측 하단 고정 버튼
                             Positioned(
-                              bottom: height * (isMobile ? 0.08 : 0.1296),
-                              right: width * (isMobile ? 0.02 : 0.0333),
+                              bottom: 140.h,
+                              right: 63.936.w,
                               child: InkWell(
                                 onTap: () {
                                   _scrollController.animateTo(
@@ -2206,8 +2172,8 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 child: Image.asset(
                                   'assets/scroll_up.png',
-                                  width: width * (isMobile ? 0.02 : 0.0328),
-                                  height: height * (isMobile ? 0.04 : 0.05833),
+                                  width: 63.w,
+                                  height:112.h,
                                 ),
                               ),
                             ),
@@ -2216,7 +2182,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       // Direction 부분
                       Container(
-                        height: height * (isMobile ? 0.2 : 0.3657),
+                        height: 395.h,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage("assets/gradient_background.png"),
@@ -2226,19 +2192,19 @@ class _HomePageState extends State<HomePage> {
                       ),
                       //그라디언트 백그라운드
                       Container(
-                        height: height * (isMobile ? 0.25 : 0.4500),
+                        height: 486.h,
                         color: Colors.black,
                         child: Column(
                           children: [
                             SizedBox(
-                              height: height * (isMobile ? 0.01 : 0.0666),
+                              height: 72.h,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width: width * (isMobile ? 0.1 : 0.1703),
+                                  width: 327.w,
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -2246,156 +2212,129 @@ class _HomePageState extends State<HomePage> {
                                     buildTextButton2(
                                         "HOME",
                                         0,
-                                        width * (isMobile ? 0.012 : 0.00729),
-                                        width * (isMobile ? 0.14 : 0.065),
-                                        height * (isMobile ? 0.04 : 0.0425),
+                                        14.w,
+                                        124.8.w,
+                                        46.h,
                                         onItemTapped),
                                     buildTextButton2(
                                         "COMPANY",
                                         1,
-                                        width * (isMobile ? 0.012 : 0.00729),
-                                        width * (isMobile ? 0.14 : 0.065),
-                                        height * (isMobile ? 0.04 : 0.0425),
+                                        14.w,
+                                        124.8.w,
+                                        46.h,
                                         onItemTapped),
                                     buildTextButton2(
                                         "PRODUCTS",
                                         2,
-                                        width * (isMobile ? 0.012 : 0.00729),
-                                        width * (isMobile ? 0.14 : 0.065),
-                                        height * (isMobile ? 0.04 : 0.0425),
+                                        14.w,
+                                        124.8.w,
+                                        46.h,
                                         onItemTapped),
                                     buildTextButton2(
                                         "CONTACT US",
                                         3,
-                                        width * (isMobile ? 0.012 : 0.00729),
-                                        width * (isMobile ? 0.14 : 0.065),
-                                        height * (isMobile ? 0.04 : 0.0425),
+                                        14.w,
+                                        124.8.w,
+                                        46.h,
                                         onItemTapped),
                                     buildTextButton2(
                                         "DOWNLOADS",
                                         4,
-                                        width * (isMobile ? 0.012 : 0.00729),
-                                        width * (isMobile ? 0.14 : 0.065),
-                                        height * (isMobile ? 0.04 : 0.0425),
+                                        14.w,
+                                        124.8.w,
+                                        46.h,
                                         onItemTapped),
                                   ],
                                 ),
                               ],
                             ),
                             SizedBox(
-                              height: height * (isMobile ? 0.005 : 0.025),
+                              height: 27.h,
                             ),
                             Container(
-                              width: width * (isMobile ? 0.9 : 0.625),
+                              width:1200.w,
                               child: Divider(
                                 color: Colors.white,
                               ),
                             ),
                             SizedBox(
-                              height: height * (isMobile ? 0.005 : 0.0416),
+                              height: 45.h,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(
-                                  width: width * (isMobile ? 0.12 : 0.1875),
+                                  width: 360.w,
                                 ),
-                                Container(
-                                  width: width * (isMobile ? 0.7 : 0.3156),
-                                  height: height * (isMobile ? 0.05 : 0.0472),
-                                  child: SelectableText(
+                               SelectableText(
                                     '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize:
-                                          width * (isMobile ? 0.012 : 0.0093),
+                                         18.sp,
                                       fontFamily: 'Pretendard',
                                       fontWeight: FontWeight.w500,
                                       letterSpacing: 0.54,
                                     ),
                                   ),
-                                )
+
                               ],
                             ),
                             SizedBox(
-                              height: height * (isMobile ? 0 : 0.042),
+                              height: 45.36.h,
                             ),
                             Container(
-                              height: height * 0.0680,
+                              height: 73.44,
                               child: Row(
                                 children: [
                                   SizedBox(
-                                      width: isMobile
-                                          ? width * 0.12
-                                          : width * 0.18),
-                                  Transform.translate(
-                                    offset: Offset(0, -height * 0.01388),
-                                    child: Icon(
+                                      width: 345.6.w,
+                              ),
+                                  Icon(
                                       Icons.phone,
                                       color: Colors.white,
-                                      size: isMobile ? 8 : 18,
+                                      size:  18.sp,
                                     ),
-                                  ),
-                                  SizedBox(width: width * 0.0041),
-                                  Container(
-                                    width: isMobile
-                                        ? width * 0.095
-                                        : width * 0.0807,
-                                    height: height * 0.0462,
-                                    child: SelectableText(
+
+                                  SizedBox(width: 7.8.w),
+                                  SelectableText(
                                       '070-8098-7424',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: width * 0.0093,
+                                        fontSize: 17.8.sp,
                                         fontFamily: 'Pretendard',
                                         fontWeight: FontWeight.w500,
                                         letterSpacing: 0.54,
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(width: width * 0.0083),
-                                  Transform.translate(
-                                    offset: Offset(0, -height * 0.0111),
-                                    child: Icon(
+                                  SizedBox(width: 16.w),
+                                  Icon(
                                       Icons.print,
                                       color: Colors.white,
-                                      size: isMobile ? 8 : 18,
+                                      size:18.sp,
                                     ),
-                                  ),
-                                  SizedBox(width: width * 0.0041),
-                                  Container(
-                                    width: isMobile
-                                        ? width * 0.095
-                                        : width * 0.08333,
-                                    height: height * 0.0462,
-                                    child: SelectableText(
+
+                                  SizedBox(width: 8.w),
+                                  SelectableText(
                                       '042-367-7427',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: width * 0.009,
+                                        fontSize: 17.8.sp,
                                         fontFamily: 'Pretendard',
                                         fontWeight: FontWeight.w500,
                                         letterSpacing: 0.54,
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(width: width * 0.004),
-                                  Transform.translate(
-                                    offset: Offset(0, -height * 0.0111),
-                                    child: Icon(
+                                  SizedBox(width: 8.w),
+                                  Icon(
                                       Icons.local_post_office,
                                       color: Colors.white,
-                                      size: isMobile ? 8 : 18,
+                                      size: 18.sp,
                                     ),
-                                  ),
-                                  SizedBox(width: width * 0.004),
-                                  Container(
-                                    width: isMobile
-                                        ? width * 0.15
-                                        : width * 0.1458,
-                                    height: height * 0.0462,
-                                    child: SelectableText(
+
+                                SizedBox(width: 8.w),
+                                   SelectableText(
                                       'cmkim@new-chem.co.kr',
                                       style: TextStyle(
                                         color: Colors.white,
@@ -2405,12 +2344,11 @@ class _HomePageState extends State<HomePage> {
                                         letterSpacing: 0.54,
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(width: width * 0.125),
+                                  SizedBox(width: 240.w),
                                   Transform.translate(
-                                    offset: Offset(0, -height * 0.0111),
+                                    offset: Offset(0, -12.h),
                                     child: Container(
-                                      width: width * 0.1468,
+                                      width:281.8,
                                       child:
                                           Image.asset('assets/logo-white.png'),
                                     ),
@@ -2419,31 +2357,31 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             SizedBox(
-                              height: height * (isMobile ? 0 : 0.04351),
+                              height: 47.h,
                             ),
                             Row(
                               children: [
                                 SizedBox(
-                                    width: width * (isMobile ? 0.12 : 0.1979)),
+                                    width: 380.w,),
                                 Text(
                                   'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
                                   style: TextStyle(
                                     color: Colors.white.withOpacity(0.3),
                                     fontSize:
-                                        width * (isMobile ? 0.011 : 0.0093),
+                                        18.sp,
                                     fontFamily: 'Pretendard',
                                     fontWeight: FontWeight.w500,
                                     letterSpacing: 0.54,
                                   ),
                                 ),
                               ],
-                            )
+                            ),
                           ],
                         ),
-                      ),
-                      // 회사 주소, 연락처
+                      ),                      // 회사 주소, 연락처
                     ],
-                  )),
+                  ),
+               ),
             ),
           );
         }),
