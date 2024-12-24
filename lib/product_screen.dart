@@ -4246,180 +4246,220 @@ Advantages
                   ),
                 ),
                 Container(
-                  height: 486.h,
-                  color: Colors.black,
+                  height: height * 1.301,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                        height: 72.h,
+                        height: height * 0.0435,
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 327.w,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              buildTextButton2(
-                                  "HOME", 0, 14.sp, onItemTapped),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              buildTextButton2("COMPANY", 1, 14.sp,
-                                  onItemTapped),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              buildTextButton2("PRODUCTS", 2,14.sp,
-                                  onItemTapped),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              buildTextButton2("CONTACT US", 3,
-                                  14.sp, onItemTapped),
-                              SizedBox(
-                                width: 4.w,
-                              ),
-                              buildTextButton2("DOWNLOADS", 4,
-                                  14.sp, onItemTapped),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 27.h,
-                      ),
-                      Container(
-                        width:1200.w,
-                        child: Divider(
-                          color: Colors.white,
+                      Text(
+                        'SPECIFICATIONS',
+                        style: TextStyle(
+                          color: Color(0xFF6194F9),
+                          fontSize: width * 0.0104,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       SizedBox(
-                        height: 45.h,
+                        height: height * 0.0240,
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 360.w,
-                          ),
-                          SelectableText(
-                            '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize:
-                              18.sp,
-                              fontFamily: 'Pretendard',
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.54,
-                            ),
-                          ),
-
-                        ],
-                      ),
-                      SizedBox(
-                        height: 45.36.h,
-                      ),
-                      Container(
-                        height: 73.44,
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 345.6.w,
-                            ),
-                            Icon(
-                              Icons.phone,
-                              color: Colors.white,
-                              size:  18.sp,
-                            ),
-
-                            SizedBox(width: 7.8.w),
-                            SelectableText(
-                              '070-8098-7424',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17.8.sp,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0.54,
-                              ),
-                            ),
-                            SizedBox(width: 16.w),
-                            Icon(
-                              Icons.print,
-                              color: Colors.white,
-                              size:18.sp,
-                            ),
-
-                            SizedBox(width: 8.w),
-                            SelectableText(
-                              '042-367-7427',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 17.8.sp,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0.54,
-                              ),
-                            ),
-                            SizedBox(width: 8.w),
-                            Icon(
-                              Icons.local_post_office,
-                              color: Colors.white,
-                              size: 18.sp,
-                            ),
-
-                            SizedBox(width: 8.w),
-                            SelectableText(
-                              'cmkim@new-chem.co.kr',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: width * 0.0093,
-                                fontFamily: 'Pretendard',
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0.54,
-                              ),
-                            ),
-                            SizedBox(width: 240.w),
-                            Transform.translate(
-                              offset: Offset(0, -12.h),
-                              child: Container(
-                                width:281.8,
-                                child:
-                                Image.asset('assets/logo-white.png'),
-                              ),
-                            ),
-                          ],
+                      Text(
+                        'CINC lndustry 특성',
+                        style: TextStyle(
+                          color: Color(0xFF191919),
+                          fontSize: width * 0.02083,
+                          fontFamily: 'Pretendard',
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       SizedBox(
-                        height: 47.h,
+                        height: height * 0.07870,
                       ),
-                      Row(
-                        children: [
-                          SizedBox(
-                            width: 380.w,),
-                          Text(
-                            'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.3),
-                              fontSize:
-                              18.sp,
-                              fontFamily: 'Pretendard',
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.54,
-                            ),
-                          ),
-                        ],
-                      ),
+                      Container(
+                          width: width * 0.625,
+                          height: height * 0.81574,
+                          child: Image.asset('assets/table.png',
+                              fit: BoxFit.contain))
                     ],
                   ),
                 ),
+                // Container(
+                //   height: 486.h,
+                //   color: Colors.black,
+                //   child: Column(
+                //     children: [
+                //       SizedBox(
+                //         height: 72.h,
+                //       ),
+                //       Row(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         mainAxisAlignment: MainAxisAlignment.start,
+                //         children: [
+                //           SizedBox(
+                //             width: 327.w,
+                //           ),
+                //           Row(
+                //             mainAxisAlignment: MainAxisAlignment.start,
+                //             children: [
+                //               buildTextButton2(
+                //                   "HOME", 0, 14.sp, onItemTapped),
+                //               SizedBox(
+                //                 width: 4.w,
+                //               ),
+                //               buildTextButton2("COMPANY", 1, 14.sp,
+                //                   onItemTapped),
+                //               SizedBox(
+                //                 width: 4.w,
+                //               ),
+                //               buildTextButton2("PRODUCTS", 2,14.sp,
+                //                   onItemTapped),
+                //               SizedBox(
+                //                 width: 4.w,
+                //               ),
+                //               buildTextButton2("CONTACT US", 3,
+                //                   14.sp, onItemTapped),
+                //               SizedBox(
+                //                 width: 4.w,
+                //               ),
+                //               buildTextButton2("DOWNLOADS", 4,
+                //                   14.sp, onItemTapped),
+                //             ],
+                //           ),
+                //         ],
+                //       ),
+                //       SizedBox(
+                //         height: 27.h,
+                //       ),
+                //       Container(
+                //         width:1200.w,
+                //         child: Divider(
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                //       SizedBox(
+                //         height: 45.h,
+                //       ),
+                //       Row(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         mainAxisAlignment: MainAxisAlignment.start,
+                //         children: [
+                //           SizedBox(
+                //             width: 360.w,
+                //           ),
+                //           SelectableText(
+                //             '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
+                //             style: TextStyle(
+                //               color: Colors.white,
+                //               fontSize:
+                //               18.sp,
+                //               fontFamily: 'Pretendard',
+                //               fontWeight: FontWeight.w500,
+                //               letterSpacing: 0.54,
+                //             ),
+                //           ),
+                //
+                //         ],
+                //       ),
+                //       SizedBox(
+                //         height: 45.36.h,
+                //       ),
+                //       Container(
+                //         height: 73.44,
+                //         child: Row(
+                //           children: [
+                //             SizedBox(
+                //               width: 345.6.w,
+                //             ),
+                //             Icon(
+                //               Icons.phone,
+                //               color: Colors.white,
+                //               size:  18.sp,
+                //             ),
+                //
+                //             SizedBox(width: 7.8.w),
+                //             SelectableText(
+                //               '070-8098-7424',
+                //               style: TextStyle(
+                //                 color: Colors.white,
+                //                 fontSize: 17.8.sp,
+                //                 fontFamily: 'Pretendard',
+                //                 fontWeight: FontWeight.w500,
+                //                 letterSpacing: 0.54,
+                //               ),
+                //             ),
+                //             SizedBox(width: 16.w),
+                //             Icon(
+                //               Icons.print,
+                //               color: Colors.white,
+                //               size:18.sp,
+                //             ),
+                //
+                //             SizedBox(width: 8.w),
+                //             SelectableText(
+                //               '042-367-7427',
+                //               style: TextStyle(
+                //                 color: Colors.white,
+                //                 fontSize: 17.8.sp,
+                //                 fontFamily: 'Pretendard',
+                //                 fontWeight: FontWeight.w500,
+                //                 letterSpacing: 0.54,
+                //               ),
+                //             ),
+                //             SizedBox(width: 8.w),
+                //             Icon(
+                //               Icons.local_post_office,
+                //               color: Colors.white,
+                //               size: 18.sp,
+                //             ),
+                //
+                //             SizedBox(width: 8.w),
+                //             SelectableText(
+                //               'cmkim@new-chem.co.kr',
+                //               style: TextStyle(
+                //                 color: Colors.white,
+                //                 fontSize: width * 0.0093,
+                //                 fontFamily: 'Pretendard',
+                //                 fontWeight: FontWeight.w500,
+                //                 letterSpacing: 0.54,
+                //               ),
+                //             ),
+                //             SizedBox(width: 240.w),
+                //             Transform.translate(
+                //               offset: Offset(0, -12.h),
+                //               child: Container(
+                //                 width:281.8,
+                //                 child:
+                //                 Image.asset('assets/logo-white.png'),
+                //               ),
+                //             ),
+                //           ],
+                //         ),
+                //       ),
+                //       SizedBox(
+                //         height: 47.h,
+                //       ),
+                //       Row(
+                //         children: [
+                //           SizedBox(
+                //             width: 380.w,),
+                //           Text(
+                //             'COPYRIGHT ⓒ NewChem (뉴켐) All rights reserved',
+                //             style: TextStyle(
+                //               color: Colors.white.withOpacity(0.3),
+                //               fontSize:
+                //               18.sp,
+                //               fontFamily: 'Pretendard',
+                //               fontWeight: FontWeight.w500,
+                //               letterSpacing: 0.54,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
               ],
             ),
