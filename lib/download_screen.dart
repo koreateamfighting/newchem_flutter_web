@@ -13,11 +13,12 @@ class _DownloadScreenState extends State<DownloadScreen> {
   final List<Map<String, String>> downloadData = [
     {
       "number": "3",
-      "title": "준비중",
+      "title": "연속식 원심분리기",
       "link":
-          "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
+      "https://drive.google.com/file/d/1GID2yrNDxZ4Pe7UnoHdphWFJ2YC8ehsx/view?usp=sharing",
       "author": "관리자",
-      "date": "2024-00-00"
+      "date": "2025.02.06",
+      "image": 'assets/download_image_03.png'
     },
     {
       "number": "2",

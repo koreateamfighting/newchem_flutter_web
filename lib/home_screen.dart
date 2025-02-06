@@ -146,12 +146,12 @@ class _HomePageState extends State<HomePage> {
     },
     {
       "number": "3",
-      "title": "준비중",
+      "title": "연속식 원심분리기",
       "link":
-          "https://drive.google.com/file/d/1yhI9hVqEQVRXpuR2u0bmN-c0yvwTUNd9/view?usp=sharing",
+          "https://drive.google.com/file/d/1GID2yrNDxZ4Pe7UnoHdphWFJ2YC8ehsx/view?usp=sharing",
       "author": "관리자",
-      "date": "2024.10.17",
-      "image": 'assets/download_image_02.png'
+      "date": "2025.02.06",
+      "image": 'assets/download_image_03.png'
     },
   ];
 
