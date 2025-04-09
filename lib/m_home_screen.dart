@@ -38,7 +38,7 @@ class _MHomePageState extends State<MHomePage> {
     'assets/main-background6.png',
   ];
   String url =
-      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d669.6223690480622!2d127.01586977089258!3d37.02699966322705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b3d001631c641%3A0x2cd353d15ed8488b!2z6rOg642V7KeA7Iud6rO17J6R7IaM7JWE7J207YOA7JuMIOyngOyLneyCsOyXheyEvO2EsA!5e0!3m2!1sko!2skr!4v1717727526433!5m2!1sko!2skr" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
+      'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3177.5785188096725!2d127.09437752670763!3d37.210239294477205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b45005eb0bb47%3A0xd85f0759e42f3045!2z64-Z7YOEU0tWMeyEvO2EsCDsp4Dsi53sgrDsl4XshLzthLA!5e0!3m2!1sko!2skr!4v1744184171483!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
   String url2 =
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3214.0718188284864!2d127.40560918528085!3d36.33480920020751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35654939a7b233b1%3A0x1a9c09f4d30f558f!2z64yA7KCE6rSR7Jet7IucIOykkeq1rCDrqqnrj5nroZwgNDI!5e0!3m2!1sko!2skr!4v1731478790160!5m2!1sko!2skr" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade';
 
@@ -1256,7 +1256,7 @@ class _MHomePageState extends State<MHomePage> {
                                                     height: height * 0.0083,
                                                   ),
                                                   SelectableText(
-                                                    '(18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
+                                                    '(18468) 경기 화성시 동탄순환대로 830 동탄SKV1센터 1215호',
                                                     style: TextStyle(
                                                       color: Color(0xFF191919),
                                                       fontSize: 6.sp,
@@ -1496,7 +1496,7 @@ class _MHomePageState extends State<MHomePage> {
                                   width: width * (isMobile ? 0.7 : 0.3156),
                                   height: height * (isMobile ? 0.05 : 0.0472),
                                   child: SelectableText(
-                                    '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
+                                    '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18468) 경기 화성시 동탄순환대로 830 동탄SKV1센터 1215호',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontSize:

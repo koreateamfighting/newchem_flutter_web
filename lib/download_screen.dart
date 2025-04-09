@@ -229,7 +229,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
                                   width: 360.w,
                                 ),
                                 SelectableText(
-                                  '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18021) 경기 평택시 도시지원로 121 고덕지식공작소아이타워 510호',
+                                  '대전사무소 | (34816) 대전광역시 중구 목동로 42 302호(목동복합빌딩)\n경기사무소 | (18468) 경기 화성시 동탄순환대로 830 동탄SKV1센터 1215호',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize:
